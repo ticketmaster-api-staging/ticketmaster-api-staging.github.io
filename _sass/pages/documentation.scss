@@ -120,47 +120,6 @@
     }
 
     blockquote{
-        h1, h2, h3, h4, h5, h6,
-        p, table, ul, ol, aside, dl, figure{
-            display: block;
-            width: 55%;
-            float: left;
-            @media (max-width: 767px) {
-                width: 100%;
-            }
-        }
-        border-left: 0;
-        padding-left: 0;
-        font-size: inherit;
-        letter-spacing: 0;
-        font-style: normal;
-
-        & .side-comment,
-        blockquote{
-            float: right;
-            margin: 0px;
-            padding-left: 20px;
-            padding-top: 0px;
-            padding-bottom: 10px;
-            font-size: inherit;
-            letter-spacing: 0;
-            font-style: normal;
-            border-left: 2px solid $n3;
-
-            width: calc(44% - 2px);
-
-            h1, h2, h3, h4, h5, h6,
-            p, table, ul, ol, aside, dl,
-            pre, code, blockquote, figure{
-                width: 100%;
-            }
-            @media (max-width: 767px) {
-                float: inherit;
-                width: 100%;
-                border: 0;
-            }
-        }
-
         .lang-selector{
             a{
                 color: $n2-grey-color;
@@ -197,7 +156,7 @@
         border-left:2px solid lighten( $n2-grey-color, 35); ;
         position: absolute;
         right: 0;
-        top: 380px;
+        top: 280px;
         bottom: 0;
         z-index: -1;
         @media (max-width: 768px) {
@@ -212,6 +171,14 @@
         float: left;
         @media (max-width: 767px) {
             width: 100%;
+        }
+    }
+    ul{
+        width: 55%;
+        float: none;
+        :not(:first-child){
+            width: 100%;
+            margin-left: 10px;
         }
     }
     blockquote.main-description-console{
@@ -233,7 +200,7 @@
         font-size: inherit;
         letter-spacing: 0;
         font-style: normal;
-        /*border-left: 2px solid $n3;*/
+        border-left: 0px solid $n3;
         width: calc(44% - 2px);
 
 
@@ -254,7 +221,7 @@
         h1, h2, h3{
             width: 100%;
         }
-        h3{
+        h4{
             color: $n3;
         }
         p{
