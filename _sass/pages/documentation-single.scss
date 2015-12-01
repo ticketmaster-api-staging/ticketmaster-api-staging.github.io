@@ -1,4 +1,4 @@
-.documentation{
+.samples{
     .maincontent{
         margin-top: 55px;
     }
@@ -48,7 +48,13 @@
         ul{
             width: 100%;
             & .lvl-1{
-            margin-left: 0;
+                margin-left: 0;
+                a{
+                    color: $n2-grey-color;
+                }
+                a:hover {
+                    color: $p1a;
+                }
             }
             & .lvl-2 {
                 margin-left: 10px;
@@ -117,125 +123,5 @@
             left:   1rem;
         }
     }
-
-    hr{
-        clear: both;
-        border: 0;
-    }
-
-    blockquote{
-        .lang-selector{
-            a{
-                color: $n2-grey-color;
-                font-size: $size-h3;
-                border-bottom: 3px solid $n2-grey-color;
-                text-decoration: none;
-                display: block;
-                width: 30%;
-                float: left;
-                margin: 0 5px 20px 5px;
-                text-align: center;
-                line-height: 2em;
-                &:hover{
-                    color: $s1a;
-                    border-color: $s1a;
-                }
-            }
-            .active{
-                color: $p1a;
-                border-bottom: 3px solid $p1a;
-            }
-        }
-
-        /*TO align header and code example*/
-        @media (min-width: 768px) {
-            h2{
-                float: left;
-            }
-        }
-    }
-
-    .side-box {
-        width: 44%;
-        border-left:2px solid lighten( $n2-grey-color, 35); ;
-        position: absolute;
-        right: 0;
-        top: 280px;
-        bottom: 0;
-        z-index: -1;
-        @media (max-width: 768px) {
-            display: none;
-        }
-    }
-
-
-    p, table, ul, ol, aside, dl, figure{
-        display: block;
-        width: 55%;
-        float: left;
-        @media (max-width: 767px) {
-            width: 100%;
-        }
-    }
-    ul{
-        width: 55%;
-        float: none;
-    }
-    blockquote.main-description-console{
-        border-left: 0px solid $n3;
-    }
-
-    /*new*/
-    h2, h3{
-        float: left;
-        width: 55%;
-    }
-    h3{
-        //color: $n3;
-    }
-
-    blockquote{
-        float: right;
-        margin: 0px;
-        padding-left: 20px;
-        padding-top: 0px;
-        padding-bottom: 10px;
-        font-size: inherit;
-        letter-spacing: 0;
-        font-style: normal;
-        border-left: 0px solid $n3;
-        width: calc(44% - 2px);
-
-
-        h1, h2, h3, h4, h5, h6,
-        p, table, ul, ol, aside, dl,
-        pre, code, blockquote, figure{
-            width: 100%;
-        }
-        @media (max-width: 767px) {
-            float: inherit;
-            width: 100%;
-            border: 0;
-        }
-    }
-
-    /**/
-    .dev-console-header{
-        h1, h2, h3{
-            width: 100%;
-        }
-        h4{
-            color: $n3;
-        }
-        p{
-            width: 100%;
-
-            &.main-description {
-                font-size: 1.3em;
-            }
-        }
-    }
-
-
 
 }
