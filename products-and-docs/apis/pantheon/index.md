@@ -16,9 +16,9 @@ Example: `https://app.ticketmaster.com/partners/v1/cart?apikey=3QIvq55bS608ai6r8
 access token is good for 1 hour with no refresh capabilities.
 
 Authorization: Basic base64 encoded apikey:client-secret
-
+~~~
 curl -v -X POST https://app.ticketmaster.com/partners-sandbox/v1/oauth/accesstoken?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne -d 'grant_type=cient_credentials' -H 'Authorization: Basic R2tCOFowMzdaZnFiTENOdFpWaUFnckVlZ2Jzclo2TmU6TXpLM2xjWnVMcHZHaEQ5Wg=='
-
+~~~
 {
   "issued_at" : "1448168101229",
   "scope" : "",
