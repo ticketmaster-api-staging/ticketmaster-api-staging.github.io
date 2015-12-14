@@ -94,7 +94,7 @@ end
 {% endhighlight %}
 
 
-{: .col-xs-10 #table}
+{: .col-xs-12 #table}
 | Header1      | Header2      | Header3      |
 |:-------------|:-------------|:-------------|
 | ipsum dolor  | cell2        | cell3        |
