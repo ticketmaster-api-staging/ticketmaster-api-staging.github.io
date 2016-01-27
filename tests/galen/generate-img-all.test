@@ -37,6 +37,7 @@ Home page on desktop
 Home page on tablet
     ${base_url} ${tablet_size}
         # wait 1m until visible "id: qual_ol"
+        wait 1m until visible "id: timeline"
         dump ${home}/_dumpContent.gspec --name "dump Home page tablet" --export ${home}/etalonImg/dumpsTablet/
         # check ${home}/tablet.gspec --include "tablet,all" --exclude "nomobile"
 
