@@ -26,15 +26,15 @@
 
 = image test =
     top-promo:
-        % image file dumpsTablet/objects/top-promo.png, tolerance 40, analyze-offset 2
+        % image file etalonImg/dumpsTablet/objects/top-promo.png, tolerance 40, analyze-offset 2
         % width 768 px
         % height 857 px
     columns-block:
-        % image file dumpsTablet/objects/columns-block.png, tolerance 40
+        % image file etalonImg/dumpsTablet/objects/columns-block.png, tolerance 40
     partners-block:
-        % image file dumpsTablet/objects/partners-block.png, tolerance 40
+        % image file etalonImg/dumpsTablet/objects/partners-block.png, tolerance 40
     promo-social-left:
-        % image file dumpsTablet/objects/promo-social-left.png, tolerance 40
+        % image file etalonImg/dumpsTablet/objects/promo-social-left.png, tolerance 40
 
 = Navigation test =
         logo:
