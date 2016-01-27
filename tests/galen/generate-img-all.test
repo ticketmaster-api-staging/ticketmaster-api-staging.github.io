@@ -19,7 +19,7 @@
 
 ########################################################################################################################
 ## size takes from "window.innerWidth" but comparing with "document.body.clientWidth"
-## create images by dump ${home}/_dumpContent.gspec --name "dump Home page desktop" --export tests/galen/home/dumpsDesktop/
+## create images by dump ${home}/_dumpContent.gspec --name "dump Home page desktop" --export tests/galen/home/etalonImg/dumpsDesktop/
 ##
 ## run command:
 ## galen test tests/galen/generate-img-all.test --htmlreport tests/galen/reports/all --groups HomePage
