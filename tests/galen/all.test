@@ -3,7 +3,7 @@
     base_url    http://${domain}/
 
     mobile_size     320x480
-    tablet_size     768x1024
+    tablet_size     784x1024  ##768x1024
     desktop_size    1440x1220
 
     home        tests/galen/home
@@ -11,15 +11,19 @@
     blog        tests/galen/blog
 
 ##############################################################################
-
+@@ groups HomePage
 Home page on desktop
     http://${domain} ${desktop_size}
+        wait 1m until visible "id: timeline"
         check ${home}/desktop.gspec --include "desktop"
 
+@@ groups HomePage
 Home page on tablet
     http://${domain} ${tablet_size}
+        wait 1m until visible "id: timeline"
         check ${home}/tablet.gspec --include "tablet,all" --exclude "nomobile"
 
+@@ groups HomePage
 Home page on mobile
     http://${domain} ${mobile_size}
         check ${home}/mobile.gspec --include "mobile,all" --exclude "nomobile"
