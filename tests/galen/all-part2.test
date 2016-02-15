@@ -186,18 +186,18 @@ PartnersNexus page on mobile ${mobile_size}
 
 @@ groups PartnersCertified
 PartnersNexus page on desktop ${desktop_size}
-    ${base_url}/partners/ ${desktop_size}
+    ${base_url}/certified-partners/ ${desktop_size}
         dump ${partnersCertified}/_dumpContent.gspec --name "dump Events desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
         check ${partnersCertified}/desktop.gspec --include "desktop"
 
 @@ groups PartnersCertified
 PartnersNexus page on tablet ${tablet_size}
-    ${base_url}/partners/ ${tablet_size}
+    ${base_url}/certified-partners/ ${tablet_size}
         dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
         check ${partnersCertified}/tablet.gspec --include "tablet"
 
 @@ groups PartnersCertified
 PartnersNexus page on mobile ${mobile_size}
-    ${base_url}/partners/ ${mobile_size}
+    ${base_url}/certified-partners/ ${mobile_size}
         dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
         check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"
