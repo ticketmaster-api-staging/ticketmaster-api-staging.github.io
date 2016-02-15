@@ -19,6 +19,7 @@
     support             tests/galen/support/landing
     events              tests/galen/events
     partnersLanding     tests/galen/partners/landing
+    partnersNexus       tests/galen/partners/nexus
     partnersCertified   tests/galen/partners/certified
 
 ########################################################################################################################
@@ -165,19 +166,19 @@ PartnersLanding page on mobile ${mobile_size}
 
 @@ groups PartnersNexus
 PartnersNexus page on desktop ${desktop_size}
-    ${base_url}/partners/ ${desktop_size}
+    ${base_url}/partners/certified-partners/nexus/ ${desktop_size}
         dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus desktop" --export ${partnersNexus}/etalonImg/dumpsDesktop/
         check ${partnersNexus}/desktop.gspec --include "desktop"
 
 @@ groups PartnersNexus
 PartnersNexus page on tablet ${tablet_size}
-    ${base_url}/partners/ ${tablet_size}
+    ${base_url}/partners/certified-partners/nexus/ ${tablet_size}
         dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus tablet" --export ${partnersNexus}/etalonImg/dumpsTablet/
         check ${partnersNexus}/tablet.gspec --include "tablet"
 
 @@ groups PartnersNexus
 PartnersNexus page on mobile ${mobile_size}
-    ${base_url}/partners/ ${mobile_size}
+    ${base_url}/partners/certified-partners/nexus/ ${mobile_size}
         dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus tablet" --export ${partnersNexus}/etalonImg/dumpsMobile/
         check ${partnersNexus}/mobile.gspec --include "mobile" --exclude "nomobile"
 
