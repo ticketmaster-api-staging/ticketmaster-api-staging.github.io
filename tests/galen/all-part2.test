@@ -10,16 +10,16 @@
         ## gen local 1440px + 16px= 1456
 
 ##path to gspec files
-    home            tests/galen/home
-    prDocs          tests/galen/products-and-docs
-    prDocsSlate     tests/galen/products-and-docs/slate
-    prDocsWidjets   tests/galen/products-and-docs/widgets
-    prDocsConsole   tests/galen/products-and-docs/console
-    blog            tests/galen/blog
-    support         tests/galen/support/landing
-    events          tests/galen/events
-    partnersLanding tests/galen/partners/landing
-    partnersCertified tests/galen/partners/landing
+    home                tests/galen/home
+    prDocs              tests/galen/products-and-docs
+    prDocsSlate         tests/galen/products-and-docs/slate
+    prDocsWidjets       tests/galen/products-and-docs/widgets
+    prDocsConsole       tests/galen/products-and-docs/console
+    blog                tests/galen/blog
+    support             tests/galen/support/landing
+    events              tests/galen/events
+    partnersLanding     tests/galen/partners/landing
+    partnersCertified   tests/galen/partners/certified
 
 ########################################################################################################################
 ## size takes from "window.innerWidth" but comparing with "document.body.clientWidth"
@@ -187,17 +187,17 @@ PartnersNexus page on mobile ${mobile_size}
 @@ groups PartnersCertified
 PartnersCertified page on desktop ${desktop_size}
     ${base_url}/partners/certified-partners/ ${desktop_size}
-        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
         check ${partnersCertified}/desktop.gspec --include "desktop"
 
 @@ groups PartnersCertified
 PartnersCertified page on tablet ${tablet_size}
     ${base_url}/partners/certified-partners/ ${tablet_size}
-        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
         check ${partnersCertified}/tablet.gspec --include "tablet"
 
 @@ groups PartnersCertified
 PartnersCertified page on mobile ${mobile_size}
     ${base_url}/partners/certified-partners/ ${mobile_size}
-        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
         check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"
