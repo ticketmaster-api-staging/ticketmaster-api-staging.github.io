@@ -27,7 +27,7 @@ script:
 #  - sleep 20 # give jekyll some time to start
 #  - galen test tests/galen/all.test --htmlreport tests/galen/reports/all
 #  - jekyll serve & #refresh jekyll
-  - sleep 15
+  - sleep 20
   - galen test tests/galen/all-part2.test --htmlreport tests/galen/reports/all-part2 --groups PartnersCertified,PartnersNexus
 
 #  - galen test tests/galen/generate-img-all.test --htmlreport tests/galen/reports/all --groups SupportPage,ProductsDocsConsole,ProductsDocsSlate,PD-WidgetsPage,BlogsPage,Events,PartnersNexus,PartnersLanding,PD-getting-started-Page #generate comparing images
