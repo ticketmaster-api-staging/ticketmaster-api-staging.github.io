@@ -46,7 +46,6 @@ notifications:
   email: false
 
 before_install:
-  - ls ./
   - rm ./_site/* -rf #remove directory _site
   - rm ./events/* -rf #remove directory events
   - rm ./partners/* -rf #remove directory partners
