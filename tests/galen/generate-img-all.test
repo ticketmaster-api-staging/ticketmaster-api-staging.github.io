@@ -13,6 +13,7 @@
     home                tests/galen/home
     partnersLanding     tests/galen/partners/landing
     partnersNexus       tests/galen/partners/nexus
+    partnersCertified   tests/galen/partners/landing
     prDocs              tests/galen/products-and-docs
     prDocsSlate         tests/galen/products-and-docs/slate
     prDocsWidjets       tests/galen/products-and-docs/widgets
@@ -251,3 +252,23 @@ PartnersNexus page on mobile ${mobile_size}
     ${base_url}/partners/ ${mobile_size}
         dump ${partnersNexus}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersNexus}/etalonImg/dumpsMobile/
         check ${partnersNexus}/mobile.gspec --include "mobile" --exclude "nomobile"
+
+### Partners certified ###########################################################################
+
+@@ groups PartnersCertified
+PartnersNexus page on desktop ${desktop_size}
+    ${base_url}/partners/ ${desktop_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
+        check ${partnersCertified}/desktop.gspec --include "desktop"
+
+@@ groups PartnersCertified
+PartnersNexus page on tablet ${tablet_size}
+    ${base_url}/partners/ ${tablet_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
+        check ${partnersCertified}/tablet.gspec --include "tablet"
+
+@@ groups PartnersCertified
+PartnersNexus page on mobile ${mobile_size}
+    ${base_url}/partners/ ${mobile_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
+        check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"

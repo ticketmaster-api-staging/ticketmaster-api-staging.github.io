@@ -19,6 +19,7 @@
     support         tests/galen/support/landing
     events          tests/galen/events
     partnersLanding tests/galen/partners/landing
+    partnersCertified tests/galen/partners/landing
 
 ########################################################################################################################
 ## size takes from "window.innerWidth" but comparing with "document.body.clientWidth"
@@ -159,3 +160,23 @@ PartnersLanding page on mobile ${mobile_size}
     ${base_url}/partners/ ${mobile_size}
         #dump ${partnersLanding}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersLanding}/etalonImg/dumpsMobile/
         check ${partnersLanding}/mobile.gspec --include "mobile" --exclude "nomobile"
+
+### Partners certified ###########################################################################
+
+@@ groups PartnersCertified
+PartnersNexus page on desktop ${desktop_size}
+    ${base_url}/partners/ ${desktop_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
+        check ${partnersCertified}/desktop.gspec --include "desktop"
+
+@@ groups PartnersCertified
+PartnersNexus page on tablet ${tablet_size}
+    ${base_url}/partners/ ${tablet_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
+        check ${partnersCertified}/tablet.gspec --include "tablet"
+
+@@ groups PartnersCertified
+PartnersNexus page on mobile ${mobile_size}
+    ${base_url}/partners/ ${mobile_size}
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
+        check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"
