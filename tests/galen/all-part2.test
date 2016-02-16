@@ -20,7 +20,7 @@
     events              tests/galen/events
     partnersLanding     tests/galen/partners/landing
     partnersNexus       tests/galen/partners/nexus
-    partnersCertified   tests/galen/partners/сertified
+    partnersCertified   tests/galen/partners/certified
 
 ########################################################################################################################
 ## size takes from "window.innerWidth" but comparing with "document.body.clientWidth"
