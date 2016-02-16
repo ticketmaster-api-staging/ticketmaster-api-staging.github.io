@@ -39,8 +39,8 @@ after_script:
 
 cache:
   directories:
-    - node_modules
-    - bundler
+  #  - node_modules
+  #  - bundler
 
 notifications:
   email: false
