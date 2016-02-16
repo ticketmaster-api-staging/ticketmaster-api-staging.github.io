@@ -46,11 +46,12 @@ notifications:
   email: false
 
 before_install:
-  - ls
+  - ls ./
   - rm ./_site/* -rf #remove directory _site
   - rm ./events/* -rf #remove directory events
   - rm ./partners/* -rf #remove directory partners
   - \cp -avrf ./tests/content/*/ ./ #copy test content
+  - ls ./tests/
   - ls tests/partners/
   - rvm install 2.1.5
   - gem install github-pages
