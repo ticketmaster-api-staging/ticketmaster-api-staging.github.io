@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4.2"
+  - "4.1"
 
 env:
   global:
@@ -39,8 +39,8 @@ after_script:
 
 cache:
   directories:
-  #  - node_modules
-  #  - bundler
+    - node_modules
+    - bundler
 
 notifications:
   email: false
@@ -51,8 +51,7 @@ before_install:
   - rm ./events/* -rf #remove directory events
   - rm ./partners/* -rf #remove directory partners
   - \cp -avrf ./tests/content/*/ ./ #copy test content
-  - ls ./tests/
-  - ls tests/partners/
+  - ls ./tests/galen/partners/
   - rvm install 2.1.5
   - gem install github-pages
   - gem install html-proofer
