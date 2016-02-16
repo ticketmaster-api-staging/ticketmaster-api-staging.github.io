@@ -21,7 +21,7 @@ before_script:
   - sleep 20 # give xvfb some time to start
 
 script:
-  - ./node_modules/karma/bin/karma start karma.conf.js
+#  - ./node_modules/karma/bin/karma start karma.conf.js
 #  - htmlproof ./_site --verbose --href-ignore "#" --disable-external --file-ignore './_site/node_modules/*'
 #  - jekyll serve &
 #  - sleep 20 # give jekyll some time to start
