@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "4.3"
+  - "4.1"
 
 env:
   global:
@@ -50,7 +50,7 @@ before_install:
   - rm ./events/* -rf #remove directory events
   - rm ./partners/* -rf #remove directory partners
   - \cp -avrf ./tests/content/*/ ./ #copy test content
-  - ls ./tests/partners/certified
+  - ls ./tests/partners/
   - rvm install 2.1.5
   - gem install github-pages
   - gem install html-proofer
