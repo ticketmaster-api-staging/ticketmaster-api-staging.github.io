@@ -27,7 +27,7 @@
             url: $form.attr('action'),
             data: $form.serialize()
         }).done(function() {
-            //alert("Thank you.");
+            alert("Thank you for your feedback. We'll be in touch soon.");
         });
 
         // Close dialog
@@ -47,6 +47,7 @@
         }
     });
 
-    $modal.on('hide.bs.modal', resetForm);
+    // Reset form after css animation is completed
+    $modal.on('hidden.bs.modal', resetForm);
 
 })(jQuery);
