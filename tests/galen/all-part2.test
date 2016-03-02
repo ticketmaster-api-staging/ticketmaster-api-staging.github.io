@@ -10,15 +10,17 @@
         ## gen local 1440px + 16px= 1456
 
 ##path to gspec files
-    home            tests/galen/home
-    prDocs          tests/galen/products-and-docs
-    prDocsSlate     tests/galen/products-and-docs/slate
-    prDocsWidjets   tests/galen/products-and-docs/widgets
-    prDocsConsole   tests/galen/products-and-docs/console
-    blog            tests/galen/blog
-    support         tests/galen/support/landing
-    events          tests/galen/events
-    partnersLanding tests/galen/partners/landing
+    home                tests/galen/home
+    prDocs              tests/galen/products-and-docs
+    prDocsSlate         tests/galen/products-and-docs/slate
+    prDocsWidjets       tests/galen/products-and-docs/widgets
+    prDocsConsole       tests/galen/products-and-docs/console
+    blog                tests/galen/blog
+    support             tests/galen/support/landing
+    events              tests/galen/events
+    partnersLanding     tests/galen/partners/landing
+    partnersNexus       tests/galen/partners/nexus
+    partnersCertified   tests/galen/partners/certified
 
 ########################################################################################################################
 ## size takes from "window.innerWidth" but comparing with "document.body.clientWidth"
@@ -26,28 +28,6 @@
 ##
 ## run command:
 ## galen test tests/galen/generate-img-all.test --htmlreport tests/galen/reports/all --groups HomePage
-
-
-### prDocsSlate(discoveryAPI) ###########################################################################
-
-@@ groups ProductsDocsSlate
-ProductsDocsSlate page on desktop ${desktop_size}
-    ${base_url}/products-and-docs/apis/discovery/ ${desktop_size}
-        #wait 1m until visible "id: qual_ol"
-        #dump ${prDocsSlate}/_dumpContent.gspec --name "dump ProductsDocsSlate desktop" --export ${prDocsSlate}/etalonImg/dumpsDesktop/
-        check ${prDocsSlate}/desktop.gspec --include "desktop"
-
-@@ groups ProductsDocsSlate
-ProductsDocsSlate page on tablet ${tablet_size}
-    ${base_url}/products-and-docs/apis/discovery/ ${tablet_size}
-        #dump ${prDocsSlate}/_dumpContent.gspec --name "dump ProductsDocsSlate tablet" --export ${prDocsSlate}/etalonImg/dumpsTablet/
-        check ${prDocsSlate}/tablet.gspec --include "tablet"
-
-@@ groups ProductsDocsSlate
-ProductsDocsSlate page on mobile ${mobile_size}
-    ${base_url}/products-and-docs/apis/discovery/ ${mobile_size}
-        #dump ${prDocsSlate}/_dumpContent.gspec --name "dump ProductsDocsSlate tablet" --export ${prDocsSlate}/etalonImg/dumpsMobile/
-        check ${prDocsSlate}/mobile.gspec --include "mobile" --exclude "nomobile"
 
 ### prDocsConsole ###########################################################################
 
@@ -159,3 +139,44 @@ PartnersLanding page on mobile ${mobile_size}
     ${base_url}/partners/ ${mobile_size}
         #dump ${partnersLanding}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersLanding}/etalonImg/dumpsMobile/
         check ${partnersLanding}/mobile.gspec --include "mobile" --exclude "nomobile"
+
+### Partners Nexus ###########################################################################
+
+@@ groups PartnersNexus
+PartnersNexus page on desktop ${desktop_size}
+    ${base_url}/partners/certified-partners/nexus/ ${desktop_size}
+        #dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus desktop" --export ${partnersNexus}/etalonImg/dumpsDesktop/
+        check ${partnersNexus}/desktop.gspec --include "desktop"
+
+@@ groups PartnersNexus
+PartnersNexus page on tablet ${tablet_size}
+    ${base_url}/partners/certified-partners/nexus/ ${tablet_size}
+        #dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus tablet" --export ${partnersNexus}/etalonImg/dumpsTablet/
+        check ${partnersNexus}/tablet.gspec --include "tablet"
+
+@@ groups PartnersNexus
+PartnersNexus page on mobile ${mobile_size}
+    ${base_url}/partners/certified-partners/nexus/ ${mobile_size}
+        #dump ${partnersNexus}/_dumpContent.gspec --name "dump PartnersNexus tablet" --export ${partnersNexus}/etalonImg/dumpsMobile/
+        check ${partnersNexus}/mobile.gspec --include "mobile" --exclude "nomobile"
+
+
+### Partners certified ###########################################################################
+
+@@ groups PartnersCertified
+PartnersCertified page on desktop ${desktop_size}
+    ${base_url}/partners/certified-partners/ ${desktop_size}
+        #dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
+        check ${partnersCertified}/desktop.gspec --include "desktop"
+
+@@ groups PartnersCertified
+PartnersCertified page on tablet ${tablet_size}
+    ${base_url}/partners/certified-partners/ ${tablet_size}
+        #dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
+        check ${partnersCertified}/tablet.gspec --include "tablet"
+
+@@ groups PartnersCertified
+PartnersCertified page on mobile ${mobile_size}
+    ${base_url}/partners/certified-partners/ ${mobile_size}
+        #dump ${partnersCertified}/_dumpContent.gspec --name "dump PartnersCertified tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
+        check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"
