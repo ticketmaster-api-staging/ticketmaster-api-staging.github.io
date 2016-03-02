@@ -14,6 +14,7 @@
     partnersLanding     tests/galen/partners/landing
     partnersNexus       tests/galen/partners/nexus
     partnersCertified   tests/galen/partners/landing
+    PartnersDistribution  tests/galen/partners/distribution
     prDocs              tests/galen/products-and-docs
     prDocsSlate         tests/galen/products-and-docs/slate
     prDocsWidjets       tests/galen/products-and-docs/widgets
@@ -256,19 +257,39 @@ PartnersNexus page on mobile ${mobile_size}
 ### Partners certified ###########################################################################
 
 @@ groups PartnersCertified
-PartnersNexus page on desktop ${desktop_size}
+PartnersCertified page on desktop ${desktop_size}
     ${base_url}/certified-partners/ ${desktop_size}
         dump ${partnersCertified}/_dumpContent.gspec --name "dump Events desktop" --export ${partnersCertified}/etalonImg/dumpsDesktop/
         check ${partnersCertified}/desktop.gspec --include "desktop"
 
 @@ groups PartnersCertified
-PartnersNexus page on tablet ${tablet_size}
+PartnersCertified page on tablet ${tablet_size}
     ${base_url}/certified-partners/ ${tablet_size}
         dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsTablet/
         check ${partnersCertified}/tablet.gspec --include "tablet"
 
 @@ groups PartnersCertified
-PartnersNexus page on mobile ${mobile_size}
+PartnersCertified page on mobile ${mobile_size}
     ${base_url}/certified-partners/ ${mobile_size}
-        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events tablet" --export ${partnersCertified}/etalonImg/dumpsMobile/
+        dump ${partnersCertified}/_dumpContent.gspec --name "dump Events mob" --export ${partnersCertified}/etalonImg/dumpsMobile/
         check ${partnersCertified}/mobile.gspec --include "mobile" --exclude "nomobile"
+
+### Partners Distribution ###########################################################################
+
+@@ groups PartnersDistribution
+Partners(Distribution) page on desktop ${desktop_size}
+    ${base_url}/distribution-partners/ ${desktop_size}
+        dump ${PartnersDistribution}/_dumpContent.gspec --name "dump Partners-Distribution desktop" --export ${PartnersDistribution}/etalonImg/dumpsDesktop/
+        check ${PartnersDistribution}/desktop.gspec --include "desktop"
+
+@@ groups PartnersDistribution
+Partners(Distribution) page on tablet ${tablet_size}
+    ${base_url}/distribution-partners/ ${tablet_size}
+        dump ${PartnersDistribution}/_dumpContent.gspec --name "dump Partners-Distribution tablet" --export ${PartnersDistribution}/etalonImg/dumpsTablet/
+        check ${PartnersDistribution}/tablet.gspec --include "tablet"
+
+@@ groups PartnersDistribution
+Partners(Distribution) page on mobile ${mobile_size}
+    ${base_url}/distribution-partners/ ${mobile_size}
+        dump ${PartnersDistribution}/_dumpContent.gspec --name "dump Partners-Distribution mob" --export ${PartnersDistribution}/etalonImg/dumpsMobile/
+        check ${PartnersDistribution}/mobile.gspec --include "mobile" --exclude "nomobile"
