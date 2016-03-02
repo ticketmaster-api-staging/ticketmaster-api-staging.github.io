@@ -4,12 +4,15 @@ id: com1
 categories:
 - documentation
 - commerce
+title: Commerce API
+excerpt: Use the Ticketmaster Commerce API to reserve tickets, purchase, and retrieve barcode and ticket information.
+keywords: API, commerce API, reserve tickets, retrieve barcode
 ---
 
 # Commerce API
 {: .article}
 
-Use the Ticketmaster Commerce API to reserve tickets, purchase, and retreive barcode and ticket information. Ticket inventory for each event must be established beforehand with Ticketmaster, venues, and ticketing partners. Only this held inventory will be made available through the API.
+Use the Ticketmaster Commerce API to reserve tickets, purchase, and retrieve barcode and ticket information. Ticket inventory for each event must be established beforehand with Ticketmaster, venues, and ticketing partners. Only this held inventory will be made available through the API.
 {: .article .lead}
 
 #### Developer Console

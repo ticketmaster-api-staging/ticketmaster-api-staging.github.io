@@ -3,6 +3,9 @@ layout: documentation-single
 categories:
 - documentation
 - getting-started
+title: Getting Started
+excerpt: Everything you need to start playing with the Ticketmaster APIs
+keywords: API, register for a key, live events core datasets, URI Format, URI Examples
 ---
 
 
@@ -18,7 +21,7 @@ Everything you need to start playing with the Ticketmaster APIs.
 
 {: .body}
 Welcome to the Ticketmaster API! To get you started, we'll go over the **live events core datasets** we’ve made
-available to you. Once you [register for a key](https://dev-livenation.devportal.apigee.com/user/login), you will
+available to you. Once you [register for a key](https://live-livenation.devportal.apigee.com/user/login), you will
 be able to access the following datasets:
 
 {: .double-margin}
@@ -32,7 +35,7 @@ be able to access the following datasets:
 |Cart               |A cart can hold any transactable item, like tickets, merchandize, parking, etc.                         |
 
 
-These datasets are distributed across four distinct APIs: Discovery API, Commerce API, Accounts API and Orders API.
+These datasets are distributed across five distinct APIs: Discovery API, Commerce API, Accounts API, Orders API and Publish API.
 
 {: .body .double-margin-bottom}
 This overview covers the core concepts that you need to know before you could 
@@ -97,7 +100,7 @@ _https://app.ticketmaster.com/{package}/{version}/{resource}.json?apikey=**{API 
 		<td>Authorized API Key</td>
 		<td><strong>Yes</strong></td>
 		<td>
-			<a class="standart-btn" href="https://dev-livenation.devportal.apigee.com/user/login" title="Get your API key">Get your API key</a> 
+			<a class="standart-btn" href="https://live-livenation.devportal.apigee.com/user/login" title="Get your API key">Get your API key</a> 
 		</td>
 	</tr>
 
@@ -183,7 +186,7 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     <tr>
       <td style="text-align: center" rowspan="9">
         <a href="/products-and-docs/apis/discovery/">
-          <img src="/assets/img/getting-started/ic-search-big.svg" alt="search">
+          <img src="/assets/img/getting-started/ic-search-big.svg" alt="Discovery API">
         </a>
       <h4 style="margin-top:11px;">Discovery API</h4>
       </td>
@@ -251,8 +254,8 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     </tr>
     <tr>
       <td style="text-align: center">
-        <a href="/products-and-docs/apis/commerce/">
-          <img src="/assets/img/getting-started/ic-commerce-api.svg" alt="Icon1">
+        <a href="/products-and-docs/apis/commerce/">deals
+          <img src="/assets/img/getting-started/ic-commerce-api.svg" alt="Commerce API">
         </a>
         <h4 style="margin-top:11px;text-">Commerce API</h4>
         </td>
@@ -266,7 +269,7 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     <tr>
       <td style="text-align: center" rowspan="14">
         <a href="/products-and-docs/apis/partner/">
-          <img src="/assets/img/getting-started/ic-user.svg" alt="Icon1">
+          <img src="/assets/img/getting-started/ic-user.svg" alt="Partner API">
         </a>
         <h4 style="margin-top:11px;text-">Partner API</h4>
       </td>
@@ -371,7 +374,7 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     <tr>
       <td style="text-align: center" rowspan="2">
         <a href="/products-and-docs/apis/deals-api/">
-          <img src="/assets/img/getting-started/ic-cart.svg" alt="Icon1">
+          <img src="/assets/img/getting-started/ic-cart.svg" alt="Deals API">
         </a>
         <h4 style="margin-top:11px;text-">Deals API</h4>
       </td>
@@ -388,6 +391,19 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
       <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
     </tr>
+    <tr>
+       <td style="text-align: center" rowspan="2">
+         <a href="/products-and-docs/apis/publish/">
+           <img src="/assets/img/getting-started/ic-cart.svg" alt="Icon1">
+         </a>
+         <h4 style="margin-top:11px;text-">Publish API</h4>
+       </td>
+       <td style="text-align: left"><a href="/products-and-docs/apis/publish/#publish-events">Publish event</a></td>
+       <td style="text-align: center;border-right: 0px;"></td>
+       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
+       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
+       <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
+     </tr>
     
   </tbody>
 </table>

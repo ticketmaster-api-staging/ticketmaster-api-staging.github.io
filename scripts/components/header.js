@@ -8,8 +8,11 @@
             menuBtn: $('#menu-btn'),
             searchBtn: $('#search'),
             searchAlert: $('#search-alert'),
+            searchBox: $("#cse-search-box"),
             alertTimeout: null,
             hasBackground: $('.top-bar').hasClass('bg-header') ? true : false,
+            expandMenuBar: $('#expand-menu'),
+            expandSections: $('.expand-section'),
             logo: $('#header-logo img'),
             show: function(){
                 var self = this;
@@ -46,19 +49,22 @@
                         self.hide();
                 });
 
-                self.searchAlert.on("blur", function(){
+                // search alert tooltip commented out since search is now working
+                /*self.searchAlert.on("blur", function(){
                     self.searchAlert.hide();
                     clearTimeout(self.alertTimeout);
-                });
+                });*/
 
                 self.searchBtn.on("click", function(){
-                    self.searchAlert.toggle();
+                    // search alert tooltip commented out since search is now working
+                    /*self.searchAlert.toggle();
                     if (self.searchAlert.is(':visible')){
                         self.searchAlert.focus();
                         self.alertTimeout = setTimeout(function() {
                             self.searchAlert.hide();
                         }, 4000);
-                    }
+                    }*/
+
                     //Send custom event to Google Analytic
                     ga('send', {
                         hitType: 'event',
@@ -82,30 +88,56 @@
 
                 // Search [START]
 
-                $(".top-bar").on("click", "#search", function (e) {
-                  $(this).addClass("smopen");
-                  $("#cse-search-box").addClass("sopen");
-                  $("input.q").focus();
+                var smopen  = false;
+                $(".top-bar").on("click", "#search .search-button", function (e) {
+                  if (self.searchBtn.hasClass("smopen") && smopen == true) {
+                      self.searchBtn.removeClass("smopen");
+                      self.searchBox.removeClass("sopen");
+                      smopen  = false;
+                  }
+                  else {
+                      self.searchBtn.addClass("smopen");
+                      self.searchBox.addClass("sopen");
+                      $("input.q").focus();
+                      smopen  = true;
+                  }
                 });
 
                 $("input.q").blur(function(e) {
-                    setTimeout(function () {
-                        $("#cse-search-box").removeClass("sopen");
-                        $("#search").removeClass("smopen");
-                    }, 127);
+                    if (smopen == true) {
+                        setTimeout(function () {
+                            self.searchBox.removeClass("sopen");
+                            self.searchBtn.removeClass("smopen");
+                            smopen = false;
+                        }, 127);
+                    }
                 });
 
-                $("#search").on("click", ".search-button", function (e) {
-                    $("#cse-search-box").submit();
+                self.searchBtn.on("click", ".search-button", function (e) {
+                    self.searchBox.submit();
                 });
 
-                $("#search").on("submit", "#cse-search-box", function (e) {
+                self.searchBtn.on("submit", "#cse-search-box", function (e) {
                   if ($("input[name='q']").val() == '') {
                       return false;
                   }
                 });
 
                 // Search [END]
+
+                $('.expandable').on('mouseenter', function(){
+                    $(this).addClass('expanded');
+                    self.expandSections.hide();
+                    self.expandMenuBar.find('#expand-' + $(this).attr('data-expands-to')).show();
+                    self.expandMenuBar.addClass('expanded').focus();
+                }).on('mouseleave', function(){
+                    $(this).removeClass('expanded');
+                });
+
+                self.expandMenuBar.on('blur', function(){
+                    $(this).removeClass('expanded');
+                });
+
             }
         };
 
