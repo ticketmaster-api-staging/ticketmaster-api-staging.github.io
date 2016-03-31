@@ -1,0 +1,47 @@
+{
+  "testId" : "1-events-page-on-desktop-1456x1220",
+  "name" : "Events page on desktop 1456x1220",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//events/ 1456x1220",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check tests/galen/events/desktop.gspec --include \"desktop\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/events/desktop.gspec included tags: desktop",
+          "status" : "info",
+          "time" : 1459408864463,
+          "includedTags" : [ "desktop" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Events image test (desktop)",
+            "objects" : [ {
+              "name" : "base-content-wrapper",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/events/desktop.gspec",
+                  "lineNumber" : 6
+                },
+                "name" : "image file etalonImg/dumpsDesktop/objects/base-content-wrapper.png, tolerance 40",
+                "highlight" : [ "base-content-wrapper" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "base-content-wrapper" : {
+              "area" : [ 147, 983, 1146, 5542 ]
+            }
+          },
+          "screenshot" : "layout-1-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408849497,
+        "type" : "node"
+      } ],
+      "time" : 1459408843754,
+      "type" : "node"
+    } ]
+  }
+}

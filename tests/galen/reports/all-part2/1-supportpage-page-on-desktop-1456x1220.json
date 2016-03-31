@@ -1,0 +1,78 @@
+{
+  "testId" : "1-supportpage-page-on-desktop-1456x1220",
+  "name" : "SupportPage page on desktop 1456x1220",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//support/ 1456x1220",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check tests/galen/support/landing/desktop.gspec --include \"desktop\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/support/landing/desktop.gspec included tags: desktop",
+          "status" : "info",
+          "time" : 1459408801199,
+          "includedTags" : [ "desktop" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Support page content test",
+            "objects" : [ {
+              "name" : "base-content-wrapper",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/support/landing/desktop.gspec",
+                  "lineNumber" : 9
+                },
+                "name" : "image file etalonImg/dumpsDesktop/objects/base-content-wrapper.png, error 2%",
+                "highlight" : [ "base-content-wrapper" ]
+              } ]
+            } ]
+          }, {
+            "name" : "Navigation test",
+            "objects" : [ {
+              "name" : "header",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/support/landing/desktop.gspec",
+                  "lineNumber" : 13
+                },
+                "name" : "visible",
+                "highlight" : [ "header" ]
+              } ]
+            }, {
+              "name" : "footer",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/support/landing/desktop.gspec",
+                  "lineNumber" : 13
+                },
+                "name" : "visible",
+                "highlight" : [ "footer" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "footer" : {
+              "area" : [ 0, 737, 1440, 499 ]
+            },
+            "base-content-wrapper" : {
+              "area" : [ 147, 233, 1146, 504 ]
+            },
+            "header" : {
+              "area" : [ 0, 0, 1440, 209 ]
+            }
+          },
+          "screenshot" : "layout-1-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408797288,
+        "type" : "node"
+      } ],
+      "time" : 1459408790828,
+      "type" : "node"
+    } ]
+  }
+}

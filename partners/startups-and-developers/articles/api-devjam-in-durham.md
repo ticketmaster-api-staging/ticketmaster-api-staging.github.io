@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 category: sd-article
 tags:
   - web
@@ -34,7 +34,7 @@ such a bright idea introduced for Ticketmaster's API.
 ![APIExplorer](/assets/img/partners/startups-development/bitmap@2x.png)
 {: .add-img-border}
 
-Get access to the [API Explorer](/api-explorer/).
+Get access to the [API Explorer](http://vmenshutin.github.io/).
 
 {% endcapture %}
 
@@ -43,7 +43,7 @@ Get access to the [API Explorer](/api-explorer/).
 
 ![Rectangle](/assets/img/partners/startups-development/epam-team-web.jpg)
 
-EPAM team
+Epam team
 
 {% endcapture %}
 

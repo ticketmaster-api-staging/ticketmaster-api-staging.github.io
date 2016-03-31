@@ -1,0 +1,53 @@
+{
+  "testId" : "2-partnerslanding-page-on-tablet-784x1024",
+  "name" : "PartnersLanding page on tablet 784x1024",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//partners/ 784x1024",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check tests/galen/partners/landing/tablet.gspec --include \"tablet\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/partners/landing/tablet.gspec included tags: tablet",
+          "status" : "info",
+          "time" : 1459408780893,
+          "includedTags" : [ "tablet" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Events image test (tablet)",
+            "objects" : [ {
+              "name" : "base-content-wrapper",
+              "specs" : [ {
+                "status" : "warn",
+                "place" : {
+                  "filePath" : "tests/galen/partners/landing/tablet.gspec",
+                  "lineNumber" : 6
+                },
+                "name" : "image file etalonImg/dumpsTablet/objects/base-content-wrapper.png, tolerance 40,  error 4%",
+                "errors" : [ "Element does not look like \"tests/galen/partners/landing/etalonImg/dumpsTablet/objects/base-content-wrapper.png\". There are 38.31% mismatching pixels but max allowed is 4%" ],
+                "highlight" : [ "base-content-wrapper" ],
+                "imageComparison" : {
+                  "actualImage" : "layout-6-base-content-wrapper-actual.png",
+                  "expectedImage" : "layout-7-base-content-wrapper-expected.png",
+                  "comparisonMapImage" : "layout-8-base-content-wrapper-map.png"
+                }
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "base-content-wrapper" : {
+              "area" : [ 0, 479, 768, 3276 ]
+            }
+          },
+          "screenshot" : "layout-5-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408771861,
+        "type" : "node"
+      } ],
+      "time" : 1459408768666,
+      "type" : "node"
+    } ]
+  }
+}
