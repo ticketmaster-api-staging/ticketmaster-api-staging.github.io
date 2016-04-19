@@ -9,7 +9,7 @@
             var $numeric_input = $(this);
 
             $numeric_input.focus(function() {
-                $(this).prop('type', 'text')
+                $(this)
                   .keyup(function() {
                       $(this).val($(this).val().replace(/[^\d|\s]/g, ''));
                     })
@@ -17,7 +17,7 @@
                       $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
                     })
                     .on("input paste", function() {
-                        $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
+                        $(this).val($(this).val().replace(/[^\d]/g, ''));
                     });
               });
 
