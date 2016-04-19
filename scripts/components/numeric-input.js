@@ -9,15 +9,14 @@
             var $numeric_input = $(this);
 
             $numeric_input.focus(function() {
-                $(this).prop('type', 'text')
+                $(this)
                   .keyup(function() {
                       $(this).val($(this).val().replace(/[^\d|\s]/g, ''));
-                  })
-                  .blur(function() {
-                      $(this).val($(this).val().replace(/[^\d]/g, ''));
-                        //.prop('type', 'number');
-                  });
-            });
+                    })
+                    .blur(function() {
+                      $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
+                    })
+              });
 
         });
     };
