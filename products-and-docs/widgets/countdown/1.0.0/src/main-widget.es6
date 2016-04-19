@@ -164,7 +164,7 @@ class TicketmasterCountdownWidget {
   }
 
   getNormalizedDateValue(val){
-    return ('0' + val).slice(-2);
+    return (val < 0 || val > 9 ? "" : "0") + val
   }
 
   onCountdownChange(data){
@@ -326,9 +326,6 @@ class TicketmasterCountdownWidget {
     var result = '';
     if(!date.day) return result; // Day is required
 
-    function LZ(x) {
-      return (x < 0 || x > 9 ? "" : "0") + x
-    }
     var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
         dayArray = date.day.split('-'),
@@ -352,7 +349,7 @@ class TicketmasterCountdownWidget {
       H = H - 12;
     }
 
-    return result + ' ' + LZ(H) + ':' + m + ' ' + a;
+    return result + ' ' + this.getNormalizedDateValue(H) + ':' + m + ' ' + a;
   }
 
   clearEvents(){
@@ -520,14 +517,16 @@ class TicketmasterCountdownWidget {
       dateTime: eventSet.dates.start.dateTime
     };
 
-    let venue = eventSet._embedded.venues[0];
-    if(venue){
-      if(venue.address)
-        currentEvent.address = venue.address;
+    if(eventSet.hasOwnProperty('_embedded') && eventSet._embedded.hasOwnProperty('venues')){
+      let venue = eventSet._embedded.venues[0];
+      if(venue){
+        if(venue.address)
+          currentEvent.address = venue.address;
 
-      if(venue.name){
-        if(!currentEvent.address) currentEvent.address = {};
-        currentEvent.address.name = venue.name;
+        if(venue.name){
+          if(!currentEvent.address) currentEvent.address = {};
+          currentEvent.address.name = venue.name;
+        }
       }
     }
 
