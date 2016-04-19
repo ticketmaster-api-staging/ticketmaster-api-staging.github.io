@@ -16,9 +16,6 @@
                     .blur(function() {
                       $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
                     })
-                    .on("input paste", function() {
-                        $(this).val($(this).val().replace(/[^\d]/g, ''));
-                    });
               });
 
         });
