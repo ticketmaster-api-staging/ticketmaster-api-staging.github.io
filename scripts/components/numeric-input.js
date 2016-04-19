@@ -12,12 +12,14 @@
                 $(this).prop('type', 'text')
                   .keyup(function() {
                       $(this).val($(this).val().replace(/[^\d|\s]/g, ''));
-                  })
-                  .blur(function() {
-                      $(this).val($(this).val().replace(/[^\d]/g, ''));
-                        //.prop('type', 'number');
-                  });
-            });
+                    })
+                    .blur(function() {
+                      $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
+                    })
+                    .on("input paste", function() {
+                        $(this).val($(this).val().replace(/[^\d]/g, '')).prop('type', 'number');
+                    });
+              });
 
         });
     };
