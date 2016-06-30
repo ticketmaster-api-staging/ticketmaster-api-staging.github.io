@@ -497,6 +497,12 @@
 
 
 {% if _codePath %}
+    {% assign codePathNew = _codePath | prepend: 'swagger-code-examples/'   %}
+        <h3>codePathNew : {{ codePathNew }}</h3>
+        <h4>site.baseurl : {{ page.baseurl }}</h4>
+        <h4>site.url : {{ page.url }}</h4>
+
+
     {% assign codePath = _codePath | prepend: 'apis-code-examples/' %}
     <blockquote class="aside lang-selector" tabindex="-1">
             <p><a href="#js" class="active">JavaScript</a>
