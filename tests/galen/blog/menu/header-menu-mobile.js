@@ -13,6 +13,7 @@ test("Home page test on mobile device", function () {
             this.open("http://ticketmaster-api-staging.github.io/products-and-docs/apis/partner/");
             return this.waitToBeShown();
         }*/
+        
     });
 
     var blogs = new Blogs(driver);

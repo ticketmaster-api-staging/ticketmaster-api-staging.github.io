@@ -1,13 +1,14 @@
 ---
+prime: true
 
 category: event
 title: "The Ticketmaster API Devjam in Durham, NC!"
 
-date_title: "Saturday, February 27, 2016 @ 9am"
-date_start: "2016-02-27 9:30:00"
-date_end: "2016-02-27 12:24:00"
+date_title: "Saturday, February 27, 2016"
+date_start: "2016-03-01 9:30:00"
+date_end: "2016-03-02 12:24:00"
 
-img: "/assets/img/events/devjam2.png"
+img: "/assets/img/events/devjam2.jpg"
 
 place: 
   - "Ticketmaster // Two Toasters"
@@ -16,7 +17,6 @@ place:
 city: "Durham, NC"
 
 rsvp: "http://universe.com/tmdevjam-durham"
-link: "http://universe.com/tmdevjam-durham"
 
 tags: 
   - devjam
