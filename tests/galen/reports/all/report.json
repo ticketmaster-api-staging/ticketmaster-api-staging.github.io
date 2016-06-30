@@ -1,0 +1,48 @@
+{
+  "tests" : [ {
+    "name" : "Home page on desktop",
+    "startedAt" : 1459408702947,
+    "endedAt" : 1459408724212,
+    "failed" : false,
+    "statistic" : {
+      "passed" : 42,
+      "errors" : 0,
+      "warnings" : 0,
+      "total" : 42
+    },
+    "testId" : "1-home-page-on-desktop",
+    "groups" : [ "HomePage" ],
+    "duration" : 21265,
+    "failed" : false
+  }, {
+    "name" : "Home page on tablet",
+    "startedAt" : 1459408724213,
+    "endedAt" : 1459408736793,
+    "failed" : false,
+    "statistic" : {
+      "passed" : 29,
+      "errors" : 0,
+      "warnings" : 0,
+      "total" : 29
+    },
+    "testId" : "2-home-page-on-tablet",
+    "groups" : [ "HomePage" ],
+    "duration" : 12580,
+    "failed" : false
+  }, {
+    "name" : "Home page on mobile",
+    "startedAt" : 1459408736793,
+    "endedAt" : 1459408742573,
+    "failed" : false,
+    "statistic" : {
+      "passed" : 20,
+      "errors" : 0,
+      "warnings" : 0,
+      "total" : 20
+    },
+    "testId" : "3-home-page-on-mobile",
+    "groups" : [ "HomePage" ],
+    "duration" : 5780,
+    "failed" : false
+  } ]
+}

@@ -1,0 +1,47 @@
+{
+  "testId" : "2-events-page-on-tablet-784x1024",
+  "name" : "Events page on tablet 784x1024",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//events/ 784x1024",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check tests/galen/events/tablet.gspec --include \"tablet\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/events/tablet.gspec included tags: tablet",
+          "status" : "info",
+          "time" : 1459408874030,
+          "includedTags" : [ "tablet" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Events image test (tablet)",
+            "objects" : [ {
+              "name" : "base-content-wrapper",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/events/tablet.gspec",
+                  "lineNumber" : 6
+                },
+                "name" : "image file etalonImg/dumpsTablet/objects/base-content-wrapper.png, tolerance 40,  error 4%",
+                "highlight" : [ "base-content-wrapper" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "base-content-wrapper" : {
+              "area" : [ 0, 1047, 768, 5476 ]
+            }
+          },
+          "screenshot" : "layout-2-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408867462,
+        "type" : "node"
+      } ],
+      "time" : 1459408864547,
+      "type" : "node"
+    } ]
+  }
+}

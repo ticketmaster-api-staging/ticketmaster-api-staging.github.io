@@ -1,0 +1,53 @@
+{
+  "testId" : "1-partnerslanding-page-on-desktop-1456x1220",
+  "name" : "PartnersLanding page on desktop 1456x1220",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//partners/ 1456x1220",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check tests/galen/partners/landing/desktop.gspec --include \"desktop\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/partners/landing/desktop.gspec included tags: desktop",
+          "status" : "info",
+          "time" : 1459408768578,
+          "includedTags" : [ "desktop" ],
+          "excludedTags" : [ ],
+          "sections" : [ {
+            "name" : "Events image test (desktop)",
+            "objects" : [ {
+              "name" : "base-content-wrapper",
+              "specs" : [ {
+                "status" : "warn",
+                "place" : {
+                  "filePath" : "tests/galen/partners/landing/desktop.gspec",
+                  "lineNumber" : 6
+                },
+                "name" : "image file etalonImg/dumpsDesktop/objects/base-content-wrapper.png, tolerance 40",
+                "errors" : [ "Element does not look like \"tests/galen/partners/landing/etalonImg/dumpsDesktop/objects/base-content-wrapper.png\". There are 1673177 mismatching pixels but max allowed is 0" ],
+                "highlight" : [ "base-content-wrapper" ],
+                "imageComparison" : {
+                  "actualImage" : "layout-2-base-content-wrapper-actual.png",
+                  "expectedImage" : "layout-3-base-content-wrapper-expected.png",
+                  "comparisonMapImage" : "layout-4-base-content-wrapper-map.png"
+                }
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "base-content-wrapper" : {
+              "area" : [ 0, 463, 1440, 2955 ]
+            }
+          },
+          "screenshot" : "layout-1-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408750613,
+        "type" : "node"
+      } ],
+      "time" : 1459408744030,
+      "type" : "node"
+    } ]
+  }
+}

@@ -177,7 +177,7 @@ commerce/{version}/events/{id}/offers.{format}
 {% highlight js %}
 $.ajax({
   type:"GET",
-  url:"https://app.ticketmaster.com/commerce/v2/events/05004F24E0B864B3/offers.json?{apikey}",
+  url:"https://app.ticketmaster.com/commerce/v2/events/05004F24E0B864B3/offers.json?apikey={apikey}",
   async:true,
   dataType: "json",
   success: function(json) {
@@ -193,7 +193,7 @@ $.ajax({
 
 {% highlight bash %}
 curl \
---include 'https://app.ticketmaster.com/commerce/v2/events/05004F24E0B864B3/offers.json?{apikey}
+--include 'https://app.ticketmaster.com/commerce/v2/events/05004F24E0B864B3/offers.json?apikey={apikey}
 {% endhighlight %}
 
 
@@ -203,7 +203,7 @@ curl \
 {: .reqres}
 
 {% highlight HTTP %}
-GET /commerce/v2/events/05004F24E0B864B3/offers.json?{apikey} HTTP/1.1
+GET /commerce/v2/events/05004F24E0B864B3/offers.json?apikey=**** HTTP/1.1
 Host: app.ticketmaster.com
 X-Target-URI: https://app.ticketmaster.com
 Connection: Keep-Alive

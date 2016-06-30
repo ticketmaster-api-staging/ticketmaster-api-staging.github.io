@@ -42,12 +42,6 @@ Social promo, rendered left to the twitter card
 ### "Thanks to the APIs, we got an Amazon Echo app integration up and running in about 30 hours at a USC hackathon!"
 –Pramod Setlur, API developer
 
-### "The Ticketmaster API is really easy to use!"
-–[ArJun Madan](http://blog.arjunmadan.xyz/2016/03/17/the-ticketmaster-dev-jam/), API developer
-
-### "The API Explorer is great. It helps me identify if the error is in the API or in my code. Very helpful."
-–Ryan Zhou, API developer
-
 {% endcapture %}
 
 {::comment}
@@ -128,7 +122,7 @@ Raw html goes here (uses liquid variabled defined above)
 <div class="col-xs-12 button-block">
     <a href="https://live-livenation.devportal.apigee.com/user/login" class="tm-btn tm-btn-white rightarrow">GET YOUR API KEY</a>
     <a href="{{"/products-and-docs/apis/getting-started/" | prepend: site.baseurl}}" class="tm-btn tm-btn-transparent rightarrow">REVIEW DOCUMENTATION</a>
-    <a href="{{"/api-explorer/" | prepend: site.baseurl}}" class="tm-btn tm-btn-transparent">EXPLORE THE APIs</a>
+    <a href="{{"http://vmenshutin.github.io/" | prepend: site.baseurl}}" class="tm-btn tm-btn-transparent">EXPLORE THE APIs</a>
 </div>
         </div>
         <div class="clearfix"></div>

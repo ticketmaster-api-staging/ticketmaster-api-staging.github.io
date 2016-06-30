@@ -1,0 +1,112 @@
+{
+  "testId" : "4-blogs-page-on-mobile-open-menu",
+  "name" : "Blogs page on mobile open-menu",
+  "report" : {
+    "nodes" : [ {
+      "name" : "http://127.0.0.1:4000//blogs/ 336x480",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "inject ./tests/galen/blog/menu/menu-top-trigger.js",
+        "status" : "info",
+        "time" : 1459408841441,
+        "type" : "node"
+      }, {
+        "name" : "check  tests/galen/blog/menu/mobile-header-menu-open.gspec --include \"mobile\" --exclude \"nomobile\"",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: tests/galen/blog/menu/mobile-header-menu-open.gspec included tags: mobile",
+          "status" : "info",
+          "time" : 1459408842160,
+          "includedTags" : [ "mobile" ],
+          "excludedTags" : [ "nomobile" ],
+          "sections" : [ {
+            "name" : "Blogs page tablet and mobile header menu open @mobile",
+            "objects" : [ {
+              "name" : "logo",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/blog/menu/mobile-header-menu-open.gspec",
+                  "lineNumber" : 12
+                },
+                "name" : "visible",
+                "highlight" : [ "logo" ]
+              } ]
+            }, {
+              "name" : "menu-btn-close",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/blog/menu/mobile-header-menu-open.gspec",
+                  "lineNumber" : 12
+                },
+                "name" : "visible",
+                "highlight" : [ "menu-btn-close" ]
+              } ]
+            }, {
+              "name" : "menu-dropdown",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/blog/menu/mobile-header-menu-open.gspec",
+                  "lineNumber" : 12
+                },
+                "name" : "visible",
+                "highlight" : [ "menu-dropdown" ]
+              } ]
+            }, {
+              "name" : "global",
+              "specs" : [ {
+                "status" : "info",
+                "place" : {
+                  "filePath" : "tests/galen/blog/menu/mobile-header-menu-open.gspec",
+                  "lineNumber" : 15
+                },
+                "name" : "count any  menu-dropdown-item-* is 7",
+                "highlight" : [ "menu-dropdown-item-4", "menu-dropdown-item-5", "menu-dropdown-item-6", "menu-dropdown-item-7", "menu-dropdown-item-1", "menu-dropdown-item-2", "menu-dropdown-item-3" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "menu-btn-close" : {
+              "area" : [ 288, 32, 26, 26 ]
+            },
+            "logo" : {
+              "area" : [ 15, 23, 181, 42 ]
+            },
+            "menu-dropdown-item-4" : {
+              "area" : [ 16, 175, 68, 21 ]
+            },
+            "menu-dropdown-item-5" : {
+              "area" : [ 16, 219, 51, 21 ]
+            },
+            "menu-dropdown-item-6" : {
+              "area" : [ 16, 263, 56, 21 ]
+            },
+            "menu-dropdown-item-7" : {
+              "area" : [ 16, 307, 108, 21 ]
+            },
+            "menu-dropdown-item-1" : {
+              "area" : [ 16, 33, 280, 27 ]
+            },
+            "menu-dropdown-item-2" : {
+              "area" : [ 16, 87, 143, 21 ]
+            },
+            "menu-dropdown-item-3" : {
+              "area" : [ 16, 131, 76, 21 ]
+            },
+            "menu-dropdown" : {
+              "area" : [ 0, 8, 320, 355 ]
+            }
+          },
+          "screenshot" : "layout-4-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1459408841509,
+        "type" : "node"
+      } ],
+      "time" : 1459408839124,
+      "type" : "node"
+    } ]
+  }
+}
