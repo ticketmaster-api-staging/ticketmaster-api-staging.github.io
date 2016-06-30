@@ -1,124 +1,120 @@
-(function($){
 
-    jQuery.fn.tableCollapse = function(options ){
+(function ($) {
+    var CollapseButton =(function ($) {
+
+        var Button = function (opts) {
+            $.extend(this, opts);
+            this.el = document.createElement('div');
+            this.el.innerHTML = this.getTitle();
+            this.el.classList.add(this.className.common);
+            this.el.classList.add(this.className.collapsed);
+            this.expanded = false;
+            this.render();
+        };
+
+        Button.prototype = {
+            constructor: CollapseButton,
+            el: null,
+            elToCollapse: null,
+            title: null,
+            events:{
+                expand: 'expand',
+                collapse: 'collapse',
+                click: 'click'
+            },
+            setTitle: function (title) {
+                this.title = title;
+                this.el.innerHTML = title;
+            },
+            getTitle: function(){
+                return this.title || this.titleText.expand;
+            },
+            registerListeners: function () {
+                for ( $event in this.listeners){
+                    this.el.addEventListener($event, this.listeners[$event].bind(this));
+                }
+            },
+            render: function () {
+                this.setTitle(this.titleText.expand);
+                this.elToCollapse.after(this.el);
+                this.registerListeners();
+            },
+            titleText: {
+                expand: 'Expand',
+                collapse: 'Collapse'
+            },
+            className: {
+                collapsed: 'collapsed',
+                common: 'table_collapse__btn'
+            },
+            listeners:{}
+        };
+
+        return Button;
+    })(jQuery);
+
+    jQuery.fn.tableCollapse = function (options) {
 
         var defaults = {
-            scrollUpOnCollapse: true,
-            fixedHeight: 400,
-            scrollUpSpeed: 500,
-            separationLineHeight: 0,
-            additionalScrollSpace: 50,
-            cssClass: 'table_collapse',
-            cssClassBtn: 'table_collapse__btn',
-            cssClassInner: 'table_collapse__inner',
-            cssClassCollapsed: 'table_collapse-collapsed',
-            title: 'Expand',
-            titleCollapse: 'Collapse',
-            tooltipPosition: 'top'
-        },
-        settings = $.extend( {}, defaults, options),
-        $htmlBody = $('body, html'),
-        $window = $(window);
+                scrollUpOnCollapse: true,
+                fixedHeight: 400,
+                scrollUpSpeed: 500,
+                separationLineHeight: 0,
+                additionalScrollSpace: 170,
+                cssClass: 'table_collapse',
+                cssClassBtn: 'table_collapse__btn',
+                cssClassInner: 'table_collapse__inner',
+                cssClassCollapsed: 'table_collapse-collapsed',
+                title: 'Expand',
+                titleCollapse: 'Collapse',
+                tooltipPosition: 'top'
+            },
+            settings = $.extend({}, defaults, options),
+            $htmlBody = $('body, html');
 
-        // Redraw element for table geometry update
-        function redrawElement(element){
-            $(element).hide(0).show(0);
-        }
 
-        return this.each(function() {
-            var $this = $(this),
-                collapsed = true,
-                originalHeight = parseInt($this.outerHeight(true)) - parseInt($this.css('margin-top'));
+        var clickHandler = function(e){
 
-            if(originalHeight > settings.fixedHeight){
+            this.expanded = !this.expanded;
 
-                function setTitle(title){
-                    $btn.text(title);
-                }
+            var $table = $(this.elToCollapse);
+            var $btn = $(this.el);
 
-                originalHeight += settings.separationLineHeight;
-                var wrapper = "<div class='" + settings.cssClass + " " + settings.cssClassCollapsed + "'>" +
-                    "<div class='" + settings.cssClassInner + "' style='height:" + settings.fixedHeight + "px'></div>" +
-                    "</div>";
-                $this.wrap(wrapper);
+            this.setTitle(this.expanded ? this.titleText.collapse : this.titleText.expand );
 
-                var $btn = $('<div></div>', {
-                        text: settings.title,
-                        'class': settings.cssClassBtn
-                    }),
-                    $tableCollapseInner = $this.parent(),
-                    $tableCollapse = $tableCollapseInner.parent();
+            if(this.expanded){
+                $table.removeAttr('style');
+                $table.height($table.find('table').height())
+            }else{
+                $table.height(settings.fixedHeight)
+            }
+            $htmlBody.animate({
+                scrollTop: $table.offset().top - settings.additionalScrollSpace
+            }, settings.scrollUpSpeed);
 
-                $tableCollapseInner.after($btn);
+            $table.toggleClass('expanded');
+            $table.toggleClass('collapsed');
+            $btn.toggleClass('collapsed');
+        };
 
-                // Events
-                (function setToggle(show){
-                    $btn.one('click', function(){
-                        collapsed = !collapsed;
-
-                        var newHeight = originalHeight;
-                        if(show){
-                            $tableCollapse.removeClass(settings.cssClassCollapsed);
-                            setTitle(settings.titleCollapse);
-                        }else{
-                            $tableCollapse.addClass(settings.cssClassCollapsed);
-                            newHeight = settings.fixedHeight;
-                            setTitle(settings.title);
-
-                            // Scroll up window if wrapper head invisible
-                            if(settings.scrollUpOnCollapse){
-                                var dif = $window.scrollTop() - $this.offset().top;
-                                if(dif > 0)
-                                    $htmlBody.animate({
-                                        scrollTop: $window.scrollTop() - dif - settings.additionalScrollSpace
-                                    }, settings.scrollUpSpeed);
-                            }
-                        }
-
-                        $tableCollapseInner.css({
-                            height: newHeight + 'px'
-                        });
-                        redrawElement($this);
-
-                        setToggle(!show); // Set inverted button handler
-                    });
-                })(true); // Set button handler
-
-                var delay = (function(){
-                    var timer = 0;
-                    return function(callback, ms){
-                        clearTimeout (timer);
-                        timer = setTimeout(callback, ms);
-                    };
-                })();
-
-                // Recalculate originalHeight on window scroll
-                $(window).resize(function() {
-                    delay(function(){
-                        if(collapsed){
-                            $tableCollapseInner.css({'overflow-y': 'hidden'});
-                            redrawElement($this);
-                        }
-
-                        setTimeout(function(){
-                            originalHeight = parseInt($this.outerHeight(true)) + settings.separationLineHeight;
-                            if(!collapsed) {
-                                $tableCollapseInner.css({
-                                    height: originalHeight + 'px'
-                                });
-                            }else {
-                                $tableCollapseInner.css({'overflow-y': ''});
-                                redrawElement($this);
-                            }
-                        }, 10);
-
-                    }, 300);
+        this.each(function () {
+            var $item = $(this);
+            var originalHeight = $item.height();
+            if(originalHeight > defaults.fixedHeight){
+                $item.addClass('collapsed');
+                $item.height(settings.fixedHeight);
+                new CollapseButton({
+                    elToCollapse: $item,
+                    listeners: {
+                        click: clickHandler
+                    }
                 });
             }
         });
+
+        return this;
     };
 })(jQuery);
-
 
 
 $(document).on('ready', function () {
