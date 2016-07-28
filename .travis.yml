@@ -54,7 +54,7 @@ before_install:
   - nvm use 4.1
   - '[ "${TEST_SEVERITY}" = "LOW" ] && rvm install 2.1.5 && gem install html-proofer && gem install github-pages || true'
   - cd ./tests/serenity
-  - mvn clean
+  - mvn clean install
   - cd ../../
 #  - '[ "${TEST_SEVERITY}" = "LOW" ] && rvm install 2.1.5 && gem install html-proofer && gem install github-pages || true'
 #  - '[ ${TEST_SEVERITY} = "MEDIUM" ] || [ ${TEST_SEVERITY} = "HIGH" ] || [ ${TEST_SEVERITY} = "CRITICAL" ] && rvm install 2.1.5 && gem install html-proofer && gem install github-pages && npm install -g galenframework-cli || true'
