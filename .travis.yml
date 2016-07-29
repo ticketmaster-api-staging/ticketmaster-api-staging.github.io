@@ -23,7 +23,9 @@ branches:
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - sleep 10 # give xvfb some time to start
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
   - sh ./tests/levels/before-run-test.sh #copy content & build
 
 script:
@@ -53,7 +55,11 @@ before_install:
   - nvm install 4.1
   - nvm use 4.1
   - '[ "${TEST_SEVERITY}" = "LOW" ] && rvm install 2.1.5 && gem install html-proofer && gem install github-pages || true'
-  - npm install -g galenframework-cli
+  #- npm install -g galenframework-cli
+  - npm install selenium-standalone@latest -g
+  - selenium-standalone install
+  - selenium-standalone start
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
   - cd ./tests/serenity
   - mvn clean install
   - cd ../../
