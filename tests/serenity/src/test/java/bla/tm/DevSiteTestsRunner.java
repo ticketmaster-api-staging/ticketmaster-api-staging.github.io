@@ -26,6 +26,6 @@ public class DevSiteTestsRunner extends SerenityStories {
 
         File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(srcFile, new File("/path/to/Pictures/xvfb1.png"));
-        driver.quit();
+        //driver.quit();
     }
 }

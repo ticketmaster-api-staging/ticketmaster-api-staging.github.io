@@ -55,25 +55,30 @@
             <artifactId>serenity-jbehave</artifactId>
             <version>1.13.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>2.45.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins><!-- Plugin for defining of selected java class as Integration tests and creation Serenity report -->
 
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*Runner.java</include>
-                        <!--<include>**/*TestSuite.java</include>-->
-                        <!--<include>**/Test*.java</include>-->
-                        <!--<include>**/When*.java</include>-->
+                        &lt;!&ndash;<include>**/*TestSuite.java</include>&ndash;&gt;
+                        &lt;!&ndash;<include>**/Test*.java</include>&ndash;&gt;
+                        &lt;!&ndash;<include>**/When*.java</include>&ndash;&gt;
                     </includes>
-                    <!--<excludes>-->
-                        <!--<exclude>**/ParallelTestSuite.java</exclude>-->
-                    <!--</excludes>-->
+                    &lt;!&ndash;<excludes>&ndash;&gt;
+                        &lt;!&ndash;<exclude>**/ParallelTestSuite.java</exclude>&ndash;&gt;
+                    &lt;!&ndash;</excludes>&ndash;&gt;
                     <systemPropertyVariables>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
                     </systemPropertyVariables>
@@ -86,7 +91,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
