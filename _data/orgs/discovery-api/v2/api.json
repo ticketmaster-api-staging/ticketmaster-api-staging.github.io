@@ -17,52 +17,6 @@
         "description" : "Since 1.0.0",
         "operationId" : "find",
         "parameters" : [ {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "sorting order of the search result",
-          "required" : false,
-          "type" : "string",
-          "default" : "name,asc",
-          "pattern" : "^name,asc|name,desc$",
-          "x-example" : ""
-        }, {
-          "name" : "includeTest",
-          "in" : "query",
-          "description" : "True if you want to have entities flag as test in the response. Only, if you only wanted test entities",
-          "required" : false,
-          "type" : "string",
-          "default" : "no",
-          "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", " no", " only" ],
-          "x-example" : ""
-        }, {
-          "name" : "source",
-          "in" : "query",
-          "description" : "filter entity by its source name",
-          "required" : true,
-          "type" : "string",
-          "default" : "",
-          "enum" : [ "ticketmaster", " ticketmaster-uk", " universe", " frontgate", " TMR" ],
-          "x-example" : ""
-        }, {
-          "name" : "keyword",
-          "in" : "query",
-          "description" : "Keyword to search on",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "extensions",
-          "in" : "query",
-          "description" : "Return extension on entities within the response",
-          "required" : false,
-          "type" : "array",
-          "collectionFormat" : "multi",
-          "default" : "",
-          "enum" : [ "ticketmaster", " geolocation" ],
-          "x-example" : ""
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale the response content will be returned",
@@ -95,10 +49,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Attraction"
-              }
+              "type" : "object"
             }
           }
         }
@@ -139,7 +90,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Attraction"
+              "type" : "object"
             }
           }
         }
@@ -273,7 +224,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Genre"
+              "type" : "object"
             }
           }
         }
@@ -314,7 +265,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Segment"
+              "type" : "object"
             }
           }
         }
@@ -760,68 +711,6 @@
         "description" : "Since 1.0.0",
         "operationId" : "find",
         "parameters" : [ {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "sorting order of the search result",
-          "required" : false,
-          "type" : "string",
-          "default" : "name,asc",
-          "pattern" : "^name,asc|name,desc$",
-          "x-example" : ""
-        }, {
-          "name" : "stateCode",
-          "in" : "query",
-          "description" : "Filtering venue response by state / province code",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "countryCode",
-          "in" : "query",
-          "description" : "Filtering venue response by country code",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "includeTest",
-          "in" : "query",
-          "description" : "True if you want to have entities flag as test in the response. Only, if you only wanted test entities",
-          "required" : false,
-          "type" : "string",
-          "default" : "no",
-          "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", " no", " only" ],
-          "x-example" : ""
-        }, {
-          "name" : "source",
-          "in" : "query",
-          "description" : "filter entity by its source name",
-          "required" : true,
-          "type" : "string",
-          "default" : "",
-          "enum" : [ "ticketmaster", " ticketmaster-uk", " universe", " frontgate", " TMR" ],
-          "x-example" : ""
-        }, {
-          "name" : "keyword",
-          "in" : "query",
-          "description" : "Keyword to search on",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "extensions",
-          "in" : "query",
-          "description" : "Return extension on entities within the response",
-          "required" : false,
-          "type" : "array",
-          "collectionFormat" : "multi",
-          "default" : "",
-          "enum" : [ "ticketmaster", " geolocation" ],
-          "x-example" : ""
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale the response content will be returned",
@@ -854,10 +743,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Venue"
-              }
+              "type" : "object"
             }
           }
         }
@@ -898,7 +784,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Venue"
+              "type" : "object"
             }
           }
         }
@@ -1064,6 +950,7 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
+          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -1107,24 +994,11 @@
     "DateTimeField" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "type" : {
-          "$ref" : "#/definitions/DateTimeFieldType"
-        },
-        "supported" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "lenient" : {
           "type" : "boolean",
           "default" : false
         },
         "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
-        "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "durationField" : {
@@ -1137,32 +1011,45 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/DateTimeFieldType"
+        },
+        "supported" : {
+          "type" : "boolean",
+          "default" : false
         }
       }
     },
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
         "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
+        },
+        "name" : {
+          "type" : "string"
         }
       }
     },
     "DateTimeZone" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "string"
-        },
         "fixed" : {
           "type" : "boolean",
           "default" : false
+        },
+        "id" : {
+          "type" : "string"
         }
       }
     },
@@ -1191,6 +1078,14 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
+        },
         "name" : {
           "type" : "string"
         },
@@ -1200,14 +1095,6 @@
         "supported" : {
           "type" : "boolean",
           "default" : false
-        },
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -1592,7 +1479,15 @@
         "chronology" : {
           "$ref" : "#/definitions/Chronology"
         },
+        "millisOfSecond" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "millisOfDay" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "secondOfMinute" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -1603,20 +1498,6 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "millisOfSecond" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "secondOfMinute" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "fields" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/DateTimeField"
-          }
         },
         "values" : {
           "type" : "array",
@@ -1630,6 +1511,12 @@
           "items" : {
             "$ref" : "#/definitions/DateTimeFieldType"
           }
+        },
+        "fields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DateTimeField"
+          }
         }
       }
     },
@@ -1639,22 +1526,13 @@
         "language" : {
           "type" : "string"
         },
+        "script" : {
+          "type" : "string"
+        },
         "country" : {
           "type" : "string"
         },
-        "displayCountry" : {
-          "type" : "string"
-        },
-        "displayLanguage" : {
-          "type" : "string"
-        },
-        "displayName" : {
-          "type" : "string"
-        },
-        "displayScript" : {
-          "type" : "string"
-        },
-        "displayVariant" : {
+        "variant" : {
           "type" : "string"
         },
         "extensionKeys" : {
@@ -1663,15 +1541,6 @@
           "items" : {
             "type" : "string"
           }
-        },
-        "iso3Country" : {
-          "type" : "string"
-        },
-        "iso3Language" : {
-          "type" : "string"
-        },
-        "script" : {
-          "type" : "string"
         },
         "unicodeLocaleAttributes" : {
           "type" : "array",
@@ -1687,7 +1556,25 @@
             "type" : "string"
           }
         },
-        "variant" : {
+        "iso3Language" : {
+          "type" : "string"
+        },
+        "iso3Country" : {
+          "type" : "string"
+        },
+        "displayLanguage" : {
+          "type" : "string"
+        },
+        "displayScript" : {
+          "type" : "string"
+        },
+        "displayCountry" : {
+          "type" : "string"
+        },
+        "displayVariant" : {
+          "type" : "string"
+        },
+        "displayName" : {
           "type" : "string"
         }
       }
