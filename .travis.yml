@@ -25,6 +25,7 @@ script:
   - jekyll serve &
   - sleep 15 # give jekyll some time to start
   - sh ./tests/run-test-dispatch.sh
+  - mvn verify
 
 after_script:
   - rake travis:deploy --trace --verbose
