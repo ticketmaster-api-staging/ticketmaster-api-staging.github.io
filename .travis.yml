@@ -20,12 +20,17 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 10 # give xvfb some time to start
   - sh ./tests/levels/before-run-test.sh #copy content & build
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  - sudo apt-get update
+  - sudo apt-get install google-chrome-stable
+  - npm install chromewebdriver
 
 script:
   - jekyll serve &
   - sleep 15 # give jekyll some time to start
   - sh ./tests/run-test-dispatch.sh
-  - mvn verify
+  - mvn verify -f ./tests/serenity/pom.xml
 
 after_script:
   - rake travis:deploy --trace --verbose
