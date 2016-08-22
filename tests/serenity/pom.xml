@@ -17,7 +17,7 @@
         <serenity.jbehave.version>1.13.0</serenity.jbehave.version>
         <maven-failsafe-plugin.version>2.11</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <webdriver.driver>chrome</webdriver.driver>
+        <webdriver.driver>firefox</webdriver.driver>
     </properties>
 
     <dependencies>
