@@ -23,7 +23,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 10 # give xvfb some time to start
   - sh ./tests/levels/before-run-test.sh #copy content & build
-  - npm install chromedriver
+  # - npm install chromedriver
 
 script:
   - jekyll serve &
@@ -31,9 +31,19 @@ script:
   - sh ./tests/run-test-dispatch.sh
   - mvn verify -f ./tests/serenity/pom.xml
 
-after_script:
+after_success:
+  - echo Success
   - rake travis:deploy --trace --verbose
   - rake travis:report --trace --verbose
+
+after_failure:
+  - echo FAIL
+  - rake travis:report --trace --verbose
+
+after_script:
+  - echo AFTER_SCRIPT
+
+
 
 cache:
   directories:
