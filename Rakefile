@@ -10,6 +10,21 @@ namespace 'travis' do
 
   VERSION_URL = 'https://pages.github.com/versions.json'
 
+
+  desc 'Test the site'
+  task :test do
+    
+    if ENV['TRAVIS_BRANCH'] == 'master'
+      puts "Test all"
+      system "mvn verify -f ./tests/serenity/pom.xml"
+      next
+    else
+      puts "Test low"
+      next
+    end
+    
+
+  end
   
 
   desc 'Publish site to GitHub Pages from Travis'
