@@ -14,15 +14,23 @@ namespace 'travis' do
   desc 'Test the site'
   task :test do
     result = 0
+    puts 'var init result'
+    puts result
     if ENV['TRAVIS_BRANCH'] == 'master'
       puts "Test all"
       result = system("mvn verify -f ./tests/serenity/pom.xml")
+      puts 'test mvn result'
       puts result
+      if result == false
+        puts 'test failed'
+        exit 1
+      end
       next
     else
       puts "Test low"
       next
     end
+    puts 'test final result'
     puts result
     exit result
     
