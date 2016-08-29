@@ -28,7 +28,8 @@ script:
   - jekyll serve &
   - sleep 15 # give jekyll some time to start
   - sh ./tests/run-test-dispatch.sh
-  - mvn verify -f ./tests/serenity/pom.xml
+  - rake travis:test --trace --verbose
+  #- mvn verify -f ./tests/serenity/pom.xml
 
 after_success:
   - echo Success
