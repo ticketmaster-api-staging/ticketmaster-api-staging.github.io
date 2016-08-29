@@ -16,12 +16,14 @@ namespace 'travis' do
     result = 0
     if ENV['TRAVIS_BRANCH'] == 'master'
       puts "Test all"
-      result = system "mvn verify -f ./tests/serenity/pom.xml"
+      result = system("mvn verify -f ./tests/serenity/pom.xml")
+      puts result
       next
     else
       puts "Test low"
       next
     end
+    puts result
     exit result
     
 
