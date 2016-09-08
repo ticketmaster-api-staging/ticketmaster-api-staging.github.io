@@ -17,50 +17,6 @@
         "description" : "Since 1.0.0",
         "operationId" : "find",
         "parameters" : [ {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "Sorting order of the search result",
-          "required" : false,
-          "type" : "string",
-          "default" : "name,asc",
-          "pattern" : "^name,asc|name,desc$",
-          "x-example" : ""
-        }, {
-          "name" : "keyword",
-          "in" : "query",
-          "description" : "Keyword to search on",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "id",
-          "in" : "query",
-          "description" : "Filter entities by its id",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "source",
-          "in" : "query",
-          "description" : "Filter entities by its source name",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "enum" : [ "ticketmaster", " universe", " frontgate", " tmr" ],
-          "x-example" : ""
-        }, {
-          "name" : "includeTest",
-          "in" : "query",
-          "description" : "True if you want to have entities flag as test in the response. Only, if you only wanted test entities",
-          "required" : false,
-          "type" : "string",
-          "default" : "no",
-          "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", " no", " only" ],
-          "x-example" : ""
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale the response content will be returned",
@@ -93,10 +49,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Attraction"
-              }
+              "type" : "object"
             }
           }
         }
@@ -119,15 +72,25 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Attraction"
+              "type" : "object"
             }
           }
         }
@@ -141,36 +104,11 @@
         "parameters" : [ {
           "name" : "sort",
           "in" : "query",
-          "description" : "Sorting order of the search result",
+          "description" : "sorting order of the search result",
           "required" : false,
           "type" : "string",
           "default" : "name,asc",
           "pattern" : "^name,asc|name,desc$",
-          "x-example" : ""
-        }, {
-          "name" : "keyword",
-          "in" : "query",
-          "description" : "Keyword to search on",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "id",
-          "in" : "query",
-          "description" : "Filter entities by its id",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "source",
-          "in" : "query",
-          "description" : "Filter entities by its source name",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "enum" : [ "ticketmaster", " universe", " frontgate", " tmr" ],
           "x-example" : ""
         }, {
           "name" : "includeTest",
@@ -181,6 +119,33 @@
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
           "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "source",
+          "in" : "query",
+          "description" : "filter entity by its source name",
+          "required" : true,
+          "type" : "string",
+          "default" : "",
+          "enum" : [ "ticketmaster", " ticketmaster-uk", " universe", " frontgate", " TMR" ],
+          "x-example" : ""
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "Keyword to search on",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         }, {
           "name" : "locale",
@@ -241,15 +206,25 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Genre"
+              "type" : "object"
             }
           }
         }
@@ -272,8 +247,18 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
@@ -303,15 +288,25 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/Level"
             }
           }
         }
@@ -334,15 +329,24 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "object",
               "$ref" : "#/definitions/Classification"
             }
           }
@@ -355,23 +359,32 @@
         "description" : "Since 1.0.0",
         "operationId" : "find",
         "parameters" : [ {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "Sorting order of the search result",
-          "required" : false,
-          "type" : "string",
-          "default" : "name,asc",
-          "pattern" : "^(name|date|name,date|date,name),(asc|desc)$",
-          "x-example" : ""
-        }, {
           "name" : "latlong",
           "in" : "query",
-          "description" : "Filter events by latitude and longitude",
+          "description" : "Filter event by latitude and longitude",
           "required" : false,
           "type" : "string",
           "default" : "",
           "pattern" : "^\\s*$|^-?(90(\\.0+)?|[0-8]?[0-9](\\.\\d+)?),-?(180(\\.0+)?|(1[0-7][0-9]|\\d{1,2})(\\.\\d+)?)$",
-          "x-example" : "33.80003000,-117.88304300"
+          "x-example" : ""
+        }, {
+          "name" : "marketId",
+          "in" : "query",
+          "description" : "Filter the events by market id",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "pattern" : "^\\s*$|^(\\d+(,\\d+)*)?$",
+          "x-example" : ""
+        }, {
+          "name" : "promoterId",
+          "in" : "query",
+          "description" : "Filter the events by promoter id",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "pattern" : "^\\s*$|^(\\d+(,\\d+)*)?$",
+          "x-example" : ""
         }, {
           "name" : "radius",
           "in" : "query",
@@ -384,7 +397,7 @@
         }, {
           "name" : "unit",
           "in" : "query",
-          "description" : "Unit of the radius",
+          "description" : "unit of the radius",
           "required" : false,
           "type" : "string",
           "default" : "miles",
@@ -392,36 +405,18 @@
           "enum" : [ "miles", "km" ],
           "x-example" : ""
         }, {
-          "name" : "startDateTime",
-          "in" : "query",
-          "description" : "Filter events with a start date after this date",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "pattern" : "^\\s*$|^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-          "x-example" : ""
-        }, {
           "name" : "endDateTime",
           "in" : "query",
-          "description" : "Filter events with a start date before this date",
+          "description" : "filter events with a start date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
           "pattern" : "^\\s*$|^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
           "x-example" : ""
         }, {
-          "name" : "onsaleStartDateTime",
+          "name" : "startDateTime",
           "in" : "query",
-          "description" : "Filter events with onsale start date after this date",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "pattern" : "^\\s*$|^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-          "x-example" : ""
-        }, {
-          "name" : "onsaleEndDateTime",
-          "in" : "query",
-          "description" : "Filter events with onsale end date before this date",
+          "description" : "filter event with a start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -494,24 +489,6 @@
           "default" : "",
           "x-example" : ""
         }, {
-          "name" : "marketId",
-          "in" : "query",
-          "description" : "Filter events by market id",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "pattern" : "^\\s*$|^(\\d+(,\\d+)*)?$",
-          "x-example" : ""
-        }, {
-          "name" : "promoterId",
-          "in" : "query",
-          "description" : "Filter events by promoter id",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "pattern" : "^\\s*$|^(\\d+(,\\d+)*)?$",
-          "x-example" : ""
-        }, {
           "name" : "dmaId",
           "in" : "query",
           "description" : "Filter events by dma id",
@@ -526,7 +503,7 @@
           "description" : "True, to include events with date to be announce (TBA)",
           "required" : false,
           "type" : "string",
-          "default" : "no if date parameter sent, yes otherwise",
+          "default" : "no if date parameter sent, yes oterwie",
           "pattern" : "^\\s*|yes|no|only$",
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
@@ -536,34 +513,36 @@
           "description" : "True, to include event with a date to be defined (TBD)",
           "required" : false,
           "type" : "string",
-          "default" : "no if date parameter sent, yes otherwise",
+          "default" : "no if date parameter sent, yes oterwie",
           "pattern" : "^\\s*|yes|no|only$",
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "keyword",
+          "name" : "sort",
           "in" : "query",
-          "description" : "Keyword to search on",
+          "description" : "Sort event by",
           "required" : false,
           "type" : "string",
           "default" : "",
+          "pattern" : "^(name|date|name,date|date,name),(asc|desc)$",
           "x-example" : ""
         }, {
-          "name" : "id",
+          "name" : "onsaleEndDateTime",
           "in" : "query",
-          "description" : "Filter entities by its id",
+          "description" : "Filter events with onsale end date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
+          "pattern" : "^\\s*$|^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
           "x-example" : ""
         }, {
-          "name" : "source",
+          "name" : "onsaleStartDateTime",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter event with onsale start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
-          "enum" : [ "ticketmaster", " universe", " frontgate", " tmr" ],
+          "pattern" : "^\\s*$|^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
           "x-example" : ""
         }, {
           "name" : "includeTest",
@@ -574,6 +553,33 @@
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
           "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "source",
+          "in" : "query",
+          "description" : "filter entity by its source name",
+          "required" : true,
+          "type" : "string",
+          "default" : "",
+          "enum" : [ "ticketmaster", " ticketmaster-uk", " universe", " frontgate", " TMR" ],
+          "x-example" : ""
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "Keyword to search on",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         }, {
           "name" : "locale",
@@ -634,15 +640,24 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "object",
               "$ref" : "#/definitions/Event"
             }
           }
@@ -666,15 +681,25 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/EventImages"
+              "$ref" : "#/definitions/Event"
             }
           }
         }
@@ -686,66 +711,6 @@
         "description" : "Since 1.0.0",
         "operationId" : "find",
         "parameters" : [ {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "Sorting order of the search result",
-          "required" : false,
-          "type" : "string",
-          "default" : "name,asc",
-          "pattern" : "^name,asc|name,desc$",
-          "x-example" : ""
-        }, {
-          "name" : "stateCode",
-          "in" : "query",
-          "description" : "Filter venues by state / province code",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "countryCode",
-          "in" : "query",
-          "description" : "Filter venues by country code",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "keyword",
-          "in" : "query",
-          "description" : "Keyword to search on",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "id",
-          "in" : "query",
-          "description" : "Filter entities by its id",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "x-example" : ""
-        }, {
-          "name" : "source",
-          "in" : "query",
-          "description" : "Filter entities by its source name",
-          "required" : false,
-          "type" : "string",
-          "default" : "",
-          "enum" : [ "ticketmaster", " universe", " frontgate", " tmr" ],
-          "x-example" : ""
-        }, {
-          "name" : "includeTest",
-          "in" : "query",
-          "description" : "True if you want to have entities flag as test in the response. Only, if you only wanted test entities",
-          "required" : false,
-          "type" : "string",
-          "default" : "no",
-          "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", " no", " only" ],
-          "x-example" : ""
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale the response content will be returned",
@@ -778,10 +743,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Venue"
-              }
+              "type" : "object"
             }
           }
         }
@@ -804,15 +766,25 @@
           "description" : "Locale the response content will be returned",
           "required" : false,
           "type" : "string",
-          "default" : "en",
+          "default" : "en-us",
           "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : ""
+        }, {
+          "name" : "extensions",
+          "in" : "query",
+          "description" : "Return extension on entities within the response",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "enum" : [ "ticketmaster", " geolocation" ],
           "x-example" : ""
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Venue"
+              "type" : "object"
             }
           }
         }
@@ -826,27 +798,21 @@
         "startDateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "yyyy-MM-ddThh-mm-ssZ",
-          "description" : "Event's start access time"
+          "description" : "since[1.0.0]||Event's start access time"
         },
         "startApproximate" : {
           "type" : "boolean",
-          "position" : 1,
-          "description" : "Boolean flag to indicate whether or not the access start date is approximated",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the access start date is approximated",
           "default" : false
         },
         "endDateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "yyyy-MM-ddThh-mm-ssZ",
-          "position" : 2,
-          "description" : "Event's end access time"
+          "description" : "since[1.0.0]||Event's end access time"
         },
         "endApproximate" : {
           "type" : "boolean",
-          "example" : "yyyy-MM-ddThh-mm-ssZ",
-          "position" : 3,
-          "description" : "Boolean flag to indicate whether or not the access end date is approximated",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the access end date is approximated",
           "default" : false
         }
       },
@@ -885,7 +851,12 @@
         "type" : {
           "type" : "string",
           "description" : "Type of the entity",
-          "enum" : [ "event", "venue", "attraction" ]
+          "enum" : [ "event venue attraction" ]
+        },
+        "extensions" : {
+          "position" : 101,
+          "description" : "Attraction's extensions",
+          "$ref" : "#/definitions/AttractionExtensions"
         },
         "id" : {
           "type" : "string",
@@ -932,6 +903,14 @@
           "description" : "Attraction's classifications",
           "items" : {
             "$ref" : "#/definitions/Classification"
+          }
+        },
+        "relationships" : {
+          "type" : "array",
+          "position" : 70,
+          "description" : "Relationships on the entity, like if the entity is a duplicate of another one",
+          "items" : {
+            "$ref" : "#/definitions/Relationship"
           }
         },
         "test" : {
@@ -1015,15 +994,12 @@
     "DateTimeField" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "type" : {
-          "$ref" : "#/definitions/DateTimeFieldType"
-        },
-        "supported" : {
+        "lenient" : {
           "type" : "boolean",
           "default" : false
+        },
+        "durationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
           "type" : "integer",
@@ -1033,44 +1009,47 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "lenient" : {
-          "type" : "boolean",
-          "default" : false
-        },
-        "durationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/DateTimeFieldType"
+        },
+        "supported" : {
+          "type" : "boolean",
+          "default" : false
         }
       }
     },
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
+        "durationType" : {
+          "$ref" : "#/definitions/DurationFieldType"
         },
         "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
-          "$ref" : "#/definitions/DurationFieldType"
+        "name" : {
+          "type" : "string"
         }
       }
     },
     "DateTimeZone" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "string"
-        },
         "fixed" : {
           "type" : "boolean",
           "default" : false
+        },
+        "id" : {
+          "type" : "string"
         }
       }
     },
@@ -1099,6 +1078,14 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "name" : {
           "type" : "string"
         },
@@ -1108,14 +1095,6 @@
         "supported" : {
           "type" : "boolean",
           "default" : false
-        },
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -1131,21 +1110,17 @@
       "type" : "object",
       "properties" : {
         "localTime" : {
-          "example" : "yyyy-MM-dd",
-          "description" : "The event end time in local time",
+          "description" : "since[1.0.0]||The event end time in local time hh:mm:ss",
           "$ref" : "#/definitions/LocalTime"
         },
         "dateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "yyyy-MM-ddThh-mm-ssZ",
-          "position" : 1,
-          "description" : "The event end date time"
+          "description" : "since[1.0.0]||The event end date time"
         },
         "approximate" : {
           "type" : "boolean",
-          "position" : 2,
-          "description" : "Boolean flag to indicate whether or not the end date is approximated",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the end date is approximated",
           "default" : false
         }
       },
@@ -1174,7 +1149,7 @@
         "type" : {
           "type" : "string",
           "description" : "Type of the entity",
-          "enum" : [ "event", "venue", "attraction" ]
+          "enum" : [ "event venue attraction" ]
         },
         "extensions" : {
           "position" : 101,
@@ -1280,6 +1255,14 @@
             "$ref" : "#/definitions/Attraction"
           }
         },
+        "relationships" : {
+          "type" : "array",
+          "position" : 70,
+          "description" : "Relationships on the entity, like if the entity is a duplicate of another one",
+          "items" : {
+            "$ref" : "#/definitions/Relationship"
+          }
+        },
         "test" : {
           "type" : "boolean",
           "position" : 96,
@@ -1323,32 +1306,6 @@
       "type" : "object",
       "description" : "This class defines all possible extension on an event in the Discovery API"
     },
-    "EventImages" : {
-      "type" : "object",
-      "required" : [ "id", "type" ],
-      "properties" : {
-        "type" : {
-          "type" : "string",
-          "description" : "Type of the entity",
-          "enum" : [ "event" ]
-        },
-        "id" : {
-          "type" : "string",
-          "position" : 1,
-          "description" : "Unique id of the entity in the discovery API"
-        },
-        "images" : {
-          "type" : "array",
-          "position" : 2,
-          "description" : "Images of the entity",
-          "uniqueItems" : true,
-          "items" : {
-            "$ref" : "#/definitions/Image"
-          }
-        }
-      },
-      "description" : "This class defines an Event with only images view on the Discovery API"
-    },
     "EventSalesDates" : {
       "type" : "object",
       "properties" : {
@@ -1372,8 +1329,7 @@
       "properties" : {
         "code" : {
           "type" : "string",
-          "description" : "The event's status code",
-          "enum" : [ "onsale", "offsale", "canceled", "postponed", "rescheduled" ]
+          "description" : "since[1.0.0]||The event's status code"
         }
       },
       "description" : "This class defines Event's Status on the Discovery API"
@@ -1453,6 +1409,10 @@
     "Image" : {
       "type" : "object",
       "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Id of the image"
+        },
         "url" : {
           "type" : "string",
           "position" : 2,
@@ -1462,7 +1422,7 @@
           "type" : "string",
           "position" : 3,
           "description" : "Aspect ratio of the image",
-          "enum" : [ "16_9", "3_2", "4_3" ]
+          "enum" : [ "16_9", "3_3", "4_3" ]
         },
         "width" : {
           "type" : "integer",
@@ -1481,6 +1441,15 @@
           "position" : 6,
           "description" : "true if the image is not the event's image but a fallbak image",
           "default" : false
+        },
+        "domains" : {
+          "type" : "array",
+          "position" : 7,
+          "description" : "Domains on which this image should be displayed",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string"
+          }
         },
         "attribution" : {
           "type" : "string",
@@ -1507,9 +1476,6 @@
     "LocalTime" : {
       "type" : "object",
       "properties" : {
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
-        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -1530,11 +1496,8 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "fields" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/DateTimeField"
-          }
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
@@ -1547,6 +1510,12 @@
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/DateTimeFieldType"
+          }
+        },
+        "fields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DateTimeField"
           }
         }
       }
@@ -1712,7 +1681,7 @@
           "position" : 3,
           "description" : "Presale link URL"
         },
-        "startDateTime" : {
+        "start" : {
           "type" : "string",
           "format" : "date-time",
           "position" : 4,
@@ -1758,6 +1727,12 @@
     "Promoter" : {
       "type" : "object",
       "properties" : {
+        "internalProperties" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        },
         "id" : {
           "type" : "string",
           "description" : "Id of the promoter"
@@ -1858,44 +1833,35 @@
         "localDate" : {
           "type" : "string",
           "format" : "date",
-          "example" : "yyyy-MM-dd",
-          "description" : "The event start date in local date"
+          "description" : "since[1.0.0]||The event start date in local date yyyy-MM-dd"
         },
         "localTime" : {
-          "example" : "yyyy-MM-dd",
-          "position" : 1,
-          "description" : "The event end time in local time",
+          "description" : "since[1.0.0]||The event end time in local time hh:mm:ss",
           "$ref" : "#/definitions/LocalTime"
         },
         "dateTime" : {
           "type" : "string",
           "format" : "date-time",
-          "example" : "yyyy-MM-ddThh:mm:ssZ",
-          "position" : 2,
-          "description" : "The event start datetime"
+          "description" : "since[1.0.0]||The event start datetime"
         },
         "dateTBD" : {
           "type" : "boolean",
-          "position" : 3,
-          "description" : "Boolean flag to indicate whether or not the start date is TBD",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the start date is TBD",
           "default" : false
         },
         "dateTBA" : {
           "type" : "boolean",
-          "position" : 4,
-          "description" : "Boolean flag to indicate whether or not the start date is TBA",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the start date is TBA",
           "default" : false
         },
         "timeTBA" : {
           "type" : "boolean",
-          "position" : 5,
-          "description" : "Boolean flag to indicate whether or not the start time is TBA",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the start time is TBA",
           "default" : false
         },
         "noSpecificTime" : {
           "type" : "boolean",
-          "position" : 6,
-          "description" : "Boolean flag to indicate whether or not the event has no specific time",
+          "description" : "since[1.0.0]||Boolean flag to indicate whether or not the event has no specific time",
           "default" : false
         }
       },
@@ -1966,7 +1932,7 @@
         "type" : {
           "type" : "string",
           "description" : "Type of the entity",
-          "enum" : [ "event", "venue", "attraction" ]
+          "enum" : [ "event venue attraction" ]
         },
         "extensions" : {
           "position" : 101,
@@ -2046,7 +2012,7 @@
         "markets" : {
           "type" : "array",
           "position" : 28,
-          "description" : "Markets of the venue",
+          "description" : "Markets of he venue",
           "items" : {
             "$ref" : "#/definitions/Market"
           }
@@ -2073,25 +2039,13 @@
           "description" : "Social networks data",
           "$ref" : "#/definitions/Social"
         },
-        "boxOfficeInfo" : {
-          "position" : 31,
-          "description" : "Box office informations for the venue",
-          "$ref" : "#/definitions/VenueBoxOfficeInfo"
-        },
-        "parkingDetail" : {
-          "type" : "string",
-          "position" : 33,
-          "description" : "Venue parking info"
-        },
-        "accessibleSeatingDetail" : {
-          "type" : "string",
-          "position" : 35,
-          "description" : "Venue accessible seating detail"
-        },
-        "generalInfo" : {
-          "position" : 36,
-          "description" : "General informations on the venue",
-          "$ref" : "#/definitions/VenueGeneralInfo"
+        "relationships" : {
+          "type" : "array",
+          "position" : 70,
+          "description" : "Relationships on the entity, like if the entity is a duplicate of another one",
+          "items" : {
+            "$ref" : "#/definitions/Relationship"
+          }
         },
         "test" : {
           "type" : "boolean",
@@ -2101,32 +2055,6 @@
         }
       },
       "description" : "This class defines a Venue on the Discovery/Publish API"
-    },
-    "VenueBoxOfficeInfo" : {
-      "type" : "object",
-      "properties" : {
-        "phoneNumberDetail" : {
-          "type" : "string",
-          "position" : 1,
-          "description" : "Venue box office phone number"
-        },
-        "openHoursDetail" : {
-          "type" : "string",
-          "position" : 3,
-          "description" : "Venue box office opening hours"
-        },
-        "acceptedPaymentDetail" : {
-          "type" : "string",
-          "position" : 5,
-          "description" : "Venue box office accepted payment details"
-        },
-        "willCallDetail" : {
-          "type" : "string",
-          "position" : 7,
-          "description" : "Venue box office will call details"
-        }
-      },
-      "description" : "This class defines a Venue box office info"
     },
     "VenueExtensions" : {
       "type" : "object",
@@ -2138,22 +2066,6 @@
         }
       },
       "description" : "This class defines all possible extension on a venue in the Discovery API"
-    },
-    "VenueGeneralInfo" : {
-      "type" : "object",
-      "properties" : {
-        "generalRule" : {
-          "type" : "string",
-          "position" : 1,
-          "description" : "Venue general rules"
-        },
-        "childRule" : {
-          "type" : "string",
-          "position" : 3,
-          "description" : "Venue children rule"
-        }
-      },
-      "description" : "This class defines a Venue general info"
     }
   }
 }
