@@ -1020,9 +1020,6 @@
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "durationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
@@ -1030,6 +1027,9 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "durationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
@@ -1505,9 +1505,6 @@
     "LocalTime" : {
       "type" : "object",
       "properties" : {
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
-        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -1527,6 +1524,9 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
