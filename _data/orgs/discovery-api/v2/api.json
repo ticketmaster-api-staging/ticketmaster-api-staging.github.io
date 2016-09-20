@@ -1049,10 +1049,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
@@ -1505,9 +1505,6 @@
     "LocalTime" : {
       "type" : "object",
       "properties" : {
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
-        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -1527,6 +1524,9 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
