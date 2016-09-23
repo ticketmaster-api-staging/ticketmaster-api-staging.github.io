@@ -1017,7 +1017,7 @@
           "type" : "boolean",
           "default" : false
         },
-        "leapDurationField" : {
+        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "durationField" : {
@@ -1031,7 +1031,7 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "rangeDurationField" : {
+        "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "name" : {
@@ -1063,12 +1063,12 @@
     "DateTimeZone" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "string"
-        },
         "fixed" : {
           "type" : "boolean",
           "default" : false
+        },
+        "id" : {
+          "type" : "string"
         }
       }
     },
@@ -1097,13 +1097,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
@@ -1487,6 +1487,13 @@
     "LocalTime" : {
       "type" : "object",
       "properties" : {
+        "minuteOfHour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
+        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -1499,16 +1506,9 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "minuteOfHour" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
@@ -1534,6 +1534,9 @@
     "Locale" : {
       "type" : "object",
       "properties" : {
+        "language" : {
+          "type" : "string"
+        },
         "script" : {
           "type" : "string"
         },
@@ -1583,9 +1586,6 @@
           "type" : "string"
         },
         "displayName" : {
-          "type" : "string"
-        },
-        "language" : {
           "type" : "string"
         }
       }
