@@ -1017,9 +1017,6 @@
           "type" : "boolean",
           "default" : false
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
@@ -1032,6 +1029,9 @@
           "format" : "int32"
         },
         "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "name" : {
@@ -1049,10 +1049,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
@@ -1063,12 +1063,12 @@
     "DateTimeZone" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "string"
-        },
         "fixed" : {
           "type" : "boolean",
           "default" : false
+        },
+        "id" : {
+          "type" : "string"
         }
       }
     },
@@ -1097,13 +1097,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
@@ -1487,6 +1487,9 @@
     "LocalTime" : {
       "type" : "object",
       "properties" : {
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
+        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -1506,9 +1509,6 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
@@ -1534,6 +1534,9 @@
     "Locale" : {
       "type" : "object",
       "properties" : {
+        "language" : {
+          "type" : "string"
+        },
         "script" : {
           "type" : "string"
         },
@@ -1583,9 +1586,6 @@
           "type" : "string"
         },
         "displayName" : {
-          "type" : "string"
-        },
-        "language" : {
           "type" : "string"
         }
       }
