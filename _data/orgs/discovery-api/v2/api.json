@@ -974,7 +974,6 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
-          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -1017,9 +1016,6 @@
           "type" : "boolean",
           "default" : false
         },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
@@ -1030,6 +1026,9 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
@@ -1049,10 +1048,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
