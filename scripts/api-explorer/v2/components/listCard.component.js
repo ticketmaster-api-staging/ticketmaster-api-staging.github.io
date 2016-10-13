@@ -2,7 +2,7 @@ function listCard(params) {
 	self = this;
 }
 
-module.exports = ko.components.register('totalElements', {
+module.exports = ko.components.register('listCard', {
 	viewModel: listCard,
 	template:
 		`<section class="panel panel-primary">

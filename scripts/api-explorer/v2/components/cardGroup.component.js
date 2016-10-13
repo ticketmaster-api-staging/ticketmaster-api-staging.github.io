@@ -1,13 +1,13 @@
+
 function cardGroupComponent(params) {
 	self = this;
 
-	var index = params.index;
+	this.sectionIndex = params.sectionIndex;
 
 	this.colorClass = params.colorClass;
 	this.cards = params.cards;
-	this.id = {
-		'id': index
-	};
+	this.getMore = params.getMore;
+	this.groupIndex = params.groupIndex || 0;
 }
 
 cardGroupComponent.prototype.getKeyName = function (o, kofn) {
@@ -19,7 +19,7 @@ cardGroupComponent.prototype.setActive = function () {
 	this.isActive(!this.isActive());
 };
 
-cardGroupComponent.prototype.setActive = function (kofn) {
+cardGroupComponent.prototype.setIdex = function (kofn) {
 	if (typeof kofn !== 'function') return console.warn('NOT UNIQ INDEX FOR CARD!!!');
 	return '' + this.index + kofn();
 };
@@ -27,16 +27,19 @@ cardGroupComponent.prototype.setActive = function (kofn) {
 module.exports = ko.components.register('cardGroup', {
 	viewModel: cardGroupComponent,
 	template:
-	`<section data-bind="foreachprop: cards, attr: id" class="panel-group">
-
-			<span data-bind="text: console.log($data, typeof $data)"></span>
-			<!-- ko if: typeof $data === 'object' -->
-			<section data-bind="component: {name: 'card', params: {data: value, index: $index(), title: key, colorClass: $component.colorClass }}">Object</section>
-			<!-- /ko -->
-			
-			
-			<!-- ko if: typeof $data === 'object' && Array.isArray($data) -->
-			<section>Array</section>
-			<!-- /ko -->
-	</section>`
+	`<section data-bind="foreachprop: cards" class="panel-group">
+			<!-- ko if: console.log('object', $data) --><!-- /ko -->
+			<!-- ko component: {
+					name: 'card',
+					params: {
+						title: key,
+						cardIndex: $index(),
+						groupIndex: $component.groupIndex,
+						sectionIndex: $component.sectionIndex,
+						data: value,
+						colorClass: $component.colorClass,
+						getMore: $component.getMore
+					}
+				}--><!-- /ko -->
+		</section>`
 });

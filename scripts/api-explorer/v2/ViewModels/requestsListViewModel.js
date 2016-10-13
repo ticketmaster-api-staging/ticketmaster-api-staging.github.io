@@ -1,7 +1,7 @@
 var jsonHighlight = require('./../modules/json-highlight');
 var self;
+var slider = require('../modules/slider');
 
-var setSlider = require('../modules/slider');
 
 function RequestsListViewModel(requests, url) {
 	this.url = url;
@@ -28,33 +28,6 @@ function RequestsListViewModel(requests, url) {
 	this.requests.subscribe(this.updateModel, this);
 }
 
-
-RequestsListViewModel.prototype.getMore = function (parent, data, event) {
-	var groupComponent = this;
-	var slider = $(event.currentTarget).parents('.slider');
-	var component = $('<section data-bind="component: {name: \'card\', params: params}"></section>');
-	ko.applyBindings({
-		params: {
-			data: parent,
-			color: groupComponent.color,
-			index: groupComponent.index,
-			getMore: groupComponent.getMore,
-			url: groupComponent.url
-		}
-	}, component[0]);
-
-	slider.slick('slickAdd', component);
-};
-
-/**
- * Visibility flag for Clear btn
- * @returns {boolean}
- * @private
- */
-RequestsListViewModel.prototype._isVisible = function () {
-	return this.requests().length > 0;
-};
-
 /**
  * Update Viewmodel of request list
  * @param arr
@@ -71,10 +44,49 @@ RequestsListViewModel.prototype.updateModel = function (arr) {
 			}, obj);
 			return item;
 		});
+	slider.remove(self.viewModel().length);
 	self.viewModel(newModel);
 	setTimeout(function () {
+		slider.set(self.viewModel().length);
 		$('#show-details-0').trigger('click');
 	}, 10);
+};
+
+/**
+ * get details
+ * @param data
+ */
+RequestsListViewModel.prototype.getMore = function (data) {
+	var card = this;
+	var currentSlider = $('#slider-' + 0);
+	var component = $('<section data-bind="component: {name: \'cardGroup\', params: params}"></section>');
+	var curslick = currentSlider.slick('getSlick');
+	
+	ko.applyBindings({
+		params: {
+			cards: data,
+			colorClass: card.colorClass,
+			sectionIndex: card.sectionIndex,
+			groupIndex: card.groupIndex + 1,
+			// cardIndex: card.cardIndex,
+			getMore: card.getMore
+		}
+	}, component[0]);
+	
+	for (var i = curslick.slideCount - 1; i > card.groupIndex; i--) {
+		currentSlider.slick('slickRemove', i, false);
+	}
+	currentSlider.slick('slickAdd', component);
+	currentSlider.slick('slickNext');
+};
+
+/**
+ * Visibility flag for Clear btn
+ * @returns {boolean}
+ * @private
+ */
+RequestsListViewModel.prototype._isVisible = function () {
+	return this.requests().length > 0;
 };
 
 /**
