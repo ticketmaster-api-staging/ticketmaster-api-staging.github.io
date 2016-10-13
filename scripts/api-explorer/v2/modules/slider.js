@@ -1,6 +1,6 @@
 module.exports = function (selector) {
 	"use strict";
-``
+
 	$(selector).slick({
 		dots: false,
 		infinite: false,
@@ -38,5 +38,4 @@ module.exports = function (selector) {
 			}
 		]
 	});
-	// $(selector).find('button.slick-prev').trigger('click');
 };

@@ -231,7 +231,7 @@
 											</div>
 											<div data-bind="attr: {id: 'blocks-' + $index()}" role="tabpanel" class="tab-pane blocks active" id="blocks">
 												<div class="slider">
-													<section data-bind="component: {name: 'cardGroup', params: { data: blocks, color: color, index: $index(), getMore: $parent.getMore, url: $parent.url}}"></section>
+													<section data-bind="component: {name: 'cardGroup', params: { cards: res, colorClass: color, index: $index(), getMore: $parent.getMore, url: $parent.url}}"></section>
 												</div>
 											</div>
 										</div>

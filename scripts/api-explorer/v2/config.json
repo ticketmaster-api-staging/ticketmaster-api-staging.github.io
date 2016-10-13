@@ -1,0 +1,35 @@
+[
+    "Events": {
+        "isShown": true
+        "Items": [
+            {
+                sectionTitle: 'Event',
+            },
+            {
+                sectionTitle: 'Price Ranges',
+            },
+            {
+                sectionTitle: 'Promoter',
+            },
+            {
+                sectionTitle: 'Dates',
+            },
+            {
+                sectionTitle: 'Sales',
+            },
+            {
+                sectionTitle: 'Images',
+            },
+            {
+                sectionTitle: 'Venues',
+            },
+            {
+                sectionTitle: 'Attractions',
+            },
+            {
+                sectionTitle: 'Classifications',
+            }
+        ]
+    },
+    "Page": {}
+]

@@ -1,7 +1,7 @@
-var jsonHighlight = require('./../components/json-highlight');
+var jsonHighlight = require('./../modules/json-highlight');
 var self;
 
-var setSlider = require('../components/slider');
+var setSlider = require('../modules/slider');
 
 function RequestsListViewModel(requests, url) {
 	this.url = url;
@@ -67,27 +67,11 @@ RequestsListViewModel.prototype.updateModel = function (arr) {
 			var item =  $.extend({
 				color: self.colors[obj.index % self.colors.length],
 				active: ko.observable(false),
-				resHTML: ko.observable(''),
-				blocks: [
-					{
-						name: 'Events',
-						panelType: 'list-group',
-						items: ko.observableArray(Object.getProp(obj,'res._embedded.events') || []),
-						totalElements: ko.observable(Object.getProp(obj,'res.page.totalElements')||''),
-						isActive: ko.observable(false)
-					},
-					{
-						name: 'Page',
-						panelType: 'clear',
-						items: obj.error || obj.res.page,
-						isActive: ko.observable(false)
-					}
-				]
+				resHTML: ko.observable('')
 			}, obj);
 			return item;
 		});
 	self.viewModel(newModel);
-	setSlider('.slider');
 	setTimeout(function () {
 		$('#show-details-0').trigger('click');
 	}, 10);
