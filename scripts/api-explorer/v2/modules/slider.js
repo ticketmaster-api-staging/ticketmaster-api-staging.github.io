@@ -10,9 +10,10 @@ function slick(times) {
 			slidesToShow: 3,
 			slidesToScroll: 1,
 			variableWidth: true,
+			autoplay: false,
 			responsive: [
 				{
-					breakpoint: 1024,
+					breakpoint: 1200,
 					settings: {
 						variableWidth: true,
 						slidesToShow: 2,
@@ -22,17 +23,8 @@ function slick(times) {
 					}
 				},
 				{
-					breakpoint: 678,
+					breakpoint: 800,
 					settings: {
-						variableWidth: true,
-						slidesToShow: 2,
-						slidesToScroll: 1
-					}
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						centerMode: true,
 						variableWidth: true,
 						slidesToShow: 1,
 						slidesToScroll: 1

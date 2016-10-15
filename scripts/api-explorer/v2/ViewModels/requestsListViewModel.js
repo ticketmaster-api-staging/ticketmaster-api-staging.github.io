@@ -58,26 +58,35 @@ RequestsListViewModel.prototype.updateModel = function (arr) {
  */
 RequestsListViewModel.prototype.getMore = function (data) {
 	var card = this;
-	var currentSlider = $('#slider-' + 0);
+	var currentSlider = $('#slider-' + card.sectionIndex);
 	var component = $('<section data-bind="component: {name: \'cardGroup\', params: params}"></section>');
 	var curslick = currentSlider.slick('getSlick');
+	var newData = {};
+	
+	for (var key in data) {
+		if (!data.hasOwnProperty(key)) {
+			continue;
+		}
+		var val = data[key];
+		if (typeof val !== 'object') {
+			newData[data.name || Object.keys(data)[0]] = newData[data.name || Object.keys(data)[0]] || {};
+			newData[data.name || Object.keys(data)[0]][key] = val;
+		} else {
+			newData[key] = val;
+		}
+	}
+	
+	var params = $.extend({}, card, {cards: newData, groupIndex: card.groupIndex + 1});
 	
 	ko.applyBindings({
-		params: {
-			cards: data,
-			colorClass: card.colorClass,
-			sectionIndex: card.sectionIndex,
-			groupIndex: card.groupIndex + 1,
-			// cardIndex: card.cardIndex,
-			getMore: card.getMore
-		}
+		params: params
 	}, component[0]);
 	
-	for (var i = curslick.slideCount - 1; i > card.groupIndex; i--) {
+	currentSlider.slick('slickAdd', component);
+	for (var i = curslick.slideCount - 2; i > card.groupIndex; i--) {
 		currentSlider.slick('slickRemove', i, false);
 	}
-	currentSlider.slick('slickAdd', component);
-	currentSlider.slick('slickNext');
+	currentSlider.slick('slickNext', false);
 };
 
 /**

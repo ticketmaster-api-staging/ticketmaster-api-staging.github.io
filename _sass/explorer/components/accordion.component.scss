@@ -3,7 +3,7 @@ $border-radius: 7px;
 .tab-content {
 	.panel-group {
 		.panel {
-			min-width: 340px;
+			width: 340px;
 
 			margin: auto;
 			border-radius: 0;
@@ -170,22 +170,29 @@ $border-radius: 7px;
 				}
 				.clear {
 					padding: 15px;
-					.value {
-						font-size: 14px;
-						font-weight: normal;
-						font-style: normal;
-						font-stretch: normal;
-						line-height: 1.57;
-						color: #768692;
-						overflow-wrap: break-word;
-					}
-					.key {
-						@extend .value;
-						font-weight: bold;
-					}
 					* {
 						margin: 0 0 5px;
 					}
+				}
+				.value {
+					font-size: 14px;
+					font-weight: normal;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: 1.57;
+					color: #768692;
+					overflow-wrap: break-word;
+					display: inline-block;
+					max-width: 310px;
+					word-break: break-all;
+				}
+				.key {
+					font-size: 14px;;
+					font-style: normal;
+					font-stretch: normal;
+					line-height: 1.57;
+					color: #768692;
+					font-weight: bold;
 				}
 			}
 
