@@ -234,7 +234,8 @@
 												<!-- ko component: {
 														name: 'cardGroup',
 														params: {
-															cards: res,
+															reqId: res.id,
+															cards: res.res,
 															colorClass: color,
 															sectionIndex: $index(),
 															getMore: $parent.getMore,

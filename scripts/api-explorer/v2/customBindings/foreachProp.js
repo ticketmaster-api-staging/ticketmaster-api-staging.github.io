@@ -1,12 +1,26 @@
  module.exports = ko.bindingHandlers.foreachprop = {
-	transformObject: function (obj) {
+
+	transformObject: function (params) {
 		var properties = [];
+		var obj, sortFn = params.sortFn;
+
+		if (sortFn) {
+			obj = params.data;
+		} else {
+			obj = params;
+		}
+
 		ko.utils.objectForEach(obj, function (key, value) {
 			properties.push({
 				key: key,
 				value: value
 			});
 		});
+
+		if (sortFn) {
+			properties.sort(sortFn);
+		}
+
 		return properties;
 	},
 	init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

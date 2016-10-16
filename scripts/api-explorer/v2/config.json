@@ -1,35 +1,44 @@
-[
-    "Events": {
-        "isShown": true
-        "Items": [
+{
+  "discovery.v2.events.get": [
+    {
+      "title": "events",
+      "items": [
+        {
+          "title": "event"
+        },
+        {
+          "title": "images"
+        },
+        {
+          "title": "sales"
+        },
+        {
+          "title": "venues"
+        },
+        {
+          "title": "dates",
+          "items" : [
             {
-                sectionTitle: 'Event',
+              "title": "start"
             },
             {
-                sectionTitle: 'Price Ranges',
+              "title": "status"
             },
             {
-                sectionTitle: 'Promoter',
-            },
-            {
-                sectionTitle: 'Dates',
-            },
-            {
-                sectionTitle: 'Sales',
-            },
-            {
-                sectionTitle: 'Images',
-            },
-            {
-                sectionTitle: 'Venues',
-            },
-            {
-                sectionTitle: 'Attractions',
-            },
-            {
-                sectionTitle: 'Classifications',
+              "title": "end"
             }
-        ]
+          ]
+        }
+      ]
     },
-    "Page": {}
-]
+    {
+      "title": "page"
+    }
+  ],
+  "deprecated": [
+    "_links"
+  ],
+  "unwrapp": [
+    "_embedded"
+  ]
+}

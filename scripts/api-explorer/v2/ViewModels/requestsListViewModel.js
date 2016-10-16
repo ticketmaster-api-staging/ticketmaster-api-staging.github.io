@@ -2,7 +2,6 @@ var jsonHighlight = require('./../modules/json-highlight');
 var self;
 var slider = require('../modules/slider');
 
-
 function RequestsListViewModel(requests, url) {
 	this.url = url;
 	self = this;
@@ -23,7 +22,6 @@ function RequestsListViewModel(requests, url) {
 	this.requests = requests;
 	this.isActiveTab = ko.observable(false);
 	this.viewModel = ko.observableArray([]);
-	this.blocksViewModel = ko.observableArray([]);
 	this.clearBtnIsVisible = ko.computed(this._isVisible, this);
 	this.requests.subscribe(this.updateModel, this);
 }
@@ -37,11 +35,11 @@ RequestsListViewModel.prototype.updateModel = function (arr) {
 	
 	var newModel = this.requests()
 		.map(function (obj) {
-			var item =  $.extend({
+			var item =  $.extend({}, obj, {
 				color: self.colors[obj.index % self.colors.length],
 				active: ko.observable(false),
 				resHTML: ko.observable('')
-			}, obj);
+			});
 			return item;
 		});
 	slider.remove(self.viewModel().length);
@@ -69,8 +67,8 @@ RequestsListViewModel.prototype.getMore = function (data) {
 		}
 		var val = data[key];
 		if (typeof val !== 'object') {
-			newData[data.name || Object.keys(data)[0]] = newData[data.name || Object.keys(data)[0]] || {};
-			newData[data.name || Object.keys(data)[0]][key] = val;
+			newData[data.type || Object.keys(data)[0]] = newData[data.type || Object.keys(data)[0]] || {};
+			newData[data.type || Object.keys(data)[0]][key] = val;
 		} else {
 			newData[key] = val;
 		}
