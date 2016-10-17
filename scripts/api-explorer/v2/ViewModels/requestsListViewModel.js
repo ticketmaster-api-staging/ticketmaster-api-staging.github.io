@@ -57,10 +57,11 @@ RequestsListViewModel.prototype.updateModel = function (arr) {
 RequestsListViewModel.prototype.getMore = function (data) {
 	var card = this;
 	var currentSlider = $('#slider-' + card.sectionIndex);
-	var component = $('<section data-bind="component: {name: \'cardGroup\', params: params}"></section>');
+	var component = $('<section data-bind="component: {name: \'panel-group\', params: params}"></section>');
 	var curslick = currentSlider.slick('getSlick');
 	var newData = {};
 	
+	// gathering all primitive props in additional panel
 	for (var key in data) {
 		if (!data.hasOwnProperty(key)) {
 			continue;
@@ -74,17 +75,22 @@ RequestsListViewModel.prototype.getMore = function (data) {
 		}
 	}
 	
+	// extending additional data (copy)
 	var params = $.extend({}, card, {cards: newData, groupIndex: card.groupIndex + 1});
-	
+	// apply component data bindings
 	ko.applyBindings({
 		params: params
 	}, component[0]);
 	
+	// add slide with selected data
 	currentSlider.slick('slickAdd', component);
+	
+	// remove outstanding slides
 	for (var i = curslick.slideCount - 2; i > card.groupIndex; i--) {
 		currentSlider.slick('slickRemove', i, false);
 	}
-	currentSlider.slick('slickNext', false);
+	// move to next slide
+	currentSlider.slick('slickNext');
 };
 
 /**
@@ -117,6 +123,12 @@ RequestsListViewModel.prototype.getDetails = function (vm, event) {
 	this.active(!this.active());
 };
 
+/**
+ * Join string for id's
+ * @param s
+ * @param i
+ * @returns {string}
+ */
 RequestsListViewModel.prototype.getStr = function (s, i) {
 	var str = s;
 	var i1 = i ? i() : '';

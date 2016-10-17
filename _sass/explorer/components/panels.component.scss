@@ -4,9 +4,12 @@ $border-radius: 7px;
 	.panel-group {
 		.panel {
 			width: 340px;
-
 			margin: auto;
 			border-radius: 0;
+
+			ul {
+				margin: 0;
+			}
 			& + .panel {
 				margin-top: 1px;
 			}
@@ -39,8 +42,16 @@ $border-radius: 7px;
 						&:hover, &:active, &:focus {
 							color: #fff;
 						}
+						.white-shevron-up {
+							float: left;
+							margin: 0 10px 0 0;
+						}
 						.title {
-							margin: 0 0 0 10px;
+							margin: 0;
+							color: #fff;
+							&:first-letter {
+								text-transform: uppercase;
+							}
 						}
 					}
 					.counter {
@@ -107,6 +118,16 @@ $border-radius: 7px;
 						&:not(:first-child) {
 							border-top: solid 1px #b7c9d3;
 						}
+						&:hover,
+						&.active {
+							color: $white;
+							background: #009cde;
+							.btn {
+								background: {
+									image: url($img) !important;
+								}
+							}
+						}
 						.name {
 							display: inline-block;
 							font: {
@@ -119,7 +140,6 @@ $border-radius: 7px;
 							width: 230px;
 							padding: 0 10px 0 0;
 						}
-
 						.additional-info {
 							font: {
 								style: normal;
@@ -156,24 +176,21 @@ $border-radius: 7px;
 							z-index: 5;
 							margin-top: -10px;
 						}
-						&:hover,
-						&.active {
-							color: $white;
-							background: #009cde;
-							.btn {
-								background: {
-									image: url($img) !important;
-								}
-							}
+
+						.img {
+							max-width: 50px;
+							max-height: 35px;
 						}
 					}
 				}
+
 				.clear {
 					padding: 15px;
 					* {
 						margin: 0 0 5px;
 					}
 				}
+
 				.value {
 					font-size: 14px;
 					font-weight: normal;
@@ -193,6 +210,23 @@ $border-radius: 7px;
 					line-height: 1.57;
 					color: #768692;
 					font-weight: bold;
+				}
+				.img {
+					max-width: 100%;
+				}
+				.form-inline {
+					display: inline-block;
+					margin: 0;
+					padding: 0;
+					width: 50px;
+					background: #fff;
+
+					#pagination-input {
+						width: 100%;
+						padding: 0 7px;
+						height: 30px;
+						font-size: 12px;
+					}
 				}
 			}
 

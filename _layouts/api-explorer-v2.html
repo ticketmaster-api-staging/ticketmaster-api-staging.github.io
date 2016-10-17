@@ -230,19 +230,7 @@
 												<p data-bind="html: resHTML"></p>
 											</div>
 											<div data-bind="attr: {id: 'slider-' + $index()}" role="tabpanel" class="tab-pane blocks active" id="blocks">
-
-												<!-- ko component: {
-														name: 'cardGroup',
-														params: {
-															reqId: res.id,
-															cards: res.res,
-															colorClass: color,
-															sectionIndex: $index(),
-															getMore: $parent.getMore,
-															url: $parent.url,
-														}
-													}--><!-- /ko -->
-
+												<panel-group params="reqId: res.id, cards: res.res, colorClass: color, sectionIndex: $index, getMore: $parent.getMore, url: $parent.url"></panel-group>
 											</div>
 										</div>
 									</div>
@@ -258,7 +246,7 @@
 
 </div>
 
-<script src="{{'/scripts/components/api-key-service.js' | prepend: site.baseurl }}" async></script>
+<script src="{{'/scripts/components/api-key-service.js' | prepend: site.baseurl }}"></script>
 <script src="{{'/scripts/components/events-counter.js' | prepend: site.baseurl }}" async></script>
 <div id="footer" class="xs-center slice-top-left">
 	{% include partials/footer.html %}
