@@ -1013,13 +1013,7 @@
           "type" : "boolean",
           "default" : false
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
-        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
@@ -1029,6 +1023,12 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -1045,10 +1045,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
