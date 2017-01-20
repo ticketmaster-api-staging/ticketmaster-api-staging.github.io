@@ -360,7 +360,7 @@
           "required" : false,
           "type" : "string",
           "default" : "name,asc",
-          "pattern" : "^(name|date|name,date|date,name),(asc|desc)$",
+          "pattern" : "^(name|date|relevance|name,date|date,name),(asc|desc)$",
           "x-example" : ""
         }, {
           "name" : "latlong",
@@ -534,6 +534,14 @@
           "default" : "no if date parameter sent, yes otherwise",
           "pattern" : "^\\s*|yes|no|only$",
           "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "clientVisibility",
+          "in" : "query",
+          "description" : "Filter events by clientName",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
           "x-example" : ""
         }, {
           "name" : "keyword",
@@ -1055,10 +1063,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
