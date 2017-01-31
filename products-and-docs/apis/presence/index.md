@@ -85,6 +85,25 @@ presence/{version}/ticket/validate
         * `place` (string) - Section:Row:Seat for the ticket
         * `eventId` (string) - The event ID that the ticket is tied to
 
+#### Possible Statuses
+The following statuses will be returned by these endpoints
+
+| Status              | Description |
+| ------------------- | ----------- |
+| OKAY                | Ticket is entered |
+| EXIT                | Ticket was exited |
+| INTERNAL_SCAN       | Ticket was internal scanned |
+| NOT_FOUND           | Ticket was not found |
+| BAD_REQUEST         | The request was not valid |
+| ALREADY_ENTERED     | The ticket was already entered |
+| INVALID_TICKET      | Ticket is not valid |
+| START_RESTRICTION   | Scan violates start time rule |
+| END_RESTRICTION     | Scan violates end time rule |
+| SECTION_RESTRICTION | Scan violates section rule |
+| EVENT_RESTRICTION   | Scan violates event rule |
+| TOO_EARLY           | Event has not yet started |
+| TOO_LATE            | Event is over |
+
 {: .aside}
 >[JavaScript](#js)
 >[cURL](#curl)
@@ -201,6 +220,16 @@ presence/{version}/device/init
     - `serial` (string) - The serial number of the device
     - `model` (string) - The model name of the device
 
+#### Possible Statuses
+The following statuses will be returned by these endpoints
+
+| Status              | Description |
+| ------------------- | ----------- |
+| OKAY                | Device was configured |
+| NOT_FOUND           | Venue with the sent ID was not found |
+| BAD_REQUEST         | The request was not valid |
+
+
 {: .aside}
 >[JavaScript](#js)
 >[cURL](#curl)
@@ -308,6 +337,16 @@ presence/{version}/device
     - `gateName` (string) - The friendly name of the gate the device belongs to
     - `serial` (string) - The serial number of the device
     - `model` (string) - The model name of the device
+
+#### Possible Statuses
+The following statuses will be returned by these endpoints
+
+| Status              | Description |
+| ------------------- | ----------- |
+| OKAY                | Device information was found |
+| NOT_FOUND           | Device was not found |
+| BAD_REQUEST         | The request was not valid |
+
 
 {: .aside}
 >[JavaScript](#js)
