@@ -383,7 +383,7 @@ curl -X GET -H "Content-Type: application/json" -H "Accept: application/json" -H
 {: .reqres}
 
 {% highlight HTTP %}
-GET /presence/v1/device.json?{apikey}{venueId}{mac} HTTP/1.1
+GET /presence/v1/device.json?{apikey}&venueId=?&mac=? HTTP/1.1
 Host: app.ticketmaster.com
 {% endhighlight %}
 
