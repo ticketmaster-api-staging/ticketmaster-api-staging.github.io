@@ -29,6 +29,7 @@ script:
   - jekyll serve &
   - sleep 15 # give jekyll some time to start
   - rake travis:test --trace --verbose
+  - nvm install 6.9.1
   - npm i
   - npm run test-ci
 
