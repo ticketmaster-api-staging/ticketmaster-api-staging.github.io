@@ -33,6 +33,7 @@ after_success:
   - echo Success
   - rake travis:deploy --trace --verbose
   - rake travis:report --trace --verbose
+  - coveralls
 
 after_failure:
   - echo FAIL
