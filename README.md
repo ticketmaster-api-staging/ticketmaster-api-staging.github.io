@@ -4,6 +4,7 @@ Home to the [Ticketmaster Developer Portal](http://developer.ticketmaster.com/).
 
 ##  Build Status
 ![Build Status Images](https://travis-ci.org/ticketmaster-api-staging/ticketmaster-api-staging.github.io.svg)
+[![Coverage Status](https://coveralls.io/repos/github/mamax/ticketmaster-api-staging.github.io/badge.svg?branch=dev)](https://coveralls.io/github/mamax/ticketmaster-api-staging.github.io?branch=dev)
 
 ## Installation
 
