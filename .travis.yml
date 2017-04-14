@@ -29,7 +29,7 @@ script:
   - jekyll serve &
   - sleep 15 # give jekyll some time to start
   - rake travis:test --trace --verbose
-  - npm test
+  - npm test-ci
 
 after_success:
   - echo Success
@@ -43,7 +43,6 @@ after_failure:
 
 after_script:
   - echo AFTER_SCRIPT
-  - NODE_ENV=test jest --config config.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 
 notifications:
   email:

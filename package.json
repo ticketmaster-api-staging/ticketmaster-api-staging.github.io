@@ -21,7 +21,8 @@
     "start-watch": "jekyll serve --watch --incremental --force_polling --limit_posts 1",
     "webpack": "npm run build-swagger-api && webpack -w",
     "test": "node spec/jest.js --env=jsdom",
-		"build-swagger-api": "node ./bin/swagger-api-merge.js -i _data/orgs/multiple-test-api/v2/api-parts  -o _data/orgs/multiple-test-api/v2/api.json"
+    "build-swagger-api": "node ./bin/swagger-api-merge.js -i _data/orgs/multiple-test-api/v2/api-parts  -o _data/orgs/multiple-test-api/v2/api.json",
+    "test-ci": "node spec/jest.js --env=jsdom --coverage && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js"
   },
   "jest": {
     "moduleFileExtensions": [
