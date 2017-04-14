@@ -83,7 +83,9 @@
     "sass-lint": "^1.10.2",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.3.2",
-    "worker-loader": "^0.7.1"
+    "worker-loader": "^0.7.1",
+		"istanbul": "~0.2.4",
+		"coveralls": "~2.7.1"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
