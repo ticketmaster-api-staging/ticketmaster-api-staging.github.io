@@ -96,8 +96,6 @@
     "knockout-postbox": "^0.5.2",
     "knockout-scrollbar": "0.0.3",
     "knockout.validation": "^2.0.3",
-    "slick-carousel": "^1.6.0",
-		"istanbul": "~0.2.4",
-		"coveralls": "~2.7.1"
+    "slick-carousel": "^1.6.0"
   }
 }
