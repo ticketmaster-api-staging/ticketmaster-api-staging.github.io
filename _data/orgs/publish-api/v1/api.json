@@ -641,6 +641,7 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
+          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -693,16 +694,6 @@
     "DateTimeField" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "type" : {
-          "$ref" : "#/definitions/DateTimeFieldType"
-        },
-        "supported" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "lenient" : {
           "type" : "boolean",
           "default" : false
@@ -718,37 +709,47 @@
           "type" : "integer",
           "format" : "int32"
         },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/DateTimeFieldType"
+        },
+        "supported" : {
+          "type" : "boolean",
+          "default" : false
         }
       }
     },
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
         "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
+        },
+        "name" : {
+          "type" : "string"
         }
       }
     },
     "DateTimeZone" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "string"
-        },
         "fixed" : {
           "type" : "boolean",
           "default" : false
+        },
+        "id" : {
+          "type" : "string"
         }
       }
     },
@@ -770,6 +771,14 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
+        },
         "name" : {
           "type" : "string"
         },
@@ -779,14 +788,6 @@
         "supported" : {
           "type" : "boolean",
           "default" : false
-        },
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -1362,7 +1363,15 @@
         "chronology" : {
           "$ref" : "#/definitions/Chronology"
         },
+        "millisOfSecond" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "millisOfDay" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "secondOfMinute" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -1373,20 +1382,6 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "millisOfSecond" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "secondOfMinute" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "fields" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/DateTimeField"
-          }
         },
         "values" : {
           "type" : "array",
@@ -1400,6 +1395,12 @@
           "items" : {
             "$ref" : "#/definitions/DateTimeFieldType"
           }
+        },
+        "fields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DateTimeField"
+          }
         }
       }
     },
@@ -1409,22 +1410,13 @@
         "language" : {
           "type" : "string"
         },
+        "script" : {
+          "type" : "string"
+        },
         "country" : {
           "type" : "string"
         },
-        "displayCountry" : {
-          "type" : "string"
-        },
-        "displayLanguage" : {
-          "type" : "string"
-        },
-        "displayName" : {
-          "type" : "string"
-        },
-        "displayScript" : {
-          "type" : "string"
-        },
-        "displayVariant" : {
+        "variant" : {
           "type" : "string"
         },
         "extensionKeys" : {
@@ -1433,15 +1425,6 @@
           "items" : {
             "type" : "string"
           }
-        },
-        "iso3Country" : {
-          "type" : "string"
-        },
-        "iso3Language" : {
-          "type" : "string"
-        },
-        "script" : {
-          "type" : "string"
         },
         "unicodeLocaleAttributes" : {
           "type" : "array",
@@ -1457,7 +1440,25 @@
             "type" : "string"
           }
         },
-        "variant" : {
+        "iso3Language" : {
+          "type" : "string"
+        },
+        "iso3Country" : {
+          "type" : "string"
+        },
+        "displayLanguage" : {
+          "type" : "string"
+        },
+        "displayScript" : {
+          "type" : "string"
+        },
+        "displayCountry" : {
+          "type" : "string"
+        },
+        "displayVariant" : {
+          "type" : "string"
+        },
+        "displayName" : {
           "type" : "string"
         }
       }
