@@ -37,7 +37,7 @@ class TicketmasterMapWidget {
 
     get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
 
-    get widgetVersion() { return "1.0.0"; }
+    get widgetVersion() { return `${__VERSION__}`; }
 
     get geocodeUrl() { return "https://maps.googleapis.com/maps/api/geocode/json"; }
 
@@ -74,7 +74,6 @@ class TicketmasterMapWidget {
     }
 
     isConfigAttrExistAndNotEmpty(attr) {
-
         if( !this.config.hasOwnProperty(attr) || this.config[attr] === "undefined"){
             return false;
         }else if( this.config[attr] === ""){
@@ -191,7 +190,7 @@ class TicketmasterMapWidget {
             this.config = this.widgetRoot.attributes;
 
             this.eventsRoot = document.createElement("div");
-            this.eventsRoot.id = "map";
+            this.eventsRoot.classList.add("map");
             // this.eventsRoot.style.height = parseInt(parseInt(this.widgetHeight) + 25) + "px";
             this.eventsRoot.style.height = this.widgetHeight + "px";
             this.eventsRoot.style.width = this.config.width + "px";
@@ -539,7 +538,7 @@ class TicketmasterMapWidget {
             }
             else {
                 //alert("theme wasn't loaded");
-                console.log("theme wasn't loaded");
+                // console.log("theme wasn't loaded");
             }
         }
     }
@@ -661,7 +660,7 @@ class TicketmasterMapWidget {
 
                     var myLatLng = {lat: 34.0390107, lng: -118.2672801};
 
-                    var map = new google.maps.Map(document.getElementById('map'), {
+                    var map = new google.maps.Map(widget.widgetRoot.firstChild.firstChild, {
                         zoom: 4,
                         center: myLatLng,
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -732,39 +731,6 @@ class TicketmasterMapWidget {
             else {
                 widget.reduceParamsAndReloadEvents.call(widget);
                 console.log('something else other than 200 was returned');
-            }
-        }
-    }
-
-    publishEventsGroup(group, index){
-         let groupNodeWrapper = document.createElement("li");
-         groupNodeWrapper.classList.add("event-wrapper");
-         groupNodeWrapper.classList.add("event-group-wrapper");
-         groupNodeWrapper.style.width  = `${this.config.width - this.borderSize * 2}px`;
-         groupNodeWrapper.style.height = `${this.widgetContentHeight - this.borderSize * 2}px`;
-
-         let groupNode = document.createElement("ul");
-         groupNode.classList.add("event-group");
-         groupNode.classList.add("event-group-" + index);
-
-         group.map((event)=> {
-         this.publishEvent(event, groupNode)
-         });
-
-         groupNodeWrapper.appendChild(groupNode);
-         this.eventsRoot.appendChild(groupNodeWrapper);
-    }
-
-    publishEvent(event, parentNode){
-         parentNode = parentNode || this.eventsRoot;
-         let DOMElement = this.createDOMItem(event);
-         parentNode.appendChild(DOMElement);
-    }
-
-    getEventByID(id){
-        for(let index in this.events){
-            if(this.events.hasOwnProperty(index) && this.events[index].id === id){
-                return this.events[index]
             }
         }
     }
@@ -892,15 +858,6 @@ class TicketmasterMapWidget {
         return el;
     }
 
-    createBackgroundImage(event, img) {
-        if (!this.isListView) {
-            var image = document.createElement("span");
-            image.classList.add("bg-cover");
-            image.style.backgroundImage = `url('${img}')`;
-            event.appendChild(image);
-        }
-    }
-
     addBuyButton(domNode, url) {
         if (this.isListView) {
             let _urlValid = ( this.isUniversePluginInitialized && this.isUniverseUrl(url) ) || ( this.isTMPluginInitialized && this.isAllowedTMEvent(url) );
@@ -1003,7 +960,6 @@ class TicketmasterMapWidget {
         return `https://app.ticketmaster.com/discovery/v2/events/${id}/images.json`;
     }
 
-
     /*
      * Config block
      */
@@ -1076,3 +1032,7 @@ let widgetsMap = [];
 
 ga('create', 'UA-78315612-1', 'auto');
 ga('send', 'pageview');
+
+if(typeof module !== "undefined") {
+    module.exports = { TicketmasterMapWidget, widgetsMap };
+}

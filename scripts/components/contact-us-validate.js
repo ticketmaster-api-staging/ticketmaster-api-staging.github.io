@@ -14,12 +14,12 @@ var $modalAlert = $('#contact-alert-modal'),
 
 /*set new key for localhost*/
 function checkKey() {
-	var localhost = /(localhost:4000)+/ig,
+	var localhost = /(localhost:4000|127\.0\.0\.1)+/ig,
 		host = window.location.host;
 
 	if(localhost.test(host)){
-		formKey = '892e0c5e4c169c6128c7342614608330';
-		formKeyCC = '4dc5e322e62ad60d2b4ba5840a9c4e14';
+		formKey = '3d9f2df7bef3e8bc5d9323cbea36f4d0';
+		formKeyCC = '3d9f2df7bef3e8bc5d9323cbea36f4d0';
 	}
 }
 

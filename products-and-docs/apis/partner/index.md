@@ -69,7 +69,7 @@ The Ticketmaster back-end reservation systems are distributed globally and event
 
 ### Quota Policy
 
-The Partner API has a quota policy.This policy is applied for all the request following the pattern
+The Partner API has a quota policy.This policy is applied for all the request made to these endpoints
 
 /events/ or
 /events/{eventId}
@@ -86,7 +86,7 @@ The following headers are returned in the response add more information about th
 
 In addition to that the just <b>Availability End Point </b>(/event/{eventId}/availability)  has an updated quota policy.The restriction is <b>3600 requests/hour </b> for an apikey.If you get a 429 error code, it means that your request was aborted because of violation of quota policy.
 
-The following headers to the availability response add more information about the rate limit
+The following headers to the availability response add more information about the quota 
 
      Ratelimit-Expiry          :  The expiry time for the rate limit
      Ratelimit-Quota-Allowed   :  The total no of requests allowed
@@ -1215,7 +1215,20 @@ Status 200
                 "currentTicketLimit" : 6,
                 "eventTicketLimit" : 10,
                 "inventory" : [
-                    { "section" : "209", "row" : "B", "seats" : [ 2, 4, 6, 8, 10, 12, 16], "hasEvenOddMix" : false}
+                    { "section" : "209", "row" : "B", "seats" : [ 2, 4, 6, 8, 10, 12, 16],
+                      "areas": [
+		              {
+		                "description": "Right Side of Theatre",
+		                "name": "RIGHT",
+		                "areaId": "10"
+		              },
+		              {
+		                "description": "Main Floor-Orchestra Level",
+		                "name": "ORCH",
+		                "areaId": "5"
+		              }
+			         ],
+                    "hasEvenOddMix" : false}
                 ],
                 "offers" : [
                     {
@@ -1525,7 +1538,7 @@ Get shipping options available for this event.  Note: some API users will be pre
 /partners/v1/events/{event_id}/cart/shipping?apikey={apikey}&cart_id={cart_id}
 {: .code .red}
 
-*Polling: Yes*
+*Polling: No*
 
 ### Parameters
 
@@ -1616,7 +1629,7 @@ Add a shipping option to the event.  Note: some API users will be pre-configured
 /partners/v1/events/{event_id}/cart/shipping?apikey={apikey}&cart_id={cart_id}
 {: .code .red}
 
-*Polling: No*
+*Polling: Yes*
 
 ### Parameters
 
@@ -1969,6 +1982,13 @@ https://app.ticketmaster.com/partners/v1/events/0B004ED9FC825ACB/cart?apikey=GkB
         "sub_id2" : "4",
         "sub_id3" : "5"
     }
+    "attribute_overrides": { //Optional , to override the images for redemption and email. Contact Ticketmaster for access to override attributes.
+      "images": {
+        "email_1x": "http://s1.ticketm.net/dam/c/MUSIC_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+        "1x": "http://s1.ticketm.net/dam/c/MUSIC_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+        "web_1x": "http://s1.ticketm.net/dam/c/MUSIC_TABLET_LANDSCAPE_LARGE_16_9.jpg"
+      }
+    }
 }
 {% endhighlight %}
 
@@ -2267,7 +2287,6 @@ Status 200
                 "value": "2015-12-09T23:30:37Z"
             },
             "barcode_id": "8819624561542398",
-            "barcode_url": "https://api-intqa.ticketmaster.net/tap/endpoint/restv1/barcode/AES-1.0.0-0001-Q6SE4RS7ZJ3KCHQ62LUESAPPRMPPJME4HT6EV4F7LX7GSE5CIVMOGD35EGLNQ536LVDWUGVIIT6TY.png",
             "charges": [
                 {
                     "amount": {

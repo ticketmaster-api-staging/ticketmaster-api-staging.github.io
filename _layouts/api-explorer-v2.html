@@ -116,18 +116,7 @@
   </div>
 </div>
 
-<script>
-  var disqus_config = function () {
-    this.page.url = document.URL || "http://developer.ticketmaster.com/";
-    this.page.identifier = "{{page.title}}";
-  };
-  (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = '//ticketmasterapi.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
+{% include disqus.html %}
 	
 <div id="footer" class="xs-center slice-top-left">
 	{% include partials/footer.html %}
@@ -137,7 +126,11 @@
 	<a href="#"><span></span></a>
 </div>
 
+{%if site.local_test_apikeys == 'true' %}
+<script src="{{'/scripts/components/api-key-service-testKeys.js' | prepend: site.baseurl }}"></script>
+{%else%}
 <script src="{{'/scripts/components/api-key-service.js' | prepend: site.baseurl }}"></script>
+{%endif%}
 <script src="{{'/scripts/components/events-counter.js' | prepend: site.baseurl }}" async></script>
 <script src="{{'/scripts/pages/default.js' | prepend: site.baseurl }}"></script>
 <script src="{{'/scripts/components/scroll-top.js' | prepend: site.baseurl }}"></script>

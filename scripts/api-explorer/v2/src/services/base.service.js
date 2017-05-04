@@ -1,5 +1,14 @@
-var base = {};
+import countryOptions from './options/country.options';
+
+import readSwaggerJSON from './swagger.api.reader';
+
+import apiSourcesConfig from '../../api.sources';
+import apiSourcesConfigInternal from '../../api.sources-internal';
+
+import { isInternalUser } from './user.service';
+
 var CONFIG_URL = '../../scripts/api-explorer/apidescription.xml';
+
 
 var parseData = function (xml) {
 	var global = {};
@@ -38,7 +47,7 @@ var parseData = function (xml) {
 
 					var parameter = {
 						name: param.attr('name'),
-						doc: param.first('doc').text().trim(),
+						doc: param.find('doc').first().text().trim(),
 						style: param.attr('style'),
 						required: param.attr('required') === 'true',
 						default: param.attr('default') === 'none' && isSelect ? '' : param.attr('default'),
@@ -54,6 +63,11 @@ var parseData = function (xml) {
 								link: false
 							};
 						});
+					}
+
+					if(parameter.name === 'countryCode'){
+						parameter.select = true;
+						parameter.options = countryOptions;
 					}
 
 					method.parameters[parameter.name] = parameter;
@@ -89,21 +103,42 @@ var parseData = function (xml) {
 	return global;
 };
 
-//gets document from WADL configuration file
-var readFromWADL = function () {
-  $.ajax({
-    url: CONFIG_URL,
-    async : false,
-    dataType: "text",
-    success : function(response){
-      var xml = $.parseXML(response);
-			base = parseData(xml);
-    },
+/**
+ * Getting API Configuration depend on user role
+ * @returns {object}
+ */
+function getSwaggerSourcesConfig() {
+	return isInternalUser() ? apiSourcesConfigInternal : apiSourcesConfig;
+}
 
-    error: function(XMLHttpRequest, textStatus, errorThrown){
-      alert('Data Could Not Be Loaded - '+ textStatus);
-    }
-  });
+//gets document from WADL configuration file
+var readFromWADL = function (url) {
+  return $.ajax({
+    url: url,
+    async : false,
+    dataType: "text"
+  }).then(resp => parseData($.parseXML(resp)));
 };
-readFromWADL();
-module.exports = base;
+
+function readApiDataFromAPISources (sources) {
+  var result = {};
+  for (var cat in sources) {
+    let { api, meta } = sources[cat];
+    result[cat] = readSwaggerJSON(api, meta || {});
+  }
+  return result;
+}
+
+function getBaseData(){
+	var base = {};
+
+	var apiSourcesBase = readApiDataFromAPISources(getSwaggerSourcesConfig());
+	Object.assign(base, apiSourcesBase);
+
+	readFromWADL(CONFIG_URL).then(data => Object.assign(base, data, apiSourcesBase))
+	.fail(error => alert('Data Could Not Be Loaded - ' + error));
+
+	return base;
+}
+
+module.exports = getBaseData();

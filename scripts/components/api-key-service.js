@@ -3,18 +3,18 @@ var apiKeyService = {};
 
 (function () {
   var LIVE_KEYS = {
-    apiExplore: '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0',
+    apiExplore: '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0', 
     widgets: '5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG'
   };
 
   var STAGING_KEYS = {
-    apiExplore: 'RKkWdMNW8Isua8RNc5U87KjXXNct110K',
-    widgets: 'TQMbqzKDBbcCjAxC9SaKS1lg9D5Eousb'
+    apiExplore: '2Qa4W67WwEiu8ZNXpMbmVX2IGvTMJtIG',
+    widgets: 'y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1'
   };
 
   var LOCAL_KEYS = {
     apiExplore: 'B0JQHemR4Q569W9GcjHfhygRBRU3RvrL',
-    widgets: 'OmayHcE8b9GK5nHijxVG3gC5mrv5NLZV'
+		widgets: 'TQMbqzKDBbcCjAxC9SaKS1lg9D5Eousb'
   };
 
   var stagingPattern = /(ticketmaster-api-staging.github.io)+/ig;
@@ -52,8 +52,8 @@ var apiKeyService = {};
     return userApiKey;
   };
   
-  apiKeyService.getApiKeysCookie = function () {
-    var key = getCookie("tk-api-apps");
+  apiKeyService.getApiKeysCookie = function (coockieName) {
+    var key = getCookie(coockieName);//"tk-api-apps"
     if (!key) {return;}
 
     var userApiKey;

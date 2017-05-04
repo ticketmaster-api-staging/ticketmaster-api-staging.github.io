@@ -294,7 +294,7 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
       <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
     </tr>
     <tr>
-      <td style="text-align: center; background: rgb(255, 255, 255);" rowspan="9">
+      <td style="text-align: center; background: rgb(255, 255, 255);" rowspan="11">
         <a href="/products-and-docs/apis/commerce/">
           <img src="/assets/img/getting-started/ic-commerce-api.svg" alt="Commerce API">
         </a>
@@ -351,6 +351,20 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     </tr>
     <tr>
       <td style="text-align: left"><a href="/products-and-docs/apis/commerce/#select-deliveries">Select Deliveries</a></td>
+      <td style="text-align: center;border-right: 0px;" class="checked-td"></td>
+      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
+      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
+      <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
+    </tr>
+    <tr>
+      <td style="text-align: left;"><a href="/products-and-docs/apis/commerce/#get-payments">Get Payments</a></td>
+      <td style="text-align: center;border-right: 0px;" class="checked-td"></td>
+      <td style="text-align: center;border-right: 0px; border-left: 0px; " class="checked-td"></td>
+      <td style="text-align: center;border-right: 0px; border-left: 0px; "  class="checked-td"></td>
+      <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="/products-and-docs/apis/commerce/#get-options">Get Options</a></td>
       <td style="text-align: center;border-right: 0px;" class="checked-td"></td>
       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
@@ -463,27 +477,6 @@ The API also supports [Cross-Origin Resource Sharing (CORS)](http://en.wikipedia
     </tr>
     <tr>
       <td style="text-align: left"><a href="/products-and-docs/apis/partner/#poll">Poll</a></td>
-      <td style="text-align: center;border-right: 0px;"></td>
-      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
-      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
-      <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
-    </tr>
-    <tr>
-      <td style="text-align: center" rowspan="2">
-        <a href="/products-and-docs/apis/deals-api/">
-          <img src="/assets/img/getting-started/ic-cart.svg" alt="Deals API">
-        </a>
-        <h4 style="margin-top:11px;text-">Deals API</h4>
-        <span class="rect-label">PARTNER API</span>
-      </td>
-      <td style="text-align: left"><a href="/products-and-docs/apis/deals-api/#search-events-deals">Search for Events with Deals</a></td>
-      <td style="text-align: center;border-right: 0px;"></td>
-      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
-      <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
-      <td style="text-align: center;border-left: 0px;" class="checked-td"></td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="/products-and-docs/apis/deals-api/#search-events-specified-deals">Search for Events with a Specified Deal</a></td>
       <td style="text-align: center;border-right: 0px;"></td>
       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>
       <td style="text-align: center;border-right: 0px; border-left: 0px;" class="checked-td"></td>

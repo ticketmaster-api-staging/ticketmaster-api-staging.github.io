@@ -1,6 +1,8 @@
 import base from './base.service';
 import apikey from './apiKey.service';
 
+
+const HEADER_ACCEPT_LANGUAGE = 'en-US,en;q=0.8';
 /**
  * Rest service
  * Gets data from server
@@ -80,10 +82,12 @@ class RestService {
 	 * @returns {boolean}
 	 */
 	prepareUrl(_domain, _path, _selectedParams) {
+		this.apikeyActive = this.apikeyActive || ko.unwrap(this.apiKey.value);
 		let replacement,
 			url,
 			params,
-			selectedParams = ko.unwrap(_selectedParams || this.selectedParams);
+			selectedParams = ko.unwrap(_selectedParams || this.selectedParams)
+				.filter(item =>  item.value() !== 'none' && (item.value() || item.default));
 
 		let domain = _domain || this.selectedMethodData.base;
 		let path = _path || this.selectedMethodData.path;
@@ -91,10 +95,10 @@ class RestService {
 		params = selectedParams.filter(item => item.style === 'query');
 
 		// arr of template marks
-		replacement = path.match(/([^{]*?)\w(?=\})/gmi);
+		replacement = path.match(/([^{]*?)\w(?=\})/gmi) || [];
 
 		// arr of template params
-		var templatesArr = selectedParams.filter(item => item.style === 'template');
+		var templatesArr = selectedParams.filter(item => item.style === 'template' || item.style === 'path');
 
 		// replacement
 		replacement.forEach(val => {
@@ -105,7 +109,7 @@ class RestService {
 		// prepares params part of url
 		params = params.map(item => [item.name, ko.unwrap(item.value) || item.default].join('=')).join('&');
 
-		url = [domain, '/', path,  `?apikey=${this.apikeyActive}&`, params].join('');
+		url = [domain, '/', path.replace(/^\//,''),  `?apikey=${this.apikeyActive}&`, params].join('');
 
 		return encodeURI(url);
 	}
@@ -123,16 +127,24 @@ class RestService {
 			complete: callback
 		};
 		if (method === 'POST') {
-			obj.headers = $.extend(true, {}, this.getHeaders());
+			obj.headers = $.extend(true, this.getGeneralHeaders(), this.getHeaders());
 			let body = ko.unwrap(ko.unwrap(this.selectedParams).find(param => param.style === 'requestBody').value);
 			try {
 				obj.data = JSON.parse(body);
 			} catch (err) {
 				obj.data = {"body": body};
 			}
-
+		}
+		else {
+			obj.headers = this.getGeneralHeaders()
 		}
 		$.ajax(obj);
+	}
+
+	getGeneralHeaders () {
+		return {
+			'Accept-Language': HEADER_ACCEPT_LANGUAGE
+		}
 	}
 
 	getHeaders() {
