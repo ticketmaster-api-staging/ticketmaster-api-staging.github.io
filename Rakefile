@@ -80,8 +80,8 @@ namespace 'travis' do
         system 'git commit -m "TRAVIS BUILD COMMIT"'
         build_commit = system "git push origin #{SOURCE_BRANCH}"
         puts "Build commit: #{build_commit}"
-        File.delete '.git/credentials'
-        exit 0
+        #File.delete '.git/credentials'
+        #exit 0
       end
     end
 
