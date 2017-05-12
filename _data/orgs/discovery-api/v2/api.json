@@ -956,6 +956,42 @@
           "enum" : [ "yes", " no" ],
           "x-example" : ""
         }, {
+          "name" : "countryCode",
+          "in" : "query",
+          "description" : "Filter suggestions by country code",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "includeTBA",
+          "in" : "query",
+          "description" : "True, to include events with date to be announce (TBA)",
+          "required" : false,
+          "type" : "string",
+          "default" : "no if date parameter sent, yes otherwise",
+          "pattern" : "^\\s*|yes|no|only$",
+          "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "includeTBD",
+          "in" : "query",
+          "description" : "True, to include event with a date to be defined (TBD)",
+          "required" : false,
+          "type" : "string",
+          "default" : "no if date parameter sent, yes otherwise",
+          "pattern" : "^\\s*|yes|no|only$",
+          "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "segmentId",
+          "in" : "query",
+          "description" : "Filter suggestions by segment id",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used.",
@@ -1379,7 +1415,6 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
-          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -1467,10 +1502,10 @@
         "name" : {
           "type" : "string"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         }
       }
