@@ -9,6 +9,7 @@ const HEADER_ACCEPT_LANGUAGE = 'en-US,en;q=0.8';
  */
 let instance;
 
+
 class RestService {
 	constructor() {
 		if (!instance) {
