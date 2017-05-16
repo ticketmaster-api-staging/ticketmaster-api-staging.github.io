@@ -99,8 +99,8 @@ namespace 'travis' do
         puts "git status"
         system 'git status'
         puts "Build commit: #{build_commit}"
-        File.delete '.git/credentials'
-        exit 0
+        #File.delete '.git/credentials'
+        #exit 0
       end
     end
 
