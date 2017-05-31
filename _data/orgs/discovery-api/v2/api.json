@@ -79,7 +79,7 @@
           "type" : "string",
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", "no", "only" ],
+          "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
           "name" : "page",
@@ -221,7 +221,7 @@
           "type" : "string",
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", "no", "only" ],
+          "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
           "name" : "page",
@@ -447,11 +447,11 @@
         "parameters" : [ {
           "name" : "sort",
           "in" : "query",
-          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onsaleStartDate,asc'",
+          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onsaleStartDate,asc', 'id,asc'",
           "required" : false,
           "type" : "string",
           "default" : "relevance,desc",
-          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)$",
+          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)$",
           "x-example" : ""
         }, {
           "name" : "startDateTime",
@@ -709,7 +709,7 @@
           "type" : "string",
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", "no", "only" ],
+          "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
           "name" : "page",
@@ -1112,7 +1112,7 @@
           "type" : "string",
           "default" : "no",
           "pattern" : "^\\s*|yes|no|only$",
-          "enum" : [ "yes", "no", "only" ],
+          "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
           "name" : "page",
@@ -1240,6 +1240,17 @@
         }
       },
       "description" : "Event's Access Date"
+    },
+    "Accessibility" : {
+      "type" : "object",
+      "properties" : {
+        "info" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "Accessibility's information"
+        }
+      },
+      "description" : "Additional information for people who experience disabilities"
     },
     "Address" : {
       "type" : "object",
@@ -1484,12 +1495,12 @@
           "type" : "integer",
           "format" : "int32"
         },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
         },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
@@ -1742,6 +1753,11 @@
           "position" : 43,
           "description" : "Event's seatmap",
           "$ref" : "#/definitions/SeatMap"
+        },
+        "accessibility" : {
+          "position" : 44,
+          "description" : "Additional information for people who experience disabilities",
+          "$ref" : "#/definitions/Accessibility"
         },
         "classifications" : {
           "type" : "array",
