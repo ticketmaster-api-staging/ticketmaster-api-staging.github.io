@@ -17,7 +17,8 @@
         <java.version>1.8</java.version>
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
-        <webdriver.driver>firefox</webdriver.driver>
+        <webdriver.driver>chrome</webdriver.driver>
+				<chromedriver>2.28</chromedriver>
     </properties>
 
     <repositories>
@@ -96,10 +97,35 @@
     </dependencies>
     <build>
         <plugins>
+					<plugin>
+						<!--<groupId>org.apache.maven.plugins</groupId> -->
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-drivers-dependency</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.google.code</groupId>
+											<artifactId>chromedriver</artifactId>
+											<version>${chromedriver}</version>
+											<type>jar</type>
+											<overWrite>true</overWrite>
+											<outputDirectory>${basedir}/drivers/</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
