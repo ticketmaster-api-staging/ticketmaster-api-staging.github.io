@@ -1524,6 +1524,9 @@
           "type" : "boolean",
           "default" : false
         },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
