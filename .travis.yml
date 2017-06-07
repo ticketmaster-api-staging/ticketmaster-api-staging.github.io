@@ -56,9 +56,8 @@ before_install:
   - gem install github-pages
   - nvm install 7.10
   - wget -O /tmp/google-chrome-stable_current_amd64.deb $CHROME_SOURCE_URL
-  - sudo apt-get install libfontconfig1 libnspr4 libpango-1.14-0 libpangocairo-1.0-0 libstdc++6 fonts-liberation lsb-base4.1 libindicator7
+  - sudo apt-get install libfontconfig1 libnspr4 libpango-1.0-0 libstdc++6 fonts-liberation lsb-base libindicator7
   - sudo apt-get update
-  - sudo apt-get install libxss1 libappindicator1 libindicator7
   - sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 # - npm install -g galenframework-cli ignored as not needed already
   - /usr/bin/Xvfb :99 -ac -screen 0 1600x1366x16 -extension RANDR &
