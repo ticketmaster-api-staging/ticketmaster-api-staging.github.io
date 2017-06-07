@@ -1,6 +1,7 @@
 package com.tkmdpa.taf;
 
 import com.tkmdpa.taf.utils.OsCheck;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import net.serenitybdd.jbehave.SerenityStories;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,19 +40,19 @@ public class AcceptanceTestSuite extends SerenityStories {
     }
 
     private void setChromeDriverLinux32() {
-        System.setProperty("webdriver.chrome.driver", "drivers/linux/32bit/chromedriver");
+        ChromeDriverManager.getInstance().arch32().version("2.29").setup();
     }
 
     private void setChromeDriverLinux64() {
-        System.setProperty("webdriver.chrome.driver", "drivers/linux/64bit/chromedriver");
+        ChromeDriverManager.getInstance().arch64().version("2.29").setup();
     }
 
     private void setChromeDriverWindows() {
-        System.setProperty("webdriver.chrome.driver", "drivers/windows/chromedriver.exe");
+        ChromeDriverManager.getInstance().setup();
     }
 
     private void setChromeDriverOsx() {
-        System.setProperty("webdriver.chrome.driver", "drivers/osx/chromedriver");
+        ChromeDriverManager.getInstance().setup();
     }
 
 }
