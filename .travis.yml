@@ -58,6 +58,8 @@ before_install:
   - sudo apt-get update
   - wget -O /tmp/google-chrome-stable_current_amd64.deb $CHROME_SOURCE_URL
   - sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+  - sudo apt-get install -f
+  - sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 # - npm install -g galenframework-cli ignored as not needed already
   - /usr/bin/Xvfb :99 -ac -screen 0 1600x1366x16 -extension RANDR &
 
