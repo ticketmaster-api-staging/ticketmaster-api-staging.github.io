@@ -99,7 +99,7 @@ Now that we've imported the SDK into your project we can set up the views to dis
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="views-ios">
           <ul>
-              <li>Drag and drop a UIView from the Object Library in the Utility panel inside your UIViewController, then change the class to TMEventsView and Module to PresenceSDK</li>
+              <li>Drag and drop a UIView from the Object Library in the Utility panel inside your UIViewController, then change the class to PresenceSDKView and Module to PresenceSDK</li>
               <li>Position and size the view as desired before moving on</li>
           </ul>
 
@@ -115,7 +115,7 @@ Now that we've imported the SDK into your project we can set up the views to dis
           </ul>
 
         <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span>&lt;</span><span class="nt">android.support.constraint.ConstraintLayout</span>
-    <span class="nt">android</span><span style="color: blue">:id=</span><span class="nc">"@+id/presenceSDK"</span>
+    <span class="nt">android</span><span style="color: blue">:id=</span><span class="nc">"@+id/presenceSDKView"</span>
     <span class="nt">android</span><span style="color: blue">:layout_width=</span><span class="nc">"0dp"</span>
     <span class="nt">android</span><span style="color: blue">:layout_height=</span><span class="nc">"0dp"</span>
     <span class="nt">android</span><span style="color: blue">:layout_marginBottom=</span><span class="nc">"0dp"</span>
@@ -176,7 +176,7 @@ Now that we've imported the SDK into your project we can start to get it initali
            <li>Now we can create outlet view that we established in the previous step</li>
          </ul>
 
-         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">@IBOutlet weak var </span><span>eventsView: </span><span class="nb">TMEventsView</span><span>? = </span><span style="color: blue">nil</span></code></pre></figure>
+         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">@IBOutlet weak var </span><span>presenceSDKView: </span><span class="nb">PresenceSDKView</span><span>? = </span><span style="color: blue">nil</span></code></pre></figure>
 
          <ul>
            <li>Next we'll configure the SDK with your Ticketmaster credentials, this is best done in the viewDidLoad function of your view controller</li>
@@ -184,7 +184,7 @@ Now that we've imported the SDK into your project we can start to get it initali
 
          <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
     <span style="color: blue">super</span><span>.</span><span class="nb">viewDidLoad()</span>
-    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>(eventsView: </span><span class="nb">eventsView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
+    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
 
     <span>presenceSDK.</span><span class="nb">setHostConfig</span><span>(clientKey: </span><span class="nb">HOST_CLIENT_KEY</span><span>, 
                               clientIdentifer: </span><span class="nb">HOST_CLIENT_ID</span><span>, 
