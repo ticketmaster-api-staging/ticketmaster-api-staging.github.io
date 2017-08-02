@@ -184,7 +184,7 @@ Now that we've imported the SDK into your project we can start to get it initali
 
          <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
     <span style="color: blue">super</span><span>.</span><span class="nb">viewDidLoad()</span>
-    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
+    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>()</span>
 
     <span>presenceSDK.</span><span class="nb">setHostConfig</span><span>(clientKey: </span><span class="nb">HOST_CLIENT_KEY</span><span>, 
                               clientIdentifer: </span><span class="nb">HOST_CLIENT_ID</span><span>, 
@@ -199,6 +199,8 @@ Now that we've imported the SDK into your project we can start to get it initali
                               teamDisplayName: </span><span class="nb">ARCHTICS_SPORT_TEAM_NAME</span><span>, 
                               teamVenueId: </span><span class="nb">ARCHTICS_VENUE_ID</span><span>,           //Optional and can be nil
                               teamAttractionId: </span><span class="nb">ARCHTICS_ATTRACTION_ID</span><span>) //Optional and can be nil</span>
+
+    <span>presenceSDK.</span><span class="nb">start</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
 <span>}</span></code></pre></figure>
 
         </div>
@@ -211,28 +213,7 @@ Now that we've imported the SDK into your project we can start to get it initali
               <li>This activity needs to extend AppCompatActivity</li>
             </ul>
 
-             <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>PresenceSDK presenceSDK = </span><span style="color: blue">new </span><span>PresenceSDK(</span><span style="color: blue">this</span><span>, </span><span style="color: blue">new </span><span>TMLoginListener() {</span>
-    <span class="nb">@Override</span>
-    <span style="color: blue">public void </span><span>onLoginSuccessful(TMLoginApi.BackendName backendName, String accessToken) {
-        //Handle successful login     
-    }</span>
-    <span class="nb">@Override</span>
-    <span style="color: blue">public void </span><span>onLoginFailed(TMLoginApi.BackendName backendName, String errorMessage) {
-        //Handle failed login     
-    }</span>
-    <span class="nb">@Override</span>
-    <span style="color: blue">public void </span><span>onLoginCancelled(TMLoginApi.BackendName backendName) {
-        //Handle cancelled login     
-    }</span>
-    <span class="nb">@Override</span>
-    <span style="color: blue">public void </span><span>onLoginMethodUsed(TMLoginApi.BackendName backendName, TMLoginApi.LoginMethod method) {
-        //See the method that was used for login
-    }</span>
-     <span class="nb">@Override</span>
-    <span style="color: blue">public void </span><span>onLoginForgotPasswordClicked(TMLoginApi.BackendName backendName) {
-        //Handle forgot password clicked
-    }
-});</span></code></pre></figure>
+             <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>PresenceSDK presenceSDK = </span><span>PresenceSDK.getPresenceSDK(</span><span style="color: blue">this</span><span>);</span></code></pre></figure>
 
          <ul>
            <li>Next we'll configure the SDK with your Ticketmaster credentials, this is best done in the viewDidLoad function of your view controller</li>
@@ -256,7 +237,28 @@ Now that we've imported the SDK into your project we can start to get it initali
            <li>Now we can start the SDK using the AppCompatActivity and the ID of the layout from the previous step and the </li>
          </ul>
 
-          <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>presenceSDK.start(</span><span style="color: blue">this</span><span>, R.id.</span><span style="color: blue">presenceSDK</span><span>);</span></code></pre></figure>
+          <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>presenceSDK.start(</span><span style="color: blue">this</span><span>, R.id.</span><span style="color: blue">presenceSDK</span><span>, </span><span style="color: blue">new </span><span>TMLoginListener() {</span>
+    <span class="nb">@Override</span>
+    <span style="color: blue">public void </span><span>onLoginSuccessful(TMLoginApi.BackendName backendName, String accessToken) {
+        //Handle successful login     
+    }</span>
+    <span class="nb">@Override</span>
+    <span style="color: blue">public void </span><span>onLoginFailed(TMLoginApi.BackendName backendName, String errorMessage) {
+        //Handle failed login     
+    }</span>
+    <span class="nb">@Override</span>
+    <span style="color: blue">public void </span><span>onLoginCancelled(TMLoginApi.BackendName backendName) {
+        //Handle cancelled login     
+    }</span>
+    <span class="nb">@Override</span>
+    <span style="color: blue">public void </span><span>onLoginMethodUsed(TMLoginApi.BackendName backendName, TMLoginApi.LoginMethod method) {
+        //See the method that was used for login
+    }</span>
+     <span class="nb">@Override</span>
+    <span style="color: blue">public void </span><span>onLoginForgotPasswordClicked(TMLoginApi.BackendName backendName) {
+        //Handle forgot password clicked
+    }
+});</span></code></pre></figure>
         </div>
 
     </div>
