@@ -1,0 +1,180 @@
+#cloud-config
+write_files:
+  - path: "/aws/credentials"
+    permissions: "0644"
+    owner: "root"
+  - path: "/fluentd/etc/fluent.conf"
+    permissions: "0644"
+    owner: "root"
+    content: |
+      <source>
+        @type forward
+        port 24224
+      </source>
+      <filter ${class}.**>
+        @type parser
+        format json
+        key_name log
+        reserve_data true
+      </filter>
+      <filter ${class}.**>
+        @type concat
+        key log
+        stream_identity_key container_id
+        multiline_start_regexp /^-e:2:in `\/'/
+        multiline_end_regexp /^-e:4:in/
+      </filter>
+      <filter ${class}.**>
+        @type record_transformer
+        <record>
+          aws_region "${region}"
+          product_name "${product_name}"
+          environment_tag "${environment_tag}"
+          instance_id "#{ENV['INSTANCE_ID']}"
+          ip_address "$private_ipv4"
+        </record>
+      </filter>
+      <match ${class}.**>
+        type copy
+        # Uncomment this for debugging
+        # <store>
+        #   @type stdout
+        # </store>
+        <store>
+          @type "aws-elasticsearch-service"
+          type_name "application_log"
+          logstash_format true
+          include_tag_key true
+          tag_key "@log_name"
+          flush_interval 1s
+          buffer_chunk_limit 16m
+          buffer_queue_limit 64
+          reload_connections false
+          <endpoint>
+            url https://${elk_logs_endpoint}
+            region ${region}
+          </endpoint>
+        </store>
+      </match>
+coreos:
+  update:
+    reboot-strategy: off
+  units:
+    ## Prevent CoreOS auto update
+    -
+      name: update-engine.service
+      command: stop
+    -
+      name: locksmithd.service
+      command: stop
+
+    ## To see Journald logs live on the instance via port: 19531 against the instance IP
+    -
+      name: systemd-journal-gatewayd.socket
+      command: start
+      enable: yes
+    -
+      name: systemd-journal-gatewayd.service
+      command: start
+      enable: yes
+    -
+      name: node-exporter.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=node exporter
+        [Service]
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=node-exporter
+        ExecStartPre=/usr/bin/docker pull prom/node-exporter
+        ExecStart=/usr/bin/docker run --rm -p 9100:9100 -v "/proc:/host/proc" -v "/sys:/host/sys" -v "/:/rootfs" --net="host" prom/node-exporter -collector.procfs /host/proc -collector.sysfs /host/proc -collector.filesystem.ignored-mount-points "^/(sys|proc|dev|host|etc)($|/)"
+    -
+      name: cadvisor.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=cadvisor
+        [Service]
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=cadvisor
+        ExecStartPre=-/usr/bin/mkdir -p /srv/cadvisor
+        ExecStartPre=-/usr/bin/wget -O /srv/cadvisor/cadvisor ${cadvisor_url}
+        ExecStartPre=-/usr/bin/chmod +x /srv/cadvisor/cadvisor
+        ExecStart=/srv/cadvisor/cadvisor -port ${cadvisor_port}
+    -
+      name: instance_id.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=instance_id.service
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/sh -c "/usr/bin/echo -n INSTANCE_ID= > /tmp/instance_id.env"
+        ExecStart=/usr/bin/sh -c "curl http://169.254.169.254/latest/meta-data/instance-id >> /tmp/instance_id.env"
+    -
+      name: ${class}.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=${inventory_code_tag}
+        [Service]
+        TimeoutStartSec=120
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=${inventory_code_tag}
+        ExecStartPre=/usr/bin/mkdir -p ${ec2_log_dir}
+        ExecStartPre=/usr/bin/chmod o+rw ${ec2_log_dir}
+        ExecStartPre=/usr/bin/sh -c 'eval `docker run --rm -e AWS_REGION=us-east-1 -e REGISTRIES=tmhub.io ticketmaster/ecr-login-readonly`'
+        ExecStartPre=-/usr/bin/docker pull ${ecr_host}/${product_name}/${environment_tag}/${inventory_code_tag}:${artifact_version}
+        ExecStartPre=-/usr/bin/docker rm -f ${class}
+        ExecStart=/usr/bin/docker run \
+          -d \
+          -p ${instance_port}:${instance_port} \
+          --name ${class} \
+          --log-driver=fluentd --log-opt tag=${class} \
+          -v ${ec2_log_dir}:${docker_log_dir} \
+          -e REDIS_HOST="${redis_endpoint}" \
+          -e PORT="${instance_port}" \
+          -e CONFIG_PATH="${env_config_path}" \
+          ${artifact_repo}:${artifact_version}
+    -
+      name: fluentd.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=fluentd.service
+        JobTimeoutSec=600
+        Requires=instance_id.service
+        [Service]
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=fluentd.service
+        EnvironmentFile=/tmp/instance_id.env
+        ExecStartPre=/usr/bin/sh -c 'eval `docker run --rm -e AWS_REGION=us-east-1 -e REGISTRIES=tmhub.io ticketmaster/ecr-login-readonly`'
+        ExecStartPre=-/usr/bin/docker pull tmhub.io/identity/fluent
+        ExecStartPre=-/usr/bin/docker rm -f fluentd
+        ExecStart=/usr/bin/docker run \
+          --name fluentd \
+          -e S3_LOG=true \
+          -e S3_BUCKET=${s3_bucket_logs} \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v /fluentd/etc/fluent.conf:/fluentd/etc/fluent.conf \
+          -v ${ec2_log_dir}:${docker_log_dir} \
+          -v /var/log/position:/var/position \
+          -e ES_LOG=true \
+          -e ES_HOST=${elk_logs_endpoint} \
+          -e HOST_NAME=$private_ipv4 \
+          -e DEBUG=false \
+          -p 127.0.0.1:24224:24224 \
+          tmhub.io/identity/fluent
