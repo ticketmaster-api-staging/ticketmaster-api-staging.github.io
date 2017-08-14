@@ -12,6 +12,6 @@ ENV BUILD_DATE ${build_date}
 
 ADD static ./static
 
-ENTRYPOINT /usr/bin/node ./server.js
+ENTRYPOINT ./server.js
 
-# docker build -f ./docker/deploy.dockerfile --build-arg git_describe=`git describe --all --long` build_date=`date -u +%Y-%m-%dT%H:%M:%SZ` --tag controller .
+# docker build -f ./docker/deploy.dockerfile --build-arg --build-arg git_describe=`git describe --all --long` build_date=`date -u +%Y-%m-%dT%H:%M:%SZ` --tag controller .
