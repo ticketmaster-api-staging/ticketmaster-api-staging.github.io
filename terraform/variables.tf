@@ -26,9 +26,6 @@ variable "app_instance_ebs_optimized" {}
 variable "app_instance_artifact_version" {}
 variable "app_artifact_repo" {}
 
-variable "s3_bucket_logs" {}
-variable "elk_logs_endpoint" {}
-
 variable "asg_termination_policies" {
   default = "OldestLaunchConfiguration"
 }
@@ -46,8 +43,6 @@ variable "ec2_log_dir" { default = "/log" }
 variable "ecr_host" { default = "tmhub.io" }
 
 variable "docker_log_dir" { default = "/log" }
-variable "redis_endpoint" {}
-variable "env_config_path" {}
 
 
 variable "asg_health_check_type" {

@@ -3,59 +3,6 @@ write_files:
   - path: "/aws/credentials"
     permissions: "0644"
     owner: "root"
-  - path: "/fluentd/etc/fluent.conf"
-    permissions: "0644"
-    owner: "root"
-    content: |
-      <source>
-        @type forward
-        port 24224
-      </source>
-      <filter ${class}.**>
-        @type parser
-        format json
-        key_name log
-        reserve_data true
-      </filter>
-      <filter ${class}.**>
-        @type concat
-        key log
-        stream_identity_key container_id
-        multiline_start_regexp /^-e:2:in `\/'/
-        multiline_end_regexp /^-e:4:in/
-      </filter>
-      <filter ${class}.**>
-        @type record_transformer
-        <record>
-          aws_region "${region}"
-          product_name "${product_name}"
-          environment_tag "${environment_tag}"
-          instance_id "#{ENV['INSTANCE_ID']}"
-          ip_address "$private_ipv4"
-        </record>
-      </filter>
-      <match ${class}.**>
-        type copy
-        # Uncomment this for debugging
-        # <store>
-        #   @type stdout
-        # </store>
-        <store>
-          @type "aws-elasticsearch-service"
-          type_name "application_log"
-          logstash_format true
-          include_tag_key true
-          tag_key "@log_name"
-          flush_interval 1s
-          buffer_chunk_limit 16m
-          buffer_queue_limit 64
-          reload_connections false
-          <endpoint>
-            url https://${elk_logs_endpoint}
-            region ${region}
-          </endpoint>
-        </store>
-      </match>
 coreos:
   update:
     reboot-strategy: off
