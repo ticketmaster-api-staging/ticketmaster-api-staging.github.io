@@ -1,8 +1,8 @@
 #
 # This is required so the application can authenticate on the EC2 instance without using aws credentials
 #
-resource "aws_iam_role" "default" {
-  name = "${module.naming.aws_iam_role}-default"
+resource "aws_iam_role" "default-1" {
+  name = "${module.naming.aws_iam_role}-default-1"
 
   assume_role_policy = <<EOF
 {
@@ -25,7 +25,7 @@ EOF
 #
 resource "aws_iam_role_policy" "AmazonEC2ContainerRegistryReadOnly" {
   name   = "${module.naming.aws_iam_policy}-AmazonEC2ContainerRegistryReadOnly"
-  role   = "${aws_iam_role.default.id}"
+  role   = "${aws_iam_role.default-1.id}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -53,7 +53,7 @@ EOF
 #
 resource "aws_iam_role_policy" "AmazonCloudWatchFullAccess" {
   name   = "${format("%s.%s.%s", var.product_code_tag, var.environment_tag, var.aws_region)}-AmazonCloudWatchFullAccess"
-  role   = "${aws_iam_role.default.id}"
+  role   = "${aws_iam_role.default-1.id}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -73,10 +73,10 @@ EOF
 #
 # This is required so EC2 instance has an instance profile attached
 #
-resource "aws_iam_instance_profile" "default" {
+resource "aws_iam_instance_profile" "default-1" {
   name = "${module.naming.aws_iam_instance_profile}-ctrl"
 
   roles = [
-    "${aws_iam_role.default.id}",
+    "${aws_iam_role.default-1.id}",
   ]
 }
