@@ -20,7 +20,7 @@ build:
   stage: build
   image: node:6.5.0
   tags:
-    - docker
+    - tm-prod cicd build
   script:
     - NODE_ENV=development
     - npm install
@@ -36,7 +36,7 @@ build:
 dockerize-qa-build:
   stage: dockerize build
   tags:
-    - docker
+    - tm-prod cicd build
   script:
     - docker build -f ./docker/deploy.dockerfile --build-arg node_environment=qa --tag $QA_REPOSITORY:$CI_BUILD_REF .
     - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $QA_SHORTREPO
@@ -47,7 +47,7 @@ dockerize-qa-build:
 release-master:
   stage: release
   tags:
-    - docker
+    - tm-prod cicd build
   script:
     - docker pull $QA_REPOSITORY:$CI_BUILD_REF
     - docker tag $QA_REPOSITORY:$CI_BUILD_REF $QA_REPOSITORY:$CI_BUILD_REF
