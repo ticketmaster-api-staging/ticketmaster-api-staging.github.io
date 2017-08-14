@@ -14,4 +14,3 @@ ADD static ./static
 
 ENTRYPOINT /usr/bin/node ./server.js
 
-# docker build -f ./docker/deploy.dockerfile --build-arg --build-arg git_describe=`git describe --all --long` build_date=`date -u +%Y-%m-%dT%H:%M:%SZ` --tag controller .
