@@ -8,7 +8,7 @@ ADD static ./static
 
 ADD server.js ./
 
-RUN npm server.js
+RUN npm run start
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 
