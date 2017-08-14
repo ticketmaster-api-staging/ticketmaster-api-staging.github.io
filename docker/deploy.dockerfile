@@ -6,7 +6,7 @@ RUN npm install --only=prod
 
 ADD static ./static
 
-RUN npm ./server.js
+RUN npm run start
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 
