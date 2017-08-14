@@ -87,7 +87,7 @@ release-lock-master:
     - tm-nonprod terraformer
   script:
     - cd terraform
-    - terraformer tm-nonprod/qa1 release-lock
+    - terraformer tm-nonprod/qa1 release-lock -f
   when: manual 
   only:
     - master
