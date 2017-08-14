@@ -4,9 +4,7 @@ ADD package.json ./
 
 RUN npm install --only=prod
 
-
 ADD static ./static
-ADD data ./data
 
 ENTRYPOINT /usr/bin/node ./server.js
 
