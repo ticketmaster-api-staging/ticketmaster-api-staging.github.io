@@ -29,12 +29,8 @@ data "template_file" "userdata-app" {
     ecr_host            = "${var.ecr_host}"
     product_name        = "${var.product_name}"
     instance_port       = "${var.app_instance_port}"
-    redis_endpoint      = "${var.redis_endpoint}"
-    s3_bucket_logs      = "${var.s3_bucket_logs}"
     ec2_log_dir         = "${var.ec2_log_dir}"
     docker_log_dir      = "${var.docker_log_dir}"
-    elk_logs_endpoint   = "${var.elk_logs_endpoint}"
-    env_config_path     = "${var.env_config_path}"
   }
 }
 

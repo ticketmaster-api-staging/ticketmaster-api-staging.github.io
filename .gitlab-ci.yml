@@ -1,0 +1,69 @@
+stages:
+  - build
+  - dockerize build
+  - release
+  - deploy
+
+variables:
+  ECRHOST: "889199535989.dkr.ecr.us-east-1.amazonaws.com"
+
+  QA_SHORTREPO: "dpa-portal/qa1/ctrl"
+  QA_REPOSITORY: "$ECRHOST/$QA_SHORTREPO"
+
+  PREPROD_REPOSITORY: "$ECRHOST/$PREPROD_SHORTREPO"
+
+  VERSION: configs
+  TERRAFORMERIMAGE: "889199535989.dkr.ecr.us-east-1.amazonaws.com/ticketmaster/terraformer:v0.8.8_cd"
+
+# TODO add npm build and test tasks here
+build:
+  stage: build
+  image: node:6.5.0
+  tags:
+    - docker
+  script:
+    - NODE_ENV=development
+    - npm install
+    - echo -e '*n!package.json' > .dockerignore
+  artifacts:
+    untracked: true
+    expire_in: 1 day
+  except:
+    - tags
+
+### QA Environment Configuration
+
+dockerize-qa-build:
+  stage: dockerize build
+  tags:
+    - docker
+  script:
+    - docker build -f ./docker/deploy.dockerfile --build-arg node_environment=qa --tag $QA_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $QA_SHORTREPO
+    - docker push $QA_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master
+
+release-master:
+  stage: release
+  tags:
+    - docker
+  script:
+    - docker pull $QA_REPOSITORY:$CI_BUILD_REF
+    - docker tag $QA_REPOSITORY:$CI_BUILD_REF $QA_REPOSITORY:$CI_BUILD_REF
+    - docker push $QA_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master
+
+deploy-master:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-nonprod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-nonprod/qa1/terraform.tfvars
+    - terraformer tm-nonprod/qa1 apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - master

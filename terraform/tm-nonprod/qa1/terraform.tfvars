@@ -7,11 +7,11 @@ terraformer_bucket = "terraform.nonprod1.us-east-1.tmaws"
 
 aws_region = "us-east-1"
 account_tag = "tm-nonprod"
-product_code_tag = "PRD415"
+product_code_tag = "PRD1491"
 inventory_code_tag = "ctrl"
 environment_tag = "qa1"
 vpc = "qa"
-product_name = "ccp-schlesinger"
+product_name = "dpa-portal"
 
 zone = "nonprod-tmaws.io"
 public_zone = "nonprod-tmaws.io"
@@ -19,19 +19,14 @@ ssh_key = "cet-qa-east"
 enable_monitoring = "false"
 
 app_elb_internal = true
-app_elb_dns_alias_name = "sh-controller"
-app_instance_port = 80
+app_elb_dns_alias_name = "dpa-controller"
+app_instance_port = 8081
 app_instance_type = "t2.medium"
 app_instance_min_count = "1"
 app_instance_max_count = "1"
 app_instance_ebs_optimized = "false"
-app_artifact_repo = "tmhub.io/ccp-schlesinger/qa1/ctrl"
+app_artifact_repo = "tmhub.io/dpa-portal/qa1/ctrl"
 app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/healthcheck"
 
-redis_endpoint = "prd415-qa1-cache.i8ciyj.clustercfg.use1.cache.amazonaws.com"
-env_config_path= "/app/env/qa1.env"
-
 ec2_log_dir = "/log"
-elk_logs_endpoint="search-prd415-qa1-elk-dxdvhutoagyushscn3kjdhhzqa.us-east-1.es.amazonaws.com"
-s3_bucket_logs="prd415.tm-nonprod.ccp-schlesinger.qa1.us-east-1.tmaws-logs"
