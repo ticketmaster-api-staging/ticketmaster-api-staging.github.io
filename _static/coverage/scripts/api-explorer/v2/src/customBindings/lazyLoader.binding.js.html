@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/customBindings/lazyLoader.binding.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/customBindings</a> lazyLoader.binding.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>37/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.44% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>37/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">ko.bindingHandlers.lazyLoader = {
+	init: function(element, valueAccessor) {
+		let params = valueAccessor();
+		let name = params.name.toLowerCase();
+		let datesArr = [
+			'startDateTime',
+			'endDateTime',
+			'onsaleStartDateTime',
+			'onsaleEndDateTime'
+		];
+		let dateIndex = datesArr.indexOf(params.name);
+&nbsp;
+		let selector = name === 'venueid' ? 'venues' : name === 'attractionid' ? 'attractions': '';
+		let type = name === 'classificationid' ? 'id' : name === 'classificationname' ? 'name' : '';
+&nbsp;
+		if (dateIndex !== -1) {
+			addCalendar();
+		} else if (selector || type) {
+			selector ? $(element).lazySelector({selector}) : $(element).classificationSelector({selector:'classifications', use: type});
+&nbsp;
+			$(element).on('change', function() {
+				params.val($(this).val())
+			})
+		} else <span class="missing-if-branch" title="else path not taken" >E</span>if(params.name.toLowerCase() === 'latlong'){
+			addLatlong();
+		}
+		
+		function addCalendar() {
+			let btn = $('&lt;button class="custom-input__button"&gt;&amp;nbsp;&lt;/button&gt;');
+			let label = datesArr[dateIndex];
+			let selector = $(element);
+&nbsp;
+			selector.after(btn);
+			btn.on( "click", function() {
+				NewCssCal(label, 'yyyyMMdd', 'dropdown', true, '24');
+			});
+&nbsp;
+			selector.on('onchange', function() {
+				params.val($(this).val())
+			})
+		}
+		
+		function addLatlong() {
+			let $input = $(element),
+				btnLatlong = $('&lt;a href="#" id="js_widget_modal_map__open" class="latlong-picker"&gt;&lt;/a&gt;'),
+				$widgetModalMap = $('#js_widget_modal_map');
+&nbsp;
+			$input.after(btnLatlong);
+&nbsp;
+			btnLatlong.on('click', function(e){
+				e.preventDefault();
+				$widgetModalMap.modal('show');
+				google.maps.event.trigger(map_latlong, 'resize');
+			});
+&nbsp;
+			$('#js_widget_modal_map').on('shown.bs.modal', function() {
+				google.maps.event.trigger(map_latlong, 'resize');
+				/*set senter on map_open*/
+				/*
+				var tmp_currentLatLng = $input.val().split(','); //document.getElementById('latlong').value.split(',');
+				var currentLatLng = new google.maps.LatLng(parseInt(tmp_currentLatLng[0].replace(/\s+/g, ''))||49.2336287, parseInt(tmp_currentLatLng[1].replace(/\s+/g, ''))||28.4669495);
+				map_latlong.setCenter(currentLatLng);
+				*/
+			});
+&nbsp;
+			$('#js_widget_modal_map__close').on('click', function(){
+				$widgetModalMap.modal('hide');
+				$input.val($input.val().replace(/\s+/g, ''));
+				params.val($input.val()); //instead of 'onchange'
+			});
+&nbsp;
+		}
+	}
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

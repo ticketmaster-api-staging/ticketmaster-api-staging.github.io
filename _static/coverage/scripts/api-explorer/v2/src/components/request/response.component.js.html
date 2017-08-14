@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/components/request/response.component.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/components/request</a> response.component.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>36/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>36/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">class ResponseComponent{
+	constructor({data, index, config, setParams, getRandomColor}) {
+		this.index = ko.unwrap(index);
+		this.data = data;
+		this.hasResponse = !!data.response;
+		this.resHTML = data.resHTML;
+		this.color = data.color;
+		this.config = config;
+		this.setParams = setParams;
+		this.response = data.response;
+		this.req = data.req;
+&nbsp;
+		this.breadcrubsArr = [];
+		this.breadcrumbs = ko.observable('');
+&nbsp;
+		this.attrs = {
+			wrapper: {
+				id: `collapse-${this.index}`,
+				'aria-labelledby': `heading-${this.index}`,
+			},
+			tabs: {
+				json: {
+					href: `#json-${this.index}`,
+					'aria-controls': `json-${this.index}`
+				},
+				blocks: {
+					href: `#slider-${this.index}`,
+					'aria-controls': `blocks-${this.index}`
+				}
+			},
+			view: {
+				json: {
+					id: `json-${this.index}`
+				},
+				blocks: {
+					id: `slider-${this.index}`
+				}
+			}
+		};
+&nbsp;
+		ko.postbox.subscribe('ANOTHER_RESPONSE', ({data, panelGroup, color}) =&gt; {
+			let response = panelGroup.prepareData({params: {data: data.response}});
+			this.getMore({
+				id: panelGroup.groupIndex,
+				data: response,
+				pGroup: panelGroup,
+				color
+			});
+		});
+	}
+&nbsp;
+	/**
+	 * get details
+	 */
+	getMore = ({panel = {}, id, data, pGroup, color}) =&gt; {
+		let panelGroup = pGroup || <span class="branch-1 cbranch-no" title="branch not covered" >panel.panelGroup;</span>
+		let currentSlider = $('#slider-' + panelGroup.sectionIndex);
+		let component = $('&lt;section data-bind="component: {name: \'panel-group\', params: params}"&gt;&lt;/section&gt;');
+		let curslick = currentSlider.slick('getSlick');
+&nbsp;
+		// extending additional data (copy)
+		let params = $.extend({}, panelGroup, {
+			data: data,
+			groupIndex: panelGroup.groupIndex + 1,
+			_propTitle: typeof id === 'string' &amp;&amp; id || 'object',
+			config: panel.config,
+			colorClass: color
+		});		
+&nbsp;
+		// apply component data bindings
+		ko.applyBindings({
+			params: params
+		}, component[0]);
+&nbsp;
+		// build breadcrubs
+		this.buildBreadcrumbs({index: panelGroup.groupIndex, parent: panel._panelName, current: id});
+&nbsp;
+		// add slide with selected data
+		currentSlider.slick('slickAdd', component);
+		// remove outstanding slides
+		for (var i = curslick.slideCount - 2; i &gt; panelGroup.groupIndex; i--) {
+			currentSlider.slick('slickRemove', i, false);
+		}
+		// move to next slide
+		setTimeout(() =&gt; {
+			currentSlider.slick('slickNext');
+		}, 310);
+	};
+&nbsp;
+	buildBreadcrumbs({index, parent, current}) {
+		let str = index ? '/' : <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+&nbsp;
+		if (typeof current === 'number') {
+			str += `${parent}[${current}]`
+		} else {
+			str += `${parent}/${current}`
+		}
+		this.breadcrubsArr[index] = str;
+		this.breadcrubsArr.length = index + 1;
+&nbsp;
+		this.breadcrumbs(this.breadcrubsArr.join(''));
+	}
+}
+&nbsp;
+ko.components.register('response-component', {
+	viewModel: ResponseComponent,
+	template:`
+		&lt;!-- ko if: hasResponse --&gt;
+		&lt;section class="response collapse" data-bind="attr: attrs.wrapper" role="tabpanel"&gt;
+				&lt;div class="row-container"&gt;
+				
+					&lt;!-- Nav tabs --&gt;
+					&lt;ul class="nav nav-tabs tabs-controlls" role="tablist"&gt;
+						&lt;li role="presentation" class="tab"&gt;
+							&lt;a data-bind="attr: attrs.tabs.json" class="tab-btn" href="#json" aria-controls="json" role="tab" data-toggle="tab"&gt;Json&lt;/a&gt;
+						&lt;/li&gt;
+						&lt;li role="presentation" class="tab active"&gt;
+							&lt;a data-bind="attr: attrs.tabs.blocks" class="tab-btn" href="#blocks" aria-controls="blocks" role="tab" data-toggle="tab"&gt;Blocks&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
+					
+					&lt;ul class="nav nav-tabs info"&gt;
+						&lt;li class="tab"&gt;
+							&lt;div class="tab-label"&gt;
+								&lt;span data-bind="visible: breadcrumbs"&gt;Structure:&lt;/span&gt;
+							&lt;/div&gt;
+						&lt;/li&gt;
+						&lt;li class="tab"&gt;
+							&lt;span data-bind="text: breadcrumbs" class="tab-label breadcrumbs truncate"&gt;&lt;/span&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
+&nbsp;
+					&lt;!-- Tab panes --&gt;
+					&lt;div class="row"&gt;
+						&lt;div class="tab-content col-xs-12"&gt;
+							&lt;!-- json --&gt;
+							&lt;div data-bind="scroll: {x: false, y: true}, attr: attrs.view.json" role="tabpanel" class="tab-pane prety-json" id="json"&gt;
+								&lt;p data-bind="html: resHTML"&gt;&lt;/p&gt;
+							&lt;/div&gt;
+							&lt;!-- blocks --&gt;
+							&lt;div data-bind="attr: attrs.view.blocks" role="tabpanel" class="tab-pane blocks active" id="blocks"&gt;
+								&lt;panel-group params="
+									category: data.category,
+									method: data.method,
+									methodId: data.methodId,
+									params: data.params,
+									data: data.response,
+									colorClass: data.color,
+									sectionIndex: index,
+									filter: config,
+									setParams: setParams,
+									getMore: getMore
+									"&gt;
+								&lt;/panel-group&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+		&lt;/section&gt;
+		&lt;!-- /ko --&gt;	
+`});
+&nbsp;
+module.exports = ResponseComponent;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,3149 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for products-and-docs/widgets/map/1.0.0/src/main-widget.es6</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\index.html">All files</a> / <a href="index.html">products-and-docs/widgets/map/1.0.0/src</a> main-widget.es6
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.78% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>434/518</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.98% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>148/235</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.52% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>71/84</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.07% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>417/496</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">293x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">128x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class TicketmasterMapWidget {
+&nbsp;
+    set config(attrs) { this.widgetConfig = this.loadConfig(attrs); }
+    get config() { return this.widgetConfig; }
+&nbsp;
+    set events(responce){ this.eventsList = this.parseEvents(responce);}
+    get events(){ return this.eventsList;}
+&nbsp;
+    get isSimpleProportionM() { return this.config.proportion === 'm'}
+    get borderSize(){ return this.config.border || 0;}
+    get widgetHeight(){ return this.config.height || 600;}
+&nbsp;
+    get widgetContentHeight() {
+        // return this.widgetHeight - (this.isListView || this.isSimpleProportionM ? 0 : 39) || 600;
+        return this.widgetHeight;
+    }
+&nbsp;
+    get eventUrl(){ return "https://www.ticketmaster.com/event/"; }
+&nbsp;
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+&nbsp;
+    get themeUrl() {
+        return (window.location.host === 'developer.ticketmaster.com')
+            ? `https://developer.ticketmaster.com/products-and-docs/widgets/map/1.0.0/theme/`
+            : `https://ticketmaster-api-staging.github.io/products-and-docs/widgets/map/1.0.0/theme/`;
+    }
+&nbsp;
+    get portalUrl(){
+        return (window.location.host === 'developer.ticketmaster.com')
+            ? `https://developer.ticketmaster.com/`
+            : `https://ticketmaster-api-staging.github.io/`;
+    }
+&nbsp;
+    get logoUrl() { return "https://www.ticketmaster.com/"; }
+&nbsp;
+    get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
+&nbsp;
+    get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
+&nbsp;
+    get widgetVersion() { return `${__VERSION__}`; }
+&nbsp;
+    get geocodeUrl() { return "https://maps.googleapis.com/maps/api/geocode/json"; }
+&nbsp;
+    get updateExceptions() { return ["width", "height", "border", "borderradius", "colorscheme", "layout", "affiliateid", "propotion", "googleapikey", "latlong"]}
+&nbsp;
+    get hideMessageDelay(){ return 5000; }
+&nbsp;
+    get controlHiddenClass(){ return "events_control-hidden"; }
+&nbsp;
+    get tmWidgetWhiteList(){ return ["2200504BAD4C848F", "00005044BDC83AE6", "1B005068DB60687F", "1B004F4DBEE45E47", "3A004F4ED7829D5E", "3A004F4ED1FC9B63", "1B004F4FF83289C5", "1B004F4FC0276888", "0E004F4F3B7DC543", "1D004F4F09C61861", "1600505AC9A972A1", "22004F4FD82795C6", "01005057AFF54574", "01005056FAD8793A", "3A004F4FB2453240", "22004F50D2149AC6", "01005059AD49507A", "01005062B4236D5D"]; }
+&nbsp;
+    get countriesWhiteList() {
+        return [
+            'Australia',
+            'Austria',
+            'Belgium',
+            'Canada',
+            'Denmark',
+            'Finland',
+            'France',
+            'Germany',
+            'Ireland',
+            'Mexico',
+            'Netherlands',
+            'New Zealand',
+            'Norway',
+            'Spain',
+            'Sweden',
+            'Turkey',
+            'UAE',
+            'United Kingdom',
+            'United States'
+        ]
+    }
+&nbsp;
+    isConfigAttrExistAndNotEmpty(attr) {
+        if( !this.config.hasOwnProperty(attr) || this.config[attr] === "undefined"){
+            return false;
+        }else if( this.config[attr] === ""){
+            return false;
+        }
+        return true;
+    }
+&nbsp;
+    get eventReqAttrs(){
+        let mapWidgetRoot = this.eventsRootContainer.parentNode;
+        let attrs = {},
+            params = [
+                {
+                    attr: 'tmapikey',
+                    verboseName: 'apikey'
+                },
+                {
+                    attr: 'latlong',
+                    verboseName: 'latlong'
+                },
+                {
+                    attr: 'postalcode',
+                    verboseName: 'postalCode'
+                },
+                {
+                    attr: 'keyword',
+                    verboseName: 'keyword'
+                },
+                {
+                    attr: 'size',
+                    verboseName: 'size'
+                },
+                {
+                    attr: 'radius',
+                    verboseName: 'radius'
+                },
+                {
+                    attr: 'attractionid',
+                    verboseName: 'attractionId'
+                },
+                {
+                    attr: 'promoterid',
+                    verboseName: 'promoterId'
+                },
+                {
+                    attr: 'venueid',
+                    verboseName: 'venueId'
+                },
+                {
+                    attr: 'classificationname',
+                    verboseName: 'classificationName'
+                },
+                {
+                    attr: 'city',
+                    verboseName: 'city'
+                },
+                {
+                    attr: 'countrycode',
+                    verboseName: 'countryCode'
+                },
+                {
+                    attr: 'source',
+                    verboseName: 'source'
+                }
+            ];
+&nbsp;
+        for(let i in params){
+            let item = params[i];
+            if(this.isConfigAttrExistAndNotEmpty(item.attr))
+                attrs[item.verboseName] = this.config[item.attr];
+        }
+&nbsp;
+        if(this.config.latlong){
+            attrs.latlong = this.config.latlong;
+        }
+&nbsp;
+        if(this.config.postalcode) {
+            attrs.postalcode = this.config.postalcode;
+        }
+&nbsp;
+        if(this.isConfigAttrExistAndNotEmpty("period")){
+            let period = this.getDateFromPeriod(this.config.period);
+            attrs.startDateTime = period[0];
+            attrs.endDateTime = period[1];
+        }
+&nbsp;
+        if (this.config.tmapikey == '') {
+            attrs.apikey = apiKeyService.checkApiKeyCookie() || <span class="branch-1 cbranch-no" title="branch not covered" >apiKeyService.getApiWidgetsKey();</span>
+        }
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (mapWidgetRoot.getAttribute("w-latlong") != '') {
+            attrs.latlong = mapWidgetRoot.getAttribute("w-latlong");
+        }
+&nbsp;
+        if (attrs.latlong == ',') {
+            delete attrs.latlong;
+        }
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (attrs.latlong == null) {
+            delete attrs.latlong;
+        }
+&nbsp;
+        return attrs;
+    }
+&nbsp;
+    constructor(root) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(!root) <span class="cstat-no" title="statement not covered" >return;</span>
+        this.widgetRoot = root;
+        if (this.widgetRoot.querySelector('.events-root-container') === null) {
+            this.eventsRootContainer = document.createElement("div");
+            this.eventsRootContainer.classList.add("events-root-container");
+            this.widgetRoot.appendChild(this.eventsRootContainer);
+&nbsp;
+            this.config = this.widgetRoot.attributes;
+&nbsp;
+            this.eventsRoot = document.createElement("div");
+            this.eventsRoot.classList.add("map");
+            // this.eventsRoot.style.height = parseInt(parseInt(this.widgetHeight) + 25) + "px";
+            this.eventsRoot.style.height = this.widgetHeight + "px";
+            this.eventsRoot.style.width = this.config.width + "px";
+            this.eventsRootContainer.appendChild(this.eventsRoot);
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.config.theme !== null &amp;&amp; !document.getElementById(`widget-theme-${this.config.theme}`)) {
+                this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
+            }
+&nbsp;
+            this.eventsRootContainer.classList.remove("border");
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (this.config.border) {
+<span class="cstat-no" title="statement not covered" >                this.eventsRootContainer.classList.add("border");</span>
+            }
+&nbsp;
+            this.widgetRoot.style.height = `${this.widgetHeight}px`;
+            this.widgetRoot.style.width = `${this.config.width}px`;
+            this.eventsRootContainer.style.height = `${this.widgetHeight}px`;
+            this.eventsRootContainer.style.width = `${this.config.width}px`;
+            this.eventsRootContainer.style.borderRadius = `${this.config.borderradius}px`;
+            this.eventsRootContainer.style.borderWidth = `${this.borderSize}px`;
+&nbsp;
+            //this.clear();
+&nbsp;
+            this.AdditionalElements();
+&nbsp;
+            this.useGeolocation();
+&nbsp;
+            this.getCoordinates(() =&gt; {
+                this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+            });
+            /*plugins for 'buy button'*/
+            this.embedUniversePlugin();
+            this.embedTMPlugin();
+            this.initBuyBtn();
+            this.initMessage();
+        }
+    }
+&nbsp;
+    getCoordinates(cb){
+        let widget = this;
+        if(this.config.postalcode) {
+            widget.config.postalcode = this.config.postalcode;
+            cb(widget.config.postalcode);
+        }else{
+            // Used in builder
+            if(widget.onLoadCoordinate) widget.onLoadCoordinate(null);
+            widget.config.latlong = '';
+            // widget.config.countrycode = '';
+            cb(widget.config.latlong);
+        }
+    }
+&nbsp;
+    initBuyBtn(){
+        this.buyBtn = document.createElement("a");
+        this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
+        this.buyBtn.classList.add("event-buy-btn");
+        this.buyBtn.classList.add("main-btn");
+        this.buyBtn.target = '_blank';
+        this.buyBtn.href = '';
+        this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+        this.buyBtn.addEventListener('click', (e)=&gt; {
+            e.preventDefault();
+        });
+        this.eventsRootContainer.appendChild(this.buyBtn);
+    }
+&nbsp;
+    setBuyBtnUrl(){
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(this.buyBtn){
+            let event = '',
+                url = '';
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(event){
+<span class="cstat-no" title="statement not covered" >                if(event.url){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if((this.isUniversePluginInitialized &amp;&amp; this.isUniverseUrl(event.url)) || (this.isTMPluginInitialized &amp;&amp; this.isAllowedTMEvent(event.url))){</span>
+<span class="cstat-no" title="statement not covered" >                        url = event.url;</span>
+                    }
+&nbsp;
+                }
+            }
+            this.buyBtn.href = url;
+        }
+    }
+&nbsp;
+    isUniverseUrl(url){
+        return (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
+    }
+&nbsp;
+    isAllowedTMEvent(url){
+        for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r &lt; t.length &amp;&amp; (n = url.match(t[r]), null === n); r++);
+        let id = (null !== n ? <span class="branch-0 cbranch-no" title="branch not covered" >n[2] </span>: void 0);
+        return (this.tmWidgetWhiteList.indexOf(id) &gt; -1);
+    }
+&nbsp;
+    embedTMPlugin(){
+        let id = 'id_tm_widget';
+        if( !document.getElementById(id) ) {
+            let script = document.createElement('script');
+            script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
+            script.setAttribute('type', 'text/javascript');
+            script.setAttribute('charset', 'UTF-8');
+            script.setAttribute('id', id);
+            (document.head || <span class="branch-1 cbranch-no" title="branch not covered" >document.getElementsByTagName('head')[0])</span>.appendChild(script);
+        }
+        this.isTMPluginInitialized = true;
+    }
+&nbsp;
+    embedUniversePlugin(){
+        let id = 'id_universe_widget';
+        if( !document.getElementById(id) ){
+            let script = document.createElement('script');
+            script.setAttribute('src', 'https://www.universe.com/embed.js');
+            script.setAttribute('type', 'text/javascript');
+            script.setAttribute('charset', 'UTF-8');
+            script.setAttribute('id', id);
+            (document.head || <span class="branch-1 cbranch-no" title="branch not covered" >document.getElementsByTagName('head')[0])</span>.appendChild(script);
+        }
+        this.isUniversePluginInitialized = true;
+    }
+&nbsp;
+    // Message
+    initMessage(){
+        this.messageDialog = document.createElement('div');
+        this.messageDialog.classList.add("event-message");
+        this.messageContent = document.createElement('div');
+        this.messageContent.classList.add("event-message__content");
+&nbsp;
+        let messageClose = document.createElement('div');
+        messageClose.classList.add("event-message__btn");
+        messageClose.addEventListener("click", ()=&gt; {
+            this.hideMessage();
+        });
+&nbsp;
+        this.messageDialog.appendChild(this.messageContent);
+        this.messageDialog.appendChild(messageClose);
+        this.eventsRootContainer.appendChild(this.messageDialog);
+    }
+&nbsp;
+    showMessage(message, hideMessageWithoutDelay){
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(message.length){
+            this.hideMessageWithoutDelay = hideMessageWithoutDelay;
+            this.messageContent.innerHTML = message;
+            this.messageDialog.classList.add("event-message-visible");
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (this.messageTimeout) {
+<span class="cstat-no" title="statement not covered" >                clearTimeout(this.messageTimeout); </span>// Clear timeout if before 'hideMessageWithDelay' was called
+            }
+        }
+    }
+&nbsp;
+    hideMessageWithDelay(delay){
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(this.messageTimeout) clearTimeout(this.messageTimeout); // Clear timeout if this method was called before
+        this.messageTimeout = setTimeout(<span class="fstat-no" title="function not covered" >()</span>=&gt;{
+<span class="cstat-no" title="statement not covered" >            this.hideMessage();</span>
+        }, delay);
+    }
+&nbsp;
+    hideMessage(){
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(this.messageTimeout) <span class="cstat-no" title="statement not covered" >clearTimeout(this.messageTimeout); </span>// Clear timeout and hide message immediately.
+        this.messageDialog.classList.remove("event-message-visible");
+    }
+    // End message
+&nbsp;
+    useGeolocation() {
+        var widget = this;
+        var clickNearMe = <span class="fstat-no" title="function not covered" >fu</span>nction(e) {
+<span class="cstat-no" title="statement not covered" >            if (navigator.geolocation) {</span>
+<span class="cstat-no" title="statement not covered" >                navigator.geolocation.getCurrentPosition(<span class="fstat-no" title="function not covered" >fu</span>nction (position) {</span>
+                    var latitude = <span class="cstat-no" title="statement not covered" >position.coords.latitude;</span>
+                    var longitude = <span class="cstat-no" title="statement not covered" >position.coords.longitude;</span>
+<span class="cstat-no" title="statement not covered" >                    e.target.parentNode.setAttribute('w-latlong', latitude + ',' + longitude);</span>
+<span class="cstat-no" title="statement not covered" >                    widget.update();</span>
+                });
+&nbsp;
+            }
+        };
+&nbsp;
+        var buttons = document.getElementsByClassName("near-me-btn");
+        for (var i = 0; i &lt; buttons.length; i++) {
+            var current = buttons[i];
+            current.addEventListener('click', clickNearMe, false);
+            current.addEventListener('touchstart', clickNearMe, false);
+        }
+    }
+&nbsp;
+    AdditionalElements(){
+        var nearMeBtn = document.createElement("span");
+        nearMeBtn.classList.add('near-me-btn');
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.widgetRoot.getAttribute("w-geoposition") !== 'on') nearMeBtn.classList.add('dn');
+        nearMeBtn.setAttribute('title', 'Show events near me');
+        this.widgetRoot.appendChild(nearMeBtn);
+&nbsp;
+        var legalNoticeContent = document.createTextNode('Legal Notice'),
+            legalNotice = document.createElement("a");
+        legalNotice.appendChild(legalNoticeContent);
+        legalNotice.classList.add("legal-notice");
+        legalNotice.target = '_blank';
+        legalNotice.href = this.legalNoticeUrl;
+        this.widgetRoot.appendChild(legalNotice);
+&nbsp;
+        var logo = document.createElement('a');
+        logo.classList.add("event-logo","centered-logo");
+        logo.target = '_blank';
+        logo.href = this.logoUrl;
+        logo.innerHTML = 'Powered by ';
+&nbsp;
+        var logoBox = document.createElement('div');
+        logoBox.classList.add("event-logo-box");
+        logoBox.appendChild(logo);
+        this.eventsRootContainer.appendChild(logoBox);
+&nbsp;
+        let question = document.createElement('span');
+        question.classList.add("event-question");
+        question.target = '_blank';
+        question.href = this.questionUrl;
+        question.addEventListener('click', toolTipHandler);
+        this.eventsRootContainer.appendChild(question);
+&nbsp;
+        let toolTip = document.createElement('div'),
+            tooltipHtml = `
+              &lt;div class="tooltip-inner"&gt; 
+                &lt;a href="${this.questionUrl}" target = "_blank" &gt;About widget&lt;/a&gt;
+                &lt;div class="place"&gt;version: &lt;b&gt;${this.widgetVersion}&lt;/b&gt;&lt;/div&gt;
+              &lt;/div&gt;`;
+        toolTip.classList.add("tooltip-version");
+        toolTip.classList.add("left");
+        toolTip.innerHTML = tooltipHtml;
+        this.eventsRootContainer.appendChild(toolTip);
+&nbsp;
+        function <span class="fstat-no" title="function not covered" >toolTipHandler(</span>e) {
+<span class="cstat-no" title="statement not covered" >            e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >            e.target.nextSibling.classList.toggle('show-tip');</span>
+        }
+    }
+&nbsp;
+    formatDate(date) {
+        var result = '';
+        if(!date.day) return result; // Day is required
+&nbsp;
+        function LZ(x) {
+            return (x &lt; 0 || x &gt; 9 ? "" : "0") + x
+        }
+        var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+            dayArray = date.day.split('-'),
+            d = parseInt(dayArray[2]),
+            M = parseInt(dayArray[1]);
+&nbsp;
+        // var E = new Date(date.day).getDay();
+        var E = new Date(+date.day.split('-')[0],(+date.day.split('-')[1])-1,+date.day.split('-')[2]).getDay();
+        result = DAY_NAMES[E] + ', ' + MONTH_NAMES[M - 1] + ' ' + d + ', ' + dayArray[0];
+&nbsp;
+        if(!date.time) return result;
+&nbsp;
+        var timeArray = date.time.split(':'),
+            H = parseInt(timeArray[0]),
+            m = timeArray[1],
+            a = "AM";
+&nbsp;
+        if (H &gt; 11) a = "PM";
+        if (H == 0) {
+            H = 12;
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (H &gt; 12) {
+            H = H - 12;
+        }
+&nbsp;
+        return result + ' ' + LZ(H) + ':' + m + ' ' + a;
+    }
+&nbsp;
+    clearEvents(){
+        this.eventsRoot.innerHTML = "";
+    }
+&nbsp;
+    clear(){
+        var modificatorList = this.widgetRoot.getElementsByClassName('modificator');
+        while (modificatorList.length) {
+            let el = <span class="cstat-no" title="statement not covered" >modificatorList[0],</span>
+                parent = <span class="cstat-no" title="statement not covered" >el.parentNode;</span>
+<span class="cstat-no" title="statement not covered" >            parent.removeChild(el);</span>
+        }
+        this.clearEvents();
+    }
+&nbsp;
+    update() {
+&nbsp;
+        let oldTheme = this.config.constructor();
+        for (let attr in this.config) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
+        }
+&nbsp;
+        this.config = this.widgetRoot.attributes;
+&nbsp;
+        this.widgetRoot.style.height = `${this.widgetHeight}px`;
+        this.widgetRoot.style.width  = `${this.config.width}px`;
+        this.eventsRootContainer.style.height = `${this.widgetContentHeight}px`;
+        this.eventsRootContainer.style.width  = `${this.config.width}px`;
+        this.eventsRootContainer.style.borderRadius = `${this.config.borderradius}px`;
+        this.eventsRootContainer.style.borderWidth = `${this.borderSize}px`;
+&nbsp;
+        this.eventsRootContainer.classList.remove("border");
+        <span class="missing-if-branch" title="if path not taken" >I</span>if( this.config.hasOwnProperty("border") ){
+<span class="cstat-no" title="statement not covered" >            this.eventsRootContainer.classList.add("border");</span>
+        }
+&nbsp;
+        this.clear();
+        this.getCoordinates(() =&gt; {
+            this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
+        });
+&nbsp;
+        let events = this.eventsRoot.getElementsByClassName("event-wrapper");
+        this.useGeolocation();
+&nbsp;
+    }
+&nbsp;
+    needToUpdate(newTheme, oldTheme, forCheck = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span>{
+        return Object.keys(newTheme).map(function(key){
+                <span class="missing-if-branch" title="if path not taken" >I</span>if(forCheck.indexOf(key) &gt; -1) <span class="cstat-no" title="statement not covered" >return true;</span>
+                //console.warn([key, newTheme[key], oldTheme[key], newTheme[key] === oldTheme[key]])
+                return newTheme[key] === oldTheme[key] ;
+            }).indexOf(false) &gt; -1
+    }
+&nbsp;
+    loadConfig(NamedNodeMap){
+        var config = {};
+        Object.keys(NamedNodeMap).map(function(value){
+            if( typeof(NamedNodeMap[value].name) !== "undefined" &amp;&amp; NamedNodeMap[value].name.indexOf("w-") !== -1){
+                config[ NamedNodeMap[value].name.replace(/w-/g, "").replace(/-/g, "") ] = NamedNodeMap[value].value;
+            }
+        });
+        return config;
+    }
+&nbsp;
+    styleLoadingHandler(){
+        if (this &amp;&amp; this.readyState == XMLHttpRequest.DONE ) {
+            if(this.status == 200){
+                var style = document.createElement("style");
+                style.setAttribute("type","text/css");
+                style.setAttribute("id",`widget-theme-${this.widget.config.theme}`);
+                style.textContent = this.responseText;
+                document.getElementsByTagName("head")[0].appendChild(style);
+            }
+        }
+    }
+&nbsp;
+    groupEventsByName(){
+        let groups = {};
+        this.events.map(<span class="fstat-no" title="function not covered" >fu</span>nction(event){
+<span class="cstat-no" title="statement not covered" >            if (groups[event.name] === undefined) <span class="cstat-no" title="statement not covered" >groups[event.name] = [];</span></span>
+<span class="cstat-no" title="statement not covered" >            groups[event.name].push(event);</span>
+        });
+&nbsp;
+        this.eventsGroups = [];
+        for (let groupName in groups) {
+<span class="cstat-no" title="statement not covered" >            this.eventsGroups.push(groups[groupName]);</span>
+        }
+    }
+&nbsp;
+    resetReduceParamsOrder(){
+        this.reduceParamsOrder = 0;
+    }
+&nbsp;
+    reduceParamsAndReloadEvents(){
+        let eventReqAttrs = {},
+            reduceParamsList = [
+                ['classificationName'],
+                ['city'],
+                ['countryCode'],
+                ['source'],
+                ['startDateTime', 'endDateTime', 'country'],
+                ['radius'],
+                ['postalCode', 'latlong'],
+                ['attractionId'],
+                ['promoterId'],
+                // ['segmentId'],
+                ['venueId'],
+                ['keyword'],
+                ['size']
+            ];
+&nbsp;
+        // make copy of params
+        for(let key in this.eventReqAttrs){
+<span class="cstat-no" title="statement not covered" >            eventReqAttrs[key] = this.eventReqAttrs[key]</span>
+        }
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(!this.reduceParamsOrder) this.reduceParamsOrder = 0;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(reduceParamsList.length &gt; this.reduceParamsOrder){
+            for(let item in reduceParamsList){
+                if(this.reduceParamsOrder &gt;= item){
+                    for(let i in reduceParamsList[item]){
+                        delete eventReqAttrs[reduceParamsList[item][i]];
+                    }
+                }
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(this.reduceParamsOrder === 0) this.showMessage("No results were found.&lt;br/&gt;Here other options for you.");
+            this.reduceParamsOrder++;
+            this.makeRequest( this.eventsLoadingHandler, this.apiUrl, eventReqAttrs );
+        }else{
+            // We haven't any results
+<span class="cstat-no" title="statement not covered" >            this.showMessage("No results were found.", true);</span>
+<span class="cstat-no" title="statement not covered" >            this.reduceParamsOrder = 0;</span>
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    se</span>tMarkers(map, markers) {
+&nbsp;
+        var infowindow = <span class="cstat-no" title="statement not covered" >new google.maps.InfoWindow({</span>
+            content: " ",
+        });
+&nbsp;
+        var image = <span class="cstat-no" title="statement not covered" >{</span>
+            url: 'https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/marker.svg',
+            size: new google.maps.Size(22, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(22, 32)
+        };
+&nbsp;
+        var imageActive = <span class="cstat-no" title="statement not covered" >{</span>
+            url: 'https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/marker-active.svg',
+            size: new google.maps.Size(22, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(22, 32)
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i &lt; markers.length; i++) {</span>
+            let sites = <span class="cstat-no" title="statement not covered" >markers[i];</span>
+<span class="cstat-no" title="statement not covered" >            if (sites !== undefined) {</span>
+                var siteLatLng = <span class="cstat-no" title="statement not covered" >new google.maps.LatLng(sites[1], sites[2]);</span>
+                var marker = <span class="cstat-no" title="statement not covered" >new google.maps.Marker({</span>
+                    position: siteLatLng,
+                    map: map,
+                    icon: image,
+                    title: sites[0],
+                    zIndex: sites[3],
+                    html: sites[4]
+                });
+            }
+<span class="cstat-no" title="statement not covered" >            google.maps.event.addListener(marker, "click", <span class="fstat-no" title="function not covered" >fu</span>nction () {</span>
+<span class="cstat-no" title="statement not covered" >                infowindow.setContent(this.html);</span>
+<span class="cstat-no" title="statement not covered" >                infowindow.open(map, this);</span>
+            });
+<span class="cstat-no" title="statement not covered" >            google.maps.event.addListener(marker, 'mouseover', <span class="fstat-no" title="function not covered" >fu</span>nction() {</span>
+<span class="cstat-no" title="statement not covered" >                this.setIcon(imageActive);</span>
+            });
+<span class="cstat-no" title="statement not covered" >            google.maps.event.addListener(marker, 'mouseout', <span class="fstat-no" title="function not covered" >fu</span>nction() {</span>
+<span class="cstat-no" title="statement not covered" >                this.setIcon(image);</span>
+            });
+        }
+    }
+&nbsp;
+    eventsLoadingHandler(){
+        let widget = this.widget;
+        var markers = [];
+        widget.clearEvents(); // Additional clearing after each loading
+        if (this &amp;&amp; this.readyState == XMLHttpRequest.DONE ) {
+            if(this.status == 200){
+                widget.events = JSON.parse(this.responseText);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(widget.events.length){
+&nbsp;
+                    var myLatLng = {lat: 34.0390107, lng: -118.2672801};
+&nbsp;
+                    var map = new google.maps.Map(widget.widgetRoot.firstChild.firstChild, {
+                        zoom: 4,
+                        center: myLatLng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        mapTypeControl: false,
+                        panControl: false,
+                        streetViewControl: false,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.RIGHT_CENTER
+                        },
+                    });
+&nbsp;
+                    var latlngbounds = new google.maps.LatLngBounds();
+&nbsp;
+                    widget.groupEventsByName.call(widget);
+&nbsp;
+                    for (let e=0; e &lt; widget.events.length; e++) {
+&nbsp;
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (widget.events[e].location !== undefined) {
+                            let place = '';
+                            let address = '';
+                            let date = widget.formatDate({
+                                day: widget.events[e].date.day,
+                                time: widget.events[e].date.time
+                            });
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (widget.events[e].address.hasOwnProperty('name')) {
+                                place = widget.events[e].address.name + ', ';
+                            }
+                            else {
+<span class="cstat-no" title="statement not covered" >                                place = '';</span>
+                            }
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (widget.events[e].address.hasOwnProperty('line1')) {
+                                address = widget.events[e].address.line1;
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                address = '';</span>
+                            }
+&nbsp;
+                            let buyBtn = '';
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (widget.isUniverseUrl(widget.events[e].url) != false) buyBtn = '&lt;a class="buybtn" href="' + widget.events[e].url + '"&gt;BUY NOW&lt;/a&gt;';
+&nbsp;
+                            markers[e] = [
+                                widget.events[e].name,
+                                widget.events[e].location.lat,
+                                widget.events[e].location.lng,
+                                e,
+                                '&lt;div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;"&gt;&lt;a class="an" href="' + widget.events[e].url + '"&gt;&lt;span class="img" style="background:url(' + widget.events[e].img + ') center center no-repeat"&gt;&lt;/span&gt;&lt;span class="name"&gt;' + widget.events[e].name + '&lt;/span&gt;&lt;/a&gt;' + buyBtn + '&lt;div class="dateplace"&gt;&lt;span class="date"&gt;' + date + '&lt;/span&gt;&lt;span class="place"&gt;' + place + address + '&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;'
+                            ];
+                            latlngbounds.extend(new google.maps.LatLng(widget.events[e].location.lat, widget.events[e].location.lng));
+                        }
+                    }
+                    map.fitBounds( latlngbounds );
+&nbsp;
+                    widget.setMarkers(map ,markers);
+&nbsp;
+&nbsp;
+                    widget.resetReduceParamsOrder();
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if(widget.hideMessageWithoutDelay)
+<span class="cstat-no" title="statement not covered" >                        widget.hideMessage();</span>
+                    else
+                        widget.hideMessageWithDelay(widget.hideMessageDelay);
+                }else{
+<span class="cstat-no" title="statement not covered" >                    widget.reduceParamsAndReloadEvents.call(widget);</span>
+                }
+            }
+            else if(this.status == 400) {
+                widget.reduceParamsAndReloadEvents.call(widget);
+                console.log('There was an error 400');
+            }
+            else {
+                widget.reduceParamsAndReloadEvents.call(widget);
+                console.log('something else other than 200 was returned');
+            }
+        }
+    }
+&nbsp;
+    getImageForEvent(images){
+        let imgWidth;
+        let idx;
+        images.forEach(function (img, i) {
+            if (i == 0) imgWidth = img.width;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (imgWidth &gt; img.width) {
+<span class="cstat-no" title="statement not covered" >                imgWidth = img.width;</span>
+<span class="cstat-no" title="statement not covered" >                idx = i;</span>
+            }
+        });
+        return (idx === undefined) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >images[idx].url;</span>
+    }
+&nbsp;
+    parseEvents(eventsSet){
+        if(!eventsSet._embedded){
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(typeof($widgetModalNoCode) !== "undefined"){
+<span class="cstat-no" title="statement not covered" >                $widgetModalNoCode.modal();</span>
+            }
+            return [];
+        }
+        eventsSet = eventsSet._embedded.events;
+        var tmpEventSet = [];
+&nbsp;
+        for(var key in eventsSet){
+<span class="cstat-no" title="statement not covered" >            if(eventsSet.hasOwnProperty(key)){</span>
+                let currentEvent = <span class="cstat-no" title="statement not covered" >{};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                currentEvent.id = eventsSet[key].id;</span>
+<span class="cstat-no" title="statement not covered" >                currentEvent.url = eventsSet[key].url;</span>
+<span class="cstat-no" title="statement not covered" >                currentEvent.name = eventsSet[key].name;</span>
+&nbsp;
+                /* Change URL [START] */
+                var parser = <span class="cstat-no" title="statement not covered" >document.createElement("a");</span>
+<span class="cstat-no" title="statement not covered" >                parser.href = currentEvent.url;</span>
+                var expr= <span class="cstat-no" title="statement not covered" >"/ticketmaster.evyy.net/";</span>
+<span class="cstat-no" title="statement not covered" >                if (parser.href.match(expr) !== null) {</span>
+                    var changeURL = <span class="cstat-no" title="statement not covered" >parser.pathname.split('/');</span>
+<span class="cstat-no" title="statement not covered" >                    changeURL[3] = '330564';</span>
+<span class="cstat-no" title="statement not covered" >                    currentEvent.url = parser.origin + changeURL.join('/') + parser.search + parser.hash;</span>
+                }
+                /* Change URL [END] */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                currentEvent.date = {</span>
+                    day: eventsSet[key].dates.start.localDate,
+                    time: eventsSet[key].dates.start.localTime
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if(eventsSet[key].hasOwnProperty('_embedded') &amp;&amp; eventsSet[key]._embedded.hasOwnProperty('venues')){</span>
+                    let venue = <span class="cstat-no" title="statement not covered" >eventsSet[key]._embedded.venues[0];</span>
+<span class="cstat-no" title="statement not covered" >                    if(venue){</span>
+<span class="cstat-no" title="statement not covered" >                        if(venue.address)</span>
+<span class="cstat-no" title="statement not covered" >                            currentEvent.address = venue.address;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if(venue.name) {</span>
+<span class="cstat-no" title="statement not covered" >                            if(!currentEvent.address) <span class="cstat-no" title="statement not covered" >currentEvent.address = {};</span></span>
+<span class="cstat-no" title="statement not covered" >                            currentEvent.address.name = venue.name;</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (venue.location) {</span>
+<span class="cstat-no" title="statement not covered" >                            currentEvent.location = {</span>
+                                lat: parseFloat(venue.location.latitude),
+                                lng: parseFloat(venue.location.longitude)
+                            };
+                        }
+                    }
+                }
+&nbsp;
+                // Remove this comment to get categories
+                /*if(eventsSet[key]._embedded.hasOwnProperty('categories')){
+                 currentEvent.categories = [];
+                 let eventCategories = eventsSet[key]._embedded.categories;
+                 currentEvent.categories = Object.keys(eventCategories).map(function(category){
+                 return eventCategories[category].name
+                 });
+                 }*/
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                currentEvent.img = this.getImageForEvent(eventsSet[key].images);</span>
+<span class="cstat-no" title="statement not covered" >                tmpEventSet.push(currentEvent);</span>
+&nbsp;
+            }
+        }
+        return tmpEventSet;
+    }
+&nbsp;
+    makeRequest(handler, url=<span class="branch-0 cbranch-no" title="branch not covered" >this.apiUrl,</span> attrs={}, method="GET"){
+        attrs = Object.keys(attrs).map(<span class="fstat-no" title="function not covered" >fu</span>nction(key){
+<span class="cstat-no" title="statement not covered" >            return `${key}=${attrs[key]}`;</span>
+        }).join("&amp;");
+&nbsp;
+        url = [url,attrs].join("?");
+&nbsp;
+        this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : <span class="branch-1 cbranch-no" title="branch not covered" >new ActiveXObject("Microsoft.XMLHTTP");</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(method == "POST") {
+<span class="cstat-no" title="statement not covered" >            this.xmlHTTP.setRequestHeader("Content-type","application/x-www-form-urlencoded");</span>
+        }
+        this.xmlHTTP.widget = this;
+        this.xmlHTTP.onreadystatechange = handler;
+        this.xmlHTTP.open(method, url, true);
+        this.xmlHTTP.send();
+    }
+&nbsp;
+    initPretendedLink(el, url, isBlank){
+        if(el &amp;&amp; url){
+            el.setAttribute('data-url', url);
+            el.classList.add("event-pretended-link");
+            el.addEventListener('click', function(){
+                let url = this.getAttribute('data-url');
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(url){
+                    let win = window.open(url, (isBlank ? '_blank' : '_self'));
+                    win.focus();
+                }
+            });
+            el.addEventListener('touchstart', <span class="fstat-no" title="function not covered" >fu</span>nction(){
+                let url = <span class="cstat-no" title="statement not covered" >this.getAttribute('data-url');</span>
+<span class="cstat-no" title="statement not covered" >                if(url){</span>
+                    let win = <span class="cstat-no" title="statement not covered" >window.open(url, (isBlank ? '_blank' : '_self'));</span>
+<span class="cstat-no" title="statement not covered" >                    win.focus();</span>
+                }
+            });
+        }
+        return el;
+    }
+&nbsp;
+    addBuyButton(domNode, url) {
+        if (this.isListView) {
+            let _urlValid = ( this.isUniversePluginInitialized &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.isUniverseUrl(url) </span>) || ( this.isTMPluginInitialized &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >this.isAllowedTMEvent(url) </span>);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(!_urlValid) url = '';
+            let buyBtn = document.createElement("a");
+            buyBtn.appendChild(document.createTextNode('BUY NOW'));
+            buyBtn.classList.add("event-buy-btn");
+            buyBtn.target = '_blank';
+            buyBtn.href = url;
+            buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+            domNode.appendChild(buyBtn);
+        }
+    }
+&nbsp;
+    createDOMItem(itemConfig){
+        var medWrapper = document.createElement("div");
+        medWrapper.classList.add("event-content-wraper");
+&nbsp;
+        var event = document.createElement("li");
+        event.classList.add("event-wrapper");
+        event.style.height = `${this.widgetContentHeight - this.borderSize * 2}px`;
+        event.style.width  = `${this.config.width - this.borderSize * 2}px`;
+&nbsp;
+        this.createBackgroundImage(event, itemConfig.img);
+&nbsp;
+        var nameContent = document.createTextNode(itemConfig.name),
+            name =  document.createElement("span");
+        name.classList.add("event-name");
+        name.appendChild(nameContent);
+        this.initPretendedLink(name, itemConfig.url, true);
+        name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
+        /* name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');"); */
+        medWrapper.appendChild(name);
+&nbsp;
+&nbsp;
+        this.addBuyButton(medWrapper, itemConfig.url);
+&nbsp;
+        var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
+            dateTime = document.createElement("span");
+        dateTime.classList.add("event-date", "centered-logo");
+        dateTime.appendChild(dateTimeContent);
+&nbsp;
+        var dateWraper = document.createElement("span");
+        dateWraper.classList.add("event-date-wraper");
+        dateWraper.appendChild(dateTime);
+        medWrapper.appendChild(dateWraper);
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(itemConfig.hasOwnProperty("address")){
+            var addressWrapper = document.createElement("span");
+            addressWrapper.classList.add("address-wrapper");
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if( itemConfig.address.hasOwnProperty("name") ){
+                var addressNameText = document.createTextNode(itemConfig.address.name),
+                    addressName =  document.createElement("span");
+                addressName.classList.add("event-address");
+                addressName.classList.add("event-address-name");
+                addressName.appendChild(addressNameText);
+                addressWrapper.appendChild(addressName);
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if( itemConfig.address.hasOwnProperty("line1") ){
+                var addressOneText = document.createTextNode(itemConfig.address.line1),
+                    addressOne =  document.createElement("span");
+                addressOne.classList.add("event-address");
+                addressOne.appendChild(addressOneText);
+                addressWrapper.appendChild(addressOne);
+            }
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if( itemConfig.address.hasOwnProperty("line2") ){
+                var addressTwoText = document.createTextNode(itemConfig.address.line2),
+                    addressTwo =  document.createElement("span");
+                addressTwo.classList.add("event-address");
+                addressTwo.appendChild(addressTwoText);
+                addressWrapper.appendChild(addressTwo);
+            }
+&nbsp;
+            medWrapper.appendChild(addressWrapper);
+        }
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if(itemConfig.hasOwnProperty("categories")) {
+            var categoriesWrapper = document.createElement("span");
+            categoriesWrapper.classList.add("category-wrapper");
+&nbsp;
+            itemConfig.categories.forEach(function (element) {
+                var categoryText = document.createTextNode(element),
+                    category = document.createElement("span");
+                category.classList.add("event-category");
+                category.appendChild(categoryText);
+                categoriesWrapper.appendChild(category);
+            });
+            medWrapper.appendChild(categoriesWrapper);
+        }
+&nbsp;
+        event.appendChild(medWrapper);
+&nbsp;
+        return event;
+    }
+&nbsp;
+    makeImageUrl(id){
+        return `https://app.ticketmaster.com/discovery/v2/events/${id}/images.json`;
+    }
+&nbsp;
+    /*
+     * Config block
+     */
+&nbsp;
+<span class="fstat-no" title="function not covered" >    de</span>cConfig(config){
+<span class="cstat-no" title="statement not covered" >        return JSON.parse(window.atob(config));</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    en</span>cConfig(config){
+<span class="cstat-no" title="statement not covered" >        return window.btoa(config);</span>
+    }
+&nbsp;
+    toShortISOString(dateObj){
+        return dateObj.getFullYear() +
+            "-" + (dateObj.getMonth() + 1 &lt; 10 ? "0"+ (dateObj.getMonth()+ 1): <span class="branch-1 cbranch-no" title="branch not covered" >dateObj.getMonth() + 1)</span> +
+            "-" + (dateObj.getDate() &lt; 10 ? "0"+ dateObj.getDate(): <span class="branch-1 cbranch-no" title="branch not covered" >dateObj.getDate())</span> +
+            "T" + (dateObj.getHours() &lt; 10 ? <span class="branch-0 cbranch-no" title="branch not covered" >"0"+dateObj.getHours():</span> dateObj.getHours()) +
+            ":" + (dateObj.getMinutes() &lt; 10 ? <span class="branch-0 cbranch-no" title="branch not covered" >"0"+dateObj.getMinutes():</span> dateObj.getMinutes()) +
+            ":" + (dateObj.getSeconds() &lt; 10 ? <span class="branch-0 cbranch-no" title="branch not covered" >"0"+dateObj.getSeconds():</span> dateObj.getSeconds()) +
+            "Z";
+    }
+&nbsp;
+    getDateFromPeriod(period){
+&nbsp;
+        var period = period.toLowerCase(),
+            firstDay, lastDay;
+&nbsp;
+        if(period == "year" ) {
+            // firstDay = new Date( new Date(new Date()).toISOString() );
+            // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
+            firstDay = new Date().toISOString().slice(0,19) + 'Z';
+            lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
+        }
+        else if(period == "month") {
+            // firstDay = new Date( new Date(new Date()).toISOString() );
+            // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
+            firstDay = new Date().toISOString().slice(0,19) + 'Z';
+            lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
+        }
+        else if(period == "week") {
+            // firstDay = new Date( new Date(new Date()).toISOString() );
+            // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
+            firstDay = new Date().toISOString().slice(0,19) + 'Z';
+            lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
+        } else {
+            // firstDay = new Date( new Date(new Date()).toISOString() );
+            // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
+            firstDay = new Date().toISOString().slice(0,19) + 'Z';
+            lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
+        }
+&nbsp;
+        // return [this.toShortISOString(firstDay), this.toShortISOString(lastDay)];
+        return [firstDay, lastDay];
+    }
+&nbsp;
+}
+let widgetsMap = [];
+(function () {
+    let widgetContainers = document.querySelectorAll("div[w-type='map']");
+    for (let i = 0; i &lt; widgetContainers.length; ++i) {
+        widgetsMap.push(new TicketmasterMapWidget(widgetContainers[i]));
+    }
+&nbsp;
+})();
+&nbsp;
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+&nbsp;
+ga('create', 'UA-78315612-1', 'auto');
+ga('send', 'pageview');
+&nbsp;
+<span class="missing-if-branch" title="else path not taken" >E</span>if(typeof module !== "undefined") {
+    module.exports = { TicketmasterMapWidget, widgetsMap };
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

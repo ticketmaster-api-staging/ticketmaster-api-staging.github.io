@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/components/panels/panel.component.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/components/panels</a> panel.component.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>37/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">64.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>37/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">class Panel {
+	constructor({$data = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> panelGroup = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> $index}) {
+		this.$data = $data;
+		this.key = $data.key;
+		this.$index = ko.unwrap($index);
+		this.panelGroup = panelGroup;
+		this.page = panelGroup.page;
+		this.colorClass = panelGroup.colorClass || <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+		this.config = this.constructor.panelConfig({config: panelGroup.config, key: this.key});
+		this.isExpanded = this.constructor.isExpanded(this.config);
+		this.collapseId = panelGroup.collapseId + this.$index;
+		this.isActive = ko.observable(this.isExpanded);
+		this.subjectID = ko.observable('');
+		this.lat = $data.value.latitude;
+		this.long = $data.value.longitude;
+		this.address = $data.value.address;
+	}
+&nbsp;
+	setActive(model, event) {
+		this.isActive(!this.isActive());
+	}
+	
+	showMapPopup = () =&gt; {
+		let map, marker, mapEl = $('#map-popup'),
+			lat = parseFloat(this.lat, 10),
+			lng = parseFloat(this.long, 10),
+			address = this.address,
+			geocoder = new google.maps.Geocoder(),
+			coordinates = lat &amp;&amp; lng ? {lat, lng} : new google.maps.LatLng(0, 0);
+		
+		// initialize map object
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: coordinates,
+			zoom: 8
+		});
+		
+		if (address){ // if there was address provided
+			geocodeAddress(geocoder, map, address, result =&gt; { // geocode address and center the map
+				coordinates = result;
+			});
+		} else { // if not (means lat and long were provided)
+			marker = new google.maps.Marker({ //Create a marker and set its position.
+				position: coordinates,
+				map
+			});
+		}
+		// when map popup is shown
+		mapEl.on("shown.bs.modal", e =&gt; {
+			google.maps.event.trigger(map, "resize");
+			// Recenter the map now that it's been redrawn
+			map.setCenter(coordinates);
+		});
+		mapEl.modal(); // show map popup
+	};
+	
+	/**
+	 * Gets config for each panel
+	 * @param config
+	 * @param key
+	 * @returns {*|{}}
+	 */
+	static panelConfig({config, key}) {
+		let subConfig = config[key] || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+		subConfig._CONFIG = $.extend(true, {}, config._CONFIG, subConfig._CONFIG);
+		return subConfig;
+	}
+&nbsp;
+	/**
+	 * Checks for 'expanded' config for each panel
+	 * @param config
+	 * @returns {boolean}
+	 */
+	static isExpanded(config) {
+		return !(Object.getProp(config, '._CONFIG.collapsed') || <span class="branch-1 cbranch-no" title="branch not covered" >false)</span>;
+	}
+&nbsp;
+	get cssClasses() {
+		return {[this.colorClass]: true, active: this.isActive};
+	}
+}
+&nbsp;
+ko.components.register('panel', {
+	viewModel: Panel,
+	template:`
+		&lt;section data-bind="css: cssClasses" class="panel panel-primary"&gt;
+			&lt;!--panel-heading--&gt;
+			&lt;panel-heading params="
+				showMapPopup: showMapPopup,
+				panelGroup: panelGroup,
+				config: config,
+				data: $data,
+				index: $index,
+				page: page,
+				setActive: setActive.bind($component),
+				collapseId: collapseId,
+				colorClass: colorClass,
+				isExpanded: isExpanded,
+				subjectID:subjectID
+			"&gt;&lt;/panel-heading&gt;
+			
+			&lt;!--panel-body--&gt;
+			&lt;section data-bind="attr: {'id': collapseId}, css: {'in': isExpanded}" class="panel-collapse collapse"&gt;				
+				&lt;!--ko if: key === 'location' --&gt;
+					&lt;map-panel-body params="lat: lat, long: long, address: address, showMapPopup: showMapPopup"&gt;&lt;/map-panel-body&gt;
+				&lt;!-- /ko --&gt;
+				&lt;!-- ko if: (typeof $data.value === 'object' &amp;&amp; !$.isArray($data.value)) --&gt;
+					&lt;object-panel-body params="config: config, data: $data, index: $index, panelGroup: panelGroup, page: page, collapseId: collapseId, subjectID: subjectID"&gt;&lt;/object-panel-body&gt;
+				&lt;!-- /ko --&gt;
+				&lt;!-- ko if: (typeof $data.value === 'object' &amp;&amp; $.isArray($data.value)) --&gt;
+					&lt;array-panel-body params="config: config, data: $data, index: $index, panelGroup: panelGroup"&gt;&lt;/array-panel-body&gt;
+				&lt;!-- /ko --&gt;
+			&lt;/section&gt;
+		&lt;/section&gt;
+`});
+&nbsp;
+module.exports = Panel;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

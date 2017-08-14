@@ -1,0 +1,10 @@
+require('jstree');
+require('lazy-selector');
+require('classification-selector');
+require('bootstrap.min');
+require('./validation');
+require('slick.min');
+require('knockout-scrollbar');
+require('clamp.min');
+require('knockout-postbox');
+require('datetimepicker');

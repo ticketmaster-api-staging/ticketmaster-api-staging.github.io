@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Basic walkthrough of the Discovery API and how to get value out of it quickly.">
+    <meta name="keywords" content="events, attractions, classifications, venues, search, discovery, api">
+    <title>
+            Get started with The Discovery API – The Ticketmaster Developer Portal</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/products-and-docs/tutorials/events-search/search_events_with_discovery_api">
+    <!-- <link rel="alternate" type="application/rss+xml" title="The Ticketmaster Developer Portal" href="http://localhost:4000/feed.xml"> -->
+    <script src="/scripts/vendors/jquery-1.11.3.min.js"></script>
+    <script src="/scripts/components/header.js"></script>
+	  <script type="text/javascript" src="https://www.universe.com/embed.js"></script>
+		<!-- Begin Jekyll SEO tag v2.2.0 -->
+<meta property="og:title" content="Get started with The Discovery API" />
+<meta name="author" content="Name Lastname" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Basic walkthrough of the Discovery API and how to get value out of it quickly." />
+<meta property="og:description" content="Basic walkthrough of the Discovery API and how to get value out of it quickly." />
+<link rel="canonical" href="http://localhost:4000/products-and-docs/tutorials/events-search/search_events_with_discovery_api" />
+<meta property="og:url" content="http://localhost:4000/products-and-docs/tutorials/events-search/search_events_with_discovery_api" />
+<meta property="og:site_name" content="The Ticketmaster Developer Portal" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "WebPage",
+"headline": "Get started with The Discovery API",
+"author": {"@type": "Person",
+"name": {"name":"Name Lastname","email":"blah@email.test","github":"username","twitter":"username","feedburner":"feedname"}},
+"description": "Basic walkthrough of the Discovery API and how to get value out of it quickly.",
+"url": "http://localhost:4000/products-and-docs/tutorials/events-search/search_events_with_discovery_api"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<meta property="og:image" content="http://localhost:4000/assets/img/branding-guide/blue-logo@3x.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="792" />
+		<meta property="og:image:height" content="792" />
+</head>
+
+    <body class="no-js">
+        <!-- Qualaroo for ticketmaster.com -->
+        <!-- Paste this code right after the <body> tag on every page of your site. -->
+        <script type="text/javascript">
+          var _kiq = _kiq || [];
+          (function(){
+            setTimeout(function(){
+            var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
+            s.async = true; s.src = '//s3.amazonaws.com/ki.js/62776/euc.js'; f.parentNode.insertBefore(s, f);
+            }, 1);
+          })();
+        </script>
+        
+                <script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+
+<input type='checkbox' style='display: none' id="cb">
+<label class='modal-info-label icon-right' for=cb>
+    <img src="/assets/controls/ic-close-small-grey.svg">
+</label>
+<div class='modal-info fixed'><span></span>
+    Please enable JS in your browser for better work of developer.ticketmaster.com
+</div>
+        
+
+        <script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+
+<input type='checkbox' style='display: none' id="cb">
+<label class='modal-info-label icon-right' for=cb>
+    <img src="/assets/controls/ic-close-small-grey.svg">
+</label>
+<div class='modal-info fixed'><span></span>
+    Please enable JS in your browser for better work of developer.ticketmaster.com
+</div>
+<div class="top-bar bg-header header-curtain">
+<div class="body-wrapper">
+    <div class="row">
+        <div class="col-xs-7 col-lg-2 gray">
+            <a id="header-logo" href="/">
+            
+            <img alt="Ticketmaster logo" src="/assets/img/header/tm-developer-logo.svg">
+            
+            </a>
+        </div>
+        <nav id="menu" class="col-xs-12 col-lg-8">
+            <!-- links put into single line intentionally to avoid browser rendered spaces -->
+            <a   class="gray expandable"  data-expands-to="one" href="/products-and-docs/">Products & Docs <span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="two" href="/partners/">Partners<span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="three" href="/support/">Support<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="four" href="/blogs/">Blogs</a><a
+                 class="gray expandable"  data-expands-to="five" href="/events/">Events<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="six" href="http://code.ticketmaster.com/">Open Source</a>
+        </nav>
+        <div class="col-xs-5 col-lg-2 gray">
+            <a id="menu-btn"  class="white"></a>
+            <div class="search-container">
+                <div id="search"  class="white">
+                    <div class="search-button"></div>
+                    <form action="/search/" id="cse-search-box" autocomplete="off">
+                        <div>
+                            <input type="hidden" name="cx" value="000111791941460729347:zmu0d7yvkfq" />
+                            <input type="hidden" name="ie" value="UTF-8" />
+                            <input class="q" type="text" name="q" size="14" placeholder="Search for ..."/>
+                            <input class="sa" type="submit" name="sa" value="" />
+                        </div>
+                    </form>
+                    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+                    <script type="text/javascript" src="//www.google.com.ua/cse/brand?form=cse-search-box&lang=en"></script>
+                    <!--<span tabindex="-1" id="search-alert" style="display: none;">Whoa! Search isn't quite ready yet! We're still working on it.</span>-->
+                </div>
+                <a class="apigee-login  white" href="https://developer-acct.ticketmaster.com/user/login">Login</a>
+            </div>
+        </div>
+        <div id="rainbow">
+            <span class="one"></span>
+            <span class="two"></span>
+            <span class="three"></span>
+            <span class="four"></span>
+            <span class="five"></span>
+            <span class="six"></span>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="expand-menu" class="row" tabindex="-1"  style="position:fixed" >
+    <div class="row-container">
+        <div id="expand-one" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/apis/getting-started/">
+                    <h4>APIs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/apis/getting-started/">Getting started</a>
+                    </li>
+                    <!--<li>
+                        <a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a>
+                    </li>-->
+                    <li>
+                        <a href="/api-explorer/">API Explorer</a>
+                    </li>
+									  <li>
+                        <a href="/api-explorer/v2/">API Explorer v2</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/changelog/">Changelog</a>
+                    </li>
+
+                    <li>
+                        <h4>OPEN APIs</h4>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/publish/">Publish API</a>
+                    </li>
+                    <!--
+									  <li>
+                        <a href="/products-and-docs/apis/oauth/"> OAuth API</a>
+                    </li>
+                    -->
+                    <li>
+                        <h4>PARTNER APIs</h4>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/partner/">Partner API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                    </li>
+                    <li>
+                         <a href="/products-and-docs/apis/presence/">Presence API</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/sdks/">
+                    <h4>SDKs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-java">Java-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-javascript">JavaScript-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-scala">Scala-SDK</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/sdks/#account-manager">Account Manager</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/widgets/">
+                    <h4>WIDGETS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/widgets/checkout/">Ticketmaster Universal Checkout</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/event-discovery/">Event Discovery Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/countdown/">Countdown Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/calendar/">Calendar Widget</a>
+                    </li>
+									  <li>
+                        <a href="/products-and-docs/widgets/map/">Map Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/wordpress/">WordPress Widget</a>
+                    </li>
+                    <li>
+                        <a href="https://www.universe.com/directpayments">Direct Payments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/products-and-docs/tutorials/">
+                    <h4>TUTORIALS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/tutorials/events-search/">Events Search</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/widgets/">Widgets</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/sample-apps/">Sample Apps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-two" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/partners/distribution-partners/">
+                    <h4>Distribution Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliate Sign In</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/partners/certified-partners/">
+                    <h4>Certified Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/certified-partners/nexus/">Join the Nexus program</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<div class="col-xs-1 expand-column" style="margin-right: 20px;">
+                <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">
+                    <h4>Affiliates</h4>
+                </a>
+            </div>-->
+            <div class="col-xs-3 expand-column" style="margin-right: -120px;">
+                <a href="/partners/startups-and-developers/">
+                    <h4>Startups & Developers</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/startups-and-developers/#web">Web</a>
+                    </li>
+                    <li>
+                        <a href="/partners/startups-and-developers/#heatmap">Heatmap</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="expand-three" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column" style="margin-right: 30px;">
+                <a href="/support/faq/">
+                    <h4>FAQ</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/faq/#general-a">General</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#account-a">Data</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#affiliates-a">Affiliates</a>
+                    </li>
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+            
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/support/terms-of-use/">
+                    <h4>General Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/#license">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#ownership">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#warranty">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#release">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-3 expand-column" style="margin-right: -40px;">
+                <a href="/support/terms-of-use/partner/">
+                    <h4>Partner API Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#licensed-uses-and-restrictions">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#ownership-and-relationship-of-parties">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#warranty-disclaimer">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#release-and-waiver">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#hold-harmless-and-indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#general-terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/branding-guide/">
+                    <h4>Branding Guide</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/branding-guide/#brand-logo">Logo</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#verified-tickets">Verified Tickets</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#legal-stuff">Legal Stuff</a>
+                    </li>
+                </ul>
+            </div>
+             <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/partner-api-faq/">
+                    <h4>Partner API Faq</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/partner-api-faq/#partner-api-general">Partner API General</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#oauth">Oauth</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#captcha">Captcha</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#events">Events</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#polling">Polling</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-details">Event Details</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#event-availability">Event Availability</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-reserve">Event Reserve</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#adding-payment">Adding Payment</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#shipping">Shipping</a>
+                    </li>
+                    <li>
+                    	<a href="/support/partner-api-faq/#commit-cart">Commit Cart</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#fulfillment">Fulfillment</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/support/contact-us/">
+                    <h4>Contact Us</h4>
+                </a>
+            </div>
+
+        </div>
+        <div id="expand-four" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/blogs/">
+                    <h4>Blogs</h4>
+                </a>
+            </div>
+        </div>
+        <div id="expand-five" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column">
+                <a href="/events/">
+                    <h4>Events</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a class="" href="/events/#/upcoming">Upcoming</a>
+                    </li>
+                    <li>
+                        <a href="/events/#/past">Past</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-six" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="http://code.ticketmaster.com/">
+                    <h4>Open Source</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="menu-dropdown" class="col-xs-12 col-sm-5 col-lg-3 closed fixed" tabindex="-1">
+    
+    <li><a class="apigee-login" href="https://developer-acct.ticketmaster.com/user/login">Login</a></li>
+    <li><a class="active" href="/products-and-docs/">Products & Docs</a></li>
+    <li><a  href="/partners/">Partners</a></li>
+    <li><a  href="/support/">Support</a></li>
+    <li><a  href="/blogs/">Blogs</a></li>
+    <li><a  href="/events/">Events</a></li>
+    <li><a  href="http://code.ticketmaster.com/">Open Source</a></li>
+</ul>
+
+
+
+<div class="single-column tutorials article documentation">
+
+    <div class="maincontent">
+        <div class="row" style="position: relative;">
+            <div class="col-xs-12 col-sm-6 col-lg-3 has-bg" id="aside-block">
+                <div class="wrapper-aside-menu">
+                    <h3 class="menu-header" id="aside-heading">
+                        Products &amp; Docs
+                        <span class="expanded" id="side-menu-btn"></span>
+                    </h3>
+                    <ul class="aside-menu" id="scrollable-element">
+    <li>
+        <h4><a href="/products-and-docs/apis/getting-started/" >APIs</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/sdks/"  >SDKs</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/widgets/"  >Widgets</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/tutorials/"  >Tutorials</a></h4>
+        
+        <ul class="categories">
+            <li>
+                <a href="/products-and-docs/tutorials/events-search/"  class="active"  >Events Search</a>
+                <ul class="sections menu-highlight sd-tags-list"></ul>
+            </li>
+            <li>
+                <a href="/products-and-docs/tutorials/widgets/"  >Widgets</a>
+                <ul class="sections menu-highlight sd-tags-list"></ul>
+            </li>
+            <li>
+                <a href="/products-and-docs/tutorials/sample-apps/"  >Sample Apps</a>
+                <ul class="sections menu-highlight sd-tags-list"></ul>
+            </li>
+        </ul>
+        
+    </li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+
+        var uniqueUpcoming = [].map.call($(".tag-btn"), function(item){
+            return '<li><a href="#' + item.textContent + '" class="tag-menu-btn">' + item.textContent + '</a></li>';
+        }).filter( function(value, index, self) {
+            return self.indexOf(value) === index;
+        }).join("");
+
+        if(uniqueUpcoming !== ""){
+            $(".categories>li>a.active + .sd-tags-list").append(uniqueUpcoming);
+        }
+
+        var PartnerTagClickHandler = function() {
+            var currentItem = this.textContent;
+            var isActive = $(this).hasClass('active');
+            if(isActive){
+                $(".tag-btn, .tag-menu-btn").removeClass("active");
+                $(".tutorials-article").show();
+                if(this.tagName.toUpperCase() == "BUTTON"){
+                    this.blur();
+                }
+
+            }else{
+                $(".tag-btn").add(".tag-menu-btn").removeClass("active").map(function(){
+                    if (this.textContent == currentItem) {
+                        return this;
+                    }
+                }).addClass("active");
+
+                $(".tutorials-article").show().filter(function() {
+                    return $(this).find(".tag-btn.active").size() === 0;
+                }).hide();
+            }
+
+
+        };
+
+        $(".tutorials-article").on("click", ".tag-btn", PartnerTagClickHandler);
+        $(".categories").on("click", ".tag-menu-btn", PartnerTagClickHandler);
+    });
+
+
+
+</script>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-lg-9 page-column " id="main-block">
+                <div class="content" style="display: block;">
+                    <div class="article-wrapper">
+                        <h1 id="get-started-with-the-discovery-api">Get started with the Discovery API</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Use the Discovery API to search, look up and find events, attractions, venues, and classifications. The API provides access to content sourced from <a href="/products-and-docs/apis/discovery/v2/#supported-country-codes">various platform, markets and countries</a>.</p>
+
+<p>Documentation about this API can be found <a href="/products-and-docs/apis/discovery/v2/">here</a>.</p>
+
+<p>In this tutorial, we will create a simple event browsing application, which will walk us through all the Discovery API functionality.</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>To run a successful API call, you will need to pass your API Key as the query parameter <code class="highlighter-rouge">apikey</code>.</p>
+
+<p><strong>Example:</strong> https://app.ticketmaster.com/discovery/v2/events.json?{apikey}</p>
+
+<h3 id="get-an-api-key">Get an API key</h3>
+
+<p><a href="https://developer-acct.ticketmaster.com/user/login">Register</a> on the developers portal. After the registration, the default application will be created. The application contains a <code class="highlighter-rouge">Consumer Key</code> that is used for authentication.</p>
+
+<p>Your <code class="highlighter-rouge">Consumer Key</code> is your <code class="highlighter-rouge">API Key</code>.</p>
+
+<p><img src="/products-and-docs/tutorials/img/discovery-api-app.png" alt="Disovery API application" /></p>
+
+<h3 id="discovery-api-data-model">Discovery API data model</h3>
+
+<p>The Discovery API has four main entities: <strong>event</strong>, <strong>attraction</strong>, <strong>classification</strong>, and <strong>venue</strong>:</p>
+
+<ul>
+  <li>An event is the <strong>central entity</strong> to which all other entities relate. An event is basically a happening at a particular date and time.</li>
+  <li>An attraction is the artist, team or the performers at the event.</li>
+  <li>A classification is an attribute of both events and attractions and has three different levels:
+    <ul>
+      <li><strong>Segment</strong>: This could be music, sports, arts &amp; theater, family, Film, and miscellaneous.</li>
+      <li>Genre: These are the various genres under each segment.</li>
+      <li>Sub-genre: The secondary genre for this event or attraction under this particular segment.</li>
+    </ul>
+  </li>
+  <li>A venue describes the physical location at which the event is taking place.</li>
+</ul>
+
+<p>To learn more about the Discovery API, <a href="/products-and-docs/apis/discovery/v2/">click here</a>.</p>
+
+<p><img src="/products-and-docs/tutorials/img/discovery-api-data.png" alt="Disovery API data model" /></p>
+
+<h3 id="the-ticketmaster-api-explorer">The Ticketmaster API Explorer</h3>
+
+<p>This open-source application helps you understand API requests and responses instantly. You can <a href="/api-explorer/">jump in</a> right away!.</p>
+
+<p><img src="/products-and-docs/tutorials/img/discovery-api-explorer.png" alt="API explorer" /></p>
+
+<h2 id="example-event-listings">Example: Event Listings</h2>
+
+<p>In this example, we’ll show an event list and display the attraction of the event clicked. We use <a href="http://getbootstrap.com/">Bootsrap</a> for the UI.</p>
+
+<p>Let’s review the code (or you can also play with it on <a href="http://plnkr.co/edit/YX3fR7DdKCugKZ4uPmaC?p=preview">Plunker</a>).</p>
+
+<p class="window-title">Example: Event Listings</p>
+
+<blockquote class="tutorial-code t-lang-selector">
+  <p><a href="#html">HTML</a>
+<a href="#js">JavaScript</a></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"&lt;!-- path-to-your bootstrap.min.css --&gt;"</span> <span class="na">integrity=</span><span class="s">"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Optional theme --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"&lt;!-- path-to-your bootstrap-theme.min.css --&gt;"</span> <span class="na">integrity=</span><span class="s">"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;style&gt;</span>
+      <span class="nf">#attraction-panel</span> <span class="p">{</span>
+        <span class="nl">display</span><span class="p">:</span><span class="nb">none</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-xs-6"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'events-panel'</span> <span class="na">class=</span><span class="s">"panel panel-primary"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"panel-title"</span><span class="nt">&gt;</span>Events<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"events"</span> <span class="na">class=</span><span class="s">"list-group"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-footer"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;nav&gt;</span>
+              <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"pager"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"prev"</span> <span class="na">class=</span><span class="s">"previous"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="ni">&amp;larr;</span><span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"next"</span> <span class="na">class=</span><span class="s">"next"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="ni">&amp;rarr;</span><span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+              <span class="nt">&lt;/ul&gt;</span>
+            <span class="nt">&lt;/nav&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'attraction-panel'</span> <span class="na">class=</span><span class="s">"panel panel-primary"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"panel-title"</span><span class="nt">&gt;</span>Attraction<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"attraction"</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Attraction title<span class="nt">&lt;/h4&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"col-xs-12"</span> <span class="na">src=</span><span class="s">""</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"classification"</span><span class="nt">&gt;&lt;/p&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- jQuery (necessary for Bootstrap's JavaScript plugins) --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"script.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">getEvents</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#events-panel"</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#attraction-panel"</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&gt;</span> <span class="nx">getEvents</span><span class="p">.</span><span class="nx">json</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">totalPages</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">page</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span><span class="s2">"https://app.ticketmaster.com/discovery/v2/events.json?apikey=5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG&amp;size=4&amp;page="</span><span class="o">+</span><span class="nx">page</span><span class="p">,</span>
+    <span class="na">async</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">dataType</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">getEvents</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span><span class="p">;</span>
+  			  <span class="nx">showEvents</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  		   <span class="p">},</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  			  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  		   <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">showEvents</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#events .list-group-item"</span><span class="p">);</span>
+  <span class="nx">items</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">events</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">items</span><span class="p">.</span><span class="nx">first</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">events</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s1">'.list-group-item-heading'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s1">'.list-group-item-text'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">dates</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">localDate</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s2">".venue"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">venues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" in "</span> <span class="o">+</span> <span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">venues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">city</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">"click"</span><span class="p">);</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">getAttraction</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">attractions</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">item</span><span class="o">=</span><span class="nx">item</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#prev"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">getEvents</span><span class="p">(</span><span class="o">--</span><span class="nx">page</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#next"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">getEvents</span><span class="p">(</span><span class="o">++</span><span class="nx">page</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">getAttraction</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span><span class="s2">"https://app.ticketmaster.com/discovery/v2/attractions/"</span><span class="o">+</span><span class="nx">id</span><span class="o">+</span><span class="s2">".json?apikey=5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG"</span><span class="p">,</span>
+    <span class="na">async</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">dataType</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">showAttraction</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  		   <span class="p">},</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  			  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  		   <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">showAttraction</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#events-panel"</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#attraction-panel"</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+  
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#attraction-panel"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">getEvents</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span>
+  <span class="p">});</span>
+  
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#attraction .list-group-item-heading"</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">text</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#attraction img"</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'src'</span><span class="p">,</span><span class="nx">json</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">url</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">"#classification"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">segment</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" - "</span> <span class="o">+</span> <span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">genre</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" - "</span> <span class="o">+</span> <span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">subGenre</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">getEvents</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span></code></pre></figure>
+
+<p></p>
+
+<p>This code will produce such layout.</p>
+
+<p><img src="/products-and-docs/tutorials/img/discovery-api-events3.png" alt="Events with venues" /></p>
+
+<p><img src="/products-and-docs/tutorials/img/discovery-api-events2.png" alt="Attraction picture" /></p>
+
+<p>Great! Now let’s dive into the details:</p>
+
+<h3 class="w-title" id="requesting-events">Requesting events</h3>
+
+<p>We call the <a href="/products-and-docs/apis/discovery/v2/#srch-events-v2">Search Events</a> method to get a list of events. We do it in the JS function <code class="highlighter-rouge">getEvents</code>. This function has one parameter - a number of requested page. Code execution in our example starts from the call of <code class="highlighter-rouge">getEvents</code> function with page equal 0. We have global variable <code class="highlighter-rouge">page</code> with initial value 0. When we use pagination, this variable changes.</p>
+
+<p class="window-title">Requesting events</p>
+
+<blockquote class="tutorial-code t-lang-selector">
+  <p><a href="#js">JavaScript</a></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">getEvents</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#events-panel'</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#attraction-panel'</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">page</span> <span class="o">&gt;</span> <span class="nx">getEvents</span><span class="p">.</span><span class="nx">json</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">totalPages</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">page</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span><span class="s2">"https://app.ticketmaster.com/discovery/v2/events.json?apikey=5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG&amp;size=4&amp;page="</span><span class="o">+</span><span class="nx">page</span><span class="p">,</span>
+    <span class="na">async</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">dataType</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">getEvents</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span><span class="p">;</span>
+  			  <span class="nx">showEvents</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  		   <span class="p">},</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  			  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  		   <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This function has three parts. In the first part, we show a panel with event list and hide a panel with attraction details. Then we work with the page number. <code class="highlighter-rouge">page</code> cannot be less that 0. After the last page, we go to the first page again. In the third part, we call Search Events method and call function <code class="highlighter-rouge">showEvents</code> in a case of success.</p>
+
+<h3 class="w-title" id="layout-for-event-list">Layout for event list</h3>
+
+<p class="window-title">Layout for event list</p>
+
+<blockquote class="tutorial-code t-lang-selector">
+  <p><a href="#html">HTML</a></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'events-panel'</span> <span class="na">class=</span><span class="s">"panel panel-primary"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"panel-title"</span><span class="nt">&gt;</span>Events<span class="nt">&lt;/h3&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"events"</span> <span class="na">class=</span><span class="s">"list-group"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Event title<span class="nt">&lt;/h4&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"list-group-item-text"</span><span class="nt">&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"venue"</span><span class="nt">&gt;&lt;/p&gt;</span>
+              <span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-footer"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;nav&gt;</span>
+              <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"pager"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"prev"</span> <span class="na">class=</span><span class="s">"previous"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="ni">&amp;larr;</span><span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"next"</span> <span class="na">class=</span><span class="s">"next"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;&lt;span</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="ni">&amp;rarr;</span><span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+              <span class="nt">&lt;/ul&gt;</span>
+            <span class="nt">&lt;/nav&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<p>The panel has title section, body with a list of items and footer with pagination buttons.</p>
+
+<h3 class="w-title" id="rendering-the-event-list">Rendering the event list</h3>
+
+<p>When we get events from the server we call function <code class="highlighter-rouge">showEvents</code>. It builds list item for each event. List item has click handler that calls function <code class="highlighter-rouge">getAttraction</code>. So after clicking on list item we call Search Attractions method with if of the first attraction for a current event.</p>
+
+<p class="window-title">Rendering the event list</p>
+
+<blockquote class="tutorial-code t-lang-selector">
+  <p><a href="#js">JavaScript</a></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">showEvents</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#events .list-group-item'</span><span class="p">);</span>
+  <span class="nx">items</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">events</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">items</span><span class="p">.</span><span class="nx">first</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">events</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s1">'.list-group-item-heading'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s1">'.list-group-item-text'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">dates</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">localDate</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="s1">'.venue'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">venues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" in "</span> <span class="o">+</span> <span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">venues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">city</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">"click"</span><span class="p">);</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">getAttraction</span><span class="p">(</span><span class="nx">eventObject</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">_embedded</span><span class="p">.</span><span class="nx">attractions</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">item</span><span class="o">=</span><span class="nx">item</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p></p>
+
+<h3 id="attraction-details">Attraction details</h3>
+
+<p>We have <code class="highlighter-rouge">attraction-panel</code> to show attraction details. We show attraction name, the first picture, and classification.
+When we get attractions from the server we call function <code class="highlighter-rouge">showAttraction</code>. It fills panel with attraction values.</p>
+
+<p class="window-title">Attraction details</p>
+
+<blockquote class="tutorial-code t-lang-selector">
+  <p><a href="#html">HTML</a>
+<a href="#js">JavaScript</a></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'attraction-panel'</span> <span class="na">class=</span><span class="s">"panel panel-primary"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"panel-title"</span><span class="nt">&gt;</span>Attraction<span class="nt">&lt;/h3&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"attraction"</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"list-group-item-heading"</span><span class="nt">&gt;</span>Attraction title<span class="nt">&lt;/h4&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"col-xs-12"</span> <span class="na">src=</span><span class="s">""</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"classification"</span><span class="nt">&gt;&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">getAttraction</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="s2">"GET"</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span><span class="s2">"https://app.ticketmaster.com/discovery/v2/attractions/"</span><span class="o">+</span><span class="nx">id</span><span class="o">+</span><span class="s2">".json?apikey=5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG"</span><span class="p">,</span>
+    <span class="na">async</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">dataType</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">showAttraction</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  		   <span class="p">},</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  			  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  		   <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">showAttraction</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#events-panel'</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#attraction-panel'</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+  
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#attraction-panel'</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">getEvents</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span>
+  <span class="p">});</span>
+  
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#attraction .list-group-item-heading'</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">text</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#attraction img'</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'src'</span><span class="p">,</span><span class="nx">json</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">url</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#classification'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">segment</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" - "</span> <span class="o">+</span> <span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">genre</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">" - "</span> <span class="o">+</span> <span class="nx">json</span><span class="p">.</span><span class="nx">classifications</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">subGenre</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>You can try this entire tutorial code <a href="http://plnkr.co/edit/YX3fR7DdKCugKZ4uPmaC?p=preview">there</a>.</p>
+
+                        <div class="side-box"></div>
+
+												<div id="disqus_thread"></div>
+<script>
+  // Global discus config func.
+  window.disqus_config = function () {
+		if (window.location.hostname != 'developer.ticketmaster.com') {
+		    var pageURL = window.location.href.replace(window.location.host, 'developer.ticketmaster.com');
+		    this.page.url = pageURL || "http://developer.ticketmaster.com/";
+		}
+		else this.page.url = document.URL || "http://developer.ticketmaster.com/";
+    this.page.identifier = "Get started with The Discovery API";
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//ticketmasterapi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', + new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer" class="xs-center slice-top-right">
+
+<div class="row footer-nav">
+    <div class="row-container">
+        <div class="col-xs-12 col-sm-2">
+            <a href="/products-and-docs/"><h4 class="white">Products & Docs</h4></a>
+            <ul>
+                <li><a href="/products-and-docs/apis/getting-started/">APIs</a></li>
+                <li><a href="/products-and-docs/sdks/">SDKs</a></li>
+                <li><a href="/products-and-docs/widgets/">Widgets</a></li>
+                <li><a href="/products-and-docs/tutorials/">Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/partners/"><h4 class="white">Partners</h4></a>
+            <ul>
+                <li><a href="/partners/distribution-partners/">Distribution Partners</a></li>
+                <li><a href="/partners/certified-partners/">Certified Partners</a></li>
+                <!--<li><a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliates</a></li>-->
+                <li><a href="/partners/startups-and-developers/">Startups & Developers</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/support/"><h4 class="white">Support</h4></a>
+            <ul>
+                <li><a href="/support/faq/">FAQ</a></li>
+                
+                <li><a href="/support/terms-of-use/">General Terms of Use</a></li>
+                <li><a href="/support/terms-of-use/partner/">Partner API Terms of Use</a></li>
+                <li><a href="/support/branding-guide/">Branding Guide</a></li>
+                <li><a href="/support/contact-us/">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/blogs/"><h4 class="white">Blogs</h4></a>
+            <ul>
+                <li><a href="http://tech.ticketmaster.com/">Tech Blog</a></li>
+                <li><a href="https://medium.com/ticketmaster-tech/">Medium Publication</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/events/"><h4 class="white">Events</h4></a>
+            <ul>
+                <li><a href="/events/#/upcoming/hackathon">hackathons</a></li>
+                <li><a href="/events/#/upcoming/devjam">devjam</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="http://code.ticketmaster.com/"><h4 class="white">Open Source</h4></a>
+            <ul>
+                <li><a href="http://code.ticketmaster.com/#android-projects">Android</a></li>
+                <li><a href="http://code.ticketmaster.com/#backend-projects">Backend</a></li>
+                <li><a href="http://code.ticketmaster.com/#iOS-projects">iOS</a></li>
+                <li><a href="http://code.ticketmaster.com/#web-projects">Web</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row bottom-logo" style="margin-bottom: 10px;">
+    <div class="row-container">
+        <div class="col-xs-12">
+            <a href="http://www.ticketmaster.com">
+            <img alt="Ticketmaster logo" src="/assets/img/footer/ticketmaster-logo-white.svg">
+            </a>
+            <span>© 1976–2017 Ticketmaster. All rights reserved.</span>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+<div class="modal modal-common fs-modal modal-langs" tabindex="-1" role="dialog" aria-labelledby="search-events">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"></button>
+                <h4 id="modal-title" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="highlight"></div>
+            </div>
+        </div>
+    </div>
+    <textarea name="copy-clip" id="copy-clip" class="copy-clip"></textarea>
+</div>
+
+<!--<script src="/scripts/components/parser.js"></script>-->
+<script src="/scripts/vendors/clipboard.js"></script>
+<script src="/scripts/components/clipboard-fallback.js"></script>
+<script src="/scripts/vendors/user-scroll-disabler.js"></script>
+<script src="/scripts/components/pd-side-menu.js"></script>
+<script src="/scripts/components/menu-highlight.js"></script>
+<script src="/scripts/components/request-response.js"></script>
+<script src="/scripts/components/tutorials-code.js"></script>
+<script src="/scripts/vendors/jstree.min.js"></script>
+<script src="/scripts/components/list-collapse.js"></script>
+
+<script>
+    if(sessionStorage.getItem('tk-api-key') !== null) {
+        document.body.innerHTML = document.body.innerHTML.replace(/\{apikey\}/g, "apikey=" + sessionStorage.getItem('tk-api-key'));
+    }
+</script>
+
+        <div id="back-top">
+            <a href="javascript:void(0)"><span></span></a>
+        </div>
+
+        
+        
+        <script src="/scripts/components/scroll-top.js"></script>
+        <script src="/scripts/vendors/bootstrap.min.js"></script>
+        
+
+<div class="modal modal-common fade" id="feedback-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+          <h3 class="modal-title col-lg-12">Leave Your Feedback</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <form id="js_feedback_form" accept-charset="UTF-8" action="https://getsimpleform.com/messages/ajax?form_api_token=d9878ccc8e22c7253d057015617f82cd" method="POST">
+          <div class="col-lg-6">
+            <label for="name">Your name</label>
+            <input required type="text" id="name" name="name" maxlength="255" autofocus >
+          </div>
+          <div class="col-lg-6">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" title="Use the following format '-@-.--' ">
+          </div>
+          <div class="col-lg-12">
+            <label for="subject">Subject</label>
+            <div class="js_custom_select custom_select">
+              <select required class="custom_select__field" name="subject" id="subject" tabindex="-1">
+                <option value="General feedback">General feedback</option>
+                <option value="Current workflow of the portal">Current workflow of the portal</option>
+                <option value="Technical issues">Technical issues</option>
+              </select>
+              <input class="custom_select__placeholder" type="text" value="General feedback" readonly>
+              <ul class="custom_select__list">
+                <li class="custom_select__item" data-value="General feedback">General feedback</li>
+                <li class="custom_select__item" data-value="Current workflow of the portal">Current workflow of the portal</li>
+                <li class="custom_select__item" data-value="Technical issues">Technical issues</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <label for="description">Description</label>
+            <textarea required rows="3" name="description" id="description"></textarea>
+          </div>
+          <div class="col-sm-12">
+            <p id="feedback-message-error" class="text-overflow-message text-overflow-message__red" style="display:none">The maximum length of description can be 3000 characters.</p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="js_feedback_btn" type="button" class="btn btn-submit" >send</button>
+      </div>
+
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Button trigger modal -->
+<button id="js_feedback_open" type="button" class="btn feedback-btn scale-on-hover" data-toggle="modal" data-target="#feedback-modal">feedback</button>
+
+
+<!-- Modal alert-->
+<div id="feedback-alert-modal" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center">Thank you for contacting us!</h3>
+        <p class="text-center">We will review and respond promptly.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+<!-- Modal alert Error-->
+<div id="feedback-alert-modal-error" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center text-overflow-message__red">Error</h3>
+        <p id="text-overflow-message" class="text-center">The maximum length of description can be 3000 characters.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok-error" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+				<script src="/scripts/components/custom-select.js"></script>
+				<script src="/scripts/components/simple-form-checker.js"></script>
+				<script src="/scripts/components/feedback.js"></script>
+
+				
+				
+
+
+
+
+        
+				<script src="/scripts/load-api-key.js?v=1" async></script>
+    </body>
+</html>

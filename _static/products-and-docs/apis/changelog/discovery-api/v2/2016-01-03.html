@@ -1,0 +1,49 @@
+<p class="lead">We’re happy to announce the release of Discovery API v2.0 today! This release has a few major changes, primarily designed to simplify the code and to better support environments.</p>
+
+<ul class="nested-list">
+  <li>
+    <h5 id="general-model">General model</h5>
+    <ul>
+      <li>IDs are now obfuscated.</li>
+      <li>The concept of <strong>“domain” was removed in favor of “locale”</strong>.</li>
+      <li>The concept of <strong>“deviceId”</strong> was removed.</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="event-model">Event model</h5>
+    <ul>
+      <li>Removing <strong>“dates.displayOptions.range”</strong> in favor of using <strong>“dates.start”</strong> and “dates.end”.</li>
+      <li><strong>“dates.status”</strong> changed to <strong>“dates.status.code”</strong>.</li>
+      <li>Adding the new status <strong>“onsale”</strong> and <strong>“offsale”</strong> instead of <strong>“active”</strong>.</li>
+      <li>Categories is now name <strong>“classifications”</strong> to provide more information (Segment, Genre, SubGenre instead of Major/Minor).</li>
+      <li>Moving the classifications from <strong>“_embedded”</strong> at the root level.</li>
+      <li>Adding <strong>“images”</strong>.</li>
+      <li>Field <strong>“promoterId”</strong> is now under <strong>“promoter.id”</strong></li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="venue-model">Venue model</h5>
+    <ul>
+      <li>Adding <strong>“address.line2”</strong>.</li>
+      <li>Adding <strong>“country.name”</strong>.</li>
+      <li>Adding <strong>“state.name”</strong>.</li>
+      <li>Field <strong>“marketId”</strong> is now under <strong>“market.id”</strong>.</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="attractions-model">Attractions model</h5>
+    <ul>
+      <li>Adding <strong>“images”</strong>.</li>
+      <li>Adding <strong>“classifications”</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<!--   * ###### v1
+- ### Commerce API
+- ### Partner API
+- ### Deals API
+- ### Publish API
+- ### International Discovery API
+- ### Interactive Docs
+- ### API Explorer -->

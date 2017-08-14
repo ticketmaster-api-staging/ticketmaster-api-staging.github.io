@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/components/common/customSelect.component.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/components/common</a> customSelect.component.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.25% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>56/57</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>54/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Custom select component
+ */
+&nbsp;
+class CustomSelect {
+	constructor({data, selected, options, focus, onselect, animationSpeed = <span class="branch-0 cbranch-no" title="branch not covered" >200,</span> isReadOnly = <span class="branch-0 cbranch-no" title="branch not covered" >true}</span>) {
+		const rawOptions = ko.unwrap(options);
+		const DEFAULT_SELECTED = rawOptions[0].name;
+		this.name = data &amp;&amp; data.name;
+		this.curentSelectData = data;
+		this.onFocus = focus;
+		this.onselectMethod = onselect;
+		this.animationSpeed = animationSpeed;
+		this.options = options;
+		this.value = ko.unwrap(selected) || <span class="branch-1 cbranch-no" title="branch not covered" >DEFAULT_SELECTED;</span>
+&nbsp;
+		if(typeof this.value === 'object'){
+			this.selectedOption = ko.observable(this.value);
+			this.uncheckAllItems(ko.unwrap(this.options));
+			this.value.checked(true);
+		}
+		else{
+			this.selectedOption = ko.observable(this.mapForChecked({rawOptions, name: this.value}));
+		}
+&nbsp;
+		this.isExpandeded = ko.observable(false);
+		this.isReadOnly = isReadOnly;
+		this.setSubscribtions({selected, DEFAULT_SELECTED});
+		// Dirty watcher
+		this.fieldWatcher(data);
+	}
+&nbsp;
+	fieldWatcher(data) {
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (data) {
+			this.isDirty = data.isDirty = ko.pureComputed(() =&gt; {
+				return data.value() !== data.default &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >data.value() !== 'none';</span>
+			});
+		}
+	}
+&nbsp;
+	setSubscribtions({selected, DEFAULT_SELECTED}) {
+		// has preselected option
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (selected) {
+			selected.subscribe(value =&gt; {
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(!value) <span class="cstat-no" title="statement not covered" >return;</span>
+				if(typeof value === 'object') {
+					this.selectedOption(value);
+				}
+				else{
+					this.selectedOption(
+						this.mapForChecked({rawOptions: ko.unwrap(this.options), name: value || <span class="branch-1 cbranch-no" title="branch not covered" >DEFAULT_SELECTED}</span>));
+				}
+			});
+		}
+&nbsp;
+		// on select map for checked
+		this.selectedOption.subscribe(value =&gt; {
+			this.uncheckAllItems(ko.unwrap(this.options));
+			value.checked(true);
+			this.onselectMethod(value);
+		});
+&nbsp;
+		// quantity of options check
+		this.isOneOption = ko.pureComputed(() =&gt; ko.unwrap(this.options).length &lt; 2);
+	}
+&nbsp;
+	uncheckAllItems (rawOptionsList) {
+		rawOptionsList.forEach((item)=&gt; item.checked(false));
+	}
+&nbsp;
+	/**
+	 * Updates checked option
+	 * @param rawOptions {array} options
+	 * @param name {string} name of selected option
+	 * @returns {object} selected option
+	 */
+	mapForChecked({rawOptions, name}) {
+		this.uncheckAllItems(rawOptions);
+		let selectedOption;
+		for (const option of rawOptions) {
+			let optionValue = option.value || option.name;
+			if (optionValue === name) {
+				selectedOption = option;
+				break;
+			}
+		}
+		selectedOption.checked(true);
+		return selectedOption;
+	}
+&nbsp;
+	slideToggle(item, event) {
+		this.onFocus &amp;&amp; this.onFocus(this.curentSelectData);
+		this.isExpandeded(!ko.unwrap(this.isExpandeded));
+		if (ko.unwrap(this.isOneOption)) {
+			return false
+		}
+		let el = this.constructor.findElement(event);
+		el.wrapper.slideToggle(this.animationSpeed);
+		el.layer.toggleClass('hidden');
+	}
+&nbsp;
+	onSelect(item, event) {
+		this.selectedOption(item);
+		this.slideToggle(item, event);
+	}
+&nbsp;
+	static findElement(event) {
+		let parent = $(event.currentTarget).parents('.js-custom-select');
+		return {
+			wrapper: parent.find('.js-custom-select-wrapper'),
+			layer: parent.find('.js-custom-select-layer')
+		}
+	}
+}
+&nbsp;
+ko.components.register('custom-select', {
+  viewModel: CustomSelect,
+  template: `
+	&lt;div class="api-exp-custom-select js-custom-select"&gt;
+		&lt;div class="api-exp-custom-select-wrapper"&gt;
+			&lt;!-- ko if: name --&gt;
+			&lt;span data-bind="text: name" class="api-exp-custom-select__title"&gt;&lt;/span&gt;
+			&lt;!-- /ko --&gt;
+			&lt;select class="api-exp-custom-select__field" name="api-exp-method" data-bind="options: options, optionsText: 'name', value: selectedOption"&gt;&lt;/select&gt;
+				&lt;span class="api-exp-custom-select__placeholder"&gt;
+				&lt;input type="text" data-bind="click: slideToggle, value: selectedOption().name, attr: {disabled: isOneOption, readonly: isReadOnly}"&gt;
+				&lt;button class="btn btn-icon shevron up blue api-exp-custom-select__chevron" data-bind="css: {hidden: isOneOption, down: isExpandeded}" type="button"&gt;&lt;/button&gt;
+			&lt;/span&gt;
+			&lt;ul data-bind="foreach: options, scroll: {x: false, y: true}" class="api-exp-custom-select__list js-custom-select-wrapper"&gt;
+				&lt;li data-bind="css: {'active': checked}" class="api-exp-custom-select__item"&gt;
+					&lt;button class="api-exp-custom-select__item-label"
+									data-bind="click: $component.onSelect.bind($component),
+															text: name,
+															css: {'active': checked},
+															attr: {'data-value': name}"&gt;&lt;/button&gt;
+					&lt;a class="api-exp-custom-select__item-link" target="_blank" data-bind="attr: {href: link}, css: {'hidden': !link}"&gt;&amp;nbsp;&lt;/a&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+		&lt;div data-bind="click: slideToggle" class="api-exp-custom-select-layer js-custom-select-layer hidden"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+`});
+&nbsp;
+module.exports = CustomSelect;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

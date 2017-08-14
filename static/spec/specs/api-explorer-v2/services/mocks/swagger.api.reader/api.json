@@ -1,0 +1,266 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The Ticketmaster Discovery API allows you to search for events, attractions, or venues.",
+    "version" : "v2",
+    "title" : "Discovery API",
+    "contact" : {
+      "url" : "http://developer.ticketmaster.com/support/contact-us/"
+    }
+  },
+  "host" : "www.ticketmaster.com",
+  "basePath" : "/discovery/v2",
+  "paths" : {
+    "/discovery/v2/attractions" : {
+      "get" : {
+        "summary" : "Attraction Search",
+        "description" : "Find attractions (artists, sports, packages, plays and so on) and filter your search by name, and much more.",
+        "operationId" : "find",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting order of the search result",
+          "required" : false,
+          "type" : "string",
+          "default" : "name,asc",
+          "pattern" : "^name,asc|name,desc$",
+          "x-example" : ""
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "Keyword to search on",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "description" : "Filter entities by its id",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Attraction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discovery/v2/events" : {
+      "get" : {
+        "summary" : "Event Search",
+        "description" : "Find events and filter your search by location, date, availability, and much more.",
+        "operationId" : "find",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting order of the search result",
+          "required" : false,
+          "type" : "string",
+          "default" : "relevance,desc",
+          "pattern" : "^(name|date|relevance|name,date|date,name),(asc|desc)$",
+          "x-example" : ""
+        }, {
+          "name" : "latlong",
+          "in" : "query",
+          "description" : "Filter events by latitude and longitude",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "pattern" : "^\\s*$|^-?(90(\\.0+)?|[0-8]?[0-9](\\.\\d+)?),-?(180(\\.0+)?|(1[0-7][0-9]|\\d{1,2})(\\.\\d+)?)$",
+          "x-example" : "33.80003000,-117.88304300"
+        }, {
+          "name" : "radius",
+          "in" : "query",
+          "description" : "Radius of the area in which we want to search for events.",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "pattern" : "^\\s*$|^0*1?\\d{1,4}$",
+          "x-example" : ""
+        },{
+          "name" : "countryCode",
+          "in" : "query",
+          "description" : "Filter events by country code",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "venueId",
+          "in" : "query",
+          "description" : "Filter events by venue id",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discovery/v2/events/{id}" : {
+      "get" : {
+        "summary" : "Get Event Details",
+        "description" : "Get details for a specific event using the unique identifier for the event. This includes the venue and location, the attraction(s), and the Ticketmaster Website URL for purchasing tickets for the event.",
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the event",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used.",
+          "required" : false,
+          "type" : "string",
+          "default" : "en",
+          "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : "en-us,en,fr"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Event"
+            }
+          }
+        }
+      }
+    },
+    "/discovery/v2/events/{id}/images" : {
+      "get" : {
+        "summary" : "Get Event Images",
+        "description" : "Get images for a specific event using the unique identifier for the event.",
+        "operationId" : "getImages",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the event",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used.",
+          "required" : false,
+          "type" : "string",
+          "default" : "en",
+          "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : "en-us,en,fr"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EventImages"
+            }
+          }
+        }
+      }
+    },
+    "/discovery/v2/venues" : {
+      "get" : {
+        "summary" : "Venue Search",
+        "description" : "Find venues and filter your search by name, and much more.",
+        "operationId" : "find",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting order of the search result",
+          "required" : false,
+          "type" : "string",
+          "default" : "name,asc",
+          "pattern" : "^name,asc|name,desc$",
+          "x-example" : ""
+        }, {
+          "name" : "stateCode",
+          "in" : "query",
+          "description" : "Filter venues by state / province code",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "countryCode",
+          "in" : "query",
+          "description" : "Filter venues by country code",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "Keyword to search on",
+          "required" : false,
+          "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Venue"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discovery/v2/venues/{id}" : {
+      "get" : {
+        "summary" : "Get Venue Details",
+        "description" : "Get details for a specific venue using the unique identifier for the venue.",
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the venue",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used.",
+          "required" : false,
+          "type" : "string",
+          "default" : "en",
+          "pattern" : "(?i)^\\s*$|^\\s*[a-z]{2}(-[a-z]{2})?(\\s*,\\s*[a-z]{2}(-[a-z]{2})?)*\\s*$",
+          "x-example" : "en-us,en,fr"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Venue"
+            }
+          }
+        }
+      }
+    }
+  }
+}

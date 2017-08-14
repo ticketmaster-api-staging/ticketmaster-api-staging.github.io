@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/components/filter/radioFilter.component.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/components/filter</a> radioFilter.component.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>38/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/38</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var self;
+&nbsp;
+function RadioFilter(params) {
+	self = this;
+	var selectedCategory = ko.unwrap(params.selectedCategory);
+	var data = params.data;
+	this.selectedMethodType = params.selectedMethodType;
+	this.RADIO_ID = 'api-exp-';
+&nbsp;
+	this.radiosModel = ko.observableArray([]);
+	this.updateRadiosModel(data[selectedCategory]);
+&nbsp;
+	params.selectedCategory.subscribe(function (val) {
+		this.updateRadiosModel(data[val]);
+	}, this);
+}
+&nbsp;
+RadioFilter.prototype.updateRadiosModel = function (param) {
+	var obj = param || <span class="branch-1 cbranch-no" title="branch not covered" >{},</span>
+		arr = [];
+&nbsp;
+	for (var i in obj) {
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (!obj.hasOwnProperty(i) || /^__/g.test(i)) { <span class="cstat-no" title="statement not covered" >continue; </span>} // exclude all fields that begin from '__' - this will be service fields
+		var item = {
+			checked: ko.observable(i === 'ALL'),
+			name: i
+		};
+		arr.push(item);
+		// initial notify for all subscribers
+		i === 'ALL' &amp;&amp; this.selectedMethodType.notifySubscribers(i);
+	}
+&nbsp;
+	arr = arr.sort(compareMethods);
+	this.radiosModel(arr);
+	return arr;
+};
+&nbsp;
+/**
+ * Onchange handler for Radio buttons
+ * @param item
+ */
+RadioFilter.prototype.onchangeRadios = function (item) {
+	var radiosModel = ko.unwrap(self.radiosModel).map(function (obj) {
+		if (obj.name === item.name) {
+			obj.checked(true);
+			self.selectedMethodType(obj.name);
+		} else {
+			obj.checked(false);
+		}
+		return obj;
+	});
+	self.radiosModel(radiosModel);
+};
+&nbsp;
+/**
+ * Uniq id for radio btn
+ * @param name
+ * @returns {string}
+ */
+RadioFilter.prototype.getInputId = function (name) {
+	return self.RADIO_ID + name;
+};
+&nbsp;
+/**
+ * Sort function for methods aray
+ * @param f
+ * @param s
+ * @returns {number}
+ */
+function compareMethods(f,s) {
+	var a = f.name.toUpperCase();
+	var b = s.name.toUpperCase();
+&nbsp;
+	<span class="missing-if-branch" title="if path not taken" >I</span>if (a === b) {<span class="cstat-no" title="statement not covered" >return 0;}</span>
+	if (a === 'ALL' ||
+		(a === 'GET' &amp;&amp; (b === 'POST' || b === 'PUT' || b === 'DELETE')) ||
+		(a === 'POST' &amp;&amp; (b === 'PUT' || b === 'DELETE')) ||
+		(a === 'PUT' &amp;&amp; <span class="branch-9 cbranch-no" title="branch not covered" >b === 'DELETE')</span>) {
+		return -1;
+	}
+	return 1;
+}
+&nbsp;
+&nbsp;
+ko.components.register('radio-filter', {
+	viewModel: RadioFilter,
+	template:`
+		&lt;!--radios--&gt;
+		&lt;section data-bind="foreach: radiosModel" class="api-exp-methods__radio-buttons radio-buttons clearfix"&gt;
+			&lt;div data-bind="css: {active: checked}" class="api-exp-method"&gt;
+				&lt;input data-bind="attr: { id: $component.getInputId(name), checked: checked }, event: {change: $component.onchangeRadios}"
+								class="api-exp-content-method__radio"
+								type="radio"
+								name="api-exp-methods"&gt;
+				&lt;label data-bind="text: name, attr: {for: $component.getInputId(name)}" class="radio-inline api-exp-method__label"&gt;&lt;/label&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+`});
+&nbsp;
+module.exports = RadioFilter;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

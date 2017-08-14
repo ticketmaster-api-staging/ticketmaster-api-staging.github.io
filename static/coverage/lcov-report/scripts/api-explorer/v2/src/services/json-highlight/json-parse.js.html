@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/services/json-highlight/json-parse.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/services/json-highlight</a> json-parse.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.68% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>38/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.68% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/41</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var prefix = 'tm-code';
+&nbsp;
+var getExpanderClasses = function (expanded) {
+	if (!expanded) {
+		return 'expanded collapsed hidden';
+	}
+	return 'expanded';
+};
+&nbsp;
+var encode = function (value) {
+	return ['&lt;span&gt;', value, '&lt;/span&gt;'].join('');
+};
+&nbsp;
+var createElement = function (key, value, type, expanderClasses) {
+	var klass = 'object',
+		open = '{',
+		close = '}';
+&nbsp;
+	if (Array.isArray(value)) {
+		klass = 'array';
+		open = '[';
+		close = ']';
+	}
+&nbsp;
+	if (value === null) {
+		return [
+			'&lt;li&gt;',
+				'&lt;span class="key"&gt;"', encode(key), '": &lt;/span&gt;',
+				'&lt;span class="null"&gt;"', encode(value), '"&lt;/span&gt;',
+			'&lt;/li&gt;'
+		].join('');
+	}
+&nbsp;
+	if (type == 'object') {
+		return [
+			'&lt;li&gt;',
+				'&lt;span class="', expanderClasses, '"&gt;&lt;/span&gt;',
+				'&lt;span class="key"&gt;"', encode(key), '": &lt;/span&gt; ',
+				'&lt;span class="open"&gt;', open, '&lt;/span&gt; ',
+				'&lt;ul class="', klass, '"&gt;',
+					json2html(value, expanderClasses),
+				'&lt;/ul&gt;',
+				'&lt;span class="close"&gt;', close, '&lt;/span&gt;',
+			'&lt;/li&gt;'
+		].join('');
+	}
+&nbsp;
+	if (type == 'number' || type == 'boolean') {
+		return [
+			'&lt;li&gt;',
+				'&lt;span class="key"&gt;"', encode(key), '": &lt;/span&gt;',
+				'&lt;span class="', type, '"&gt;', encode(value), '&lt;/span&gt;',
+			'&lt;/li&gt;'
+		].join('');
+	}
+	return [
+		'&lt;li&gt;',
+			'&lt;span class="key"&gt;"', encode(key), '": &lt;/span&gt;',
+			'&lt;span class="', type, '"&gt;"', encode(value), '"&lt;/span&gt;',
+		'&lt;/li&gt;'
+	].join('');
+};
+&nbsp;
+var json2html = function (json, expanderClasses) {
+	var html = '';
+	for (var key in json) {
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (!json.hasOwnProperty(key)) {
+<span class="cstat-no" title="statement not covered" >			continue;</span>
+		}
+&nbsp;
+		html = [html, createElement(key, json[key], typeof json[key], expanderClasses)].join('');
+	}
+	return html;
+};
+&nbsp;
+var getJsonViewer = function (data, options) {
+	try {
+		return [
+			'&lt;ul class="', prefix, '-container"&gt;',
+				json2html([JSON.parse(data)], getExpanderClasses(options.expanded)),
+			'&lt;/ul&gt;'
+		].join('');
+	} catch (e) {
+<span class="cstat-no" title="statement not covered" >		return [</span>
+			'&lt;div class="', prefix, '-error" &gt;', e.toString(), ' &lt;/div&gt;'
+		].join('');
+	}
+};
+&nbsp;
+module.exports = function(data, opt) {
+	var json = '';
+	var options = opt || {expanded: true};
+	<span class="missing-if-branch" title="if path not taken" >I</span>if (typeof data == 'string') {
+<span class="cstat-no" title="statement not covered" >		json = data;</span>
+	} else <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof data == 'object') {
+		json = JSON.stringify(data)
+	}
+	return getJsonViewer(json, options);
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>

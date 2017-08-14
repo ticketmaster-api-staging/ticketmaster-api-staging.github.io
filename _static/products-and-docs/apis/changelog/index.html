@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Changelog">
+    <meta name="keywords" content="changelog, API">
+    <title>
+            Changelog – The Ticketmaster Developer Portal</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/products-and-docs/apis/changelog/">
+    <!-- <link rel="alternate" type="application/rss+xml" title="The Ticketmaster Developer Portal" href="http://localhost:4000/feed.xml"> -->
+    <script src="/scripts/vendors/jquery-1.11.3.min.js"></script>
+    <script src="/scripts/components/header.js"></script>
+	  <script type="text/javascript" src="https://www.universe.com/embed.js"></script>
+		<!-- Begin Jekyll SEO tag v2.2.0 -->
+<meta property="og:title" content="Changelog" />
+<meta name="author" content="Name Lastname" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Changelog" />
+<meta property="og:description" content="Changelog" />
+<link rel="canonical" href="http://localhost:4000/products-and-docs/apis/changelog/" />
+<meta property="og:url" content="http://localhost:4000/products-and-docs/apis/changelog/" />
+<meta property="og:site_name" content="The Ticketmaster Developer Portal" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "WebPage",
+"headline": "Changelog",
+"author": {"@type": "Person",
+"name": {"name":"Name Lastname","email":"blah@email.test","github":"username","twitter":"username","feedburner":"feedname"}},
+"description": "Changelog",
+"url": "http://localhost:4000/products-and-docs/apis/changelog/"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<meta property="og:image" content="http://localhost:4000/assets/img/branding-guide/blue-logo@3x.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="792" />
+		<meta property="og:image:height" content="792" />
+</head>
+
+    <body class="no-js">
+        <!-- Qualaroo for ticketmaster.com -->
+        <!-- Paste this code right after the <body> tag on every page of your site. -->
+        <script type="text/javascript">
+          var _kiq = _kiq || [];
+          (function(){
+            setTimeout(function(){
+            var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
+            s.async = true; s.src = '//s3.amazonaws.com/ki.js/62776/euc.js'; f.parentNode.insertBefore(s, f);
+            }, 1);
+          })();
+        </script>
+        
+
+        <script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+
+<input type='checkbox' style='display: none' id="cb">
+<label class='modal-info-label icon-right' for=cb>
+    <img src="/assets/controls/ic-close-small-grey.svg">
+</label>
+<div class='modal-info fixed'><span></span>
+    Please enable JS in your browser for better work of developer.ticketmaster.com
+</div>
+<div class="top-bar bg-header header-curtain">
+<div class="body-wrapper">
+    <div class="row">
+        <div class="col-xs-7 col-lg-2 gray">
+            <a id="header-logo" href="/">
+            
+            <img alt="Ticketmaster logo" src="/assets/img/header/tm-developer-logo.svg">
+            
+            </a>
+        </div>
+        <nav id="menu" class="col-xs-12 col-lg-8">
+            <!-- links put into single line intentionally to avoid browser rendered spaces -->
+            <a   class="one nav-item expandable"  data-expands-to="one" href="/products-and-docs/">Products & Docs <span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="two" href="/partners/">Partners<span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="three" href="/support/">Support<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="four" href="/blogs/">Blogs</a><a
+                 class="gray expandable"  data-expands-to="five" href="/events/">Events<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="six" href="http://code.ticketmaster.com/">Open Source</a>
+        </nav>
+        <div class="col-xs-5 col-lg-2 gray">
+            <a id="menu-btn"  class="white"></a>
+            <div class="search-container">
+                <div id="search"  class="white">
+                    <div class="search-button"></div>
+                    <form action="/search/" id="cse-search-box" autocomplete="off">
+                        <div>
+                            <input type="hidden" name="cx" value="000111791941460729347:zmu0d7yvkfq" />
+                            <input type="hidden" name="ie" value="UTF-8" />
+                            <input class="q" type="text" name="q" size="14" placeholder="Search for ..."/>
+                            <input class="sa" type="submit" name="sa" value="" />
+                        </div>
+                    </form>
+                    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+                    <script type="text/javascript" src="//www.google.com.ua/cse/brand?form=cse-search-box&lang=en"></script>
+                    <!--<span tabindex="-1" id="search-alert" style="display: none;">Whoa! Search isn't quite ready yet! We're still working on it.</span>-->
+                </div>
+                <a class="apigee-login  white" href="https://developer-acct.ticketmaster.com/user/login">Login</a>
+            </div>
+        </div>
+        <div id="rainbow">
+            <span class="one"></span>
+            <span class="two"></span>
+            <span class="three"></span>
+            <span class="four"></span>
+            <span class="five"></span>
+            <span class="six"></span>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="expand-menu" class="row" tabindex="-1"  style="position:fixed" >
+    <div class="row-container">
+        <div id="expand-one" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/apis/getting-started/">
+                    <h4>APIs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/apis/getting-started/">Getting started</a>
+                    </li>
+                    <!--<li>
+                        <a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a>
+                    </li>-->
+                    <li>
+                        <a href="/api-explorer/">API Explorer</a>
+                    </li>
+									  <li>
+                        <a href="/api-explorer/v2/">API Explorer v2</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/changelog/">Changelog</a>
+                    </li>
+
+                    <li>
+                        <h4>OPEN APIs</h4>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/publish/">Publish API</a>
+                    </li>
+                    <!--
+									  <li>
+                        <a href="/products-and-docs/apis/oauth/"> OAuth API</a>
+                    </li>
+                    -->
+                    <li>
+                        <h4>PARTNER APIs</h4>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/partner/">Partner API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                    </li>
+                    <li>
+                         <a href="/products-and-docs/apis/presence/">Presence API</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/sdks/">
+                    <h4>SDKs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-java">Java-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-javascript">JavaScript-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-scala">Scala-SDK</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/sdks/#account-manager">Account Manager</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/widgets/">
+                    <h4>WIDGETS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/widgets/checkout/">Ticketmaster Universal Checkout</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/event-discovery/">Event Discovery Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/countdown/">Countdown Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/calendar/">Calendar Widget</a>
+                    </li>
+									  <li>
+                        <a href="/products-and-docs/widgets/map/">Map Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/wordpress/">WordPress Widget</a>
+                    </li>
+                    <li>
+                        <a href="https://www.universe.com/directpayments">Direct Payments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/products-and-docs/tutorials/">
+                    <h4>TUTORIALS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/tutorials/events-search/">Events Search</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/widgets/">Widgets</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/sample-apps/">Sample Apps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-two" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/partners/distribution-partners/">
+                    <h4>Distribution Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliate Sign In</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/partners/certified-partners/">
+                    <h4>Certified Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/certified-partners/nexus/">Join the Nexus program</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<div class="col-xs-1 expand-column" style="margin-right: 20px;">
+                <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">
+                    <h4>Affiliates</h4>
+                </a>
+            </div>-->
+            <div class="col-xs-3 expand-column" style="margin-right: -120px;">
+                <a href="/partners/startups-and-developers/">
+                    <h4>Startups & Developers</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/startups-and-developers/#web">Web</a>
+                    </li>
+                    <li>
+                        <a href="/partners/startups-and-developers/#heatmap">Heatmap</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="expand-three" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column" style="margin-right: 30px;">
+                <a href="/support/faq/">
+                    <h4>FAQ</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/faq/#general-a">General</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#account-a">Data</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#affiliates-a">Affiliates</a>
+                    </li>
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+            
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/support/terms-of-use/">
+                    <h4>General Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/#license">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#ownership">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#warranty">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#release">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-3 expand-column" style="margin-right: -40px;">
+                <a href="/support/terms-of-use/partner/">
+                    <h4>Partner API Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#licensed-uses-and-restrictions">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#ownership-and-relationship-of-parties">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#warranty-disclaimer">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#release-and-waiver">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#hold-harmless-and-indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#general-terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/branding-guide/">
+                    <h4>Branding Guide</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/branding-guide/#brand-logo">Logo</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#verified-tickets">Verified Tickets</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#legal-stuff">Legal Stuff</a>
+                    </li>
+                </ul>
+            </div>
+             <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/partner-api-faq/">
+                    <h4>Partner API Faq</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/partner-api-faq/#partner-api-general">Partner API General</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#oauth">Oauth</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#captcha">Captcha</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#events">Events</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#polling">Polling</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-details">Event Details</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#event-availability">Event Availability</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-reserve">Event Reserve</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#adding-payment">Adding Payment</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#shipping">Shipping</a>
+                    </li>
+                    <li>
+                    	<a href="/support/partner-api-faq/#commit-cart">Commit Cart</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#fulfillment">Fulfillment</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/support/contact-us/">
+                    <h4>Contact Us</h4>
+                </a>
+            </div>
+
+        </div>
+        <div id="expand-four" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/blogs/">
+                    <h4>Blogs</h4>
+                </a>
+            </div>
+        </div>
+        <div id="expand-five" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column">
+                <a href="/events/">
+                    <h4>Events</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a class="" href="/events/#/upcoming">Upcoming</a>
+                    </li>
+                    <li>
+                        <a href="/events/#/past">Past</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-six" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="http://code.ticketmaster.com/">
+                    <h4>Open Source</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="menu-dropdown" class="col-xs-12 col-sm-5 col-lg-3 closed fixed" tabindex="-1">
+    
+    <a id="menu-btn-fixed" class="tm-close"></a>
+    
+    <li><a class="apigee-login" href="https://developer-acct.ticketmaster.com/user/login">Login</a></li>
+    <li><a class="active" href="/products-and-docs/">Products & Docs</a></li>
+    <li><a  href="/partners/">Partners</a></li>
+    <li><a  href="/support/">Support</a></li>
+    <li><a  href="/blogs/">Blogs</a></li>
+    <li><a  href="/events/">Events</a></li>
+    <li><a  href="http://code.ticketmaster.com/">Open Source</a></li>
+</ul>
+
+
+
+<div class="single-column">
+
+    <div class="maincontent">
+        <div class="row" style="position: relative;">
+            <div class="col-xs-12 col-sm-6 col-lg-3 has-bg" id="aside-block">
+                <div class="wrapper-aside-menu">
+                    <h3 class="menu-header" id="aside-heading">
+                        Products &amp; Docs
+                        <span class="expanded" id="side-menu-btn"></span>
+                    </h3>
+                    <ul class="aside-menu" id="scrollable-element">
+    <li>
+        <h4><a href="/products-and-docs/apis/getting-started/"  class="active" >APIs</a></h4>
+        
+        <ul class="categories">
+            <li><a href="/products-and-docs/apis/getting-started/">Getting Started</a>
+                
+            </li>
+           
+            <!--automenu for Swagger api-->
+            <li><a href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                
+            </li><!--END automenu-->
+						
+<!---->
+
+					<!---->
+
+						<!--automenu for Swagger api-->
+						<li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+							
+						</li><!--END automenu-->
+
+            <li><a href="/products-and-docs/apis/partner/">Partner API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                
+            </li>
+
+            <li><a href="/products-and-docs/apis/publish/">Publish API</a>
+                
+            </li>
+						<!--automenu for Swagger api-->
+					  <!--
+						<li><a href="/products-and-docs/apis/publish-api">Publish API (Autodoc)</a>
+							
+						</li>-->
+						<!--END automenu-->
+            <!--
+					  <li><a href="/products-and-docs/apis/oauth/">OAuth API</a>
+                
+            </li>-->
+            <li><a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/presence/">Presence API</a>
+                 
+             </li>
+            <!--<li><a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a></li>-->
+            <li><a href="/api-explorer/">API Explorer</a></li>
+					  <li><a href="/api-explorer/v2/">API Explorer v2</a></li>
+            <li><a href="/products-and-docs/apis/changelog/">Changelog</a>
+                
+                
+                    <ul class="sections menu-highlight">
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                                
+                                <li><a href="#discovery-api">Discovery API</a></li>
+                                
+                            
+                            
+                        
+                            
+                                
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                    </ul>
+                
+						</li>
+        </ul>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/sdks/"  >SDKs</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/widgets/"  >Widgets</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/tutorials/"  >Tutorials</a></h4>
+        
+    </li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+
+        var uniqueUpcoming = [].map.call($(".tag-btn"), function(item){
+            return '<li><a href="#' + item.textContent + '" class="tag-menu-btn">' + item.textContent + '</a></li>';
+        }).filter( function(value, index, self) {
+            return self.indexOf(value) === index;
+        }).join("");
+
+        if(uniqueUpcoming !== ""){
+            $(".categories>li>a.active + .sd-tags-list").append(uniqueUpcoming);
+        }
+
+        var PartnerTagClickHandler = function() {
+            var currentItem = this.textContent;
+            var isActive = $(this).hasClass('active');
+            if(isActive){
+                $(".tag-btn, .tag-menu-btn").removeClass("active");
+                $(".tutorials-article").show();
+                if(this.tagName.toUpperCase() == "BUTTON"){
+                    this.blur();
+                }
+
+            }else{
+                $(".tag-btn").add(".tag-menu-btn").removeClass("active").map(function(){
+                    if (this.textContent == currentItem) {
+                        return this;
+                    }
+                }).addClass("active");
+
+                $(".tutorials-article").show().filter(function() {
+                    return $(this).find(".tag-btn.active").size() === 0;
+                }).hide();
+            }
+
+
+        };
+
+        $(".tutorials-article").on("click", ".tag-btn", PartnerTagClickHandler);
+        $(".categories").on("click", ".tag-menu-btn", PartnerTagClickHandler);
+    });
+
+
+
+</script>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-lg-9 page-column " id="main-block">
+                <div class="content 
+" style="display: block;">
+                    <h1 id="changelog">Changelog</h1>
+
+<div class="changelog">
+
+  <p class="lead double-margin">In this page you can find all updates of Ticketmaster APIs.</p>
+
+</div>
+
+
+
+                    
+
+                    
+
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <div class="changelog-section">
+                                
+                                    <h2 id="discovery-api">Discovery API</h2>
+                                
+                                <h4>01 June 2016</h4><p class="lead">Main release feature: Java SDK is now available on <a href="https://github.com/ticketmaster-api/sdk-java">Github</a></p>
+
+<ul class="nested-list">
+  <li>
+    <h5 id="sdk">SDK</h5>
+    <ul>
+      <li>Java SDK is now available. The project is still in early stage, but we are looking forward to receive feedback. For more information can be found on <a href="https://github.com/ticketmaster-api/sdk-java">Github</a></li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="search-events">Search Events:</h5>
+    <ul>
+      <li>New <strong>“countryCode”</strong> filter was added</li>
+      <li>New <strong>“stateCode”</strong> filter was added</li>
+      <li>New <strong>“classificationName”</strong> filter</li>
+      <li>New <strong>“classificationId”</strong> filter (it supports multiple Id)</li>
+      <li>New <strong>“dmaId”</strong> filter (it supports multiple Id)</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="search-venues">Search Venues:</h5>
+    <ul>
+      <li>New <strong>“countryCode”</strong> filter was added</li>
+      <li>New <strong>“stateCode”</strong> filter was added</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="event-model">Event Model:</h5>
+    <ul>
+      <li>New <strong>“place”</strong> field to indicate where the Event will take place if there’s no specific Venue associated to it.</li>
+      <li>New <strong>“priceRanges”</strong> field</li>
+      <li>New <strong>“pleaseNote”</strong> field</li>
+      <li>New <strong>“info”</strong> field</li>
+      <li>New <strong>“url”</strong> field</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="classification-model">Classification Model:</h5>
+    <ul>
+      <li>List of <strong>“genres”</strong> are now returned under the <strong>“_embedded”</strong> field of each Segment</li>
+      <li>List of <strong>“subgenres”</strong> are now returned under <strong>“_embedded”</strong> field of each Segment</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="attraction-model">Attraction Model:</h5>
+    <ul>
+      <li>New <strong>“url”</strong> field</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="venue-model">Venue Model:</h5>
+    <ul>
+      <li>New <strong>“currency”</strong> field</li>
+      <li>New <strong>“dmas”</strong> field (Designated Market Areas)</li>
+      <li>New <strong>“url”</strong> field</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+                                
+                            
+                        
+                            
+                            <div class="changelog-section">
+                                
+                                <h4>03 January 2016</h4><p class="lead">We’re happy to announce the release of Discovery API v2.0 today! This release has a few major changes, primarily designed to simplify the code and to better support environments.</p>
+
+<ul class="nested-list">
+  <li>
+    <h5 id="general-model">General model</h5>
+    <ul>
+      <li>IDs are now obfuscated.</li>
+      <li>The concept of <strong>“domain” was removed in favor of “locale”</strong>.</li>
+      <li>The concept of <strong>“deviceId”</strong> was removed.</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="event-model">Event model</h5>
+    <ul>
+      <li>Removing <strong>“dates.displayOptions.range”</strong> in favor of using <strong>“dates.start”</strong> and “dates.end”.</li>
+      <li><strong>“dates.status”</strong> changed to <strong>“dates.status.code”</strong>.</li>
+      <li>Adding the new status <strong>“onsale”</strong> and <strong>“offsale”</strong> instead of <strong>“active”</strong>.</li>
+      <li>Categories is now name <strong>“classifications”</strong> to provide more information (Segment, Genre, SubGenre instead of Major/Minor).</li>
+      <li>Moving the classifications from <strong>“_embedded”</strong> at the root level.</li>
+      <li>Adding <strong>“images”</strong>.</li>
+      <li>Field <strong>“promoterId”</strong> is now under <strong>“promoter.id”</strong></li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="venue-model">Venue model</h5>
+    <ul>
+      <li>Adding <strong>“address.line2”</strong>.</li>
+      <li>Adding <strong>“country.name”</strong>.</li>
+      <li>Adding <strong>“state.name”</strong>.</li>
+      <li>Field <strong>“marketId”</strong> is now under <strong>“market.id”</strong>.</li>
+    </ul>
+  </li>
+  <li>
+    <h5 id="attractions-model">Attractions model</h5>
+    <ul>
+      <li>Adding <strong>“images”</strong>.</li>
+      <li>Adding <strong>“classifications”</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<!--   * ###### v1
+- ### Commerce API
+- ### Partner API
+- ### Deals API
+- ### Publish API
+- ### International Discovery API
+- ### Interactive Docs
+- ### API Explorer -->
+</div>
+
+                                
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+
+                    
+                <div class="side-box"></div>
+                    
+												<div id="disqus_thread"></div>
+<script>
+  // Global discus config func.
+  window.disqus_config = function () {
+		if (window.location.hostname != 'developer.ticketmaster.com') {
+		    var pageURL = window.location.href.replace(window.location.host, 'developer.ticketmaster.com');
+		    this.page.url = pageURL || "http://developer.ticketmaster.com/";
+		}
+		else this.page.url = document.URL || "http://developer.ticketmaster.com/";
+    this.page.identifier = "Changelog";
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//ticketmasterapi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', + new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer" class="xs-center slice-top-left">
+
+<div class="row footer-nav">
+    <div class="row-container">
+        <div class="col-xs-12 col-sm-2">
+            <a href="/products-and-docs/"><h4 class="white">Products & Docs</h4></a>
+            <ul>
+                <li><a href="/products-and-docs/apis/getting-started/">APIs</a></li>
+                <li><a href="/products-and-docs/sdks/">SDKs</a></li>
+                <li><a href="/products-and-docs/widgets/">Widgets</a></li>
+                <li><a href="/products-and-docs/tutorials/">Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/partners/"><h4 class="white">Partners</h4></a>
+            <ul>
+                <li><a href="/partners/distribution-partners/">Distribution Partners</a></li>
+                <li><a href="/partners/certified-partners/">Certified Partners</a></li>
+                <!--<li><a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliates</a></li>-->
+                <li><a href="/partners/startups-and-developers/">Startups & Developers</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/support/"><h4 class="white">Support</h4></a>
+            <ul>
+                <li><a href="/support/faq/">FAQ</a></li>
+                
+                <li><a href="/support/terms-of-use/">General Terms of Use</a></li>
+                <li><a href="/support/terms-of-use/partner/">Partner API Terms of Use</a></li>
+                <li><a href="/support/branding-guide/">Branding Guide</a></li>
+                <li><a href="/support/contact-us/">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/blogs/"><h4 class="white">Blogs</h4></a>
+            <ul>
+                <li><a href="http://tech.ticketmaster.com/">Tech Blog</a></li>
+                <li><a href="https://medium.com/ticketmaster-tech/">Medium Publication</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/events/"><h4 class="white">Events</h4></a>
+            <ul>
+                <li><a href="/events/#/upcoming/hackathon">hackathons</a></li>
+                <li><a href="/events/#/upcoming/devjam">devjam</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="http://code.ticketmaster.com/"><h4 class="white">Open Source</h4></a>
+            <ul>
+                <li><a href="http://code.ticketmaster.com/#android-projects">Android</a></li>
+                <li><a href="http://code.ticketmaster.com/#backend-projects">Backend</a></li>
+                <li><a href="http://code.ticketmaster.com/#iOS-projects">iOS</a></li>
+                <li><a href="http://code.ticketmaster.com/#web-projects">Web</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row bottom-logo" style="margin-bottom: 10px;">
+    <div class="row-container">
+        <div class="col-xs-12">
+            <a href="http://www.ticketmaster.com">
+            <img alt="Ticketmaster logo" src="/assets/img/footer/ticketmaster-logo-white.svg">
+            </a>
+            <span>© 1976–2017 Ticketmaster. All rights reserved.</span>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+<script src="/scripts/vendors/user-scroll-disabler.js"></script>
+<script src="/scripts/components/pd-side-menu.js"></script>
+<script src="/scripts/components/menu-highlight.js"></script>
+
+
+<script src="/scripts/vendors/jstree.min.js"></script>
+<script src="/scripts/components/list-collapse.js"></script>
+
+
+
+
+
+
+
+
+        <div id="back-top">
+            <a href="javascript:void(0)"><span></span></a>
+        </div>
+
+        
+				
+            <script src="/scripts/components/api-key-service.js"></script>
+					
+        
+        
+        <script src="/scripts/components/scroll-top.js"></script>
+        <script src="/scripts/vendors/bootstrap.min.js"></script>
+        
+
+<div class="modal modal-common fade" id="feedback-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+          <h3 class="modal-title col-lg-12">Leave Your Feedback</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <form id="js_feedback_form" accept-charset="UTF-8" action="https://getsimpleform.com/messages/ajax?form_api_token=d9878ccc8e22c7253d057015617f82cd" method="POST">
+          <div class="col-lg-6">
+            <label for="name">Your name</label>
+            <input required type="text" id="name" name="name" maxlength="255" autofocus >
+          </div>
+          <div class="col-lg-6">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" title="Use the following format '-@-.--' ">
+          </div>
+          <div class="col-lg-12">
+            <label for="subject">Subject</label>
+            <div class="js_custom_select custom_select">
+              <select required class="custom_select__field" name="subject" id="subject" tabindex="-1">
+                <option value="General feedback">General feedback</option>
+                <option value="Current workflow of the portal">Current workflow of the portal</option>
+                <option value="Technical issues">Technical issues</option>
+              </select>
+              <input class="custom_select__placeholder" type="text" value="General feedback" readonly>
+              <ul class="custom_select__list">
+                <li class="custom_select__item" data-value="General feedback">General feedback</li>
+                <li class="custom_select__item" data-value="Current workflow of the portal">Current workflow of the portal</li>
+                <li class="custom_select__item" data-value="Technical issues">Technical issues</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <label for="description">Description</label>
+            <textarea required rows="3" name="description" id="description"></textarea>
+          </div>
+          <div class="col-sm-12">
+            <p id="feedback-message-error" class="text-overflow-message text-overflow-message__red" style="display:none">The maximum length of description can be 3000 characters.</p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="js_feedback_btn" type="button" class="btn btn-submit" >send</button>
+      </div>
+
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Button trigger modal -->
+<button id="js_feedback_open" type="button" class="btn feedback-btn scale-on-hover" data-toggle="modal" data-target="#feedback-modal">feedback</button>
+
+
+<!-- Modal alert-->
+<div id="feedback-alert-modal" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center">Thank you for contacting us!</h3>
+        <p class="text-center">We will review and respond promptly.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+<!-- Modal alert Error-->
+<div id="feedback-alert-modal-error" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center text-overflow-message__red">Error</h3>
+        <p id="text-overflow-message" class="text-center">The maximum length of description can be 3000 characters.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok-error" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+				<script src="/scripts/components/custom-select.js"></script>
+				<script src="/scripts/components/simple-form-checker.js"></script>
+				<script src="/scripts/components/feedback.js"></script>
+
+				
+				
+
+
+
+
+        
+				<script src="/scripts/load-api-key.js?v=1" async></script>
+    </body>
+</html>

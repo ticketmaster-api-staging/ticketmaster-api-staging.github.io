@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/api-explorer/v2/src/components/panels/objectPanelBody.component.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\..\..\index.html">All files</a> / <a href="index.html">scripts/api-explorer/v2/src/components/panels</a> objectPanelBody.component.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.06% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.1% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>27/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class ObjectPanelBody {
+	constructor({data = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> config, index = <span class="branch-0 cbranch-no" title="branch not covered" >this.cardIndex,</span> panelGroup = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> page, collapseId, subjectID}) {
+		this.data = this.data || ko.observable(data.value);
+		this.config = config;
+		this._panelName = data.key;
+		this.cardIndex = ko.unwrap(index);
+		this.panelGroup = panelGroup;
+		this.getMore = panelGroup.getMore;
+		this.page = page;
+		this.collapseId = collapseId;
+		this._allInside = !!Object.getProp(ko.unwrap(config), '._CONFIG.allInside');
+		this.sortByConfig = panelGroup.sortByConfig;
+		this.subjectID = subjectID;
+		this.sendId(this.data);
+	}
+	
+	sendId(data) {
+		let id = ko.unwrap(data).id;
+		<span class="missing-if-branch" title="else path not taken" >E</span>if(id) {
+			this.subjectID(id)
+		}
+	}
+	
+	changePage = (model, event) =&gt; {
+		if (event.keyCode === 13) {
+			let page = this.page,
+				totalPages = ko.unwrap(this.data).totalPages,
+				value = +event.currentTarget.value;
+			
+			value = Number.isNaN(value) ? <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>: value;
+			let pageNumber = ~~value &lt; 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>: ~~value;
+			page.pageParam(pageNumber &lt; totalPages ? pageNumber : <span class="branch-1 cbranch-no" title="branch not covered" >totalPages - 1)</span>;
+			page.setParams({
+				category: page.category,
+				method: page.method,
+				methodId: page.methodId,
+				params: page.params
+			});
+			$('#api-exp-get-btn').trigger('click');
+		} else {
+			return true;
+		}
+	};
+&nbsp;
+<span class="fstat-no" title="function not covered" >	ca</span>nBeCopied(data) {
+<span class="cstat-no" title="statement not covered" >		return !!Object.getProp(this.config, '._CONFIG.copyBtn.' + data.key) &amp;&amp; typeof data.value !== 'object';</span>
+	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >	se</span>tActive(key, value, model, e){
+<span class="cstat-no" title="statement not covered" >		$(e.currentTarget)</span>
+			.parents('.slick-slide')
+			.find('.item.object')
+			.removeClass('active');
+<span class="cstat-no" title="statement not covered" >		$(e.currentTarget)</span>
+			.parent('.item')
+			.addClass('active');
+<span class="cstat-no" title="statement not covered" >		this.getMore.call(null, {panel: this, id: key, data: value});</span>
+	}
+}
+&nbsp;
+&nbsp;
+&nbsp;
+ko.components.register('object-panel-body', {
+	viewModel:  ObjectPanelBody,
+	template:`
+		&lt;section data-bind="css: {'all-inside': $component._allInside}" class="panel-body object-panel-body"&gt;
+			&lt;!-- ko if: $component._panelName === 'object' &amp;&amp; !!Object.getProp(ko.unwrap(data), '.ratio')--&gt;
+				&lt;img data-bind="attr: {src: ko.utils.unwrapObservable(data).url, alt: 'image-' + ko.utils.unwrapObservable(data).ratio}" alt="img" class="img img-thumbnail"&gt;
+			&lt;!-- /ko --&gt;
+			
+			&lt;ul data-bind="foreachprop: {data: data, sortFn: $component.sortByConfig.bind($component)}" class="list object-list"&gt;
+				&lt;li data-bind="css: {'object': typeof value === 'object', 'primitive': typeof value !== 'object'}" class="clearfix pading item"&gt;
+				
+					&lt;!-- ko ifnot: typeof value === 'object' &amp;&amp; $component._allInside --&gt;
+					&lt;span data-bind="text: typeof value === 'object' ? key: key + ':'" class="key"&gt;&lt;/span&gt;
+					&lt;!-- /ko --&gt;
+					
+					&lt;!-- ko ifnot: typeof value === 'object' || $component._panelName === 'page' &amp;&amp; key === 'number' --&gt;
+						&lt;span data-bind="text: value" class="value"&gt;&lt;/span&gt;
+					&lt;!-- /ko --&gt;
+					
+					&lt;!-- ko if: $component._panelName === 'page' &amp;&amp; key === 'number'--&gt;
+						&lt;div class="form-inline"&gt;
+							&lt;input id="pagination-input" data-bind="event: {keydown: $component.changePage}, attr: {placeholder: value}" type="text" pattern="[0-9]+" class="form-control"&gt;
+						&lt;/div&gt;
+					&lt;!-- /ko --&gt;
+					
+					&lt;!-- ko if: $component.canBeCopied.call($component, $data) --&gt;
+						&lt;!-- copy property btn --&gt;
+						&lt;button data-bind="copyToClipboard: {text: value.toString()}, attr: {id: 'prop-value-' + key + $index()}, popover: {type: 'tooltip', title: 'Copy value'}" type="button" class="btn btn-icon btn-copy"&gt;&lt;/button&gt;
+					&lt;!-- /ko --&gt;
+					
+					&lt;!-- ko if: typeof value === 'object' &amp;&amp; $component._allInside --&gt;
+						&lt;panel params="$data: $data, $index: $index, panelGroup: $component"&gt;&lt;/panel&gt;
+					&lt;!-- /ko --&gt;
+					&lt;!-- ko if: typeof value === 'object' &amp;&amp; !$component._allInside --&gt;
+						&lt;button data-bind="click: $component.setActive.bind($component, key, value)" type="button" class="btn btn-icon blue-shevron-right pull-right"&gt;&lt;/button&gt;
+					&lt;!-- /ko --&gt;
+				&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/section&gt;
+`});
+&nbsp;
+module.exports = ObjectPanelBody;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jul 07 2017 15:50:54 GMT+0300 (FLE Daylight Time)
+</div>
+</div>
+<script src="..\..\..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\..\..\sorter.js"></script>
+</body>
+</html>
