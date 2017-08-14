@@ -38,7 +38,7 @@ dockerize-qa-build:
   tags:
     - tm-prod cicd build
   script:
-    - docker build -f ./docker/deploy.dockerfile --build-arg node_environment=qa --tag $QA_REPOSITORY:$CI_BUILD_REF .
+    - docker build -f ./docker/deploy.dockerfile --tag $QA_REPOSITORY:$CI_BUILD_REF .
     - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $QA_SHORTREPO
     - docker push $QA_REPOSITORY:$CI_BUILD_REF
   only:
