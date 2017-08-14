@@ -67,3 +67,15 @@ deploy-master:
     - echo "Deployed:" "$CI_BUILD_REF"
   only:
     - master
+    
+destroy-master:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-nonprod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-nonprod/qa1 destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - master
