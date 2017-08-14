@@ -10,10 +10,7 @@ ARG build_date
 ENV GIT_DESCRIBE ${git_describe}
 ENV BUILD_DATE ${build_date}
 
-COPY env /app/env
-ADD extracted_queries.json ./
-ADD src ./src
-ADD data ./data
+ADD static ./static
 
 ENTRYPOINT /usr/bin/node ./server.js
 
