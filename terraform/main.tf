@@ -66,15 +66,15 @@ resource "aws_elb" "app" {
 }
 
 resource "aws_launch_configuration" "app" {
-  depends_on = ["aws_iam_instance_profile.default-1"]
+  depends_on = ["aws_iam_instance_profile.default"]
 
   name_prefix          = "${module.naming.aws_launch_configuration}"
   image_id             = "${module.ami.ami_id}"
   instance_type        = "${var.app_instance_type}"
-  security_groups      = ["${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "web")]}", "${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "onprem")]}"]
+   security_groups             = ["${aws_security_group.ecs_web.id}"]
   user_data            = "${data.template_file.userdata-app.rendered}"
   key_name             = "${var.ssh_key}"
-  iam_instance_profile = "${aws_iam_instance_profile.default-1.name}"
+  iam_instance_profile = "${aws_iam_instance_profile.default.name}"
   enable_monitoring    = "${var.enable_monitoring}"
 
   lifecycle {
