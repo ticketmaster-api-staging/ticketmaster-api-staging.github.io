@@ -25,7 +25,7 @@ app_instance_type = "t2.medium"
 app_instance_min_count = "1"
 app_instance_max_count = "1"
 app_instance_ebs_optimized = "false"
-app_artifact_repo = "tmhub.io/dpa-portal/dev/ctrl"
+app_artifact_repo = "tmhub.io/dpa-portal/dev-1/ctrl"
 app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/healthcheck"
 
