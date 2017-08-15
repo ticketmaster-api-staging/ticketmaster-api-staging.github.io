@@ -110,4 +110,4 @@ app.use(express.static(
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
 
-console.log('Listening on port', staticSiteOptions.portnum);
+console.log(' --- Listening on port ---', staticSiteOptions.portnum);

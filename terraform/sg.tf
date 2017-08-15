@@ -23,6 +23,13 @@ resource "aws_security_group" "ecs_web" {
     protocol    = "tcp"
     cidr_blocks = [ "${var.tm_public_ips}", "${var.fastly_public_ips}", "10.188.0.0/8" ]
   }
+  
+  ingress {
+    from_port   = "8081"
+    to_port     = "8081"
+    protocol    = "tcp"
+    cidr_blocks = [ "${var.tm_public_ips}", "${var.fastly_public_ips}", "10.188.0.0/8" ]
+  }
 
   egress {
     from_port = 0
