@@ -11,13 +11,6 @@ resource "aws_security_group" "ecs_web" {
   vpc_id = "${module.networks.vpcs[format("%s.%s", var.aws_region, var.vpc)]}"
 
   ingress {
-    from_port   = "443"
-    to_port     = "443"
-    protocol    = "tcp"
-    cidr_blocks = [ "${var.tm_public_ips}", "${var.fastly_public_ips}", "10.188.0.0/8" ]
-  }
-
-  ingress {
     from_port   = "80"
     to_port     = "80"
     protocol    = "tcp"
