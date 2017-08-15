@@ -9,7 +9,7 @@ aws_region = "us-east-1"
 account_tag = "tm-nonprod"
 product_code_tag = "PRD1491"
 inventory_code_tag = "ctrl"
-environment_tag = "dev"
+environment_tag = "dev-1"
 vpc = "qa"
 product_name = "dpa-portal"
 
@@ -20,7 +20,7 @@ enable_monitoring = "false"
 
 app_elb_internal = true
 app_elb_dns_alias_name = "dpa-controller"
-app_instance_port = 8081
+app_instance_port = 80
 app_instance_type = "t2.medium"
 app_instance_min_count = "1"
 app_instance_max_count = "1"

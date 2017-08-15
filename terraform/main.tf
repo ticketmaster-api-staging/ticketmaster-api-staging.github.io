@@ -71,7 +71,7 @@ resource "aws_launch_configuration" "app" {
   name_prefix          = "${module.naming.aws_launch_configuration}"
   image_id             = "${module.ami.ami_id}"
   instance_type        = "${var.app_instance_type}"
-   security_groups             = ["${aws_security_group.ecs_web.id}"]
+  security_groups      = ["${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "web")]}", "${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "onprem")]}"]
   user_data            = "${data.template_file.userdata-app.rendered}"
   key_name             = "${var.ssh_key}"
   iam_instance_profile = "${aws_iam_instance_profile.default.name}"

@@ -7,7 +7,7 @@ stages:
 variables:
   ECRHOST: "889199535989.dkr.ecr.us-east-1.amazonaws.com"
 
-  QA_SHORTREPO: "dpa-portal/dev/ctrl"
+  QA_SHORTREPO: "dpa-portal/dev-1/ctrl"
   QA_REPOSITORY: "$ECRHOST/$QA_SHORTREPO"
 
   PREPROD_REPOSITORY: "$ECRHOST/$PREPROD_SHORTREPO"
