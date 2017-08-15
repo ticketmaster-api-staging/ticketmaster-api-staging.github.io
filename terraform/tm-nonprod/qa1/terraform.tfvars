@@ -27,6 +27,6 @@ app_instance_max_count = "1"
 app_instance_ebs_optimized = "false"
 app_artifact_repo = "tmhub.io/dpa-portal/dev-1/ctrl"
 app_instance_artifact_version = "latest"
-app_instance_healthcheck_url = "/healthcheck"
+app_instance_healthcheck_url = "/"
 
 ec2_log_dir = "/log"
