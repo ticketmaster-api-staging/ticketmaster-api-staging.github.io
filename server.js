@@ -38,11 +38,11 @@ function getRequestURI(userId) {
 function getRole(req) {
   var role='public';
   if (req.session.user == undefined) {
-    if (req.cookies['tm-u'] != undefined) {
+    if (req.cookies['tk-u'] != undefined) {
 	  if (typeof Buffer.from === 'function') {
-        buf = Buffer.from(req.cookies['tm-u'], 'base64');
+        buf = Buffer.from(req.cookies['tk-u'], 'base64');
       } else {
-        buf = new Buffer(req.cookies['tm-u'], 'base64');
+        buf = new Buffer(req.cookies['tk-u'], 'base64');
       }
 	  role = JSON.parse(getRequestURI(buf.toString()));
 	  /* Internal user [START] */
