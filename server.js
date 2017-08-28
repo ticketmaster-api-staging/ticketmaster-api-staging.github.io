@@ -31,7 +31,7 @@ function getURL(srcPath, res) {
 }
 
 function getRequestURI(userId) {
-  var res = syncrequest('GET', 'https://test-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
+  var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
   // var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
   return res.getBody().toString();
 }
