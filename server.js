@@ -47,7 +47,7 @@ function getRole(req) {
       }
 	  role = JSON.parse(getRequestURI(buf.toString()));
 	  /* Internal user [START] */
-      if (role.roles[10] != undefined && role.roles[2] != undefined) {
+      if (role.roles[10] != undefined || role.roles[2] != undefined) {
         role = 'internal';
 		req.session.user = role;
       }
