@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+<div class="top-bar{% if page.category != "home" %} bg-header blogs slice-bottom-left{% endif %}">
+{% include partials/common-header.html %}
+{{content}}
+</div>
+
+{% include partials/expanded-menu-header.html %}
+{% include partials/common-header-small.html %}
+
+{% include partials/footer.html isWhite='true'%}
+

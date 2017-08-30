@@ -1,0 +1,16 @@
+<story path="stories/site/Blogs.story" title="">
+<meta>
+<property keyword="@" name="debug" value=""/>
+<property keyword="@" name="regression-site" value=""/>
+<property keyword="@" name="smoke" value=""/>
+</meta>
+<narrative keyword="Narrative:">
+  <inOrderTo keyword="As a">test engineer</inOrderTo>
+  <asA keyword="I want to">test Ticket Master Developer&apos;s site</asA>
+  <iWantTo keyword="So that">I test Blogs Page of Ticket Master Developer&apos;s site</iWantTo>
+</narrative>
+<scenario keyword="Scenario:" title="(/blogs/) Verification for general page&apos;s elements">
+<step outcome="successful">Given open Blogs page</step>
+<step outcome="successful">Then check general page elements for page, where DISQUS = <parameter>false</parameter> and LeftMenu = <parameter>false</parameter></step>
+</scenario>
+</story>

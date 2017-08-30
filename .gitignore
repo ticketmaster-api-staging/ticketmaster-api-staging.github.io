@@ -1,0 +1,26 @@
+/scripts/vendors/jquery-1.11.3.js
+_site
+.idea
+.sass-cache
+.jekyll-metadata
+.vscode/
+.linters/
+tests/galen/reports-local
+
+# NodeJS libs
+node_modules
+*.log
+
+
+
+# Ignore Mac DS_Store files
+.DS_Store
+Gemfile.lock
+
+# Ignore Local automation files
+/tests/serenity/.idea
+/tests/serenity/*.iml
+/tests/serenity/.sonar
+
+# Ingnore unit tests coverage report
+coverage

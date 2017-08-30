@@ -1,0 +1,72 @@
+@objects
+    main-content                    css     body > div.single-column > div
+    content                         css     #main-block
+    side-panel                      css     #aside-block
+    wrapper-menu                    css     wrapper-aside-menu
+    aside-menu-header               css     #aside-block > div > h3
+    aside-menu                      css     ul.aside-menu
+    aside-menu-block-*              css     ul.aside-menu > li
+    aside-menu-categories-*         css     ul.aside-menu > li > ul.categories > li
+    aside-menu-d-categories-first-*   css     ul.aside-menu > li:nth-child(1) > ul.categories > li a
+    aside-menu-categories-second-*  css     ul.aside-menu > li:nth-child(2) > ul.categories > li a
+    aside-menu-categories-third-*   css     ul.aside-menu > li:nth-child(3) > ul.categories > li a
+    aside-menu-sections-*           css     ul.aside-menu > li:nth-child(1) > ul.categories > li:nth-child(1) > ul.sections > li a
+
+
+= count and text test =
+    @on desktop
+        global:
+            # count any aside-menu-categories-* is 15
+
+            count any aside-menu-block-* is 3
+            count any aside-menu-d-categories-first-* is > 6
+            # count any aside-menu-categories-second-* is 4
+            # count any aside-menu-categories-second-* is 4
+
+    @on desktop
+        aside-menu-header:
+            % text is "Products & Docs"
+
+        aside-menu-d-categories-first-1:
+            % text is "Getting Started"
+        aside-menu-d-categories-first-2:
+            % text is "Introduction"
+        aside-menu-d-categories-first-3:
+            % text is "URI Format"
+        aside-menu-d-categories-first-4:
+            % text is "Rate Limit"
+        aside-menu-d-categories-first-5:
+            % text is "CORS Support"
+        aside-menu-d-categories-first-6:
+            % text is "Available Resources"
+        aside-menu-d-categories-first-7:
+            % text is "Discovery API"
+        aside-menu-d-categories-first-8:
+            % text is "Commerce API"
+
+
+        # aside-menu-categories-second-1:
+        #    text is "Getting Started"
+        # aside-menu-categories-second-2:
+        #    text is "Installation instruction"
+        # aside-menu-categories-second-3:
+        #    text is "Documentation"
+        # aside-menu-categories-second-4:
+        #    text is "Code samples"
+
+        # aside-menu-categories-third-1:
+        #    text is "Getting Started"
+        # aside-menu-categories-third-2:
+        #    text is "Configuration Docs"
+        # aside-menu-categories-third-3:
+        #    text is "Installation instructions"
+
+        side-panel:
+            width > 20 % of screen/width
+            #inside screen -18 px left
+            near content ~ 0 px left
+            css position is "relative"
+            css background-color is "rgba(247, 249, 250, 1)"
+
+        main-content:
+            below header 40 to 45px

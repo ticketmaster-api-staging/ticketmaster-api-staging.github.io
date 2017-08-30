@@ -1,0 +1,91 @@
+---
+layout: default
+---
+
+{% include home-header.html %}
+
+<div class="single-column">
+
+    <div class="maincontent">
+        <div class="row" style="position: relative;">
+            <div class="col-xs-12 col-sm-6 col-lg-3 has-bg" id="aside-block">
+                <div class="wrapper-aside-menu">
+                    <h3 class="menu-header" id="aside-heading">
+                        Products &amp; Docs
+                        <span class="expanded" id="side-menu-btn"></span>
+                    </h3>
+                    {% include pd-side-menu.html %}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-lg-9 page-column " id="main-block">
+                <div class="content {% if page.categories[1] == 'sdks' %}sdks{% elsif page.categories[1] == 'getting-started' %}getting-started{% endif %}{% if page.categories[2] == 'widget-wordpress' %} widget-wordpress-page{% endif %}
+{% if page.categories[1] == 'widgets' and page.categories.size == 2 %}{{ 'widget_box__wrapper' | strip_newlines }}{% endif %}" style="display: block;">
+                    {{ content }}
+
+                    {% if page.categories[1] == 'changelog'%}
+
+                    {% assign files = site.pages | sort: 'title' , 'last' %}
+
+                        {% for file in files %}
+                            {% if file.categories[2] == 'releaseNotes'%}
+                            <div class="changelog-section">
+                                {% if thisCategory == file.categories[3]%}{%else%}
+                                    <h2 id="{{ file.title | lstrip | downcase | replace: ' ' , '-' | replace: '(' , '-' | replace: ')' , '-' }}">{{ file.title }}</h2>
+                                {%endif%}
+                                <h4>{{ file.release_date  | date_to_long_string }}</h4>{{ file.content | markdownify}}</div>
+
+                                {%assign thisCategory = file.categories[3]%}
+                            {% endif %}
+                        {% endfor %}
+
+                    {% endif %}
+                <div class="side-box"></div>
+                    {% if page.categories[1] == 'changelog' or page.categories[1] == 'getting-started' %}
+												{% include disqus.html add_disqusDIV='true'%}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% include home-footer.html %}
+
+<script src="{{'/scripts/vendors/user-scroll-disabler.js' | prepend: site.baseurl }}"></script>
+<script src="{{'/scripts/components/pd-side-menu.js' | prepend: site.baseurl }}"></script>
+<script src="{{'/scripts/components/menu-highlight.js' | prepend: site.baseurl }}"></script>
+
+{% if page.categories[0] == "documentation" and page.categories[1] == "changelog" %}
+<script src="{{'/scripts/vendors/jstree.min.js' | prepend: site.baseurl }}"></script>
+<script src="{{'/scripts/components/list-collapse.js' | prepend: site.baseurl }}"></script>
+{% endif %}
+
+{% if page.categories contains "replace_apikey" %}
+{%if site.local_test_apikeys == 'true' %}
+	<script src="{{'/scripts/components/api-key-service-testKeys.js' | prepend: site.baseurl }}"></script>
+{%else%}
+	<script src="{{'/scripts/components/api-key-service.js' | prepend: site.baseurl }}"></script>
+  <script src="{{'/scripts/components/user-roles.js' | prepend: site.baseurl }}"></script>
+{%endif%}
+<script>
+    var userKey = apiKeyService.checkApiKeyCookie();
+
+    function replaceText(selector, text, newText, flags) {
+        var matcher = new RegExp(text, flags);
+        $(selector).each(function () {
+            var $this = $(this);
+            if (!$this.children().length)
+                $this.text($this.text().replace(matcher, newText));
+        });
+    }
+    if(userKey) {
+        replaceText('*', '\{apikey\}', "apikey=" + userKey, 'g');
+    }
+
+</script>
+{% endif %}
+
+
+

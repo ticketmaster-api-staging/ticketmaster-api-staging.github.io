@@ -1,0 +1,63 @@
+@objects
+    body        css  body
+    header      css  .top-bar
+    logo        css  #header-logo img
+    nav-item-*  css  #menu a
+
+    social      id   promo-social
+    twitter     css  .twitter-tweet
+
+    top-promo   id   top-promo
+    main-header css  #top-promo h1
+    main-desc   css  #top-promo p
+
+    get-api-btn     css  #top-promo .tm-btn-white
+    review-doc-btn  css  #top-promo > div > div.row-container > div.col-xs-12.button-block > a:nth-child(2)
+    explore-btn     css  #top-promo > div > div.row-container > div.col-xs-12.button-block > a:nth-child(3)
+
+    columns-block css .columns
+    columns-container css .columns .row-container
+    column-item-* css .columns .row-container>div
+
+    partners-block css #bottom-promo
+    promo-social-left css #promo-social > div > div:nth-child(1)
+
+    footer id footer
+
+= image test =
+    top-promo:
+        % image file etalonImg/dumpsMobile/objects/top-promo.png, error 4%
+        % width 320 px
+
+    columns-block:
+        image file etalonImg/dumpsMobile/objects/columns-block.png, error 4%
+        % width 320 px
+
+    partners-block:
+        absent
+    promo-social-left:
+        absent
+
+= Navigation test =
+    @on mobile
+        logo:
+            visible
+
+= general layout test =
+    @on mobile
+        column-item-*:
+            width ~ 100 % of columns-container/width
+        columns-block:
+            below top-promo 40 to 50px
+        footer:
+            below columns-block ~43px
+        main-desc:
+            below main-header 20 to 40px
+        get-api-btn:
+            width 195 to 200px
+            height 45 to 50px
+
+        partners-block, social:
+            absent
+        review-doc-btn, explore-btn:
+            absent

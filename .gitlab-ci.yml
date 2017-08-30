@@ -7,10 +7,11 @@ stages:
 variables:
   ECRHOST: "889199535989.dkr.ecr.us-east-1.amazonaws.com"
 
-  QA_SHORTREPO: "dpa-portal/dev-1/ctrl"
-  QA_REPOSITORY: "$ECRHOST/$QA_SHORTREPO"
+  DEV_SHORTREPO: "dpa-portal/dev/ctrl"
+  DEV_REPOSITORY: "$ECRHOST/$DEV_SHORTREPO"
 
-  PREPROD_REPOSITORY: "$ECRHOST/$PREPROD_SHORTREPO"
+  PROD_SHORTREPO: "dpa-portal/prod/ctrl"
+  PROD_REPOSITORY: "$ECRHOST/$PROD_SHORTREPO"
 
   VERSION: configs
   TERRAFORMERIMAGE: "889199535989.dkr.ecr.us-east-1.amazonaws.com/ticketmaster/terraformer:v0.8.8_cd"
@@ -31,63 +32,122 @@ build:
   except:
     - tags
 
-### QA Environment Configuration
+### DEV Environment Configuration
 
-dockerize-qa-build:
+dockerize-dev-build:
   stage: dockerize build
   tags:
     - tm-prod cicd build
   script:
-    - docker build -f ./docker/deploy.dockerfile --tag $QA_REPOSITORY:$CI_BUILD_REF .
-    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $QA_SHORTREPO
-    - docker push $QA_REPOSITORY:$CI_BUILD_REF
+    - docker build -f ./docker/deploy.dockerfile --tag $DEV_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $DEV_SHORTREPO
+    - docker push $DEV_REPOSITORY:$CI_BUILD_REF
+  only:
+    - dev
+
+dockerize-prod-build:
+  stage: dockerize build
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker build -f ./docker/deploy.dockerfile --tag $PROD_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $PROD_SHORTREPO
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
   only:
     - master
 
-release-master:
+release-dev:
   stage: release
   tags:
     - tm-prod cicd build
   script:
-    - docker pull $QA_REPOSITORY:$CI_BUILD_REF
-    - docker tag $QA_REPOSITORY:$CI_BUILD_REF $QA_REPOSITORY:$CI_BUILD_REF
-    - docker push $QA_REPOSITORY:$CI_BUILD_REF
+    - docker pull $DEV_REPOSITORY:$CI_BUILD_REF
+    - docker tag $DEV_REPOSITORY:$CI_BUILD_REF $DEV_REPOSITORY:$CI_BUILD_REF
+    - docker push $DEV_REPOSITORY:$CI_BUILD_REF
+  only:
+    - dev
+
+release-prod:
+  stage: release
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker pull $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker tag $PROD_REPOSITORY:$CI_BUILD_REF $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
   only:
     - master
 
-deploy-master:
+deploy-dev:
   image: $TERRAFORMERIMAGE
   stage: deploy
   tags:
     - tm-nonprod terraformer
   script:
     - cd terraform
-    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-nonprod/qa1/terraform.tfvars
-    - terraformer tm-nonprod/qa1 apply
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-nonprod/dev/terraform.tfvars
+    - terraformer tm-nonprod/dev apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - dev
+
+deploy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod/terraform.tfvars
+    - terraformer tm-prod/prod apply
     - echo "Deployed:" "$CI_BUILD_REF"
   only:
     - master
-    
-destroy-master:
+
+destroy-dev:
   image: $TERRAFORMERIMAGE
   stage: deploy
   tags:
     - tm-nonprod terraformer
   script:
     - cd terraform
-    - terraformer tm-nonprod/qa1 destroy -force
+    - terraformer tm-nonprod/dev destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - dev
+
+destroy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod destroy -force
   when: manual # allows you to manually select when you will destroy the environment
   only:
     - master
-    
-release-lock-master:
+
+release-lock-dev:
   image: $TERRAFORMERIMAGE
   stage: deploy
   tags:
     - tm-nonprod terraformer
   script:
     - cd terraform
-    - terraformer tm-nonprod/qa1 release-lock --terragrunt-non-interactive
+    - terraformer tm-nonprod/dev release-lock --terragrunt-non-interactive
+  when: manual 
+  only:
+    - dev
+
+release-lock-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod release-lock --terragrunt-non-interactive
   when: manual 
   only:
     - master

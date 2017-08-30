@@ -11,7 +11,7 @@ var https = require('https'),
 var app = express();
 
 var staticSiteOptions = {
-    portnum: 80,
+    portnum: 8081,
     maxAge: 1000 * 60 * 15
 };
 
@@ -52,12 +52,17 @@ function getRole(req) {
 		req.session.user = role;
       }
 	  /* Internal user [END] */
-	  // console.log("User new in session");
+	  console.log("User new in session");
 	}
   }
   else {
-    // console.log("User stored in session");
-	role = req.session.user;
+    if (req.cookies['tk-u'] == undefined) {
+	    req.cookies['connect.sid'] = undefined;
+	}
+	else {
+	  console.log("User stored in session");
+	  role = req.session.user;
+	}
   }	
   return role;
 }
@@ -71,9 +76,9 @@ router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
   var role = getRole(req);
   var srcPath = '';
   if (role == 'internal') {
-	  srcPath = './static/products-and-docs/apis/commerce/v2/internal.html';
+	  srcPath = './_site/products-and-docs/apis/commerce/v2/internal.html';
   } else {
-	  srcPath = './static/products-and-docs/apis/commerce/v2/index.html';
+	  srcPath = './_site/products-and-docs/apis/commerce/v2/index.html';
   }
   getURL(srcPath, res);
 });
@@ -84,9 +89,9 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
   var role = getRole(req);
   var srcPath = '';
   if (role == 'internal') {
-	  srcPath = './static/products-and-docs/apis/oauth/index.html';
+	  srcPath = './_site/products-and-docs/apis/oauth/index.html';
   } else {
-      srcPath = './static/products-and-docs/apis/getting-started/index.html';
+      srcPath = './_site/products-and-docs/apis/getting-started/index.html';
   }
   getURL(srcPath, res);
 });
@@ -104,10 +109,11 @@ app.use(session({
     saveUninitialized: true,
     resave: true,
 }));
+
 app.use(router);
 
 app.use(express.static(
-   path.join(__dirname, 'static'),
+   path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
 

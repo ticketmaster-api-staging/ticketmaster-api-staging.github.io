@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    {% include head.html %}
+    <body class="no-js">
+        <!-- Qualaroo for ticketmaster.com -->
+        <!-- Paste this code right after the <body> tag on every page of your site. -->
+        <script type="text/javascript">
+          var _kiq = _kiq || [];
+          (function(){
+            setTimeout(function(){
+            var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
+            s.async = true; s.src = '//s3.amazonaws.com/ki.js/62776/euc.js'; f.parentNode.insertBefore(s, f);
+            }, 1);
+          })();
+        </script>
+        {%if page.category != "home"
+            and page.category != "products-and-docs"
+            and page.categories[0] != "support"
+            and page.categories[0] != "documentation"
+            and page.category != "search"%}
+                {%include partials/no-js-alert.html%}
+        {%endif%}
+
+        {{ content }}
+        <div id="back-top">
+            <a href="javascript:void(0)"><span></span></a>
+        </div>
+
+        {%if page.layout == 'documentation-single' or page.layout == 'home'%}
+				{%if site.local_test_apikeys == 'true' %}
+						<script src="{{'/scripts/components/api-key-service-testKeys.js' | prepend: site.baseurl }}"></script>
+					{%else%}
+            <script src="{{'/scripts/components/api-key-service.js' | prepend: site.baseurl }}"></script>
+					{%endif%}
+        {% endif %}
+        {% if page.category == 'home' or page.layout == 'documentation-single' and page.categories[1] == "getting-started" %}
+            <script src="{{'/scripts/components/events-counter.js' | prepend: site.baseurl }}" async></script>
+        {% endif %}
+        <script src="{{'/scripts/components/scroll-top.js' | prepend: site.baseurl }}"></script>
+        <script src="{{'/scripts/vendors/bootstrap.min.js' | prepend: site.baseurl }}"></script>
+        {% include feedback.html %}
+				<script src="{{'/scripts/components/custom-select.js' | prepend: site.baseurl }}"></script>
+				<script src="{{'/scripts/components/simple-form-checker.js' | prepend: site.baseurl }}"></script>
+				<script src="{{'/scripts/components/feedback.js' | prepend: site.baseurl }}"></script>
+
+				{%comment%}<!--add script to 'certified\nexus' and to EDW,CDW,Map and Calendar widget -->{%endcomment%}
+				{% if page.categories[1] == "widgets" and page.categories[2] != nil and page.categories[2] != "widget-checkout" and page.categories[2] != "widget-wordpress"%}
+					<script src="{{'/scripts/components/numeric-input.js' | prepend: site.baseurl }}"></script>
+				{% elsif page.layout == "partners-doc" and page.categories[1] == "certified" and page.categories[2] == "nexus" %}
+					<script src="{{'/scripts/components/numeric-input.js' | prepend: site.baseurl }}"></script>
+				{% endif %}
+
+
+{% if page.category == 'products-and-docs' or page.categories[0] == "documentation" and page.categories[1] == "sdks"%}
+    <script>
+        $('.card').each(function () {
+            var me = $(this);
+            me.hover(function(){
+                me.toggleClass('applyflip');
+            });
+        });
+    </script>
+{% endif %}
+
+        {% if page.categories[0] == "documentation" and page.categories[1] == "widgets" and page.categories[2] != "widget-checkout"%}
+            {% if page.categories[2] == "widget-calendar"%}
+                <script src="{{'/scripts/components/application-selector.js' | prepend: site.baseurl }}"></script>
+				        <script src="{{'/scripts/pages/default.js' | prepend: site.baseurl }}"></script>
+				        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-oFbQWw_jEcG7r7WGdi99jNT3DqvRas&libraries=visualization,places&callback=initMapLatLong"></script>
+            {%else%}
+                {% include lazy-selector-modal.html %}
+                <script src="{{'/scripts/components/lazy-selector.js' | prepend: site.baseurl }}"></script>
+                <script src="{{'/scripts/components/application-selector.js' | prepend: site.baseurl }}"></script>
+                {% if page.categories[2] == "widget-event-discovery" or page.categories[2] == "widget-map" %}
+                    {% include classification-selector-modal.html %}
+                    <script src="{{"/scripts/vendors/jstree.min.js" | prepend: site.baseurl }}"></script>
+                    <script src="{{'/scripts/components/classification-selector.js' | prepend: site.baseurl }}"></script>
+                    <script>
+                        $(document).on('ready', function () {
+                            $('.js_lazy-selector-classification').classificationSelector({selector:'classifications', use:'name'});
+                        });
+                    </script>
+                {%endif%}
+				        {% if page.categories[2] == "widget-event-discovery" or page.categories[2] == "widget-map" %}
+				          <script src="{{'/scripts/pages/default.js' | prepend: site.baseurl }}"></script>
+				          <script src="{{'/scripts/pages/default.analytics.js' | prepend: site.baseurl }}"></script>
+				          <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-oFbQWw_jEcG7r7WGdi99jNT3DqvRas&libraries=visualization,places&callback=initMapLatLong"></script>
+				        {%endif%}
+            {%endif%}
+        {%endif%}
+				<script src="{{'/scripts/load-api-key.js?v=1' | prepend: site.baseurl }}" async></script>
+    </body>
+</html>

@@ -1,0 +1,162 @@
+/**
+ * Sliced images
+ */
+.slice-bottom-right{
+  &:after{
+    @include sliced-image('bottom', 'left');
+  }
+}
+
+.slice-bottom-left{
+  &:after{
+    @include sliced-image('bottom', 'right');
+  }
+}
+
+.slice-top-right{
+  &:before{
+    @include sliced-image('top', 'right');
+  }
+}
+.slice-top-left{
+  &:before{
+    @include sliced-image('top', 'left');
+  }
+}
+
+.slice-top-right,
+.slice-top-left{
+  &:before{
+    background-size: 100% 100% !important;
+  }
+  @media (min-width: 1921px) {
+    padding-top: 240px;
+    &:before{
+      height: 240px;
+    }
+  }
+  @media (min-width: 1440px) {
+    padding-top: 140px;
+    &:before{
+      height: 125px;
+    }
+  }
+  @media (max-width: 1439px) {
+    padding-top: 104px;
+    &:before{
+      height: 104px;
+    }
+  }
+  @media #{$max-1200} {
+    padding-top: 82px;
+    &:before{
+      height: 64px;
+    }
+  }
+  @media #{$max-768} {
+    padding-top: 42px;
+    &:before{
+      height: 34px;
+    }
+  }
+}
+
+.slice-bottom-right,
+.slice-bottom-left{
+  &:after{
+    background-size: 100% 100% !important;
+  }
+  @media (min-width: 1921px) {
+    padding-bottom: 240px;
+    &:after{
+      height: 240px;
+    }
+  }
+  @media (min-width: 1440px) {
+    padding-bottom: 140px;
+    &:after{
+      height: 125px;
+    }
+  }
+  @media (max-width: 1439px) {
+    padding-bottom: 104px;
+    &:after{
+      height: 104px;
+    }
+  }
+  @media #{$max-1200} {
+    padding-bottom: 102px;
+    &:after{
+      height: 64px;
+    }
+  }
+  @media #{$max-768} {
+    padding-bottom: 82px;
+    &:after{
+      height: 34px;
+    }
+  }
+}
+
+
+.slice-bottom-right,
+.slice-bottom-left,
+.slice-top-right,
+.slice-top-left{
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+#back-top {
+  bottom: 2em;
+  display: none;
+  margin-right: 2em;
+  position: fixed;
+  right: 0;
+  z-index: 10;
+
+  @media (max-width: 767px) {
+    margin-right: 4em;
+  }
+  @media (max-width: 768px) {
+    margin-right: 4em;
+  }
+
+  a {
+    background: none;
+    border-radius: 50%;
+    color: #000;
+    display: block;
+    font: 18px/100% Arial,Helvetica,sans-serif;
+    height: 46px;
+    margin-bottom: 7px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.5s ease 0s;
+    width: 46px;
+    &:hover{
+      outline: none;
+      border: none;
+      span {
+        background-position: 0 -46px;
+      }
+    }
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+  span {
+    background: url('/assets/img/footer/to-top.png') 0px 0px no-repeat;
+    display: block;
+    height: 46px;
+    width: 46px;
+  }
+}
+
+.content-wrapper {
+  width: 1;;
+}
+

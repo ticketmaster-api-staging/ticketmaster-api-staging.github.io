@@ -1,0 +1,60 @@
+<story path="stories/products_and_docs/PD_Widgets.story" title="">
+<meta>
+<property keyword="@" name="debug" value=""/>
+<property keyword="@" name="regression-widgets" value=""/>
+</meta>
+<narrative keyword="Narrative:">
+  <inOrderTo keyword="As a">test engineer</inOrderTo>
+  <asA keyword="I want to">test Ticket Master Developer&apos;s site</asA>
+  <iWantTo keyword="So that">I test Widgets Page of Ticket Master Developer&apos;s site</iWantTo>
+</narrative>
+<scenario keyword="Scenario:" title="(/products-and-docs/widgets/) Verification for general page&apos;s elements">
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">Then check general page elements for Widgets Page, where DISQUS = <parameter>false</parameter> and LeftMenu = <parameter>true</parameter></step>
+</scenario>
+<scenario keyword="Scenario:" title="(/products-and-docs/widgets/) Verification for Direct Payment Button element">
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>DirectPaymentButton</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Direct Payment Button has has appropriate url</step>
+</scenario>
+<scenario keyword="Scenario:" title="(/products-and-docs/widgets/) Verification for all the page&apos;s links">
+<examples keyword="Examples:">
+<step>Given open Widgets page</step>
+<step>When check visibility and click &lt;elementKey&gt; element of Widgets page</step>
+<step>Then check that new page opened from Widgets page has &lt;pageURL&gt; and &lt;pageTitle&gt;</step>
+<parameters>
+<names><name>elementKey</name><name>pageURL</name><name>pageTitle</name></names>
+<values><value>Checkout Widget Button</value><value>{url}/products-and-docs/widgets/checkout/</value><value>//h1</value></values>
+<values><value>Discovery Widget Button</value><value>{url}/products-and-docs/widgets/event-discovery/</value><value>//h1</value></values>
+<values><value>Countdown Widget Button</value><value>{url}/products-and-docs/widgets/countdown/</value><value>//h1</value></values>
+<values><value>Calendar Widget Button</value><value>{url}/products-and-docs/widgets/calendar/</value><value>//h1</value></values>
+<values><value>WordPress Widget Learn Button</value><value>{url}/products-and-docs/widgets/wordpress/</value><value>//h1</value></values>
+</parameters>
+
+<example keyword="Example:">{elementKey=Checkout Widget Button, pageURL={url}/products-and-docs/widgets/checkout/, pageTitle=//h1, debug=, regression-widgets=}</example>
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>Checkout Widget Button</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Widgets page has <parameter>{url}/products-and-docs/widgets/checkout/</parameter> and <parameter>//h1</parameter></step>
+
+<example keyword="Example:">{elementKey=Discovery Widget Button, pageURL={url}/products-and-docs/widgets/event-discovery/, pageTitle=//h1, debug=, regression-widgets=}</example>
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>Discovery Widget Button</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Widgets page has <parameter>{url}/products-and-docs/widgets/event-discovery/</parameter> and <parameter>//h1</parameter></step>
+
+<example keyword="Example:">{elementKey=Countdown Widget Button, pageURL={url}/products-and-docs/widgets/countdown/, pageTitle=//h1, debug=, regression-widgets=}</example>
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>Countdown Widget Button</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Widgets page has <parameter>{url}/products-and-docs/widgets/countdown/</parameter> and <parameter>//h1</parameter></step>
+
+<example keyword="Example:">{elementKey=Calendar Widget Button, pageURL={url}/products-and-docs/widgets/calendar/, pageTitle=//h1, debug=, regression-widgets=}</example>
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>Calendar Widget Button</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Widgets page has <parameter>{url}/products-and-docs/widgets/calendar/</parameter> and <parameter>//h1</parameter></step>
+
+<example keyword="Example:">{elementKey=WordPress Widget Learn Button, pageURL={url}/products-and-docs/widgets/wordpress/, pageTitle=//h1, debug=, regression-widgets=}</example>
+<step outcome="successful">Given open Widgets page</step>
+<step outcome="successful">When check visibility and click <parameter>WordPress Widget Learn Button</parameter> element of Widgets page</step>
+<step outcome="successful">Then check that new page opened from Widgets page has <parameter>{url}/products-and-docs/widgets/wordpress/</parameter> and <parameter>//h1</parameter></step>
+</examples>
+</scenario>
+</story>
