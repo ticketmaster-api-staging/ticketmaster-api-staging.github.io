@@ -25,6 +25,8 @@ build:
   script:
     - NODE_ENV=development
     - npm install
+    - npm run build
+    - jekyll build
     - echo -e '*n!package.json' > .dockerignore
   artifacts:
     untracked: true
