@@ -1,0 +1,3108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="The Ticketmaster Season Ticketing API">
+    <meta name="keywords" content="Season Ticketing API">
+    <title>
+            The Season Ticketing API 1.0 – The Ticketmaster Developer Portal</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/products-and-docs/apis/season-ticketing/">
+    <!-- <link rel="alternate" type="application/rss+xml" title="The Ticketmaster Developer Portal" href="http://localhost:4000/feed.xml"> -->
+    <script src="/scripts/vendors/jquery-1.11.3.min.js"></script>
+    <script src="/scripts/components/header.js"></script>
+	  <script type="text/javascript" src="https://www.universe.com/embed.js"></script>
+		<!-- Begin Jekyll SEO tag v2.2.0 -->
+<meta property="og:title" content="The Season Ticketing API 1.0" />
+<meta name="author" content="Name Lastname" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Ticketmaster Season Ticketing API" />
+<meta property="og:description" content="The Ticketmaster Season Ticketing API" />
+<link rel="canonical" href="http://localhost:4000/products-and-docs/apis/season-ticketing/" />
+<meta property="og:url" content="http://localhost:4000/products-and-docs/apis/season-ticketing/" />
+<meta property="og:site_name" content="The Ticketmaster Developer Portal" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "WebPage",
+"headline": "The Season Ticketing API 1.0",
+"author": {"@type": "Person",
+"name": {"name":"Name Lastname","email":"blah@email.test","github":"username","twitter":"username","feedburner":"feedname"}},
+"description": "The Ticketmaster Season Ticketing API",
+"url": "http://localhost:4000/products-and-docs/apis/season-ticketing/"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<meta property="og:image" content="http://localhost:4000/assets/img/branding-guide/blue-logo@3x.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="792" />
+		<meta property="og:image:height" content="792" />
+</head>
+
+    <body class="no-js">
+        <!-- Qualaroo for ticketmaster.com -->
+        <!-- Paste this code right after the <body> tag on every page of your site. -->
+        <script type="text/javascript">
+          var _kiq = _kiq || [];
+          (function(){
+            setTimeout(function(){
+            var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
+            s.async = true; s.src = '//s3.amazonaws.com/ki.js/62776/euc.js'; f.parentNode.insertBefore(s, f);
+            }, 1);
+          })();
+        </script>
+        
+
+        <script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+
+<input type='checkbox' style='display: none' id="cb">
+<label class='modal-info-label icon-right' for=cb>
+    <img src="/assets/controls/ic-close-small-grey.svg">
+</label>
+<div class='modal-info fixed'><span></span>
+    Please enable JS in your browser for better work of developer.ticketmaster.com
+</div>
+<div class="top-bar bg-header header-curtain">
+<div class="body-wrapper">
+    <div class="row">
+        <div class="col-xs-7 col-lg-2 gray">
+            <a id="header-logo" href="/">
+            
+            <img alt="Ticketmaster logo" src="/assets/img/header/tm-developer-logo.svg">
+            
+            </a>
+        </div>
+        <nav id="menu" class="col-xs-12 col-lg-8">
+            <!-- links put into single line intentionally to avoid browser rendered spaces -->
+            <a   class="one nav-item expandable"  data-expands-to="one" href="/products-and-docs/">Products & Docs <span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="two" href="/partners/">Partners<span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="three" href="/support/">Support<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="four" href="/blogs/">Blogs</a><a
+                 class="gray expandable"  data-expands-to="five" href="/events/">Events<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="six" href="http://code.ticketmaster.com/">Open Source</a>
+        </nav>
+        <div class="col-xs-5 col-lg-2 gray">
+            <a id="menu-btn"  class="white"></a>
+            <div class="search-container">
+                <div id="search"  class="white">
+                    <div class="search-button"></div>
+                    <form action="/search/" id="cse-search-box" autocomplete="off">
+                        <div>
+                            <input type="hidden" name="cx" value="000111791941460729347:zmu0d7yvkfq" />
+                            <input type="hidden" name="ie" value="UTF-8" />
+                            <input class="q" type="text" name="q" size="14" placeholder="Search for ..."/>
+                            <input class="sa" type="submit" name="sa" value="" />
+                        </div>
+                    </form>
+                    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+                    <script type="text/javascript" src="//www.google.com.ua/cse/brand?form=cse-search-box&lang=en"></script>
+                    <!--<span tabindex="-1" id="search-alert" style="display: none;">Whoa! Search isn't quite ready yet! We're still working on it.</span>-->
+                </div>
+                <a class="apigee-login  white" href="https://developer-acct.ticketmaster.com/user/login">Login</a>
+            </div>
+        </div>
+        <div id="rainbow">
+            <span class="one"></span>
+            <span class="two"></span>
+            <span class="three"></span>
+            <span class="four"></span>
+            <span class="five"></span>
+            <span class="six"></span>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="expand-menu" class="row" tabindex="-1"  style="position:fixed" >
+    <div class="row-container">
+        <div id="expand-one" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/apis/getting-started/">
+                    <h4>APIs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/apis/getting-started/">Getting started</a>
+                    </li>
+                    <!--<li>
+                        <a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a>
+                    </li>-->
+                    <li>
+                        <a href="/api-explorer/">API Explorer</a>
+                    </li>
+									  <li>
+                        <a href="/api-explorer/v2/">API Explorer v2</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/changelog/">Changelog</a>
+                    </li>
+
+                    <li>
+                        <h4>OPEN APIs</h4>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/publish/">Publish API</a>
+                    </li>
+                    <!--
+									  <li>
+                        <a href="/products-and-docs/apis/oauth/"> OAuth API</a>
+                    </li>
+                    -->
+                    <li>
+                        <h4>PARTNER APIs</h4>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/partner/">Partner API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                    </li>
+                    <li>
+                         <a href="/products-and-docs/apis/presence/">Presence API</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/sdks/">
+                    <h4>SDKs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-java">Java-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-javascript">JavaScript-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-scala">Scala-SDK</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/sdks/#account-manager">Account Manager</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/widgets/">
+                    <h4>WIDGETS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/widgets/checkout/">Ticketmaster Universal Checkout</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/event-discovery/">Event Discovery Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/countdown/">Countdown Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/calendar/">Calendar Widget</a>
+                    </li>
+									  <li>
+                        <a href="/products-and-docs/widgets/map/">Map Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/wordpress/">WordPress Widget</a>
+                    </li>
+                    <li>
+                        <a href="https://www.universe.com/directpayments">Direct Payments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/products-and-docs/tutorials/">
+                    <h4>TUTORIALS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/tutorials/events-search/">Events Search</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/widgets/">Widgets</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/sample-apps/">Sample Apps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-two" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/partners/distribution-partners/">
+                    <h4>Distribution Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliate Sign In</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/partners/certified-partners/">
+                    <h4>Certified Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/certified-partners/nexus/">Join the Nexus program</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<div class="col-xs-1 expand-column" style="margin-right: 20px;">
+                <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">
+                    <h4>Affiliates</h4>
+                </a>
+            </div>-->
+            <div class="col-xs-3 expand-column" style="margin-right: -120px;">
+                <a href="/partners/startups-and-developers/">
+                    <h4>Startups & Developers</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/startups-and-developers/#web">Web</a>
+                    </li>
+                    <li>
+                        <a href="/partners/startups-and-developers/#heatmap">Heatmap</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="expand-three" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column" style="margin-right: 30px;">
+                <a href="/support/faq/">
+                    <h4>FAQ</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/faq/#general-a">General</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#account-a">Data</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#affiliates-a">Affiliates</a>
+                    </li>
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+            
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/support/terms-of-use/">
+                    <h4>General Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/#license">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#ownership">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#warranty">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#release">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-3 expand-column" style="margin-right: -40px;">
+                <a href="/support/terms-of-use/partner/">
+                    <h4>Partner API Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#licensed-uses-and-restrictions">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#ownership-and-relationship-of-parties">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#warranty-disclaimer">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#release-and-waiver">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#hold-harmless-and-indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#general-terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/branding-guide/">
+                    <h4>Branding Guide</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/branding-guide/#brand-logo">Logo</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#verified-tickets">Verified Tickets</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#legal-stuff">Legal Stuff</a>
+                    </li>
+                </ul>
+            </div>
+             <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/partner-api-faq/">
+                    <h4>Partner API Faq</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/partner-api-faq/#partner-api-general">Partner API General</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#oauth">Oauth</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#captcha">Captcha</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#events">Events</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#polling">Polling</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-details">Event Details</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#event-availability">Event Availability</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-reserve">Event Reserve</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#adding-payment">Adding Payment</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#shipping">Shipping</a>
+                    </li>
+                    <li>
+                    	<a href="/support/partner-api-faq/#commit-cart">Commit Cart</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#fulfillment">Fulfillment</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/support/contact-us/">
+                    <h4>Contact Us</h4>
+                </a>
+            </div>
+
+        </div>
+        <div id="expand-four" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/blogs/">
+                    <h4>Blogs</h4>
+                </a>
+            </div>
+        </div>
+        <div id="expand-five" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column">
+                <a href="/events/">
+                    <h4>Events</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a class="" href="/events/#/upcoming">Upcoming</a>
+                    </li>
+                    <li>
+                        <a href="/events/#/past">Past</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-six" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="http://code.ticketmaster.com/">
+                    <h4>Open Source</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="menu-dropdown" class="col-xs-12 col-sm-5 col-lg-3 closed fixed" tabindex="-1">
+    
+    <a id="menu-btn-fixed" class="tm-close"></a>
+    
+    <li><a class="apigee-login" href="https://developer-acct.ticketmaster.com/user/login">Login</a></li>
+    <li><a class="active" href="/products-and-docs/">Products & Docs</a></li>
+    <li><a  href="/partners/">Partners</a></li>
+    <li><a  href="/support/">Support</a></li>
+    <li><a  href="/blogs/">Blogs</a></li>
+    <li><a  href="/events/">Events</a></li>
+    <li><a  href="http://code.ticketmaster.com/">Open Source</a></li>
+</ul>
+
+
+
+<div class="documentation ">
+
+    <div class="maincontent">
+        <div class="row" style="position: relative;">
+            <div class="col-xs-12 col-sm-6 col-lg-3 has-bg" id="aside-block">
+                <div class="wrapper-aside-menu">
+                    <h3 class="menu-header" id="aside-heading">
+                        Products &amp; Docs
+                        <span class="expanded" id="side-menu-btn"></span>
+                    </h3>
+                    <ul class="aside-menu" id="scrollable-element">
+    <li>
+        <h4><a href="/products-and-docs/apis/getting-started/"  class="active" >APIs</a></h4>
+        
+        <ul class="categories">
+            <li><a href="/products-and-docs/apis/getting-started/">Getting Started</a>
+                
+            </li>
+           
+            <!--automenu for Swagger api-->
+            <li><a href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                
+            </li><!--END automenu-->
+						
+<!---->
+
+					<!---->
+
+						<!--automenu for Swagger api-->
+						<li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+							
+						</li><!--END automenu-->
+
+            <li><a href="/products-and-docs/apis/partner/">Partner API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                
+            </li>
+
+            <li><a href="/products-and-docs/apis/publish/">Publish API</a>
+                
+            </li>
+						<!--automenu for Swagger api-->
+					  <!--
+						<li><a href="/products-and-docs/apis/publish-api">Publish API (Autodoc)</a>
+							
+						</li>-->
+						<!--END automenu-->
+				<li class="off"><a href="/products-and-docs/apis/oauth/">OAuth API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                
+                <ul class="sections menu-highlight">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#getting-your-api-key">Getting Your API KEY</a></li>
+                    <li><a href="#construct-the-url">Construct the URL</a></li>
+                    <li><a href="#asynchronous-polling">Asynchronous Polling</a></li>
+                    <li><a href="#http-result-codes-and-meaning">HTTP Result Codes</a></li>
+                    
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+                    <li><a href="#disqus_thread">Disqus</a></li>
+                </ul>
+                
+            </li>
+            <li><a href="/products-and-docs/apis/presence/">Presence API</a>
+                 
+             </li>
+            <!--<li><a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a></li>-->
+            <li><a href="/api-explorer/">API Explorer</a></li>
+					  <li><a href="/api-explorer/v2/">API Explorer v2</a></li>
+            <li><a href="/products-and-docs/apis/changelog/">Changelog</a>
+                
+						</li>
+        </ul>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/sdks/"  >SDKs</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/widgets/"  >Widgets</a></h4>
+        
+    </li>
+    <li>
+        <h4><a href="/products-and-docs/tutorials/"  >Tutorials</a></h4>
+        
+    </li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+
+        var uniqueUpcoming = [].map.call($(".tag-btn"), function(item){
+            return '<li><a href="#' + item.textContent + '" class="tag-menu-btn">' + item.textContent + '</a></li>';
+        }).filter( function(value, index, self) {
+            return self.indexOf(value) === index;
+        }).join("");
+
+        if(uniqueUpcoming !== ""){
+            $(".categories>li>a.active + .sd-tags-list").append(uniqueUpcoming);
+        }
+
+        var PartnerTagClickHandler = function() {
+            var currentItem = this.textContent;
+            var isActive = $(this).hasClass('active');
+            if(isActive){
+                $(".tag-btn, .tag-menu-btn").removeClass("active");
+                $(".tutorials-article").show();
+                if(this.tagName.toUpperCase() == "BUTTON"){
+                    this.blur();
+                }
+
+            }else{
+                $(".tag-btn").add(".tag-menu-btn").removeClass("active").map(function(){
+                    if (this.textContent == currentItem) {
+                        return this;
+                    }
+                }).addClass("active");
+
+                $(".tutorials-article").show().filter(function() {
+                    return $(this).find(".tag-btn.active").size() === 0;
+                }).hide();
+            }
+
+
+        };
+
+        $(".tutorials-article").on("click", ".tag-btn", PartnerTagClickHandler);
+        $(".categories").on("click", ".tag-menu-btn", PartnerTagClickHandler);
+    });
+
+
+
+</script>
+
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-lg-9" id="main-block">
+                <div class="content" style="display: block;">
+
+                    
+                        <h1 class="article" id="season-ticketing-api">Season Ticketing API</h1>
+
+<p class="lead">Season Ticketing API Specification</p>
+
+<h2 id="overview">Overview</h2>
+<p>This is a collection of Open API calls that are used by external systems to access season ticketing data.  This is a RESTful system which communicates over HTTPS, and uses JSON command syntax.  This integration uses different API calls than other portions of the Ticketmaster API suite.   Each API call is a POST call, and is intended to access data from a specific client. The contents of the JSON payload contain the desired read or write operation.</p>
+
+<h2 id="getting-your-api-key">Getting Your API KEY</h2>
+
+<ul>
+  <li><a href="http://developer-acct.ticketmaster.com/user/login/">Login</a>  to get your API key</li>
+  <li>Click “GET YOUR API KEY” button</li>
+  <li>On the Login screen, click “Create new account” button.</li>
+  <li>Fill out the form, using the name of a contact person in your organization.  Ticketmaster will contact you by this email address if you wish to become a Ticketmaster partner.  Recommendation - use your company's name or email domain name as your username.</li>
+  <li>The system will create a user account and create an App (the App name = {username}-app).</li>
+  <li>Click on the App name to reveal your Customer Key (this is your unique apikey).</li>
+  <li>Congratulations!  You are ready to make API calls to our sample Season Ticket database.  See samples below of the six (6) read-only calls that can be made for testing purposes.</li>
+</ul>
+
+<p><strong>Test Your API Requests:</strong></p>
+
+<ul>
+  <li>Use any Rest Client (e.g., Google ARC, Postman, Insomnia, JetBrain, Cocoa) for testing the API calls.  Configure the REST client as follows:</li>
+  <li>The caller (or calling application) will:
+    <ul>
+      <li>POST a JSON call to: <code class="highlighter-rouge">https://app.ticketmaster.com/sth-customer/ticketing_services.aspx?dsn=apigee&amp;apikey={apikey}</code>
+        <ul>
+          <li>use HTTPS protocol</li>
+          <li>specify the product (sth-customer)</li>
+          <li>specify the DSN (apigee)</li>
+          <li>specify your unique API Key</li>
+        </ul>
+      </li>
+      <li>Continue to poll until the request is complete OR until the time-out value is reached (see instructions for Asynchronous Polling, below)</li>
+    </ul>
+  </li>
+  <li>App.ticketmaster.com will:
+    <ul>
+      <li>Confirm the validity of the caller's API key</li>
+      <li>Confirm that the API Key has access to the requested DSN</li>
+      <li>Compare the DSN in the URL with the DSN in the JSON payload</li>
+      <li>Confirm that the caller has not exceeded any established rate limits
+        <ul>
+          <li>Current limits are 80 calls per minute or 5000 calls per day</li>
+        </ul>
+      </li>
+      <li>Direct the JSON request to the appropriate Ticketmaster database</li>
+    </ul>
+  </li>
+  <li>Return the JSON response to the call.</li>
+  <li>A rapid response is expected for the sample API calls below, except <code class="highlighter-rouge">ATS_EXT_TEST_POLLING</code>.</li>
+</ul>
+
+<h2 id="construct-the-url">How to construct the URL</h2>
+
+<p>Format: <code class="highlighter-rouge">HTTPS://app.ticketmaster.com/{product}/{resource}?dsn={dsn}&amp;apikey={apikey}</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Name</strong></th>
+      <th><strong>Description</strong></th>
+      <th><strong>Required</strong></th>
+      <th><strong>Sample</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Product* (see details below)</td>
+      <td>A logical grouping of related database resources</td>
+      <td>Yes</td>
+      <td>sth-customer sth-inventory sth-hold sth-buy</td>
+    </tr>
+    <tr>
+      <td>resource</td>
+      <td>Path to an API method</td>
+      <td>Yes</td>
+      <td>ticketing_services.aspx</td>
+    </tr>
+    <tr>
+      <td>dsn</td>
+      <td>Data Source Name</td>
+      <td>Yes</td>
+      <td>DSN (e.g., sandbox, test)</td>
+    </tr>
+    <tr>
+      <td>API key</td>
+      <td>Authorized API Key</td>
+      <td>Yes</td>
+      <td><a href="https://developer-acct.ticketmaster.com/user/login">Unique to each developer - Get your API key</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Sample URL:</strong></p>
+
+<p class="code red">https://app.ticketmaster.com/sth-customer/ticketing_services.aspx?dsn=apigee&amp;apikey={apikey}</p>
+
+<h3 id="sample-api-requests">Sample API Requests:</h3>
+
+<h4 style="font-size:20px" id="ping">PING</h4>
+
+<p><strong>Purpose:</strong>  Confirms system connectivity and server status.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V999"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ping"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"call_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user99"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apigee"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h4 style="font-size:20px" id="ats_ext_test_polling">ATS_EXT_TEST_POLLING</h4>
+
+<p><strong>Purpose:</strong>  Allows caller to test the asynchronous polling method by introducing a 10-second delay in the response.  You can make this API call, receive a “202 Accepted” response with CIN and CTKN cookies, and continue making the call until you receive a “200 OK” response.  See the section on Asynchronous Polling, below.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V999"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ats_ext_test_polling"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user99"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apigee"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h4 style="font-size:20px" id="event_search">EVENT_SEARCH</h4>
+
+<p><strong>Purpose:</strong>  Returns attributes about events that occur within a specified date range.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v999"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"event_search"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1AB2C3"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER99"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"APIGEE"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-01"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-31"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h4 style="font-size:20px" id="event_details">EVENT_DETAILS</h4>
+
+<p><strong>Purpose:</strong>  Returns a list of events and event attributes.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V999"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"event_details"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"event_filter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Event01, Event02"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"event_filter_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user99"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apigee"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h4 style="font-size:20px" id="customer_query">CUSTOMER_QUERY</h4>
+
+<p><strong>Purpose:</strong>  Returns basic account and name information based on an input account-id, email address or external-id.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V999"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer_query"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional-reference"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user99"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apigee"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"site_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vanilla"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"acct_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100479</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"call_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h4 style="font-size:20px" id="seats_sold">SEATS_SOLD</h4>
+
+<p><strong>Purpose:</strong> Retrieves detailed information about seats that are sold to a consumer’s account.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nt">"header"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"ver"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"src_sys_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"archtics_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V999"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"command1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"cmd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seats_sold"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"call_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user99"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dsn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apigee"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"acct_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100479</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Congrats…</p>
+
+<p>If further interest, contact Ticketmaster for discussion about more sophisticated integration…</p>
+
+<p><strong>*Product</strong> – A Product is a collection of separate API calls that support a particular kind of integration. There are 4 separate “product” areas – Customer, Inventory, Hold, and Buy.</p>
+
+<ul>
+  <li><strong>Customer</strong> – This product contains a number of API calls that provide detailed information about consumer (customer) accounts.  This product is typically used for CRM Integrations and Season Ticket Holder web portals.  These API calls include, but are not limited to:
+    <ul>
+      <li><code class="highlighter-rouge">Ping</code> – see above.</li>
+      <li><code class="highlighter-rouge">Ats_Ext_Test_Polling</code> – see above.</li>
+      <li><code class="highlighter-rouge">Event_Search</code> – see above.</li>
+      <li><code class="highlighter-rouge">Event_Details</code> – see above.</li>
+      <li><code class="highlighter-rouge">Customer_Query</code> – see above.</li>
+      <li><code class="highlighter-rouge">Seats_Sold</code> - see above.</li>
+      <li><code class="highlighter-rouge">Customer_Add</code> – Create a new customer account.</li>
+      <li><code class="highlighter-rouge">Customer_Update</code> - Update an existing customer’s account.</li>
+      <li>… and others.</li>
+    </ul>
+
+    <p>Through this self-service process you will have access to the sth-customer product using these APIs: ats_ext_test_polling, event_search, event_details, customer_query, seats_sold, and ping. To become a partner and gain access to our other products, please contact Nexus_CPP@ticketmaster.com.</p>
+  </li>
+  <li><strong>Inventory</strong> – This product contains a number of API calls that provide available inventory, ticket pricing, and allow callers to request seats.  This product includes all the API calls in the “customer” product (above), plus:
+    <ul>
+      <li><code class="highlighter-rouge">Get_Avail_Seats</code> - Retrieves a list of available (unsold) seats for specified event.</li>
+      <li><code class="highlighter-rouge">Event_Price_Info</code> - Retrieves attributes about each price code, ticket type, and price for seats for a specific event.</li>
+      <li>… and others.</li>
+    </ul>
+  </li>
+  <li><strong>Hold</strong> – This product contains a number of API calls that allow callers to Hold seats in a shopping cart.  This product contains all the API calls in the “Inventory” product (above), plus:
+    <ul>
+      <li><code class="highlighter-rouge">Seats_Hold</code> - Holds “best available” seats in the shopping cart.</li>
+      <li><code class="highlighter-rouge">Seats_Hold_Specific</code> - Holds user-specified seats in the shopping cart.</li>
+      <li><code class="highlighter-rouge">Shopping_Cart</code> - capitalize the contents of the shopping cart.</li>
+      <li>… and others.</li>
+    </ul>
+  </li>
+  <li><strong>Buy</strong> – Contains all the API calls that allow callers to purchase and manage seats for a consumer.  This product contains API calls that allow an authorized partner to offer a complete purchase transaction.  This product contains all APIs in the system, including:
+    <ul>
+      <li><code class="highlighter-rouge">Check_out</code> - Retrieves fees due for items in the shopping cart.</li>
+      <li><code class="highlighter-rouge">Payment_Request</code> - Authorizes payments and completes the purchase of seats.</li>
+      <li><code class="highlighter-rouge">Ticket_Print</code> – Print tickets; can be used for electronic ticket delivery.</li>
+      <li>… and others.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="asynchronous-polling">Asynchronous Polling</h2>
+
+<p>Ticketmaster systems support multiple clients and our Web Services layer requires the use of an asynchronous polling method. Here is how asynchronous request processing works:</p>
+
+<ul>
+  <li>Initial call: The caller makes a HTTPS request.
+    <ul>
+      <li>Header:
+        <ul>
+          <li>HTTP Method = POST</li>
+          <li>Content-Type: application/json</li>
+        </ul>
+      </li>
+      <li>Body:
+        <ul>
+          <li>The JSON Command should be included here</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Initial response: X seconds later (X is usually &lt; 4 seconds), the server may respond with
+    <ul>
+      <li>If HTTP response "200 OK" is returned
+        <ul>
+          <li>Request is complete - no polling logic is required; skip this entire section.</li>
+        </ul>
+      </li>
+      <li>If HTTP response "202 Accepted" is returned, the response will include:
+        <ul>
+          <li>Set-Cookie: <code class="highlighter-rouge">CID=&lt;something&gt;</code></li>
+          <li>Set-Cookie: <code class="highlighter-rouge">QTKN=&lt;something&gt;</code></li>
+          <li>Continue to step 3</li>
+        </ul>
+      </li>
+      <li>If HTTP response is not 200 and is not 202, contact Ticketmaster for assistance.</li>
+    </ul>
+  </li>
+  <li>Y seconds later (Y is normally about 300 ms), the caller repeats the initial HTTPS request, using the "cookies" provided, to check if the response is complete.
+    <ul>
+      <li>The complete JSON Command should be included each time the call is re-submitted.</li>
+      <li>Cookie values that were returned by the SERVER with the "Set_Cookie" responses (above) must be provided in this polling step.
+        <ul>
+          <li><code class="highlighter-rouge">SID</code> - should not change for the duration of this API polling cycle.</li>
+          <li><code class="highlighter-rouge">BID</code> - should not change for the duration of this API polling cycle.</li>
+          <li><code class="highlighter-rouge">CID</code> - use the value provided by the web service in step 2</li>
+          <li><code class="highlighter-rouge">QTKN</code> - use the value provided by the web service in step 2</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Steps 2 and 3 are repeated until response is complete.</li>
+  <li>When the response is complete, the server responds with a "200 OK" HTTP header response, and the results of the initial request.</li>
+  <li>Ticketmaster recommends setting a timeout value of approximately 10 minutes. In other words, continue polling for a response to the same API call for up to 10 minutes. If a polling response for a single API request is not complete within that time, please contact Ticketmaster for resolution.</li>
+  <li>Supporting Cookies - If the response from app.ticketmaster.com contains "Set-Cookie", the Caller is required to honor those cookies in order to properly use the asynchronous polling method. For example, calling servers should create an HTTP session for each end user (caller), and reuse the same HTTP session for the duration of that end user session (the duration of that particular API call).</li>
+</ul>
+
+<h2 id="http-result-codes-and-meaning">HTTP Result Codes and Meaning</h2>
+
+<ul>
+  <li><code class="highlighter-rouge">200</code> OK - Successful Query Results</li>
+  <li><code class="highlighter-rouge">202</code> ACCEPTED - The query was submitted to the Queue server, but response is not yet available; the same query should be tried again soon</li>
+  <li><code class="highlighter-rouge">401</code> UNAUTHORIZED – Not authored for this area, or wrong API KEY</li>
+  <li><code class="highlighter-rouge">404</code> NOT FOUND – Setup issue. Please contact Ticketmaster</li>
+  <li><code class="highlighter-rouge">429</code> TOO MANY REQUESTS – You have exceeded your quota or rate limit</li>
+  <li><code class="highlighter-rouge">503</code> SERVICE UNAVAILABLE – Ticketmaster server is currently unavailable</li>
+</ul>
+
+<p>For additional information, please contact  <a href="mailto:ArchticsIntegrationSupport@ticketmaster.com">ArchticsIntegrationSupport@ticketmaster.com</a> during business hours (Monday thru Friday from 8AM to 8PM Eastern US).</p>
+
+                    
+
+                    <!--release-notes(or changelog)-->
+
+
+<div class="article">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+        
+
+
+        
+
+    
+
+    
+    
+        
+
+
+        
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+</div>
+
+<!--faq-->
+<div class="article faq-api">
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+</div>
+                </div>
+				<div id="disqus_thread"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="footer" class="xs-center slice-top-left">
+
+<div class="row footer-nav">
+    <div class="row-container">
+        <div class="col-xs-12 col-sm-2">
+            <a href="/products-and-docs/"><h4 class="white">Products & Docs</h4></a>
+            <ul>
+                <li><a href="/products-and-docs/apis/getting-started/">APIs</a></li>
+                <li><a href="/products-and-docs/sdks/">SDKs</a></li>
+                <li><a href="/products-and-docs/widgets/">Widgets</a></li>
+                <li><a href="/products-and-docs/tutorials/">Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/partners/"><h4 class="white">Partners</h4></a>
+            <ul>
+                <li><a href="/partners/distribution-partners/">Distribution Partners</a></li>
+                <li><a href="/partners/certified-partners/">Certified Partners</a></li>
+                <!--<li><a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliates</a></li>-->
+                <li><a href="/partners/startups-and-developers/">Startups & Developers</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/support/"><h4 class="white">Support</h4></a>
+            <ul>
+                <li><a href="/support/faq/">FAQ</a></li>
+                
+                <li><a href="/support/terms-of-use/">General Terms of Use</a></li>
+                <li><a href="/support/terms-of-use/partner/">Partner API Terms of Use</a></li>
+                <li><a href="/support/branding-guide/">Branding Guide</a></li>
+                <li><a href="/support/contact-us/">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/blogs/"><h4 class="white">Blogs</h4></a>
+            <ul>
+                <li><a href="http://tech.ticketmaster.com/">Tech Blog</a></li>
+                <li><a href="https://medium.com/ticketmaster-tech/">Medium Publication</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/events/"><h4 class="white">Events</h4></a>
+            <ul>
+                <li><a href="/events/#/upcoming/hackathon">hackathons</a></li>
+                <li><a href="/events/#/upcoming/devjam">devjam</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="http://code.ticketmaster.com/"><h4 class="white">Open Source</h4></a>
+            <ul>
+                <li><a href="http://code.ticketmaster.com/#android-projects">Android</a></li>
+                <li><a href="http://code.ticketmaster.com/#backend-projects">Backend</a></li>
+                <li><a href="http://code.ticketmaster.com/#iOS-projects">iOS</a></li>
+                <li><a href="http://code.ticketmaster.com/#web-projects">Web</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row bottom-logo" style="margin-bottom: 10px;">
+    <div class="row-container">
+        <div class="col-xs-12">
+            <a href="http://www.ticketmaster.com">
+            <img alt="Ticketmaster logo" src="/assets/img/footer/ticketmaster-logo-white.svg">
+            </a>
+            <span>© 1976–2017 Ticketmaster. All rights reserved.</span>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+<div class="modal modal-common fs-modal modal-langs" tabindex="-1" role="dialog" aria-labelledby="search-events">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button"></button>
+                <h2 id="modal-title" class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="highlight"></div>
+            </div>
+        </div>
+    </div>
+    <textarea name="copy-clip" id="copy-clip" class="copy-clip"></textarea>
+</div>
+
+<script src="/scripts/vendors/clipboard.js"></script>
+<script src="/scripts/components/clipboard-fallback.js"></script>
+<script src="/scripts/components/parser.js"></script>
+<script src="/scripts/vendors/user-scroll-disabler.js"></script>
+<script src="/scripts/components/pd-side-menu.js"></script>
+<script src="/scripts/components/menu-highlight.js"></script>
+<script src="/scripts/components/request-response.js"></script>
+<script src="/scripts/vendors/jstree.min.js"></script>
+<script src="/scripts/components/list-collapse.js"></script>
+<script src="/scripts/components/user-roles.js"></script>
+
+
+<script>
+  // Global discus config func.
+  window.disqus_config = function () {
+		if (window.location.hostname != 'developer.ticketmaster.com') {
+		    var pageURL = window.location.href.replace(window.location.host, 'developer.ticketmaster.com');
+		    this.page.url = pageURL || "http://developer.ticketmaster.com/";
+		}
+		else this.page.url = document.URL || "http://developer.ticketmaster.com/";
+    this.page.identifier = "The Season Ticketing API 1.0";
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//ticketmasterapi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', + new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+        <div id="back-top">
+            <a href="javascript:void(0)"><span></span></a>
+        </div>
+
+        
+        
+        <script src="/scripts/components/scroll-top.js"></script>
+        <script src="/scripts/vendors/bootstrap.min.js"></script>
+        
+
+<div class="modal modal-common fade" id="feedback-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+          <h3 class="modal-title col-lg-12">Leave Your Feedback</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <form id="js_feedback_form" accept-charset="UTF-8" action="https://getsimpleform.com/messages/ajax?form_api_token=d9878ccc8e22c7253d057015617f82cd" method="POST">
+          <div class="col-lg-6">
+            <label for="name">Your name</label>
+            <input required type="text" id="name" name="name" maxlength="255" autofocus >
+          </div>
+          <div class="col-lg-6">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" title="Use the following format '-@-.--' ">
+          </div>
+          <div class="col-lg-12">
+            <label for="subject">Subject</label>
+            <div class="js_custom_select custom_select">
+              <select required class="custom_select__field" name="subject" id="subject" tabindex="-1">
+                <option value="General feedback">General feedback</option>
+                <option value="Current workflow of the portal">Current workflow of the portal</option>
+                <option value="Technical issues">Technical issues</option>
+              </select>
+              <input class="custom_select__placeholder" type="text" value="General feedback" readonly>
+              <ul class="custom_select__list">
+                <li class="custom_select__item" data-value="General feedback">General feedback</li>
+                <li class="custom_select__item" data-value="Current workflow of the portal">Current workflow of the portal</li>
+                <li class="custom_select__item" data-value="Technical issues">Technical issues</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <label for="description">Description</label>
+            <textarea required rows="3" name="description" id="description"></textarea>
+          </div>
+          <div class="col-sm-12">
+            <p id="feedback-message-error" class="text-overflow-message text-overflow-message__red" style="display:none">The maximum length of description can be 3000 characters.</p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="js_feedback_btn" type="button" class="btn btn-submit" >send</button>
+      </div>
+
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Button trigger modal -->
+<button id="js_feedback_open" type="button" class="btn feedback-btn scale-on-hover" data-toggle="modal" data-target="#feedback-modal">feedback</button>
+
+
+<!-- Modal alert-->
+<div id="feedback-alert-modal" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center">Thank you for contacting us!</h3>
+        <p class="text-center">We will review and respond promptly.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+<!-- Modal alert Error-->
+<div id="feedback-alert-modal-error" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center text-overflow-message__red">Error</h3>
+        <p id="text-overflow-message" class="text-center">The maximum length of description can be 3000 characters.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok-error" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+				<script src="/scripts/components/custom-select.js"></script>
+				<script src="/scripts/components/simple-form-checker.js"></script>
+				<script src="/scripts/components/feedback.js"></script>
+
+				
+				
+
+
+
+
+        
+				<script src="/scripts/load-api-key.js?v=1" async></script>
+    </body>
+</html>

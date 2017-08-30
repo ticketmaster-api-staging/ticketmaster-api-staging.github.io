@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>
+            The Ticketmaster Developer Portal</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/api-explorer/">
+    <!-- <link rel="alternate" type="application/rss+xml" title="The Ticketmaster Developer Portal" href="http://localhost:4000/feed.xml"> -->
+    <script src="/scripts/vendors/jquery-1.11.3.min.js"></script>
+    <script src="/scripts/components/header.js"></script>
+	  <script type="text/javascript" src="https://www.universe.com/embed.js"></script>
+		<!-- Begin Jekyll SEO tag v2.2.0 -->
+<meta property="og:title" content="The Ticketmaster Developer Portal" />
+<meta name="author" content="Name Lastname" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/api-explorer/" />
+<meta property="og:url" content="http://localhost:4000/api-explorer/" />
+<meta property="og:site_name" content="The Ticketmaster Developer Portal" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "WebPage",
+"headline": "The Ticketmaster Developer Portal",
+"author": {"@type": "Person",
+"name": {"name":"Name Lastname","email":"blah@email.test","github":"username","twitter":"username","feedburner":"feedname"}},
+"url": "http://localhost:4000/api-explorer/"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<meta property="og:image" content="http://localhost:4000/assets/img/branding-guide/blue-logo@3x.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="792" />
+		<meta property="og:image:height" content="792" />
+</head>
+
+<body class="no-js">
+<div id="spinner" style="display: none;"></div>
+<script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+
+<input type='checkbox' style='display: none' id="cb">
+<label class='modal-info-label ' for=cb>
+    <img src="/assets/controls/ic-close-small-grey.svg">
+</label>
+<div class='modal-info '><span></span>
+    Please enable JS in your browser for better work of developer.ticketmaster.com
+</div>
+<div class="top-bar bg-header slice-bottom-left">
+<div class="body-wrapper">
+    <div class="row">
+        <div class="col-xs-7 col-lg-2 gray">
+            <a id="header-logo" href="/">
+            
+            <img alt="Ticketmaster logo" src="/assets/img/header/tm-developer-logo.svg">
+            
+            </a>
+        </div>
+        <nav id="menu" class="col-xs-12 col-lg-8">
+            <!-- links put into single line intentionally to avoid browser rendered spaces -->
+            <a   class="gray expandable"  data-expands-to="one" href="/products-and-docs/">Products & Docs <span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="two" href="/partners/">Partners<span class="header-chevron pull-right"></span></a><a
+                 class="gray expandable"  data-expands-to="three" href="/support/">Support<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="four" href="/blogs/">Blogs</a><a
+                 class="gray expandable"  data-expands-to="five" href="/events/">Events<span class="header-chevron pull-right"></span></a><a
+                 class="gray"  data-expands-to="six" href="http://code.ticketmaster.com/">Open Source</a>
+        </nav>
+        <div class="col-xs-5 col-lg-2 gray">
+            <a id="menu-btn"  class="white"></a>
+            <div class="search-container">
+                <div id="search"  class="white">
+                    <div class="search-button"></div>
+                    <form action="/search/" id="cse-search-box" autocomplete="off">
+                        <div>
+                            <input type="hidden" name="cx" value="000111791941460729347:zmu0d7yvkfq" />
+                            <input type="hidden" name="ie" value="UTF-8" />
+                            <input class="q" type="text" name="q" size="14" placeholder="Search for ..."/>
+                            <input class="sa" type="submit" name="sa" value="" />
+                        </div>
+                    </form>
+                    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+                    <script type="text/javascript" src="//www.google.com.ua/cse/brand?form=cse-search-box&lang=en"></script>
+                    <!--<span tabindex="-1" id="search-alert" style="display: none;">Whoa! Search isn't quite ready yet! We're still working on it.</span>-->
+                </div>
+                <a class="apigee-login  white" href="https://developer-acct.ticketmaster.com/user/login">Login</a>
+            </div>
+        </div>
+        <div id="rainbow">
+            <span class="one"></span>
+            <span class="two"></span>
+            <span class="three"></span>
+            <span class="four"></span>
+            <span class="five"></span>
+            <span class="six"></span>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="expand-menu" class="row" tabindex="-1" >
+    <div class="row-container">
+        <div id="expand-one" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/apis/getting-started/">
+                    <h4>APIs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/apis/getting-started/">Getting started</a>
+                    </li>
+                    <!--<li>
+                        <a href="/products-and-docs/apis/interactive-console/">Interactive Docs</a>
+                    </li>-->
+                    <li>
+                        <a href="/api-explorer/">API Explorer</a>
+                    </li>
+									  <li>
+                        <a href="/api-explorer/v2/">API Explorer v2</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/changelog/">Changelog</a>
+                    </li>
+
+                    <li>
+                        <h4>OPEN APIs</h4>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
+                    </li>
+                    <li>
+                        <a class="star" href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/publish/">Publish API</a>
+                    </li>
+                    <!--
+									  <li>
+                        <a href="/products-and-docs/apis/oauth/"> OAuth API</a>
+                    </li>
+                    -->
+                    <li>
+                        <h4>PARTNER APIs</h4>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/partner/">Partner API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/top-picks/">Top Picks API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/inventory-status/">Inventory Status API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/international-discovery/">International Discovery API</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/apis/season-ticketing/">Season Ticketing API</a>
+                    </li>
+                    <li>
+                         <a href="/products-and-docs/apis/presence/">Presence API</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/sdks/">
+                    <h4>SDKs</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-java">Java-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-javascript">JavaScript-SDK</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ticketmaster-api/sdk-scala">Scala-SDK</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/sdks/#account-manager">Account Manager</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/products-and-docs/widgets/">
+                    <h4>WIDGETS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/widgets/checkout/">Ticketmaster Universal Checkout</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/event-discovery/">Event Discovery Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/countdown/">Countdown Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/calendar/">Calendar Widget</a>
+                    </li>
+									  <li>
+                        <a href="/products-and-docs/widgets/map/">Map Widget</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/widgets/wordpress/">WordPress Widget</a>
+                    </li>
+                    <li>
+                        <a href="https://www.universe.com/directpayments">Direct Payments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/products-and-docs/tutorials/">
+                    <h4>TUTORIALS</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/products-and-docs/tutorials/events-search/">Events Search</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/widgets/">Widgets</a>
+                    </li>
+                    <li>
+                        <a href="/products-and-docs/tutorials/sample-apps/">Sample Apps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-two" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/partners/distribution-partners/">
+                    <h4>Distribution Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliate Sign In</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column">
+                <a href="/partners/certified-partners/">
+                    <h4>Certified Partners</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/certified-partners/nexus/">Join the Nexus program</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<div class="col-xs-1 expand-column" style="margin-right: 20px;">
+                <a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">
+                    <h4>Affiliates</h4>
+                </a>
+            </div>-->
+            <div class="col-xs-3 expand-column" style="margin-right: -120px;">
+                <a href="/partners/startups-and-developers/">
+                    <h4>Startups & Developers</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/partners/startups-and-developers/#web">Web</a>
+                    </li>
+                    <li>
+                        <a href="/partners/startups-and-developers/#heatmap">Heatmap</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="expand-three" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column" style="margin-right: 30px;">
+                <a href="/support/faq/">
+                    <h4>FAQ</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/faq/#general-a">General</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#account-a">Data</a>
+                    </li>
+                    <li>
+                        <a href="/support/faq/#affiliates-a">Affiliates</a>
+                    </li>
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            </div>
+            
+            <div class="col-xs-2 expand-column" style="margin-right: 20px;">
+                <a href="/support/terms-of-use/">
+                    <h4>General Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/#license">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#ownership">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#warranty">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#release">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/#terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-3 expand-column" style="margin-right: -40px;">
+                <a href="/support/terms-of-use/partner/">
+                    <h4>Partner API Terms of Use</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#licensed-uses-and-restrictions">Licensed Uses and Restrictions</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#ownership-and-relationship-of-parties">Ownership and Relationship of Parties</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#support">Support</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#warranty-disclaimer">Warranty Disclaimer</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#release-and-waiver">Release and Waiver</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#hold-harmless-and-indemnity">Hold Harmless and Indemnity</a>
+                    </li>
+                    <li>
+                        <a href="/support/terms-of-use/partner/#general-terms">General Terms</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/branding-guide/">
+                    <h4>Branding Guide</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/branding-guide/#brand-logo">Logo</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#verified-tickets">Verified Tickets</a>
+                    </li>
+                    <li>
+                        <a href="/support/branding-guide/#legal-stuff">Legal Stuff</a>
+                    </li>
+                </ul>
+            </div>
+             <div class="col-xs-2 expand-column" style="margin-right: -25px;">
+                <a href="/support/partner-api-faq/">
+                    <h4>Partner API Faq</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/support/partner-api-faq/#partner-api-general">Partner API General</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#oauth">Oauth</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#captcha">Captcha</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#events">Events</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#polling">Polling</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-details">Event Details</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#event-availability">Event Availability</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#event-reserve">Event Reserve</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#adding-payment">Adding Payment</a>
+                    </li>
+                     <li>
+                        <a href="/support/partner-api-faq/#shipping">Shipping</a>
+                    </li>
+                    <li>
+                    	<a href="/support/partner-api-faq/#commit-cart">Commit Cart</a>
+                    </li>
+                    <li>
+                        <a href="/support/partner-api-faq/#fulfillment">Fulfillment</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-2 expand-column" style="margin-right: -50px;">
+                <a href="/support/contact-us/">
+                    <h4>Contact Us</h4>
+                </a>
+            </div>
+
+        </div>
+        <div id="expand-four" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="/blogs/">
+                    <h4>Blogs</h4>
+                </a>
+            </div>
+        </div>
+        <div id="expand-five" class="expand-section" style="display: none;">
+            <div class="col-xs-1 expand-column">
+                <a href="/events/">
+                    <h4>Events</h4>
+                </a>
+                <ul>
+                    <li>
+                        <a class="" href="/events/#/upcoming">Upcoming</a>
+                    </li>
+                    <li>
+                        <a href="/events/#/past">Past</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="expand-six" class="expand-section" style="display: none;">
+            <div class="col-xs-2 expand-column">
+                <a href="http://code.ticketmaster.com/">
+                    <h4>Open Source</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="menu-dropdown" class="col-xs-12 col-sm-5 col-lg-3 closed" tabindex="-1">
+    
+    <li><a class="apigee-login" href="https://developer-acct.ticketmaster.com/user/login">Login</a></li>
+    <li><a class="active" href="/products-and-docs/">Products & Docs</a></li>
+    <li><a  href="/partners/">Partners</a></li>
+    <li><a  href="/support/">Support</a></li>
+    <li><a  href="/blogs/">Blogs</a></li>
+    <li><a  href="/events/">Events</a></li>
+    <li><a  href="http://code.ticketmaster.com/">Open Source</a></li>
+</ul>
+
+
+<div id="api-explorer">
+    <!--hints-->
+    <button id="cd-tour-trigger" class="btn feedback-btn scale-on-hover">Show hints</button>
+	<div class="cd-cover-layer"></div>
+    <!--bootstrap error popup-->
+    <div id="error-alert" class="modal fade" role="dialog">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="error-message">Whoa! Method returned an error. :(</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-default btn-small" data-dismiss="modal" style="top: 0 !important;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap success popup-->
+    <div id="success-alert" class="modal fade" role="dialog">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <!-- Modal content-->
+                <div class="modal-content success">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="success-message">Data posted successfully :)</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-default btn-small" data-dismiss="modal" style="top: 0 !important;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap image popup-->
+    <div class="modal fade" id="image-popup" role="dialog">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog modal-lg vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Image preview</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img id="image-element" src="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="top: 0 !important;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--bootstrap map popup-->
+    <div class="modal fade" id="map-popup" role="dialog">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog modal-lg vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Location</h4>
+                    </div>
+                    <div class="modal-body" id="map" style="width: 100%; height: 500px;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="top: 0 !important;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--page header-->
+    <div class="row">
+        <div class="row-container">
+            <div class="col-xs-12">
+                <h1>THE API EXPLORER</h1>
+				<p>Make live API calls without writing a single line of code! The API Explorer currently works with the <a href="/products-and-docs/apis/discovery/v2">Discovery API</a>, <a href="/products-and-docs/apis/commerce/">Commerce API</a> and <a href="/products-and-docs/apis/publish/">Publish API</a> <strong>only</strong>.</p>
+            </div>
+        </div>
+    </div>
+    <!--navigation bar-->
+    <div class="row">
+        <div class="row-container" style="position: relative;">
+            <ul class="cd-tour-wrapper">
+        		<li class="cd-single-step" style="left: 65%; top: 46%;">
+        			<span>Navigation Menu</span>
+
+        			<div class="cd-more-info bottom">
+        				<h2>Navigation Menu</h2>
+        				<p class="caption">Select API and method to explore</p>
+        				<img src="/assets/img/api-explorer/step-1.png" />
+        			</div>
+        		</li> <!-- .cd-single-step -->
+            </ul>
+            <div class="col-xs-12">
+                <nav class="nav navbar-nav"></nav>
+            </div>
+        </div>
+    </div>
+    
+    <!--event counter bar-->
+    
+    <div class="row">
+        <div class="row-container">
+            <section class="">
+                <div class="horizontal-events-tracker">
+                    <div class="row">
+                        <div class="col-xs-12 horizontal-events-tracker__section">
+                            <span class="horizontal-events-tracker__title">
+                                Number of Events: 
+                                <span id="js-events-counter" class="horizontal-events-tracker__counter">120000</span>
+                            </span>
+                            <span class="horizontal-events-tracker__title">
+                                Number of Attractions: 
+                                <span id="js-attractions-counter" class="horizontal-events-tracker__counter">170000</span>
+                            </span>
+                            <span class="horizontal-events-tracker__title">
+                                Number of Venues: 
+                                <span id="js-venues-counter" class="horizontal-events-tracker__counter">40000</span>
+                            </span>
+                            <span class="horizontal-events-tracker__title">
+                                Number of Countries: 
+                                <span id="js-countries-counter" class="horizontal-events-tracker__counter">6</span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!--selected method-->
+    <div class="row">
+        <div class="row-container" id="title">
+            <h2 class="col-xs-12" id="selected-method-name"></h2>
+            <a href="#" id="doc-link" style="display: none;" target="_blank"></a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--get button + api key-->
+    <div class="row group-start">
+        <div class="row-container" style="position: relative;">
+            <ul class="cd-tour-wrapper">
+                <li class="cd-single-step" style="left: 35%; top: 29%;">
+                    <span>Api Key</span>
+
+                    <div class="cd-more-info bottom">
+                        <h2>Api Key</h2>
+                        <p class="caption">Enter your API Key</p>
+                        <img src="/assets/img/api-explorer/step-2.png" />
+                    </div>
+                </li> <!-- .cd-single-step -->
+            </ul>
+            <div class="col-sm-3 col-xs-12">
+                <a class="button button-blue" style="width: 100%; text-align: center; margin-top:auto;" href="#" role="button" id="primary-btn">GET</a>
+            </div>
+            <div class="col-sm-9 col-xs-12">
+                <div id="js_custom_select_key">
+                    <input type="text" id="api-key" class="form-control" placeholder="Api key" style="width: 100%;" contenteditable="true" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--parameters header-->
+    <div class="row group-start">
+        <div class="row-container">
+            <div class="col-xs-12">
+                <a href="#" id="parameters-btn"></a>
+                <h3 style="float: left;">Parameters</h3>
+                <a href="#" class="btn-default btn-small api-exp-param-button" id="copy-request">Copy</a>
+                <a href="#" class="btn-default btn-small api-exp-param-button" id="clear-params">Clear</a>
+            </div>
+        </div>
+    </div>
+    <!--parameter fields-->
+    <div class="row" style="position: relative;">
+        <ul class="cd-tour-wrapper">
+            <li class="cd-single-step" style="left: 60%; top: 4%;">
+                <span>Request Parameters</span>
+
+                <div class="cd-more-info bottom">
+                    <h2>Request Parameters</h2>
+                    <p class="caption">Fill in query parameters</p>
+                    <img src="/assets/img/api-explorer/step-3.png" />
+                </div>
+            </li> <!-- .cd-single-step -->
+        </ul>
+        <div class="row-container" id="primary-column"></div>
+        <div class="row-container">
+            <div class="col-xs-12">
+               <div class="separator"></div>
+            </div>
+        </div>
+    </div>
+    <!--json post-->
+    <div id="post-json" style="display: none;">
+        <!--json post header-->
+        <div class="row group-start">
+            <div class="row-container">
+                <div class="col-xs-12">
+                    <a href="#" id="json-btn"></a>
+                    <h3 style="float: left;">Post JSON</h3>
+                    <a href="#" class="btn-default btn-small" id="reformat-json">Reformat JSON Structure</a>
+                    <a href="#" class="btn-default btn-small" id="clear-json">Clear JSON</a>
+                </div>
+            </div>
+        </div>
+        <!--json post textarea-->
+        <div class="row" id="post-json-container" style="display: none;">
+            <div class="row-container">
+                <div class="col-xs-12">
+                    <textarea id="post-json-area" style="width: 100%; height: 300px; resize: vertical; padding: 15px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row-container">
+            <div class="col-xs-12">
+                <div class="separator"></div>
+            </div>
+        </div>
+    </div>
+    <!--response list header-->
+    <div class="row">
+        <div class="row-container">
+            <div class="col-xs-12">
+                <h3 style="float: left;">Requests list</h3>
+                <a href="#" class="btn-default btn-small" id="clear-req-resp">Clear all requests</a>
+            </div>
+        </div>
+    </div>
+    <!--response list-->
+    <div class="row">
+        <div class="row-container" style="position: relative;">
+            <ul class="cd-tour-wrapper">
+                <li class="cd-single-step" style="right: 20%; top: 12%;">
+                    <span>Request Log</span>
+
+                    <div class="cd-more-info top">
+                        <h2>Request Log</h2>
+                        <p class="caption">View your requests log with raw URL and response</p>
+                        <img src="/assets/img/api-explorer/step-4.png" />
+                    </div>
+                </li> <!-- .cd-single-step -->
+            </ul>
+            <div class="col-xs-12">
+                <div class="panel-group" id="req-res-container"></div>
+            </div>
+        </div>
+    </div>
+    <!--slider-->
+    <div class="row-container" style="position: relative;">
+        <ul class="cd-tour-wrapper">
+            <li class="cd-single-step" style="left: 17%; top: 98px;">
+                <span>Response Items</span>
+
+                <div class="cd-more-info top">
+                    <h2>Response Items</h2>
+                    <p class="caption">Explore the response :)</p>
+                    <img src="/assets/img/api-explorer/step-5.png" />
+                </div>
+            </li> <!-- .cd-single-step -->
+        </ul>
+        <div id="columns"></div>
+    </div>
+</div>
+
+<div style="max-width: 1170px; margin: 0 auto; overflow: hidden;">
+  <div class="col-xs-12">
+    <div id="disqus_thread"></div>
+  </div>
+</div>
+
+
+<script src="/scripts/components/api-key-service.js"></script>
+
+<script src="/scripts/components/events-counter.js" async></script>
+
+
+<script>
+  // Global discus config func.
+  window.disqus_config = function () {
+		if (window.location.hostname != 'developer.ticketmaster.com') {
+		    var pageURL = window.location.href.replace(window.location.host, 'developer.ticketmaster.com');
+		    this.page.url = pageURL || "http://developer.ticketmaster.com/";
+		}
+		else this.page.url = document.URL || "http://developer.ticketmaster.com/";
+    this.page.identifier = "";
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//ticketmasterapi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', + new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+<div id="footer" class="xs-center slice-top-right">
+
+<div class="row footer-nav">
+    <div class="row-container">
+        <div class="col-xs-12 col-sm-2">
+            <a href="/products-and-docs/"><h4 class="white">Products & Docs</h4></a>
+            <ul>
+                <li><a href="/products-and-docs/apis/getting-started/">APIs</a></li>
+                <li><a href="/products-and-docs/sdks/">SDKs</a></li>
+                <li><a href="/products-and-docs/widgets/">Widgets</a></li>
+                <li><a href="/products-and-docs/tutorials/">Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/partners/"><h4 class="white">Partners</h4></a>
+            <ul>
+                <li><a href="/partners/distribution-partners/">Distribution Partners</a></li>
+                <li><a href="/partners/certified-partners/">Certified Partners</a></li>
+                <!--<li><a href="https://member.impactradius.com/bla/Ticketmasterdirect/login.user">Affiliates</a></li>-->
+                <li><a href="/partners/startups-and-developers/">Startups & Developers</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/support/"><h4 class="white">Support</h4></a>
+            <ul>
+                <li><a href="/support/faq/">FAQ</a></li>
+                
+                <li><a href="/support/terms-of-use/">General Terms of Use</a></li>
+                <li><a href="/support/terms-of-use/partner/">Partner API Terms of Use</a></li>
+                <li><a href="/support/branding-guide/">Branding Guide</a></li>
+                <li><a href="/support/contact-us/">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/blogs/"><h4 class="white">Blogs</h4></a>
+            <ul>
+                <li><a href="http://tech.ticketmaster.com/">Tech Blog</a></li>
+                <li><a href="https://medium.com/ticketmaster-tech/">Medium Publication</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="/events/"><h4 class="white">Events</h4></a>
+            <ul>
+                <li><a href="/events/#/upcoming/hackathon">hackathons</a></li>
+                <li><a href="/events/#/upcoming/devjam">devjam</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <a href="http://code.ticketmaster.com/"><h4 class="white">Open Source</h4></a>
+            <ul>
+                <li><a href="http://code.ticketmaster.com/#android-projects">Android</a></li>
+                <li><a href="http://code.ticketmaster.com/#backend-projects">Backend</a></li>
+                <li><a href="http://code.ticketmaster.com/#iOS-projects">iOS</a></li>
+                <li><a href="http://code.ticketmaster.com/#web-projects">Web</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row bottom-logo" style="margin-bottom: 10px;">
+    <div class="row-container">
+        <div class="col-xs-12">
+            <a href="http://www.ticketmaster.com">
+            <img alt="Ticketmaster logo" src="/assets/img/footer/ticketmaster-logo-white.svg">
+            </a>
+            <span>© 1976–2017 Ticketmaster. All rights reserved.</span>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<div id="back-top">
+  <a href="javascript:void(0)"><span></span></a>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-oFbQWw_jEcG7r7WGdi99jNT3DqvRas&libraries=visualization"></script>
+<script src="/scripts/api-explorer/config.js"></script>
+<script src="/scripts/vendors/jquery-1.11.3.min.js"></script>
+<script src="/scripts/vendors/jquery-migrate-1.3.0.min.js"></script>
+<script src="/scripts/components/intro.js"></script>
+<script src="/scripts/vendors/bootstrap.min.js"></script>
+<script src="/scripts/vendors/slick.min.js"></script>
+<script src="/scripts/vendors/datetimepicker.js"></script>
+<script src="/scripts/components/api-explorer-datetimepicker.js"></script>
+  <div class="modal modal-common fade" id="js_ls-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div></div><!--map-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <div class="row">
+                    <h3 class="modal-title col-lg-12">Find <span>event</span> by keyword</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+
+                <form id="js_lazy-sel_form" accept-charset="UTF-8" method="GET">
+                    <div class="col-sm-9 clear-padding-right">
+                        <input required type="text" placeholder="keyword" id="keyword" autofocus>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <button id="js_ls-modal_btn" type="button" class="btn btn-transparent">GET</button>
+                    </div>
+                </form>
+
+                <div id="spinner-ls" style="display: none;"></div>
+                <div class="ms-selection" style="display: none;">
+                    <div class="col-sm-9 col-xs-12">
+                        <ul class="ms-list">
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 text-right">
+                        <button id="js_ms-use-btn" type="button" class="btn btn-submit">Use</button>
+                    </div>
+                </div>
+                <hr id="js_ls-top-hr" style="display: none;">
+
+                <div class="wrapper-list-group">
+                    <ul id="js_lazy-sel_list" class="list-group"></ul>
+                    <div class="list-footer text-center" style="display: none;" id="load-more-box">
+                        <button id="js_ls-more_btn" type="button" class="btn btn-submit">SHOW MORE EVENTS</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+
+        <div class="wrapper-map" class="" style="background-color: aliceblue;">
+            <button style="display: none;" id="close1" class="button-close-map" aria-controls="m1"></button>
+            <div id="map-canvas" class="" style="background-color: aliceblue;"></div>
+        </div>
+
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+  <script src="/scripts/components/lazy-selector.js"></script>
+  <div class="modal modal-common fade" id="js_ls-modal-classification" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+          <h3 class="modal-title col-lg-12">Classification Selection</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+        <form id="js_lazy-sel_form" accept-charset="UTF-8"  method="GET">
+          <div class="col-sm-9 clear-padding-right">
+            <input id="keyword" placeholder="keyword" autofocus class="search-input"/>
+          </div>
+          <div class="col-sm-3 text-right">
+            <button id="js_classification-modal_btn" type="button" class="btn btn-transparent">GET</button>
+          </div>
+        </form>
+      </div>
+      <div id="spinner-ls" style="display: none;"></div>
+      <div class="top-hr"></div>
+      <div id="classification-jstree"></div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+
+	<script src="/scripts/vendors/jstree.min.js"></script>
+  <script src="/scripts/components/classification-selector.js"></script>
+  <script src="/scripts/components/application-selector.js"></script>
+  <script>
+    /**
+     * add classification selector to api-explorer v1 (made by V.Menshutin)
+     */
+    $(document).on( "finishInit", function( event, flag ) {
+      $('#classificationName').classificationSelector({selector:'classifications', use:'name'});
+      $('#classificationId').classificationSelector({selector:'classifications', use:'id'});
+      $('#classificationID').classificationSelector({selector:'classifications', use:'id'});
+    });
+  </script>
+  <!--<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA'></script>-->
+<script src="/scripts/api-explorer/script.js"></script>
+<script src="/scripts/components/scroll-top.js"></script>
+
+
+<div class="modal modal-common fade" id="feedback-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+          <h3 class="modal-title col-lg-12">Leave Your Feedback</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <form id="js_feedback_form" accept-charset="UTF-8" action="https://getsimpleform.com/messages/ajax?form_api_token=d9878ccc8e22c7253d057015617f82cd" method="POST">
+          <div class="col-lg-6">
+            <label for="name">Your name</label>
+            <input required type="text" id="name" name="name" maxlength="255" autofocus >
+          </div>
+          <div class="col-lg-6">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" title="Use the following format '-@-.--' ">
+          </div>
+          <div class="col-lg-12">
+            <label for="subject">Subject</label>
+            <div class="js_custom_select custom_select">
+              <select required class="custom_select__field" name="subject" id="subject" tabindex="-1">
+                <option value="General feedback">General feedback</option>
+                <option value="Current workflow of the portal">Current workflow of the portal</option>
+                <option value="Technical issues">Technical issues</option>
+              </select>
+              <input class="custom_select__placeholder" type="text" value="General feedback" readonly>
+              <ul class="custom_select__list">
+                <li class="custom_select__item" data-value="General feedback">General feedback</li>
+                <li class="custom_select__item" data-value="Current workflow of the portal">Current workflow of the portal</li>
+                <li class="custom_select__item" data-value="Technical issues">Technical issues</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <label for="description">Description</label>
+            <textarea required rows="3" name="description" id="description"></textarea>
+          </div>
+          <div class="col-sm-12">
+            <p id="feedback-message-error" class="text-overflow-message text-overflow-message__red" style="display:none">The maximum length of description can be 3000 characters.</p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button id="js_feedback_btn" type="button" class="btn btn-submit" >send</button>
+      </div>
+
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Button trigger modal -->
+<button id="js_feedback_open" type="button" class="btn feedback-btn scale-on-hover" data-toggle="modal" data-target="#feedback-modal">feedback</button>
+
+
+<!-- Modal alert-->
+<div id="feedback-alert-modal" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center">Thank you for contacting us!</h3>
+        <p class="text-center">We will review and respond promptly.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+<!-- Modal alert Error-->
+<div id="feedback-alert-modal-error" class="modal modal-common modal-common-sm fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3 class="modal-title col-lg-12 text-center text-overflow-message__red">Error</h3>
+        <p id="text-overflow-message" class="text-center">The maximum length of description can be 3000 characters.</p>
+        <div class="modal-footer">
+          <button id="js_feedback_btn_alert_ok-error" type="button" class="btn btn-submit text-center">Ok</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal alert end-->
+
+<script src="/scripts/components/custom-select.js"></script>
+<script src="/scripts/components/feedback.js"></script>
+<script src="/scripts/load-api-key.js"></script>
+
+<script>
+
+function checkUserKey() {
+  var userKey = sessionStorage.getItem('tk-api-key'),
+      _inputApiKey = 'input#api-key';
+  if (userKey !== null) {
+    replaceApiKey({userKey: userKey, inputApiKey: _inputApiKey })
+  } else {
+    /**
+     * check if user logged just before enter api-explorer page
+     */
+    $(window).on('login', function (e, data) {
+      replaceApiKey({
+        userKey: data.key,
+        inputApiKey: _inputApiKey
+      });
+    });
+  }
+}
+
+function replaceApiKey(options) {
+  document.querySelector(options.inputApiKey).value = options.userKey;
+}
+
+checkUserKey();
+
+
+</script>
+<!--<script src="/scripts/components/feedback.js"></script>-->
+</body>
+</html>

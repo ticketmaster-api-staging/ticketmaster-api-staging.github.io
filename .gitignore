@@ -1,5 +1,5 @@
 /scripts/vendors/jquery-1.11.3.js
-_site
+# _site
 .idea
 .sass-cache
 .jekyll-metadata
