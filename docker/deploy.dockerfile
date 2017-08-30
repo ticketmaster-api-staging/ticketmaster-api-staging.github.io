@@ -4,7 +4,7 @@ ADD package.json ./
 
 RUN npm install --only=prod
 
-ADD static ./_site
+ADD _site ./_site
 
 ADD server.js ./
 
