@@ -105,7 +105,7 @@
     "knockout-scrollbar": "0.0.3",
     "knockout.validation": "^2.0.3",
     "slick-carousel": "^1.6.0",
-	"express": "^4.4.5",
+	  "express": "^4.4.5",
     "cookie-parser": "^1.4.3",
     "express-session": "^1.15.4",
     "sync-request": "^4.1.0"
