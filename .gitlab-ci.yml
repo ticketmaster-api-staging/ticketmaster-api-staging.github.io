@@ -26,6 +26,8 @@ build:
     - NODE_ENV=development
     - npm install
     - npm run build
+    - rvm install 2.2.4
+    - gem install github-pages
     - jekyll build
     - echo -e '*n!package.json' > .dockerignore
   artifacts:
