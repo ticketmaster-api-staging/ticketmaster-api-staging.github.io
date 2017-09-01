@@ -39,8 +39,8 @@ build:
     - npm install
     - npm run build
     # - gem install github-pages
-    - gem install jekyll
-    - gem jekyll-redirect-from
+    - gem install jekyll 3.4.3
+    - gem install jekyll-redirect-from 
     - jekyll build
     - echo -e '*n!package.json' > .dockerignore
   artifacts:
