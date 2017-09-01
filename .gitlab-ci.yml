@@ -24,7 +24,7 @@ build:
     - tm-prod cicd build
   script:
     - NODE_ENV=development
-    - apt-get install ruby-amazon-ec2
+    - apt-get install ruby-full
     - rvm install 2.2.4
     - npm install
     - npm run build
