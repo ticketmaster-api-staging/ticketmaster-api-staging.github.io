@@ -36,11 +36,12 @@ build:
     - rvm install 2.2.4
     - rvm use 2.2.4 --default
     - ruby -v
+    # - gem install github-pages
+    - gem install jekyll
+    - gem install jekyll-redirect-from
+    - gem install jekyll-sass-converter
     - npm install
     - npm run build
-    # - gem install github-pages
-    - gem install jekyll 3.4.3
-    - gem install jekyll-redirect-from 
     - jekyll build
     - echo -e '*n!package.json' > .dockerignore
   artifacts:
