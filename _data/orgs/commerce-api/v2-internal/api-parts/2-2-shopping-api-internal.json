@@ -1887,6 +1887,13 @@
           "endSeat" : {
             "type" : "string"
           },
+          "accessible" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "accessibilityId" : {
+            "type" : "string"
+          },
           "ga" : {
             "type" : "boolean",
             "default" : false
