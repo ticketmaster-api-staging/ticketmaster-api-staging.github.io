@@ -24,9 +24,10 @@ build:
     - tm-prod cicd build
   script:
     - NODE_ENV=development
+    - yum install ruby
+    - rvm install 2.2.4
     - npm install
     - npm run build
-    - rvm install 2.2.4
     - gem install github-pages
     - jekyll build
     - echo -e '*n!package.json' > .dockerignore
