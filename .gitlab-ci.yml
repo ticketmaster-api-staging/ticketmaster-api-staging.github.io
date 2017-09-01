@@ -24,8 +24,7 @@ build:
     - tm-prod cicd build
   script:
     - NODE_ENV=development
-    - rm -rf /var/lib/apt/lists/*
-    - apt-get install ruby-aws
+    - apt-get install gitlab-ce
     - rvm install 2.2.4
     - npm install
     - npm run build
