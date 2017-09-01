@@ -11,7 +11,7 @@ var https = require('https'),
 var app = express();
 
 var staticSiteOptions = {
-    portnum: 80,
+    portnum: 8081,
     maxAge: 1000 * 60 * 15
 };
 
