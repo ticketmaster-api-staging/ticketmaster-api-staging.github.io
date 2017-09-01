@@ -40,7 +40,6 @@ build:
     - rvm install 2.2.4
     - rvm use 2.2.4 --default
     - ruby -v
-    # - gem install github-pages
     - gem install jekyll
     - gem install jekyll-redirect-from
     - gem install jekyll-sass-converter
