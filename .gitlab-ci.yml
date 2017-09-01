@@ -24,7 +24,7 @@ build:
     - tm-prod cicd build
   script:
     - NODE_ENV=development
-    - sudo apt-get install ruby-full
+    - apt-get install ruby-aws
     - rvm install 2.2.4
     - npm install
     - npm run build
