@@ -438,6 +438,47 @@
           }
         }
       }
+    },
+    "/orders/{orderId}" : {
+      "post" : {
+        "summary" : "Get Order",
+        "description" : "Method: POST. Authentication required.\nThis operation allows users to get a specified order resourceThis operation returns the existing order resource.",
+        "operationId" : "getOrder",
+        "parameters" : [ {
+          "name" : "X-SSL-CERT-UID",
+          "in" : "header",
+          "description" : "API Key for external API developer",
+          "required" : false,
+          "type" : "string",
+          "default" : ""
+        }, {
+          "name" : "X-TM-ACCESS-TOKEN",
+          "in" : "header",
+          "description" : "Access token for",
+          "required" : false,
+          "type" : "string",
+          "default" : ""
+        }, {
+          "name" : "access_token",
+          "in" : "query",
+          "description" : "Query Param Access Token",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OrderFulfillmentResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions" : {
@@ -1125,11 +1166,11 @@
     "Item" : {
       "type" : "object",
       "properties" : {
-        "token" : {
+        "id" : {
           "type" : "string"
         },
-        "price" : {
-          "$ref" : "#/definitions/Money"
+        "type" : {
+          "type" : "string"
         }
       }
     },
@@ -1415,6 +1456,66 @@
           "$ref" : "#/definitions/ResponseObjectListOrderSimpleLinks"
         }
       }
+    },
+    "OrderFulfillment" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "attributes" : {
+          "$ref" : "#/definitions/OrderFulfillmentAttributes"
+        },
+        "relationships" : {
+          "$ref" : "#/definitions/OrderFulfillmentRelationships"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/SimpleLinks"
+        }
+      }
+    },
+    "OrderFulfillmentAttributes" : {
+      "type" : "object",
+      "properties" : {
+        "buyer" : {
+          "$ref" : "#/definitions/Buyer"
+        },
+        "items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Item"
+          }
+        }
+      }
+    },
+    "OrderFulfillmentRelationships" : {
+      "type" : "object"
+    },
+    "OrderFulfillmentResponse" : {
+      "type" : "object",
+      "properties" : {
+        "order" : {
+          "$ref" : "#/definitions/OrderFulfillment"
+        },
+        "_embedded" : {
+          "$ref" : "#/definitions/OrderFulfillmentResponseEmbeddedData"
+        },
+        "status" : {
+          "type" : "string",
+          "readOnly" : true
+        },
+        "polling" : {
+          "type" : "boolean",
+          "readOnly" : true,
+          "default" : false
+        }
+      }
+    },
+    "OrderFulfillmentResponseEmbeddedData" : {
+      "type" : "object"
     },
     "OrderMetadata" : {
       "type" : "object",
@@ -1887,6 +1988,13 @@
           "endSeat" : {
             "type" : "string"
           },
+          "accessible" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "accessibilityId" : {
+            "type" : "string"
+          },
           "ga" : {
             "type" : "boolean",
             "default" : false
@@ -1918,6 +2026,9 @@
       }, {
         "type" : "object",
         "properties" : {
+          "eventId" : {
+            "type" : "string"
+          },
           "section" : {
             "type" : "string"
           },
