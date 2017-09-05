@@ -170,7 +170,7 @@
 
         // prevent document from scrolling when menu is scrolled
         var isMacWebkit = (navigator.userAgent.indexOf("Macintosh") !== -1 &&
-            navigator.userAgent.indexOf("WebKit") !== -1);
+            navigator.userAgent.indexOf("AppleWebKit") !== -1);
         var isFirefox = (navigator.userAgent.indexOf("firefox") !== -1);
 
         // Register mousewheel event handlers.
@@ -194,10 +194,12 @@
                     e.wheelDelta / 4) ||  // use the 1D wheel property
                     e.detail * -10 ||  // Firefox DOMMouseScroll event
                     0;     // property not defined
-
+                
                 if (isMacWebkit) {
+                    /*
                     deltaX /= 30;
                     deltaY /= 30;
+                    */
                 }
 
                 if (navigator.userAgent.indexOf("Firefox") != -1 && e.type !== "DOMMouseScroll") {
