@@ -155,9 +155,23 @@ Now that we've imported the SDK into your project we can start to get it initali
     <div class="tab-content" style="padding-top: 0px;">
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="initializing-ios">
-          
+        <ul>
+           <li>First configure the SDK with your Ticketmaster credentials, this is best done in your AppDelegate class inside applicationDidFinishLaunchingWithOptions() function</li>
+         </ul>
+
+         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">func </span><span>application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {</span>
+
+    <span>// Override point for customization after application launch.</span>
+
+    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>()</span>
+    <span>presenceSDK.</span><span class="nb">setConfig</span><span>(consumerKey: </span><span class="nb">CONSUMER_KEY_FROM_DEVELOPER_PORTAL</span><span>, 
+                        displayName: </span><span class="nb">YOUR_SPORTS_TEAM_NAME</span><span>)</span>
+    
+<span>}</span></code></pre></figure>
+
+
          <ul>
-           <li>Go to your applications view controller file and import the Presence SDK</li>
+           <li>Next go to your applications view controller file and import the Presence SDK</li>
          </ul>
 
          <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">import </span><span>PresenceSDK</span></code></pre></figure>
@@ -166,7 +180,7 @@ Now that we've imported the SDK into your project we can start to get it initali
            <li>Now we can make the view controller extend our login delegate, this will give you callback functions to help you with the login process</li>
          </ul>
 
-         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">class </span><span>ViewController: </span><span class="nb">UIViewController</span><span>, </span><span class="nb">TMLoginDelegate </span><span>{</span>
+         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">class </span><span>ViewController: </span><span class="nb">UIViewController</span><span>, </span><span class="nb">PresenceLoginDelegate </span><span>{</span>
     <span style="color: blue">func </span><span>onLoginSuccessful(</span><span style="color: blue">_ </span><span>succeeded:</span><span class="nb">Bool</span><span>, error:</span><span class="nb">NSError</span><span>?)</span>
     <span style="color: blue">func </span><span>onLoginCancelled()</span>
     <span style="color: blue">func </span><span>onMemberUpdated(</span><span style="color: blue">_ </span><span>member:</span><span class="nb">PresenceMember</span><span>?)</span>
@@ -178,32 +192,17 @@ Now that we've imported the SDK into your project we can start to get it initali
 
          <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">@IBOutlet weak var </span><span>presenceSDKView: </span><span class="nb">PresenceSDKView</span><span>? = </span><span style="color: blue">nil</span></code></pre></figure>
 
-         <ul>
-           <li>Next we'll configure the SDK with your Ticketmaster credentials, this is best done in the viewDidLoad function of your view controller</li>
-         </ul>
+        <ul>
+        <li>Next we'll start the SDK and this is best done in the viewDidLoad function of you </li>
+        </ul>
 
-         <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
-    <span style="color: blue">super</span><span>.</span><span class="nb">viewDidLoad()</span>
+    <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
+    <span style="color: blue">super.</span><span class="nb">viewDidLoad()</span>
+        
     <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>()</span>
-
-    <span>presenceSDK.</span><span class="nb">setHostConfig</span><span>(clientKey: </span><span class="nb">HOST_CLIENT_KEY</span><span>, 
-                              clientIdentifer: </span><span class="nb">HOST_CLIENT_ID</span><span>, 
-                              redirectURL: </span><span class="nb">HOST_CALLBACK_URL</span><span>, 
-                              uwdKey: </span><span class="nb">UWD_KEY</span><span>)</span>
-
-    <span>presenceSDK.</span><span class="nb">setTeamConfig</span><span>(clientKey: </span><span class="nb">ARCHTICS_CLIENT_KEY</span><span>, 
-                              clientIdentifer: </span><span class="nb">ARCHTICS_CLIENT_ID</span><span>, 
-                              redirectURL: </span><span class="nb">ARCHTICS_CALLBACK_URL</span><span>, 
-                              uwdKey: </span><span class="nb">UWD_KEY</span><span>, 
-                              teamApiKey: </span><span class="nb">TEAM_API_KEY</span><span>, 
-                              teamDisplayName: </span><span class="nb">ARCHTICS_SPORT_TEAM_NAME</span><span>, 
-                              teamVenueId: </span><span class="nb">ARCHTICS_VENUE_ID</span><span>,           //Optional and can be nil
-                              teamAttractionId: </span><span class="nb">ARCHTICS_ATTRACTION_ID</span><span>) //Optional and can be nil</span>
-
     <span>presenceSDK.</span><span class="nb">start</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
 <span>}</span></code></pre></figure>
-
-        </div>
+    </div>
 
         
         <!-- Android Tab -->
@@ -213,29 +212,20 @@ Now that we've imported the SDK into your project we can start to get it initali
               <li>This activity needs to extend AppCompatActivity</li>
             </ul>
 
-             <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>PresenceSDK presenceSDK = </span><span>PresenceSDK.getPresenceSDK(</span><span style="color: blue">this</span><span>);</span></code></pre></figure>
+             <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nb">PresenceSDK</span> presenceSDK = <span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>(</span><span style="color: blue">this</span><span>);</span></code></pre></figure>
 
          <ul>
            <li>Next we'll configure the SDK with your Ticketmaster credentials, this is best done in the viewDidLoad function of your view controller</li>
          </ul>
 
-         <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>presenceSDK.setHostConfig(</span><span style="color: blue">HOST_CLIENT_KEY</span><span>, 
-                          </span><span style="color: blue">HOST_CLIENT_ID</span><span>, 
-                          </span><span style="color: blue">HOST_CALLBACK_URL</span><span>, 
-                          </span><span style="color: blue">UWD_KEY</span><span>)</span>
-
-<span>presenceSDK.setTeamConfig(</span><span style="color: blue">ARCHTICS_CLIENT_KEY</span><span>, 
-                          </span><span style="color: blue">ARCHTICS_CLIENT_ID</span><span>, 
-                          </span><span style="color: blue">ARCHTICS_CALLBACK_URL</span><span>, 
-                          </span><span style="color: blue">UWD_KEY</span><span>, 
-                          </span><span style="color: blue">TEAM_API_KEY</span><span>, 
-                          </span><span style="color: blue">ARCHTICS_SPORT_TEAM_NAME</span><span>, 
-                          </span><span style="color: blue">ARCHTICS_VENUE_ID</span><span>,      //Optional and can be null
-                          </span><span style="color: blue">ARCHTICS_ATTRACTION_ID</span><span>) //Optional and can be null </span></code></pre></figure>  
+         <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>presenceSDK.</span><span class="nb">setConfig</span><span>(consumerKey: </span><span class="nb">CONSUMER_KEY_FROM_DEVELOPER_PORTAL</span><span>, 
+                        displayName: </span><span class="nb">YOUR_SPORTS_TEAM_NAME</span><span>)</span></code></pre></figure>  
 
          <ul>
            <li>Now we can start the SDK using the AppCompatActivity and the ID of the layout from the previous step and the </li>
          </ul>
+
+
 
           <figure class="highlight"><pre><code class="language-java" data-lang="java"><span>presenceSDK.start(</span><span style="color: blue">this</span><span>, R.id.</span><span style="color: blue">presenceSDK</span><span>, </span><span style="color: blue">new </span><span>TMLoginListener() {</span>
     <span class="nb">@Override</span>
@@ -355,6 +345,122 @@ presenceSDK.</span><span class="nb">logOut</span><span>()</span><span>
 presenceSDK.</span><span class="nb">logOutHost</span><span>()</span><span>
 //Logs out Archtics
 presenceSDK.</span><span class="nb">logOutTeam</span><span>()</span></code></pre></figure>
+        </div>
+
+    </div>
+</form>
+</div>
+
+## Analytics
+{: .article }
+
+Presence SDK provides support for tracking user activity via its Analytics module.
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#analytics-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#analytics-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="analytics-ios">
+            <ul>
+              <li>Here is how you can receive notification when user clicks on a specfic event to view tickets.</li>
+            </ul>
+
+             <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
+    <span style="color: blue">super.</span><span class="nb">viewDidLoad()</span>
+        
+    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>()</span>
+    <span>presenceSDK.</span><span class="nb">start</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
+
+    //Add obbserver for ticket screen.
+    <span>NotificationCenter.default.addObserver(self, selector: #selector(self.ticketsScreenShown),
+            name: NSNotification.Name(rawValue: <span class="nb">PresenceEventAnalytics.Action.ACTION_MANAGETICKETSCREENSHOWED</span>),
+                                        object: nil)</span>
+<span>}</span></code></pre></figure>
+
+            <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">func </span><span>ticketsScreenShown(_ notification: Notification) {</span>
+    <span>let eventId = notification.userInfo?[<span class="nb">PresenceEventAnalytics.Data.EVENT_ID</span>] ?? ""</span>
+    <span>let eventName = notification.userInfo?[<span class="nb">PresenceEventAnalytics.Data.EVENT_NAME</span>] ?? ""</span>
+    <span>print("Event_Id: \(eventId), Event_Name: \(eventName)")</span>
+<span>}</span></code></pre></figure>
+
+    <span>For a complete list of all analytics actions and its corresponding payload data please refer PresenceEventAnalytics class.</span>
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="analytics-android">
+            <ul>
+              <li>Here is how you can receive notification when user clicks on a specfic event to view tickets.</li>
+            </ul>
+
+             <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">override func </span><span>viewDidLoad() {</span>
+    <span style="color: blue">super.</span><span class="nb">viewDidLoad()</span>
+        
+    <span style="color: blue">let </span><span>presenceSDK = </span><span class="nb">PresenceSDK</span><span>.</span><span class="nb">getPresenceSDK</span><span>()</span>
+    <span>presenceSDK.</span><span class="nb">start</span><span>(presenceSDKView: </span><span class="nb">presenceSDKView</span><span>, loginDelegate: </span><span style="color: blue">self</span><span>)</span>
+
+    //Add obbserver for ticket screen.
+    <span>NotificationCenter.default.addObserver(self, selector: #selector(self.ticketsScreenShown),
+            name: NSNotification.Name(rawValue: <span class="nb">PresenceEventAnalytics.Action.ACTION_MANAGETICKETSCREENSHOWED</span>),
+                                        object: nil)</span>
+<span>}</span></code></pre></figure>
+
+            <figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span style="color: blue">func </span><span>ticketsScreenShown(_ notification: Notification) {</span>
+    <span>let eventId = notification.userInfo?[<span class="nb">PresenceEventAnalytics.Data.EVENT_ID</span>] ?? ""</span>
+    <span>let eventName = notification.userInfo?[<span class="nb">PresenceEventAnalytics.Data.EVENT_NAME</span>] ?? ""</span>
+    <span>print("Event_Id: \(eventId), Event_Name: \(eventName)")</span>
+<span>}</span></code></pre></figure>
+
+    <span>For a complete list of all analytics actions and its corresponding payload data please refer PresenceEventAnalytics class.</span>
+        </div>
+
+    </div>
+</form>
+</div>
+
+## Release
+{: .article }
+
+Following section describes the steps you need to follow to prepare your app for Apple or Google Store.
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#release-ios" data-toggle="tab" aria-expanded="true">Apple Store</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#release-android" data-toggle="tab" aria-expanded="false">Google Store</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="release-ios">
+            <ul>
+              <li>PresenceSDK is packaged as a Universal binary and it contains binary packages for all valid architectures including ARMv* and x86. This is great for development as you can run your app on both devices and simulators but for App Store submission you need to strip the simulator packages from your App. To do this we have provided <span style="color: red">“strip_frameworks.sh”</span> file, just add this file to the Run Script phase under your app’s Build Phases settings and it will do the work for you. Here is a screenshot of what your Build phases will look like after adding this file.</li>
+            </ul>
+
+            <img src="/assets/img/products-and-docs/PresenceSDK-iOS-Step-3.png" alt="iOS Step 1" height="666" width="1121">
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="release-android">
+
         </div>
 
     </div>
