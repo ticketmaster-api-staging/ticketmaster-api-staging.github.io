@@ -7,7 +7,7 @@ terraformer_bucket = "terraform.prod1.us-east-1.tmaws"
 
 aws_region = "us-east-1"
 account_tag = "tm-prod"
-product_code_tag = "PRD1491"
+product_code_tag = "PRD1585"
 inventory_code_tag = "ctrl"
 environment_tag = "prod"
 vpc = "prod"
