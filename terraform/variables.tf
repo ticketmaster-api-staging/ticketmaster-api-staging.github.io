@@ -13,8 +13,10 @@ variable "ssh_key" {}
 variable "enable_monitoring" {}
 /* variable "ssl_certificate" {} */
 
-variable "app_elb_protocol" { default = "HTTP" }
-variable "app_elb_port" { default = "80" }
+/* variable "app_elb_protocol" { default = "HTTP" } */
+/* variable "app_elb_port" { default = "80" } */
+variable "app_elb_protocol" { default = "HTTPS" }
+variable "app_elb_port" { default = "443" }
 variable "app_elb_dns_alias_name" {}
 
 variable "app_instance_protocol" { default = "HTTP" }
