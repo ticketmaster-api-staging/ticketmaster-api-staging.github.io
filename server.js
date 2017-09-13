@@ -1,9 +1,10 @@
 var https = require('https'),
+    http = require('http'),
     path = require('path'),
     express = require('express'),
     cookieParser = require('cookie-parser'),
-	session = require('express-session'),
-	syncrequest = require('sync-request');
+	  session = require('express-session'),
+	  syncrequest = require('sync-request'),
     url = require('url'),
     router = express.Router(),
     fs = require('fs');
@@ -112,9 +113,23 @@ app.use(session({
 
 app.use(router);
 
+
+var options = {
+  ca: fs.readFileSync('developer-portal-staging.csr'),
+  cert: fs.readFileSync('developer-portal-staging.crt'),
+  key: fs.readFileSync('developer-portal-staging.key')
+};
+
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(443);
+
+app.use(express.static(path.join(__dirname, '_site')));
+
+/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
+  */
 
 console.log('Listening on port:', staticSiteOptions.portnum);
