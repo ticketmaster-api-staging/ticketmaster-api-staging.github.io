@@ -113,7 +113,6 @@ app.use(session({
 
 app.use(router);
 
-
 var options = {
   ca: fs.readFileSync('developer-portal-staging.csr'),
   cert: fs.readFileSync('developer-portal-staging.crt'),
