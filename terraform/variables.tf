@@ -11,7 +11,7 @@ variable "zone" { default = "nonprod-tmaws.io" }
 variable "public_zone" { default = "nonprod-tmaws.io" }
 variable "ssh_key" {}
 variable "enable_monitoring" {}
-/* variable "ssl_certificate" {} */
+variable "ssl_certificate" {}
 
 /* variable "app_elb_protocol" { default = "HTTP" } */
 /* variable "app_elb_port" { default = "80" } */
