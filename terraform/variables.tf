@@ -11,13 +11,13 @@ variable "zone" { default = "nonprod-tmaws.io" }
 variable "public_zone" { default = "nonprod-tmaws.io" }
 variable "ssh_key" {}
 variable "enable_monitoring" {}
-variable "ssl_certificate" {}
+/* variable "ssl_certificate" {} */
 
 variable "app_elb_protocol" { default = "HTTP" }
 variable "app_elb_port" { default = "80" }
 variable "app_elb_dns_alias_name" {}
 
-variable "app_instance_protocol" { default = "HTTPS" }
+variable "app_instance_protocol" { default = "HTTP" }
 variable "app_instance_port" { default = "80" }
 variable "app_instance_healthcheck_url" { default = "/healthcheck" }
 variable "app_instance_type" {}

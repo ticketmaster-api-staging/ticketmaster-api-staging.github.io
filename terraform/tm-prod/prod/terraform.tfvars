@@ -17,7 +17,7 @@ zone = "nonprod-tmaws.io"
 public_zone = "nonprod-tmaws.io"
 ssh_key = "cet-prod-east"
 enable_monitoring = "false"
-ssl_certificate = ""
+/* ssl_certificate = "" */
 
 app_elb_internal = true
 app_elb_dns_alias_name = "dpa-controller"
