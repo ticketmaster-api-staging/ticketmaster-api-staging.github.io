@@ -119,8 +119,8 @@ var options = {
   key: fs.readFileSync('developer-portal-staging.key')
 };
 
-http.createServer(app).listen(80);
-https.createServer(options, app).listen(443);
+// http.createServer(app).listen(80);
+https.createServer(options, app).listen(80);
 
 app.use(express.static(path.join(__dirname, '_site')));
 
