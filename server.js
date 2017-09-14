@@ -68,10 +68,20 @@ function getRole(req) {
   return role;
 }
 
+/*
 router.get('*',function(req,res){  
-  res.redirect('https://http://developer-portal.staging.ticketmaster.com' + req.url);
+  res.redirect('https://' + req.headers.host + req.url);
 })
+*/
 
+function ensureSecure(req, res, next){
+  if(req.secure){
+    return next();
+  };
+  res.redirect('https://'+req.host+req.url); // handle port numbers if non 443
+};
+
+app.all('*', ensureSecure);
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
