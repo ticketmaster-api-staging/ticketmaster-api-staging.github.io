@@ -52,6 +52,12 @@ resource "aws_elb" "app" {
     lb_protocol        = "${var.app_elb_protocol}"
     ssl_certificate_id = "${var.ssl_certificate}"
   }
+  listener {
+    instance_port      = "${var.app_instance_port}"
+    instance_protocol  = "${var.app_instance_protocol}"
+    lb_port            = "${var.app_instance_port}"
+    lb_protocol        = "${var.app_instance_protocol}"
+  }
   health_check {
     healthy_threshold   = "2"
     unhealthy_threshold = "4"
