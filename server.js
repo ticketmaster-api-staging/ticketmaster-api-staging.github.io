@@ -70,7 +70,14 @@ function getRole(req) {
 
 /* Copmmerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
-  res.redirect('/products-and-docs/apis/commerce/v2/');
+  var role = getRole(req);
+  var srcPath = '';
+  if (role == 'internal') {
+	  srcPath = './_site/products-and-docs/apis/commerce/v2/internal.html';
+  } else {
+	  srcPath = './_site/products-and-docs/apis/commerce/v2/index.html';
+  }
+  getURL(srcPath, res);
 });
 
 router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
