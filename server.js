@@ -79,12 +79,14 @@ function ensureSecure(req, res, next){
 app.all('*', ensureSecure);
 */
 
+/*
 app.use(function redirectHTTP(req, res, next) {
   if (!req.secure) {
     return res.redirect('https://' + req.headers.host + req.url);
   }
   next();
 });
+*/
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
