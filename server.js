@@ -68,7 +68,11 @@ function getRole(req) {
   return role;
 }
 
-/* Copmmerce API Access [START] */
+router.get('*',function(req,res){  
+  res.redirect('https://' + req.headers.host + req.url);
+})
+
+/* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
   var role = getRole(req);
   var srcPath = '';
