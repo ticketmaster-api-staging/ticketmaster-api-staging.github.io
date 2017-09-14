@@ -69,11 +69,6 @@ function getRole(req) {
 }
 
 /*
-router.get('*',function(req,res){  
-  res.redirect('https://' + req.headers.host + req.url);
-})
-*/
-
 function ensureSecure(req, res, next){
   if(req.secure){
     return next();
@@ -82,6 +77,7 @@ function ensureSecure(req, res, next){
 };
 
 app.all('*', ensureSecure);
+*/
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
