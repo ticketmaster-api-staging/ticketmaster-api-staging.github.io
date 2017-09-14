@@ -69,7 +69,7 @@ function getRole(req) {
 }
 
 router.get('*',function(req,res){  
-  res.redirect('https://' + req.headers.host + req.url);
+  res.redirect('https://http://developer-portal.staging.ticketmaster.com' + req.url);
 })
 
 
