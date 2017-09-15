@@ -70,10 +70,11 @@ function getRole(req) {
   return role;
 }
 
-
+/*
 router.get('*',function (req, res) {
   res.redirect('https://developer-portal.staging.ticketmaster.com' + req.url);
 });
+*/
 
 /*
 app.use(function(req,resp,next){
