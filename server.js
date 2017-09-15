@@ -12,7 +12,7 @@ var https = require('https'),
 var app = express();
 
 var staticSiteOptions = {
-    portnum: 8081,
+    portnum: 80,
     maxAge: 1000 * 60 * 15
 };
 
@@ -34,8 +34,8 @@ function getURL(srcPath, res) {
 */
 
 function getRequestURI(userId) {
-  var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
-  // var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
+  // var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
+  var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
   return res.getBody().toString();
 }
 
@@ -70,12 +70,18 @@ function getRole(req) {
   return role;
 }
 
-app.use(function(req, res, next) {
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-        res.redirect('https://' + req.get('Host') + req.url);
-    }
-    else
-        next();
+/*
+router.get('*',function (req, res) {
+  res.redirect('https://developer-portal.staging.ticketmaster.com' + req.url);
+});
+*/
+
+app.use(function(req,resp,next){
+  if (!req.secure) {
+      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
+  } else {
+      return next();
+  }
 });
 
 /* Commerce API Access [START] */
@@ -128,6 +134,7 @@ app.use(session({
 app.use(router);
 
 
+/*
 var options = {
   ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
@@ -138,13 +145,12 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(express.static(path.join(__dirname, '_site')));
+*/
 
-
-/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
-*/
+
 
 console.log('Listening on port:', staticSiteOptions.portnum);
