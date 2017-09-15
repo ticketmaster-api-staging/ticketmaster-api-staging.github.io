@@ -15,8 +15,8 @@
 		}
 		return "";
 	}
-
-	if (getCookie('tk-u') != undefined) {
+	
+	if (getCookie('tk-u') != '') {
 	    document.querySelector('.aside-menu li.off').classList.remove('off');
 	}
 

@@ -12,7 +12,7 @@ var https = require('https'),
 var app = express();
 
 var staticSiteOptions = {
-    portnum: 80,
+    portnum: 8081,
     maxAge: 1000 * 60 * 15
 };
 
@@ -107,7 +107,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
   if (role == 'internal') {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/oauth/'));
   } else {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/'));  
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));  
   }
 });
 /* OAuth API Access [END] */
@@ -127,7 +127,7 @@ app.use(session({
 
 app.use(router);
 
-/*
+
 var options = {
   ca: fs.readFileSync('cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('cert/developer-portal-staging.crt'),
@@ -138,11 +138,13 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(express.static(path.join(__dirname, '_site')));
-*/
 
+
+/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
+*/
 
 console.log('Listening on port:', staticSiteOptions.portnum);
