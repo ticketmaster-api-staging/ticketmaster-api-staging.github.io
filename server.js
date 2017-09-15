@@ -19,6 +19,7 @@ var staticSiteOptions = {
 var sess;
 
 function getURL(srcPath, res) {
+  /*
   fs.readFile(srcPath, function (error, pgResp) {
 	if (error) {
 		res.writeHead(404);
@@ -29,11 +30,13 @@ function getURL(srcPath, res) {
 	}
 	res.end();
   });
+  */
+  res.redirect(srcPath);
 }
 
 function getRequestURI(userId) {
-  var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
-  // var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
+  // var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
+  var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
   return res.getBody().toString();
 }
 
@@ -91,24 +94,23 @@ app.use(function redirectHTTP(req, res, next) {
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
   var role = getRole(req);
-  var srcPath = '';
-  if (role == 'internal') {
-	  srcPath = './_site/products-and-docs/apis/commerce/v2/internal.html';
-  } else {
-	  srcPath = './_site/products-and-docs/apis/commerce/v2/index.html';
+  if (role != 'internal') {
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
   }
-  getURL(srcPath, res);
+  else {
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
+  }
+
 });
 
 router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
   var role = getRole(req);
-  var srcPath = '';
   if (role == 'internal') {
-	  srcPath = './_site/products-and-docs/apis/commerce/v2/internal.html';
-  } else {
-	  srcPath = './_site/products-and-docs/apis/commerce/v2/index.html';
+	  res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
-  getURL(srcPath, res);
+  else {
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+  }
 });
 /* Commerce API Access [END] */
 
@@ -117,7 +119,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
   var role = getRole(req);
   var srcPath = '';
   if (role == 'internal') {
-	  srcPath = './_site/products-and-docs/apis/oauth/index.html';
+	  srcPath = './_site/products-and-docs/apis/oauth/';
   } else {
       srcPath = './_site/products-and-docs/apis/getting-started/index.html';
   }
