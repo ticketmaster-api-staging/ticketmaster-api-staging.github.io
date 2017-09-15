@@ -70,12 +70,12 @@ function getRole(req) {
   return role;
 }
 
-/*
+
 router.get('*',function (req, res) {
   res.redirect('https://developer-portal.staging.ticketmaster.com' + req.url);
 });
-*/
 
+/*
 app.use(function(req,resp,next){
   if (!req.secure) {
       return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
@@ -83,6 +83,7 @@ app.use(function(req,resp,next){
       return next();
   }
 });
+*/
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
