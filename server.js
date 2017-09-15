@@ -120,8 +120,6 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 });
 /* OAuth API Access [END] */
 
-
-
 app.use(cookieParser());
 var hour = 3600000;
 app.use(session({
@@ -134,7 +132,6 @@ app.use(session({
 }));
 
 app.use(router);
-
 
 /*
 var options = {
@@ -153,6 +150,5 @@ app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
-
 
 console.log('Listening on port:', staticSiteOptions.portnum);
