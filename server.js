@@ -129,13 +129,13 @@ app.use(router);
 
 
 var options = {
-  ca: fs.readFileSync('cert/developer-portal-staging.csr'),
-  cert: fs.readFileSync('cert/developer-portal-staging.crt'),
-  key: fs.readFileSync('cert/developer-portal-staging.key')
+  ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
+  cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
+  key: fs.readFileSync('_site/cert/developer-portal-staging.key')
 };
 
-http.createServer(app).listen(8081);
-https.createServer(options, app).listen(8082);
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(443);
 
 app.use(express.static(path.join(__dirname, '_site')));
 
