@@ -2,16 +2,14 @@
 
 Home to the [Ticketmaster Developer Portal](http://developer.ticketmaster.com/).
 
-##  Build Status
-![Build Status Images](https://travis-ci.org/ticketmaster-api-staging/ticketmaster-api-staging.github.io.svg)
-
 ## Installation
 
 1. [Install Ruby](http://rubyinstaller.org/)
 2. Install Gem 'github-pages' `gem install 'github-pages'`
-3. Clone portal:  `git clone git@github.com:ticketmaster-api/ticketmaster-api.github.io.git`
-4. Get in the directory:  `cd ticketmaster-api.github.io`
-5. Run Jekyll: `jekyll serve`
+3. Clone portal:  `git clone https://git.tmaws.io/dev-portal/Ticketmaster-Developer-Portal.git`
+4. Go to the root directory.
+5. Build Jekyll: `jekyll build`
+5. Run srver: `npm start`
 
 ## Alternative running method
 
