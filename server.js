@@ -76,15 +76,14 @@ router.get('*',function (req, res) {
 });
 */
 
-/*
+
 app.use(function(req,resp,next){
   if (!req.secure) {
-      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
+      return resp.redirect(301, 'https://localhost:443' +  req.url);
   } else {
       return next();
   }
 });
-*/
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
@@ -133,7 +132,6 @@ app.use(session({
 
 app.use(router);
 
-/*
 var options = {
   ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
@@ -144,11 +142,12 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(express.static(path.join(__dirname, '_site')));
-*/
 
+/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
+*/
 
 console.log('Listening on port:', staticSiteOptions.portnum);
