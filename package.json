@@ -100,7 +100,6 @@
     "cookie-parser": "^1.4.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "express": "^4.4.5",
-    "express-https-redirect": "^1.0.0",
     "express-session": "^1.15.4",
     "jquery": "^2.2.4",
     "jstree": "^3.3.3",

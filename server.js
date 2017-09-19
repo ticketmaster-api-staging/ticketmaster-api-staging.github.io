@@ -2,7 +2,6 @@ var https = require('https'),
     http = require('http'),
     path = require('path'),
     express = require('express'),
-    httpsRedirect = require('express-https-redirect'),
     cookieParser = require('cookie-parser'),
 	  session = require('express-session'),
 	  syncrequest = require('sync-request'),
@@ -11,7 +10,6 @@ var https = require('https'),
     fs = require('fs');
 
 var app = express();
-app.use('/', httpsRedirect());
 
 var staticSiteOptions = {
     portnum: 80,
@@ -72,16 +70,6 @@ function getRole(req) {
   return role;
 }
 
-/*
-app.use(function(req,resp,next){
-  if (!req.secure) {
-      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
-  } else {
-      return next();
-  }
-});
-*/
-
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
   var role = getRole(req);
@@ -129,7 +117,6 @@ app.use(session({
 
 app.use(router);
 
-/*
 var options = {
   ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
@@ -137,14 +124,23 @@ var options = {
 };
 
 http.createServer(app).listen(80);
-https.createServer(options, app).listen(443);
+// https.createServer(options, app).listen(443);
+
+app.use(function(req,resp,next){
+  if (!req.secure) {
+      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
+  } else {
+      return next();
+  }
+});
 
 app.use(express.static(path.join(__dirname, '_site')));
-*/
 
+/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
+*/
 
 console.log('Listening on port:', staticSiteOptions.portnum);
