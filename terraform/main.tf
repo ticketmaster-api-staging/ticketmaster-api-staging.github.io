@@ -62,7 +62,7 @@ resource "aws_elb" "app" {
     healthy_threshold   = "2"
     unhealthy_threshold = "4"
     timeout             = "60"
-    target              = "HTTPS:443${var.app_instance_healthcheck_url}"
+    target              = "${var.app_instance_protocol}:${var.app_instance_port}${var.app_instance_healthcheck_url}"
     interval            = "90"
   }
   tags {

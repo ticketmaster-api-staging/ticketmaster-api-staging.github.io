@@ -127,6 +127,7 @@ var options = {
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
+/*
 app.use(function(req,resp,next){
   if (!req.secure) {
       return resp.redirect('https://developer-portal.staging.ticketmaster.com' +  req.url);
@@ -134,6 +135,7 @@ app.use(function(req,resp,next){
       return next();
   }
 });
+*/
 
 app.use(express.static(path.join(__dirname, '_site')));
 
