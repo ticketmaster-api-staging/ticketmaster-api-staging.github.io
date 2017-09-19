@@ -117,6 +117,7 @@ app.use(session({
 
 app.use(router);
 
+/*
 var options = {
   ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
@@ -124,7 +125,7 @@ var options = {
 };
 
 http.createServer(app).listen(80);
-// https.createServer(options, app).listen(443);
+https.createServer(options, app).listen(443);
 
 app.use(function(req,resp,next){
   if (!req.secure) {
@@ -135,12 +136,11 @@ app.use(function(req,resp,next){
 });
 
 app.use(express.static(path.join(__dirname, '_site')));
+*/
 
-/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
-*/
 
 console.log('Listening on port:', staticSiteOptions.portnum);
