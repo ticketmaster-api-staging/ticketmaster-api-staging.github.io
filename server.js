@@ -117,7 +117,7 @@ app.use(session({
 
 app.use(router);
 
-/*
+
 var options = {
   ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
   cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
@@ -129,18 +129,20 @@ https.createServer(options, app).listen(443);
 
 app.use(function(req,resp,next){
   if (!req.secure) {
-      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
+      return resp.redirect('https://developer-portal.staging.ticketmaster.com' +  req.url);
   } else {
       return next();
   }
 });
 
 app.use(express.static(path.join(__dirname, '_site')));
-*/
 
+/*
 app.use(express.static(
    path.join(__dirname, '_site'),
    staticSiteOptions
 )).listen(staticSiteOptions.portnum);
+
+*/
 
 console.log('Listening on port:', staticSiteOptions.portnum);
