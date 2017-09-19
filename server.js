@@ -2,6 +2,7 @@ var https = require('https'),
     http = require('http'),
     path = require('path'),
     express = require('express'),
+    httpsRedirect = require('express-https-redirect'),
     cookieParser = require('cookie-parser'),
 	  session = require('express-session'),
 	  syncrequest = require('sync-request'),
@@ -10,6 +11,7 @@ var https = require('https'),
     fs = require('fs');
 
 var app = express();
+app.use('/', httpsRedirect());
 
 var staticSiteOptions = {
     portnum: 80,
