@@ -39,7 +39,7 @@ data "template_file" "userdata-app" {
 
 resource "aws_elb" "app" {
   name                        = "${module.naming.aws_elb}"
-  subnets                     = ["${split(",", module.networks.subnets[format("%s.%s.%s", var.aws_region, var.vpc, "web")] )}"]
+  subnets                     = ["${split(",", module.networks.subnets[format("%s.%s.%s", var.aws_region, var.vpc, "pubin")] )}"]
   security_groups             = ["${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "web")]}", "${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "onprem")]}"]
   cross_zone_load_balancing   = true
   internal                    = "${var.app_elb_internal}"
