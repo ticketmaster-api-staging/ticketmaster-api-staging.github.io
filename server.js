@@ -19,7 +19,6 @@ var staticSiteOptions = {
 var sess;
 
 function getRequestURI(userId) {
-  // var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
   var res = syncrequest('GET', process.env.DRUPAL_PORTAL_URL + userId + '/roles');
   return res.getBody().toString();
 }

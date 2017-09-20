@@ -31,6 +31,6 @@ app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/"
 portal_url = "developer.ticketmaster.com"
 drupal_portal_url = "https://dev-livenation.devportal.apigee.com/open-platform/user/"
-# drupal_portal_url = "https://pantheon.ticketmaster.com/open-platform/user/"
+# drupal_portal_url = "https://developer-acct.ticketmaster.com/open-platform/user/"
 
 ec2_log_dir = "/log"
