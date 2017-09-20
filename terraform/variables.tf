@@ -21,6 +21,7 @@ variable "app_elb_dns_alias_name" {}
 
 variable "app_instance_protocol" { default = "HTTP" }
 variable "app_instance_port" { default = "80" }
+variable "app_instance_ssl_port" { default = "443" }
 variable "app_instance_healthcheck_url" { default = "/healthcheck" }
 variable "app_instance_type" {}
 variable "app_instance_min_count" {}

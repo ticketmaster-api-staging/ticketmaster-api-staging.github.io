@@ -29,6 +29,7 @@ data "template_file" "userdata-app" {
     ecr_host            = "${var.ecr_host}"
     product_name        = "${var.product_name}"
     instance_port       = "${var.app_instance_port}"
+    instance_ssl_port   = "${var.app_instance_ssl_port}"
     ec2_log_dir         = "${var.ec2_log_dir}"
     docker_log_dir      = "${var.docker_log_dir}"
   }
@@ -46,17 +47,17 @@ resource "aws_elb" "app" {
     create_before_destroy = true
   }
   listener {
-    instance_port      = "${var.app_instance_port}"
-    instance_protocol  = "${var.app_instance_protocol}"
-    lb_port            = "${var.app_elb_port}"
-    lb_protocol        = "${var.app_elb_protocol}"
+    instance_port      = "443"
+    instance_protocol  = "HTTPS"
+    lb_port            = "443"
+    lb_protocol        = "HTTPS"
     ssl_certificate_id = "${var.ssl_certificate}"
   }
   listener {
-    instance_port      = "${var.app_instance_port}"
-    instance_protocol  = "${var.app_instance_protocol}"
-    lb_port            = "${var.app_instance_port}"
-    lb_protocol        = "${var.app_instance_protocol}"
+    instance_port      = "80"
+    instance_protocol  = "HTTP"
+    lb_port            = "80"
+    lb_protocol        = "HTTP"
   }
   health_check {
     healthy_threshold   = "2"

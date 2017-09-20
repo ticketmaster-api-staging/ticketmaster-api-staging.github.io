@@ -86,6 +86,7 @@ coreos:
         ExecStart=/usr/bin/docker run \
           -d \
           -p ${instance_port}:${instance_port} \
+          -p ${instance_ssl_port}:${instance_ssl_port} \
           --name ${class} \
           -v ${ec2_log_dir}:${docker_log_dir} \
           -e PORT="${instance_port}" \
