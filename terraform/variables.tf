@@ -13,8 +13,6 @@ variable "ssh_key" {}
 variable "enable_monitoring" {}
 variable "ssl_certificate" {}
 
-/* variable "app_elb_protocol" { default = "HTTP" } */
-/* variable "app_elb_port" { default = "80" } */
 variable "app_elb_protocol" { default = "HTTPS" }
 variable "app_elb_port" { default = "443" }
 variable "app_elb_dns_alias_name" {}
@@ -29,6 +27,12 @@ variable "app_instance_max_count" {}
 variable "app_instance_ebs_optimized" {}
 variable "app_instance_artifact_version" {}
 variable "app_artifact_repo" {}
+variable "portal_url" {
+  default = "developer-portal.staging.ticketmaster.com"
+}
+variable "drupal_portal_url" {
+  default = "https://pantheon.staging.ticketmaster.com/open-platform/user/"
+}
 
 variable "asg_termination_policies" {
   default = "OldestLaunchConfiguration"

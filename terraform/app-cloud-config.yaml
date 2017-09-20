@@ -90,4 +90,6 @@ coreos:
           --name ${class} \
           -v ${ec2_log_dir}:${docker_log_dir} \
           -e PORT="${instance_port}" \
+          -e PORTAL_URL="${portal_url}" \
+          -e DRUPAL_PORTAL_URL="${drupal_portal_url}" \
           ${artifact_repo}:${artifact_version}

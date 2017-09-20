@@ -29,5 +29,7 @@ app_instance_ebs_optimized = "false"
 app_artifact_repo = "tmhub.io/dpa-portal/dev/ctrl"
 app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/"
+portal_url = "developer-portal.staging.ticketmaster.com"
+drupal_portal_url = "developer.ticketmaster.com"
 
 ec2_log_dir = "/log"

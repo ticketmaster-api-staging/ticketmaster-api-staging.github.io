@@ -18,24 +18,9 @@ var staticSiteOptions = {
 
 var sess;
 
-/*
-function getURL(srcPath, res) {
-  fs.readFile(srcPath, function (error, pgResp) {
-	if (error) {
-		res.writeHead(404);
-		res.write('Contents you are looking are Not Found');
-	} else {
-		res.writeHead(200, { 'Content-Type': 'text/html' });
-		res.write(pgResp);
-	}
-	res.end();
-  });
-}
-*/
-
 function getRequestURI(userId) {
   // var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + '/roles');
-  var res = syncrequest('GET', 'https://pantheon.staging.ticketmaster.com/open-platform/user/' + userId + '/roles');
+  var res = syncrequest('GET', process.env.DRUPAL_PORTAL_URL + userId + '/roles');
   return res.getBody().toString();
 }
 
@@ -129,42 +114,12 @@ https.createServer(options, app).listen(443);
 
 app.use(function(req, res, next) {
   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-      res.redirect(301, 'https://developer-portal.staging.ticketmaster.com' + req.url);
+      res.redirect(301, 'https://' + process.env.PORTAL_URL + req.url);
   }
   else
       next();
 });
 
 app.use(express.static(path.join(__dirname, '_site')));
-
-
-/*
-app.use(function(req, res, next) {
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-        res.redirect('https://developer-portal.staging.ticketmaster.com' + req.url);
-    }
-    else
-        next();
-});
-
-app.use(function(req,resp,next){
-  if (!req.secure) {
-      return resp.redirect(301, 'https://developer-portal.staging.ticketmaster.com' +  req.url);
-  } else {
-      return next();
-  }
-});
-
-app.use(express.static(path.join(__dirname, '_site')));
-
-*/
-
-/*
-app.use(express.static(
-   path.join(__dirname, '_site'),
-   staticSiteOptions
-)).listen(staticSiteOptions.portnum);
-*/
-
 
 console.log('Listening on port:', staticSiteOptions.portnum);

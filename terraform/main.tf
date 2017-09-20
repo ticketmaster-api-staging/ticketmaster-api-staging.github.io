@@ -32,6 +32,8 @@ data "template_file" "userdata-app" {
     instance_ssl_port   = "${var.app_instance_ssl_port}"
     ec2_log_dir         = "${var.ec2_log_dir}"
     docker_log_dir      = "${var.docker_log_dir}"
+    portal_url          = "${var.portal_url}"
+    drupal_portal_url   = "${var.drupal_portal_url}"
   }
 }
 
@@ -63,7 +65,7 @@ resource "aws_elb" "app" {
     healthy_threshold   = "2"
     unhealthy_threshold = "4"
     timeout             = "60"
-    target              = "${var.app_instance_protocol}:${var.app_instance_port}${var.app_instance_healthcheck_url}"
+    target              = "${var.app_elb_protocol}:${var.app_elb_port}${var.app_instance_healthcheck_url}"
     interval            = "90"
   }
   tags {
