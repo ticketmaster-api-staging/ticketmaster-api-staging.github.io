@@ -14,7 +14,7 @@ vpc = "prod"
 product_name = "dpa-portal"
 
 zone = "nonprod-tmaws.io"
-public_zone = "nonprod-tmaws.io"
+public_zone = "prod-tmaws.io"
 ssh_key = "cet-prod-east"
 enable_monitoring = "false"
 ssl_certificate = "arn:aws:acm:us-east-1:889199535989:certificate/ceac2df4-e4c6-406f-8743-56f72ac9700a"
