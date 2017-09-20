@@ -127,6 +127,14 @@ var options = {
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
+app.use(function(req, res, next) {
+  if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+      res.redirect(301, 'https://developer-portal.staging.ticketmaster.com' + req.url);
+  }
+  else
+      next();
+});
+
 app.use(express.static(path.join(__dirname, '_site')));
 
 
