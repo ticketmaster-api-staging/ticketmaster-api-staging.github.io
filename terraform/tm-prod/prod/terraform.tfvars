@@ -17,7 +17,7 @@ zone = "nonprod-tmaws.io"
 public_zone = "prod-tmaws.io"
 ssh_key = "cet-prod-east"
 enable_monitoring = "false"
-ssl_certificate = "arn:aws:acm:us-east-1:889199535989:certificate/ceac2df4-e4c6-406f-8743-56f72ac9700a"
+ssl_certificate = "arn:aws:acm:us-east-1:889199535989:certificate/8dbee593-9119-49fe-80f3-99a95a843009"
 ssl_folder = "cert-prod"
 
 app_elb_internal = true
