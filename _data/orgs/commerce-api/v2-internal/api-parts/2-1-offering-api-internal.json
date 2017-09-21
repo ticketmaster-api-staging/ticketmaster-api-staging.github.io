@@ -33,7 +33,7 @@
         }, {
           "name" : "access_token",
           "in" : "query",
-          "description" : "TestQuery Param Access Token",
+          "description" : "Query Param Access Token",
           "required" : false,
           "type" : "string"
         }, {
