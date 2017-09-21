@@ -34,12 +34,13 @@ data "template_file" "userdata-app" {
     docker_log_dir      = "${var.docker_log_dir}"
     portal_url          = "${var.portal_url}"
     drupal_portal_url   = "${var.drupal_portal_url}"
+    ssl_folder          = "${var.ssl_folder}"
   }
 }
 
 resource "aws_elb" "app" {
   name                        = "${module.naming.aws_elb}"
-  subnets                     = ["${split(",", module.networks.subnets[format("%s.%s.%s", var.aws_region, var.vpc, "pubin")] )}"]
+  subnets                     = ["${split(",", module.networks.subnets[format("%s.%s.%s", var.aws_region, var.vpc, "web")] )}"]
   security_groups             = ["${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "web")]}", "${module.networks.security_groups[format("%s.%s.%s", var.aws_region, var.vpc, "onprem")]}"]
   cross_zone_load_balancing   = true
   internal                    = "${var.app_elb_internal}"

@@ -12,6 +12,7 @@ variable "public_zone" { default = "nonprod-tmaws.io" }
 variable "ssh_key" {}
 variable "enable_monitoring" {}
 variable "ssl_certificate" {}
+variable "ssl_folder" { default = "cert-prod" }
 
 variable "app_elb_protocol" { default = "HTTPS" }
 variable "app_elb_port" { default = "443" }
