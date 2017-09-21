@@ -92,4 +92,5 @@ coreos:
           -e PORT="${instance_port}" \
           -e PORTAL_URL="${portal_url}" \
           -e DRUPAL_PORTAL_URL="${drupal_portal_url}" \
+          -e SSL_FOLDER="${ssl_folder}" \
           ${artifact_repo}:${artifact_version}
