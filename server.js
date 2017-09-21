@@ -101,11 +101,10 @@ app.use(session({
 
 app.use(router);
 
-
 var options = {
-  ca: fs.readFileSync('_site/cert/developer-portal-staging.csr'),
-  cert: fs.readFileSync('_site/cert/developer-portal-staging.crt'),
-  key: fs.readFileSync('_site/cert/developer-portal-staging.key')
+  ca: fs.readFileSync('_site/' + process.env.SSL_FOLDER + '/developer-portal.csr'),
+  cert: fs.readFileSync('_site/' + process.env.SSL_FOLDER + '/developer-portal.crt'),
+  key: fs.readFileSync('_site/' + process.env.SSL_FOLDER + '/developer-portal.key')
 };
 
 http.createServer(app).listen(80);

@@ -34,6 +34,7 @@ data "template_file" "userdata-app" {
     docker_log_dir      = "${var.docker_log_dir}"
     portal_url          = "${var.portal_url}"
     drupal_portal_url   = "${var.drupal_portal_url}"
+    ssl_folder          = "${var.ssl_folder}"
   }
 }
 
