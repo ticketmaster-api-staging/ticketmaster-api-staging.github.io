@@ -67,17 +67,6 @@ dockerize-dev-build:
   only:
     - dev
 
-dockerize-prod-build:
-  stage: dockerize build
-  tags:
-    - tm-prod cicd build
-  script:
-    - docker build -f ./docker/deploy.dockerfile --tag $PROD_REPOSITORY:$CI_BUILD_REF .
-    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $PROD_SHORTREPO
-    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
-  only:
-    - master
-
 release-dev:
   stage: release
   tags:
@@ -88,17 +77,6 @@ release-dev:
     - docker push $DEV_REPOSITORY:$CI_BUILD_REF
   only:
     - dev
-
-release-prod:
-  stage: release
-  tags:
-    - tm-prod cicd build
-  script:
-    - docker pull $PROD_REPOSITORY:$CI_BUILD_REF
-    - docker tag $PROD_REPOSITORY:$CI_BUILD_REF $PROD_REPOSITORY:$CI_BUILD_REF
-    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
-  only:
-    - master
 
 deploy-dev:
   image: $TERRAFORMERIMAGE
@@ -113,19 +91,6 @@ deploy-dev:
   only:
     - dev
 
-deploy-prod:
-  image: $TERRAFORMERIMAGE
-  stage: deploy
-  tags:
-    - tm-prod terraformer
-  script:
-    - cd terraform
-    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod/terraform.tfvars
-    - terraformer tm-prod/prod apply
-    - echo "Deployed:" "$CI_BUILD_REF"
-  only:
-    - master
-
 destroy-dev:
   image: $TERRAFORMERIMAGE
   stage: deploy
@@ -137,18 +102,6 @@ destroy-dev:
   when: manual # allows you to manually select when you will destroy the environment
   only:
     - dev
-
-destroy-prod:
-  image: $TERRAFORMERIMAGE
-  stage: deploy
-  tags:
-    - tm-prod terraformer
-  script:
-    - cd terraform
-    - terraformer tm-prod/prod destroy -force
-  when: manual # allows you to manually select when you will destroy the environment
-  only:
-    - master
 
 release-lock-dev:
   image: $TERRAFORMERIMAGE
@@ -162,6 +115,80 @@ release-lock-dev:
   only:
     - dev
 
+### PROD Environment Configuration
+
+dockerize-prod-build:
+  stage: dockerize build
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker build -f ./docker/deploy.dockerfile --tag $PROD_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $PROD_SHORTREPO
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master
+
+release-prod:
+  stage: release
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker pull $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker tag $PROD_REPOSITORY:$CI_BUILD_REF $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master
+
+deploy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod/terraform.tfvars
+    - terraformer tm-prod/prod apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - master
+
+deploy-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod-us-west-2/terraform.tfvars
+    - terraformer --region=us-west-2 tm-prod/prod-us-west-2 apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - master
+
+destroy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - master
+
+destroy-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod-us-west-2 destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - master
+
 release-lock-prod:
   image: $TERRAFORMERIMAGE
   stage: deploy
@@ -170,6 +197,18 @@ release-lock-prod:
   script:
     - cd terraform
     - terraformer tm-prod/prod release-lock --terragrunt-non-interactive
+  when: manual 
+  only:
+    - master
+
+release-lock-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod-us-west-2 release-lock --terragrunt-non-interactive
   when: manual 
   only:
     - master
