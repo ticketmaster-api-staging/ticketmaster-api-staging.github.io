@@ -1,11 +1,10 @@
 # DO NOT CHANGE
 aws_profile = "tm-prod-Ops-Techops"
-terraformer_bucket = "terraform.prod1.us-east-1.tmaws"
+terraformer_bucket = "terraform.prod1.us-west-2.tmaws"
 
 # Your Terraform Variables
 # See Naming Standard: https://contegixapp1.livenation.com/confluence/display/AWS/Naming+Standards
-
-aws_region = "us-east-1"
+aws_region = "us-west-2"
 account_tag = "tm-prod"
 product_code_tag = "PRD1585"
 inventory_code_tag = "ctrl"
@@ -15,9 +14,9 @@ product_name = "dpa-portal"
 
 zone = "prod-tmaws.io"
 public_zone = "prod-tmaws.io"
-ssh_key = "cet-prod-east"
+ssh_key = "cet-prod-west"
 enable_monitoring = "false"
-ssl_certificate = "arn:aws:acm:us-east-1:889199535989:certificate/8dbee593-9119-49fe-80f3-99a95a843009"
+ssl_certificate = "arn:aws:acm:us-west-2:350611111791:certificate/ddcec90a-e19d-47a3-b83e-646a188ce93c"
 ssl_folder = "cert-prod"
 
 app_elb_internal = true
