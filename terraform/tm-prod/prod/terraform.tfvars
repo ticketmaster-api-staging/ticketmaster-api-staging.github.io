@@ -30,7 +30,7 @@ app_instance_ebs_optimized = "false"
 app_artifact_repo = "tmhub.io/dpa-portal/prod/ctrl"
 app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/"
-portal_url = "developer.ticketmaster.com"
+portal_url = "dpa-controller.prod.us-east-1.pub-tmaws.io"
 #drupal_portal_url = "https://dev-livenation.devportal.apigee.com/open-platform/user/"
 drupal_portal_url = "https://developer-acct.ticketmaster.com/open-platform/user/"
 
