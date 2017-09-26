@@ -597,12 +597,12 @@
         }, {
           "name" : "classificationId",
           "in" : "query",
-          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationId>'. Be aware that negative filters may cause decreased performance",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "KZFzniwnSyZfZ7v7nJ,-KZazBEonSMnZfZ7vAvE"
         }, {
           "name" : "marketId",
           "in" : "query",
@@ -1525,9 +1525,6 @@
           "type" : "boolean",
           "default" : false
         },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
@@ -1540,6 +1537,9 @@
           "format" : "int32"
         },
         "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "name" : {
@@ -1605,13 +1605,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
