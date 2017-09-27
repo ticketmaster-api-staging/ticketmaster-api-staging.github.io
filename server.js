@@ -50,7 +50,7 @@ function getRole(req) {
 	  console.log("User stored in session");
 	  role = req.session.user;
 	}
-  }	
+  }
   return role;
 }
 
@@ -83,7 +83,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
   if (role == 'internal') {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/oauth/'));
   } else {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));  
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
   }
 });
 /* OAuth API Access [END] */
@@ -112,7 +112,7 @@ https.createServer(options, app).listen(443);
 
 app.use(function(req, res, next) {
   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-      res.redirect(301, 'https://' + process.env.PORTAL_URL + req.url);
+      res.redirect(301, 'https://' + req.headers['host'] + req.url);
   }
   else
       next();
