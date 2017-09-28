@@ -111,7 +111,7 @@ release-lock-dev:
   script:
     - cd terraform
     - terraformer tm-nonprod/dev release-lock --terragrunt-non-interactive
-  when: manual 
+  when: manual
   only:
     - dev
 
@@ -162,6 +162,7 @@ deploy-prod-west:
     - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod-us-west-2/terraform.tfvars
     - terraformer --region=us-west-2 tm-prod/prod-us-west-2 apply
     - echo "Deployed:" "$CI_BUILD_REF"
+  when: manual
   only:
     - master
 
@@ -197,7 +198,7 @@ release-lock-prod:
   script:
     - cd terraform
     - terraformer tm-prod/prod release-lock --terragrunt-non-interactive
-  when: manual 
+  when: manual
   only:
     - master
 
@@ -209,6 +210,6 @@ release-lock-prod-west:
   script:
     - cd terraform
     - terraformer tm-prod/prod-us-west-2 release-lock --terragrunt-non-interactive
-  when: manual 
+  when: manual
   only:
     - master

@@ -13,14 +13,14 @@ environment_tag = "prod"
 vpc = "prod"
 product_name = "dpa-portal"
 
-zone = "prod-tmaws.io"
-public_zone = "prod-tmaws.io"
+zone = "pub-tmaws.io"
+public_zone = "pub-tmaws.io"
 ssh_key = "cet-prod-east"
 enable_monitoring = "false"
 ssl_certificate = "arn:aws:acm:us-east-1:889199535989:certificate/8dbee593-9119-49fe-80f3-99a95a843009"
 ssl_folder = "cert-prod"
 
-app_elb_internal = true
+app_elb_internal = false
 app_elb_dns_alias_name = "dpa-controller"
 app_instance_port = 80
 app_instance_type = "t2.medium"
@@ -31,7 +31,7 @@ app_artifact_repo = "tmhub.io/dpa-portal/prod/ctrl"
 app_instance_artifact_version = "latest"
 app_instance_healthcheck_url = "/"
 portal_url = "developer.ticketmaster.com"
-drupal_portal_url = "https://dev-livenation.devportal.apigee.com/open-platform/user/"
-# drupal_portal_url = "https://developer-acct.ticketmaster.com/open-platform/user/"
+#drupal_portal_url = "https://dev-livenation.devportal.apigee.com/open-platform/user/"
+drupal_portal_url = "https://developer-acct.ticketmaster.com/open-platform/user/"
 
 ec2_log_dir = "/log"
