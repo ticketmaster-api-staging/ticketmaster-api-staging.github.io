@@ -17,4 +17,4 @@ keywords: Presence, SDK, integration, Android
 
 ## SDK
 
-[Download](/products-and-docs/sdks/presence/ios/Android_Presence_SDK-Version_1_1_0.zip) Presence SDK iOS.
+[Download](/products-and-docs/sdks/presence/android/Android_Presence_SDK-Version_1_1_0.zip) Presence SDK iOS.
