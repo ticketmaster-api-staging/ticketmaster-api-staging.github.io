@@ -6,6 +6,7 @@ variable "inventory_code_tag" {}
 variable "account_tag" {}
 variable "environment_tag" {}
 variable "vpc" {}
+variable "subnets_postfix" {}
 
 variable "zone" { default = "nonprod-tmaws.io" }
 variable "public_zone" { default = "nonprod-tmaws.io" }
@@ -60,4 +61,3 @@ variable "asg_health_check_type" {
 variable "app_elb_internal" {
   default = "true"
 }
-
