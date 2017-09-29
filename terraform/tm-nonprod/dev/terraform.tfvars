@@ -11,6 +11,7 @@ product_code_tag = "PRD1585"
 inventory_code_tag = "ctrl"
 environment_tag = "dev"
 vpc = "dev"
+subnets_postfix = "web"
 product_name = "dpa-portal"
 
 zone = "nonprod-tmaws.io"
