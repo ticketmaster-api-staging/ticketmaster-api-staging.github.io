@@ -7,7 +7,7 @@ date_title: "Thusday, March 17, 2016 @ 7pm"
 date_start: "2016-03-17 19:00:00"
 date_end: "2016-03-17 22:00:00"
 
-img: "http://photos4.meetupstatic.com/photos/event/3/f/d/7/global_433696343.jpeg"
+img: "https://photos4.meetupstatic.com/photos/event/3/f/d/7/global_433696343.jpeg"
 
 place: 
   - "Ticketmaster Hollywood"
