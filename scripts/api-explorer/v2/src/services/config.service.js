@@ -3,7 +3,8 @@ var config = ko.observable();
 $.ajax({
 	type: 'GET',
 	url: [
-		'http://',
+		document.location.protocol,
+		'//',
 		document.location.hostname,
 		document.location.port && ':' + document.location.port,
 		'/scripts/api-explorer/v2/config.json'

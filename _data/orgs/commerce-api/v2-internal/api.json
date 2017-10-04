@@ -1133,6 +1133,14 @@
         "accessibleSeatingEnabled": {
           "type": "boolean",
           "default": false
+        },
+        "rollupFacilityFee": {
+          "type": "boolean",
+          "default": false
+        },
+        "rollupServiceCharge": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
