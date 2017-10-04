@@ -26,7 +26,7 @@ describe('API Explorer config service', function () {
 		expect(window.$.ajax).toBeCalledWith({
 			"dataType": "json",
 			"type": "GET",
-			"url": "http://ticketmaster.com/scripts/api-explorer/v2/config.json",
+			"url": "https://ticketmaster.com/scripts/api-explorer/v2/config.json",
 			"async": true,
 			"complete" : jasmine.any(Function)
 		})
