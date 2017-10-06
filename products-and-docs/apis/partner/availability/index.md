@@ -34,7 +34,7 @@ For inventory that has been exclusively set aside, Channel partners are expected
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "0B004D43F86C478F"           | Yes      |
 
 
 ### Response structure:
@@ -87,7 +87,7 @@ For inventory that has been exclusively set aside, Channel partners are expected
 {: .reqres}
 
 {% highlight bash %}
-https://app.ticketmaster.com/partners/v1/events/1AeZZfEGkD0xtGV/availability?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
+https://app.ticketmaster.com/partners/v1/events/0B004D43F86C478F/availability?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
 {% endhighlight %}
 
 
