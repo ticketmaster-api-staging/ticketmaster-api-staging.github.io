@@ -128,7 +128,7 @@ This is only available for partners signed up for affiliate tracking through Imp
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 | `shared_id`| ImpactRadius SharedId field in reports (32 chars max)  | string            |     "02a8127b-7a52"          | No      |
 | `sub_id1,sub_id2,sub_id3`| ImpactRadius SubId1, SubId2, SubId3 fields in reports(32 chars max each)  | string            |     "02a8127b-7a52"          | No      |
@@ -371,7 +371,7 @@ Reserves the specified tickets. For integrations requiring captcha, send the cap
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 
 ### Response structure:
@@ -560,7 +560,7 @@ Get shipping options available for this event.  Note: some API users will be pre
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 | `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes      |
 
@@ -651,7 +651,7 @@ Add a shipping option to the event.  Note: some API users will be pre-configured
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 | `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes      |
 
@@ -832,7 +832,7 @@ Sample credit-card information for use in the production environment for event i
 
 | Parameter  | Description                              | Type              | Example                                   | Required |
 |:-----------|:-----------------------------------------|:------------------|:------------------------------------------|:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.      | string            |     "1AeZZfEGkD0xtGV"                    | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.      | string            |     "1AeZZfEGkD0xtGV"                    | Yes      |
 | `apikey`   | Your API Key                             | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"    |Yes      |
 
 
@@ -1089,7 +1089,7 @@ For now, the response is the same with or without the Authorization Header.
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 
 
@@ -1160,7 +1160,7 @@ Each partner has a limited amount of reservation resources that can be simultane
 
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_id` | The 16-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
+| `event_id` | The 15-digit alphanumeric event ID.     | string            |     "1AeZZfEGkD0xtGV"           | Yes      |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 | `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes      |
 

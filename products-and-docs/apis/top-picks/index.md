@@ -73,6 +73,7 @@ Retrieve reservable seat information based on specific criteria.
 | `prices` | Price range | numbers | 50,150 | No |
 | `page` | Page number   | numbers | 1 | No |
 | `limit` | Elements per page   | numbers | 10 | No (default=30) |
+| `selection` | Type of Ticket   | string | Any, Standard, Resale(Resale is only available for select apikeys specifically configured for that.)| No |
 
 
 ### Response structure:
