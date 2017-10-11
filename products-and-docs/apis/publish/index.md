@@ -177,6 +177,9 @@ publish/{version}/events
 - `source` (object) -  the id and source name of the event. Must be specified.
     * `id` (string) - the publisher's id of the event.
     * `name` (string) - the publisher's name.
+    * `publishingSource` (object) - Optional. The id and name of the publishing source. 
+        - `id` (string) - the id of the event at the publishing source.
+        - `name` (string) - the name of the publishing source.
 - `test` (boolean) - true if this is a test event data, false otherwise (real event).
 - `url` (string) - the URL of the event on the publisher's site.
 - `venue` (object) - the venue of the event.
