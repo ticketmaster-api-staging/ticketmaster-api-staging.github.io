@@ -1525,10 +1525,10 @@
           "type" : "boolean",
           "default" : false
         },
-        "durationField" : {
+        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "rangeDurationField" : {
+        "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
@@ -1605,13 +1605,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "unitMillis" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
         },
         "name" : {
           "type" : "string"
