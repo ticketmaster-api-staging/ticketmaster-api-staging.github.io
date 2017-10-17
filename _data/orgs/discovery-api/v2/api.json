@@ -1525,9 +1525,6 @@
           "type" : "boolean",
           "default" : false
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
@@ -1541,6 +1538,9 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
