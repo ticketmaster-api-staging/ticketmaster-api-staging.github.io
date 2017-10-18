@@ -158,7 +158,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'apiUrl',
     get: function get() {
-      return "https://app.ticketmaster.com/discovery-widget/v2/events.json";
+      return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
     }
   }, {
     key: 'themeUrl',
@@ -1674,7 +1674,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'makeImageUrl',
     value: function makeImageUrl(id) {
-      return 'https://app.ticketmaster.com/discovery-widget/v2/events/' + id + '/images.json';
+      return 'https://app.ticketmaster.com/discovery-widgets/v2/events/' + id + '/images.json';
     }
 
     /*

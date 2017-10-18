@@ -21,7 +21,7 @@ class TicketmasterEventDiscoveryWidget {
 
   get eventUrl(){ return "https://www.ticketmaster.com/event/"; }
 
-  get apiUrl(){ return "https://app.ticketmaster.com/discovery-widget/v2/events.json"; }
+  get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
   get themeUrl() {
     return (window.location.host === 'developer.ticketmaster.com')
@@ -89,7 +89,7 @@ class TicketmasterEventDiscoveryWidget {
     }
     return true;
   }
-  
+
   get eventReqAttrs(){
     let WidgetRoot = this.eventsRootContainer.parentNode;
     let attrs = {},
@@ -356,7 +356,7 @@ class TicketmasterEventDiscoveryWidget {
    */
   updateTransition(url , isAddressCenter) {
     let el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
-    (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date.centered-logo") : el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");    
+    (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date.centered-logo") : el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
     if(url !=='') {
       if(el && !isAddressCenter){
         el.classList.add("right-logo");
@@ -511,7 +511,7 @@ class TicketmasterEventDiscoveryWidget {
     let question = document.createElement('span'),
         toolTip = document.createElement('div'),
         tooltipHtml = `
-      <div class="tooltip-inner"> 
+      <div class="tooltip-inner">
         <a href="${this.questionUrl}" target = "_blank" >About widget</a>
         <div class="place">version: <b>${this.widgetVersion}</b></div>
       </div>`;
@@ -814,7 +814,7 @@ class TicketmasterEventDiscoveryWidget {
 
       window.addEventListener('resize', resizeThrottler, false);
       this.listenerResize.push(resizeThrottler);
-      
+
       function resizeThrottler() {
         // ignore resize events as long as an actualResizeHandler execution is in the queue
         if ( !resizeTimeout ) {
@@ -836,7 +836,7 @@ class TicketmasterEventDiscoveryWidget {
 
         me.eventsRoot.style.width = (me.isFullWidth) ? `${me.slideCountX * me.widgetRoot.offsetWidth }px` :  `${me.slideCountX * 100}%`;
       }
-      
+
     }else if(this.listenerResize && this.listenerResize.length !== 0){
         window.removeEventListener("resize", this.listenerResize[0], false);
         this.listenerResize.pop();
@@ -1467,7 +1467,7 @@ class TicketmasterEventDiscoveryWidget {
   }
 
   makeImageUrl(id){
-    return `https://app.ticketmaster.com/discovery-widget/v2/events/${id}/images.json`;
+    return `https://app.ticketmaster.com/discovery-widgets/v2/events/${id}/images.json`;
   }
 
 
@@ -1547,4 +1547,3 @@ ga('send', 'pageview');
 if(typeof module !== "undefined") {
   module.exports = { widgetsEventDiscovery, TicketmasterEventDiscoveryWidget };
 }
-
