@@ -733,7 +733,7 @@ describe("EDWWidget", () => {
 
 	it('#makeImageUrl should be defined', () => {
 		widget.makeImageUrl('test');
-		expect(widget.makeImageUrl('test')).toBe('https://app.ticketmaster.com/discovery/v2/events/test/images.json');
+		expect(widget.makeImageUrl('test')).toBe('https://app.ticketmaster.com/discovery-widget/v2/events/test/images.json');
 	});
 
 	it('#reduceParamsAndReloadEvents should be defined', () => {
