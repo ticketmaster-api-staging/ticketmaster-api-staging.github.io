@@ -98,15 +98,24 @@
             </li>
             {% endcomment %}-->
 
-						<!--automenu for Swagger api-->
-						<li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
-							{% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "commerce-api" %}
-							{% include partials/autodoc/side-menu-generate.html%}
-							<!--{% comment %}<!--faq-api menu item can be here--><!--
-											{% include partials/autodoc/side-menu-faq.html %}
-									{% endcomment %}-->
-							{% endif %}
-						</li><!--END automenu-->
+            <!--automenu for Swagger api-->
+            <li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                {% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "commerce-api" %}
+                {% include partials/autodoc/side-menu-generate.html%}
+                <!--{% comment %}<!--faq-api menu item can be here--><!--
+                                {% include partials/autodoc/side-menu-faq.html %}
+                        {% endcomment %}-->
+                {% endif %}
+            </li><!--END automenu-->
+            
+            <li><a href="/products-and-docs/apis/marketplace-api/v1">Marketplace API</a>
+                {% if page.categories[0] == "documentation" and page.categories[1] == "marketplace-api" %}
+                <ul class="sections menu-highlight">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#disqus_thread">Disqus</a></li>
+                </ul>
+                {% endif %}
+            </li>
 
             <li><a href="/products-and-docs/apis/partner/">Partner API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "partner" %}
