@@ -146,4 +146,8 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, '_site')));
 
+app.use(function(req, res, next) {
+    res.sendFile(path.join(__dirname+'/_site/404.html'));
+});
+
 console.log('Listening on port:', staticSiteOptions.portnum);
