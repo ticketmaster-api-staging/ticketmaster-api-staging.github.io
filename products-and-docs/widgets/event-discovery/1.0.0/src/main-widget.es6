@@ -1502,7 +1502,6 @@ class TicketmasterEventDiscoveryWidget {
     if(period == "year" ) {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
 
@@ -1512,7 +1511,6 @@ class TicketmasterEventDiscoveryWidget {
     else if(period == "month") {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
 
