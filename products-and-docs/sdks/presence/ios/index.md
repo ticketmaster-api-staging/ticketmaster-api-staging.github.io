@@ -19,6 +19,8 @@ keywords: Presence, SDK, integration, iOS
 
 [Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0.zip) Presence SDK iOS.
 
+## Change log
+
 ### Changes (10/16/17 Release 1.2.0)
 
 -	Added support for entering verification code for linking TMR account for Archtics.
