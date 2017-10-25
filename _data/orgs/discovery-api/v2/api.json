@@ -1531,6 +1531,9 @@
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
@@ -1538,9 +1541,6 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -1605,13 +1605,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "unitMillis" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
         },
         "name" : {
           "type" : "string"
