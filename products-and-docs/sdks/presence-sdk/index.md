@@ -19,13 +19,13 @@ Step 1: Drag and drop the PresenceSDK.framework into your project’s General ->
 
 Step 2: Go to your app’s AppDelegate file and import the PresenceSDK module. You may delete the line where UIKit is being imported if you like. In the PresenceSDK module, UIKit is already being imported for you.
 
-~~~
+{% highlight swift %}
 import PresenceSDK  //Import this module
-~~~
+{% endhighlight %}
 
 Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In this method, the account credentials and branding color will be configured.
 
-~~~
+{% highlight swift %}
 //Swift Version
 func configurePresenceSDK() {
 	 //Configuration for SDK
@@ -35,13 +35,13 @@ func configurePresenceSDK() {
     			//Configure your branding color for the SDK
 					PresenceSDK.getPresenceSDK().setBrandingColor(color: UIColor(hex6: 0x3B6AA0))		
 }
-~~~
+{% endhighlight %}
 
 Note: To get consumer key please create an account on https://developer.ticketmaster.com and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 Step 4: Call the configurePresenceSDK() method in the application(_: didFinishLaunchWithOptions:_) function.
 
-~~~
+{% highlight swift %}
 func application(_ application: UIApplication,
          didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -50,7 +50,7 @@ func application(_ application: UIApplication,
 
         return true
 }
-~~~
+{% endhighlight %}
 
 In your storyboard, create a UIViewController or you may use the preset one provided by XCode when a new project is created.  This UIViewController will be the starting point for Presence SDK. 
 
@@ -78,22 +78,25 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name
 of each aar file as compile dependencies as follows:
 
-	compile project(‘:PresenceSDK-release-1.2.0.1’)
+{% highlight java %}
+compile project(‘:PresenceSDK-release-1.2.0.1’)
+{% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
 
-	
-	compile 'com.android.support:cardview-v7:24.2.1'
-	compile 'com.android.support:appcompat-v7:24.2.1'
-	compile 'com.android.support:support-v4:24.2.1'
-	compile 'com.android.support:recyclerview-v7:24.2.1'
-	compile 'com.android.support:design:24.2.1'
-	compile 'com.android.volley:volley:1.0.0'
-	compile 'com.google.code.gson:gson:2.4'
-	compile 'com.squareup.picasso:picasso:2.5.2'
-	compile 'com.romandanylyk:pageindicatorview:0.0.5'
-	compile 'com.google.zxing:core:3.2.1'
-	compile 'com.android.support:percent:24.2.1'
+{% highlight java %}
+compile 'com.android.support:cardview-v7:24.2.1'
+compile 'com.android.support:appcompat-v7:24.2.1'
+compile 'com.android.support:support-v4:24.2.1'
+compile 'com.android.support:recyclerview-v7:24.2.1'
+compile 'com.android.support:design:24.2.1'
+compile 'com.android.volley:volley:1.0.0'
+compile 'com.google.code.gson:gson:2.4'
+compile 'com.squareup.picasso:picasso:2.5.2'
+compile 'com.romandanylyk:pageindicatorview:0.0.5'
+compile 'com.google.zxing:core:3.2.1'
+compile 'com.android.support:percent:24.2.1'
+{% endhighlight %}
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
 
@@ -101,7 +104,7 @@ After adding them, the build gradle dependencies will look similar to the one sh
 
 Step 5. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured.
 
-~~~
+{% highlight java %}
 private void configurePresenceSDK() {
 		PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(
 			consumerKey /*Consumer key provided on dev portal*/, 
@@ -112,8 +115,7 @@ private void configurePresenceSDK() {
 		//opaque red
 		presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000")); 
 }
-~~~
-{: .language-java}
+{% endhighlight %}
 
 NOTE: 
 
@@ -123,8 +125,7 @@ NOTE:
 
 Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In this method, you will implement a login 	listener and start the presence sdk 
 
-~~~
-
+{% highlight java %}
 private void launchPresenceSDK() {
 		PresenceSDK.getPresenceSDK(this).start(this, 
 			R.id.presenceSDK /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
@@ -166,14 +167,11 @@ private void launchPresenceSDK() {
 		});
 
 	}
-
-
-~~~
+{% endhighlight %}
 
 Step 7. Call the configurePresenceSDK() and launchPresenceSDK() methods in the activity class onCreate() method.
 
-~~~
-
+{% highlight java %}
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -184,9 +182,7 @@ Step 7. Call the configurePresenceSDK() and launchPresenceSDK() methods in the a
 		// call launch presence sdk method
 		launchPresenceSDK();
 	}
-
-
-~~~
+{% endhighlight %}
 
 This will load the entry fragment (UI shown below) where a login screen will be prompted to users to choose Ticketmaster or Team Account to login. 
 
@@ -194,9 +190,9 @@ This will load the entry fragment (UI shown below) where a login screen will be 
 
 Step 8. Define the “AppTheme” style in styles.xml as follows:
 
-~~~
+{% highlight html %}
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-~~~
+{% endhighlight %}
 
 Step 9. Try to build and compile. At this point, it should be compiled without errors.
 {% endcapture %}
@@ -207,20 +203,20 @@ Note: This is a basic example for configuring the ViewController
 
 Step 1: Import PresenceSDK. Again, UIKit is imported automatically by importing PresenceSDK so if you like, you may delete the import UIKit code-line.
 
-~~~
+{% highlight swift %}
 import PresenceSDK
-~~~
+{% endhighlight %}
 
 Step 2: Create an outlet to the UIView that is of type PresenceSDKView.
 
-~~~
+{% highlight swift %}
 //Connect your PresenceSDKView here
 @IBOutlet weak var presenceSDKView: PresenceSDKView? = nil
-~~~
+{% endhighlight %}
 
 Step 3: Conform your ViewController to PresenceLoginDelegate and implement the three required protocol functions.
 
-~~~
+{% highlight swift %}
 	extension ViewController: PresenceLoginDelegate {
 		///- parameter succeeded: Returns `true` if the user granted app access/logged in.
     		///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
@@ -233,32 +229,32 @@ Step 3: Conform your ViewController to PresenceLoginDelegate and implement the t
 ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login ///fails or an error is returned fetching member details.
     		func onMemberWasUpdated(_ member: PresenceMember?)
 	}
-~~~
+{% endhighlight %}
 
 Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
 
-~~~
+{% highlight swift %}
 	override func viewDidLoad() {
         	super.viewDidLoad()        
 
         	PresenceSDK.getPresenceSDK().start(presenceSDKView: presenceSDKView, loginDelegate: self)
 
     	}
-~~~
+{% endhighlight %}
 
 Step 5: If you need to get information for logged in member, you can use one the protocol methods.
 
-~~~
+{% highlight swift %}
 	func onMemberWasUpdated(_ member: PresenceMember?) {
         	if let email = member?.emailAddress {
             		print("Member email: \(email)")
         	}
 	}
-~~~
+{% endhighlight %}
 
 Your ViewController’s implementation should look like this:
 
-~~~
+{% highlight swift %}
 import PresenceSDK
 
 
@@ -274,8 +270,7 @@ class ViewController: UIViewController, PresenceLoginDelegate {
         presenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
         
     }
-    
-    
+       
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -308,7 +303,7 @@ class ViewController: UIViewController, PresenceLoginDelegate {
     }
 }
 
-~~~
+{% endhighlight %}
 
 This is all you need to integrate the Presence SDK. Now you can run the application and Login into your configured accounts.
 
@@ -319,7 +314,7 @@ This is all you need to integrate the Presence SDK. Now you can run the applicat
 Specify a layout view in your desired layout file, for now this layout should fill the whole screen
 The ID for this layout will be referenced in the next step
 
-~~~
+{% highlight java %}
 <android.support.constraint.ConstraintLayout
     android:id="@+id/presenceSDKView"
     android:layout_width="0dp"
@@ -332,25 +327,25 @@ The ID for this layout will be referenced in the next step
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
-~~~
+{% endhighlight %}
 
 {% endcapture %}
 
 {% capture iOS_branding_color %}
 Configure your branding color with a UIColor object
 
-~~~
+{% highlight java %}
 presenceSDK.setBrandingColor(color: UIColor.blue)
-~~~
+{% endhighlight %}
 
 {% endcapture %}
 
 {% capture Android_branding_color %}
 Presence sdk clients can set their own branding theme color by defining this color value in their application resource “colors.xml” file:
 
-~~~
+{% highlight html %}
 <color name="tmx_color_branding">#FFAA81</color>
-~~~
+{% endhighlight %}
 
 The defined color will be displayed on all action buttons, action bars and ticket details page. If the above color variable is not defined in the client’s apk project, Tmx sdk will use a default color.
 {% endcapture %}
@@ -358,7 +353,7 @@ The defined color will be displayed on all action buttons, action bars and ticke
 {% capture iOS_logout_methods %}
 Following methods are provided for logout
 
-~~~
+{% highlight swift %}
 //To logout from both Host and Archtics
 PresenceSDK.getPresenceSDK().logOut()
 
@@ -367,21 +362,21 @@ PresenceSDK.getPresenceSDK().logOutHost()
 
 //To logout from Account Manager
 PresenceSDK.getPresenceSDK().logOutTeam()
-~~~
+{% endhighlight %}
 
 A simple Logout handler function can look like this:
 
-~~~
+{% highlight swift %}
 @IBAction func logout(sender: UIButton) {
     PresenceSDK.getPresenceSDK().logOut()
 }
-~~~
+{% endhighlight %}
 
 ## Check Login Status
 
 Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
-~~~
+{% highlight swift %}
 // Method to check if user is logged in any of the services i.e Host or Accounts Manager.
 PresenceSDK.getPresenceSDK().isLoggedIn()
 
@@ -390,35 +385,33 @@ PresenceSDK.getPresenceSDK().isLoggedIntoHost()
 
 // Method to check if user is logged in Accounts Manager.
 PresenceSDK.getPresenceSDK().isLoggedIntoTeam()
-~~~
+{% endhighlight %}
 {% endcapture %}
 
 {% capture Android_logout_methods %}
 You can implement log out functionality on your UI with by calling these API :
 
-~~~
-  // TM logout
-	PresenceSDK.getPresenceSDK(context).logOutHost();
-	// Team logout 
-	PresenceSDK.getPresenceSDK(context).logOutTeam();
-	// logout both
-	PresenceSDK.getPresenceSDK(context).logOut();
-~~~
+{% highlight java %}
+// TM logout
+PresenceSDK.getPresenceSDK(context).logOutHost();
+// Team logout 
+PresenceSDK.getPresenceSDK(context).logOutTeam();
+// logout both
+PresenceSDK.getPresenceSDK(context).logOut();
+{% endhighlight %}
 
 ## Check Login Status
 
 Presence SDK also provides some helper methods for checking if user is 	logged into any of the supported services.
 
-~~~
-
-  //  Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
-	PresenceSDK.getPresenceSDK(context).isLoggedIn();
-	// Method to check if user is logged in Host
-	PresenceSDK.getPresenceSDK(context).isLoggedIntoHost();
-	// Method to check if user is logged in Accounts Manager
-	PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
-
-~~~
+{% highlight java %}
+//  Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
+PresenceSDK.getPresenceSDK(context).isLoggedIn();
+// Method to check if user is logged in Host
+PresenceSDK.getPresenceSDK(context).isLoggedIntoHost();
+// Method to check if user is logged in Accounts Manager
+PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
+{% endhighlight%}
 
 {% endcapture %}
 
@@ -427,7 +420,7 @@ For tracking user activity in the Presence SDK a separate class PresenceEventAna
 
 Notifications - You can observe these notifications to receive updates from Presence SDK.
 
-~~~
+{% highlight swift %}
 @objcMembers final public class Action : NSObject {
 
         /////////////////////////////////////////////////////////////////////////////////////////
@@ -486,11 +479,11 @@ Notifications - You can observe these notifications to receive updates from Pres
         public static let ACTION_RESALEEDITED: String
 }
 
-~~~
+{% endhighlight %}
 
 Payload Data for the Notifications – Only relevant information is sent out with the notification.
 
-~~~
+{% highlight swift %}
 @objcMembers final public class Data : NSObject {
 
 	 // Mandatory Payload Data with all the Notifications
@@ -540,13 +533,13 @@ Payload Data for the Notifications – Only relevant information is sent out wit
 
         public static let CANCEL_RESALE_POSTING_ID: String
     }
-~~~
+{% endhighlight %}
 
 ## Analytics Usage
 
 If you want to track ACTION_MANAGETICKETSCREENSHOWED event you should add an observer inside your ViewController’s viewDidLoad() method like this:
 
-~~~
+{% highlight swift %}
 override func viewDidLoad() {
    super.viewDidLoad()
       
@@ -555,18 +548,18 @@ override func viewDidLoad() {
       					name: NSNotification.Name(rawValue:PresenceEventAnalytics.Action.ACTION_MANAGETICKETSCREENSHOWED),
                                                object: nil)
 }
-~~~
+{% endhighlight %}
 
 And the notification handler will look something like this:
 
-~~~
+{% highlight swift %}
 @objc func ticketsScreenShown(_ notification: Notification) {
         
         let eventId = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_ID] ?? ""
         let eventName = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_NAME] ?? ""
         print("Event_Id: \(eventId), Event_Name: \(eventName)")
 }
-~~~
+{% endhighlight %}
 {% endcapture %}
 
 {% capture Android_analytics %}
@@ -574,8 +567,7 @@ For tracking user activity in the Presence SDK a separate class PresenceEventAna
 
 Notification Events – You can observe these notifications to receive udpates from Presence SDK.
 
-~~~
-
+{% highlight java %}
 public static final class Action {
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -609,13 +601,11 @@ public static final class Action {
     // Business operation events (End)
     /////////////////////////////////////////////////////////////////////////////////////////
 }
-
-~~~
+{% endhighlight %}
 
 Payload Data for the Notifications – Only relevant information is sent out with the notification.
 
-~~~
-
+{% highlight java %}
 public static final class Data {
 
     // general data for event details, and ticket details
@@ -664,26 +654,21 @@ public static final class Data {
     public static final String SHARE_TICKET_EVENT_ID = "share_ticket_event_id";
     public static final String SHARE_TICKET_EVENT_NAME = "share_ticket_event_name";
 }
-
-
-~~~
+{% endhighlight %}
 
 ## Analytics Usage
 
 If you want to track ACTION_MANAGETICKETSCREENSHOWED event, you should register a local broadcast listener as below:
 
-~~~
-
+{% highlight java %}
 IntentFilter analyticEventFilter = new IntentFilter();
 analyticEventFilter.addAction(PresenceEventAnalytics.Action.ACTION_MYTICKETSCREENSHOWED);
 LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(mAnalyticEventReceiver, analyticEventFilter);
-
-~~~
+{% endhighlight %}
 
 You can implement receiver mAnalyticsEventReceiver as follows:
 
-~~~
-
+{% highlight java %}
 private BroadcastReceiver mAnalyticEventReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -693,8 +678,7 @@ private BroadcastReceiver mAnalyticEventReceiver = new BroadcastReceiver() {
         }
     }
 };
-
-~~~
+{% endhighlight %}
 {% endcapture %}
 
 {% capture iOS_release %}
