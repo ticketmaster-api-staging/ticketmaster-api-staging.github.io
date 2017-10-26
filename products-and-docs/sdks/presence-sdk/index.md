@@ -1167,4 +1167,21 @@ Following section describes the steps you need to follow to prepare your app for
 </form>
 </div>
 
+<script>
+  (function(){
+      $(document).ready(function(){
+        $('.nav.nav-tabs').on('click', 'li', function(e) {
+            var tabIndex = $(this).index();
+            var scrollTop = $(this).offset().top;
+            $('.nav.nav-tabs li').removeClass('active');
+            $('.tab-pane.fade.active.in').removeClass('active in');
+            $('.nav.nav-tabs').each(function(i){
+            $('.nav.nav-tabs').eq(i).find('li').eq(tabIndex).addClass('active');
+            $('.nav.nav-tabs').eq(i).next().children('.tab-pane').eq(tabIndex).addClass('active in');
+          });
+        });
+      });
+   }());
+</script>
+
 
