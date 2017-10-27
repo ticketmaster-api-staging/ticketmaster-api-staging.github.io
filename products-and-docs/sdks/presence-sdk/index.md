@@ -28,27 +28,30 @@ Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In
 {% highlight swift %}
 //Swift Version
 func configurePresenceSDK() {
-	 //Configuration for SDK
-	 PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
-					displayName: #your_team_display_name,
-					useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
-    			//Configure your branding color for the SDK
-					PresenceSDK.getPresenceSDK().setBrandingColor(color: UIColor(hex6: 0x3B6AA0))		
+  //If you are a team use the following method to configure Presence SDK
+  PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
+    displayName: #your_team_display_name,
+    useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
+  
+  //If you are not a team and just going to login in Ticketmaster account than use the following method to configure Presence SDK
+  PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal)
+
+  //Configure your branding color for the SDK
+  PresenceSDK.getPresenceSDK().setBrandingColor(color: UIColor(hex6: 0x3B6AA0))
 }
+
 {% endhighlight %}
 
-Note: To get consumer key please create an account on https://developer.ticketmaster.com and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
+**Note**: To get consumer key please create an account on https://developer.ticketmaster.com and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 Step 4: Call the configurePresenceSDK() method in the application(_: didFinishLaunchWithOptions:_) function.
 
 {% highlight swift %}
 func application(_ application: UIApplication,
-         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
-        configurePresenceSDK()
-
-        return true
+  didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+  // Override point for customization after application launch.
+  configurePresenceSDK()
+  return true
 }
 {% endhighlight %}
 
@@ -106,18 +109,18 @@ Step 5. Create a configurePresenceSDK() method inside your activity class. In th
 
 {% highlight java %}
 private void configurePresenceSDK() {
-		PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(
-			consumerKey /*Consumer key provided on dev portal*/, 
-			displayName /*your team display name */, 
-			useNewAccountManager /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */);
+  PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(
+    consumerKey /*Consumer key provided on dev portal*/, 
+    displayName /*your team display name */, 
+    useNewAccountManager /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */);
 
-		// Configure your branding color for the SDK
-		//opaque red
-		presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000")); 
+  // Configure your branding color for the SDK
+  //opaque red
+  presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000")); 
 }
 {% endhighlight %}
 
-NOTE: 
+**NOTE:**
 
 1. Be aware that you need to pass application context object (not activity context) to PresenceSDK.getPresenceSDK() method. If it is not an application context, the presence sdk might reject and throw a runtime exception with a message to bring it to developer’s attention.
 
@@ -127,61 +130,61 @@ Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In t
 
 {% highlight java %}
 private void launchPresenceSDK() {
-		PresenceSDK.getPresenceSDK(this).start(this, 
-			R.id.presenceSDK /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
-			, new TMLoginListener() {
-    			@Override
-    			public void onLoginSuccessful(TMLoginApi.BackendName 			backendName, String accessToken) {
-        				Log.i(TAG, "Inside onLoginSuccessful");
-    			}
+  PresenceSDK.getPresenceSDK(this).start(this, 
+    R.id.presenceSDK, /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
+    new TMLoginListener() {
+      @Override
+      public void onLoginSuccessful(TMLoginApi.BackendName 			backendName, String accessToken) {
+        Log.i(TAG, "Inside onLoginSuccessful");
+      }
 
-    			Override
-    			public void onLoginFailed(TMLoginApi.BackendName backendName, 			String errorMessage) {
-        				Log.i(TAG, "Inside onLoginFailed");
-    			}
+      Override
+      public void onLoginFailed(TMLoginApi.BackendName backendName, 			String errorMessage) {
+        Log.i(TAG, "Inside onLoginFailed");
+      }
 
-    			@Override
-    			public void onLoginCancelled(TMLoginApi.BackendName 			backendName) {
-        				Log.i(TAG, "Inside onLoginCancelled");
-    			}
+      @Override
+      public void onLoginCancelled(TMLoginApi.BackendName 			backendName) {
+        Log.i(TAG, "Inside onLoginCancelled");
+      }
 
-    			@Override
-    			public void onLoginMethodUsed(TMLoginApi.BackendName 			backendName, TMLoginApi.LoginMethod method) {
-        				Log.i(TAG, "Inside onLoginMethodUsed");
-    			}
+      @Override
+      public void onLoginMethodUsed(TMLoginApi.BackendName 			backendName, TMLoginApi.LoginMethod method) {
+        Log.i(TAG, "Inside onLoginMethodUsed");
+      }
 
-    			@Override
-    			public void onLoginForgotPasswordClicked(TMLoginApi.BackendName 			backendName) {
-        				Log.i(TAG, "Inside onLoginForgotPasswordClicked");
-    			}
+      @Override
+      public void onLoginForgotPasswordClicked(TMLoginApi.BackendName 			backendName) {
+        Log.i(TAG, "Inside onLoginForgotPasswordClicked");
+      }
 
-    			@Override
-    			public void onCacheCleared() {
-        				Log.i(TAG, "Inside onCacheCleared");
-    			}
+      @Override
+      public void onCacheCleared() {
+        Log.i(TAG, "Inside onCacheCleared");
+      }
 
-    			@Override
-    			public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo 			member) {
-        				Log.i(TAG, "Inside onMemberUpdated");
-    			}
-		});
-
-	}
+      @Override
+      public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo 			member) {
+        Log.i(TAG, "Inside onMemberUpdated");
+      }
+    }
+  );
+}
 {% endhighlight %}
 
 Step 7. Call the configurePresenceSDK() and launchPresenceSDK() methods in the activity class onCreate() method.
 
 {% highlight java %}
 @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// set layout where you want to load presence sdk login entry view
-		setContentView(R.layout.activity_main); 
-		// call configure presence sdk method
-		configurePresenceSDK();
-		// call launch presence sdk method
-		launchPresenceSDK();
-	}
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  // set layout where you want to load presence sdk login entry view
+  setContentView(R.layout.activity_main); 
+  // call configure presence sdk method
+  configurePresenceSDK();
+  // call launch presence sdk method
+  launchPresenceSDK();
+}
 {% endhighlight %}
 
 This will load the entry fragment (UI shown below) where a login screen will be prompted to users to choose Ticketmaster or Team Account to login. 
@@ -199,7 +202,9 @@ Step 9. Try to build and compile. At this point, it should be compiled without e
 
 
 {% capture iOS_set_view %}
-Note: This is a basic example for configuring the ViewController
+## Configuring Your ViewController
+
+**Note**: This is a basic example for configuring the ViewController
 
 Step 1: Import PresenceSDK. Again, UIKit is imported automatically by importing PresenceSDK so if you like, you may delete the import UIKit code-line.
 
@@ -217,39 +222,43 @@ Step 2: Create an outlet to the UIView that is of type PresenceSDKView.
 Step 3: Conform your ViewController to PresenceLoginDelegate and implement the three required protocol functions.
 
 {% highlight swift %}
-	extension ViewController: PresenceLoginDelegate {
-		///- parameter succeeded: Returns `true` if the user granted app access/logged in.
-    		///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
-    		func onLoginWasSuccessful(_ succeeded:Bool, error:NSError?)
+extension ViewController: PresenceLoginDelegate {
+  ///- parameter succeeded: Returns `true` if the user granted app access/logged in.
+  ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
+  func onLoginWasSuccessful(_ succeeded:Bool, error:NSError?)
 
-    		///User dismissed login window via the Cancel button
-    		func onLoginCanceled()
+  ///User dismissed login window via the Cancel button
+  func onLoginCanceled()
     
-    		///Called when results are returned for a member info request after successful login
-///- parameter member: PresenceMember object. PresenceMember object is `nil` if login ///fails or an error is returned fetching member details.
-    		func onMemberWasUpdated(_ member: PresenceMember?)
-	}
+  ///Called when results are returned for a member info request after successful login
+  ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
+  ///fails or an error is returned fetching member details.
+  func onMemberWasUpdated(_ member: PresenceMember?)
+}
 {% endhighlight %}
 
 Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
 
 {% highlight swift %}
-	override func viewDidLoad() {
-        	super.viewDidLoad()        
-
-        	PresenceSDK.getPresenceSDK().start(presenceSDKView: presenceSDKView, loginDelegate: self)
-
-    	}
+override func viewDidLoad() {
+  super.viewDidLoad()        
+  PresenceSDK.getPresenceSDK().start(presenceSDKView: presenceSDKView, loginDelegate: self)
+}
 {% endhighlight %}
 
 Step 5: If you need to get information for logged in member, you can use one the protocol methods.
 
 {% highlight swift %}
-	func onMemberWasUpdated(_ member: PresenceMember?) {
-        	if let email = member?.emailAddress {
-            		print("Member email: \(email)")
-        	}
-	}
+///Called when results are returned for a Member info request after login
+///- parameter member: Member object. Member object is `nil` if login fails or an error is returned fetching member details.
+func onMemberUpdated(_ member: PresenceMember?) {
+  if let pMember = member {
+    print("Member Email: \(pMember.emailAddress)")
+    print("Team Member-Id: \(pMember.AccountManagerMemberID)")
+    print("Host Member-Id: \(pMember.HostMemberID)")
+  }        
+}
+
 {% endhighlight %}
 
 Your ViewController’s implementation should look like this:
@@ -259,48 +268,48 @@ import PresenceSDK
 
 
 class ViewController: UIViewController, PresenceLoginDelegate {
-    
-    @IBOutlet weak var presenceSDKView: PresenceSDKView?
-    var presenceSDK: PresenceSDK?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.title = NSLocalizedString("My Events", comment: "")
-        presenceSDK = PresenceSDK.getPresenceSDK()
-        presenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
-        
+
+  @IBOutlet weak var presenceSDKView: PresenceSDKView?
+  var presenceSDK: PresenceSDK?
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.navigationItem.title = NSLocalizedString("My Events", comment: "")
+    presenceSDK = PresenceSDK.getPresenceSDK()
+    presenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
+
+  }
+ 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+
+  @IBAction func logout(sender: UIButton) {
+    presenceSDK.logOut()
+  }
+
+
+  func onLoginSuccessful(_ succeeded:Bool, error:NSError?) {
+  }
+
+  //User dismissed login window via the Cancel button
+  func onLoginCancelled() {
+  }
+
+  ///Called when results are returned for a Member info request after login
+  ///- parameter member: Member object. Member object is `nil` if login fails or an error is returned fetching member details.
+  func onMemberUpdated(_ member: PresenceMember?) {
+    if let pMember = member {
+      print("Member Email: \(pMember.emailAddress)")
+      print("Team Member-Id: \(pMember.AccountManagerMemberID)")
+      print("Host Member-Id: \(pMember.HostMemberID)")
     }
-       
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func logout(sender: UIButton) {
-        presenceSDK.logOut()
-    }
-    
-    
-    func onLoginSuccessful(_ succeeded:Bool, error:NSError?) {
-        
-    }
-    //User dismissed login window via the Cancel button
-    func onLoginCancelled() {
-        
-    }
-    
-    ///Called when results are returned for a Member info request after login
-    ///- parameter member: Member object. Member object is `nil` if login fails or an error is returned fetching member details.
-    func onMemberUpdated(_ member: PresenceMember?) {
-        if let email = member?.emailAddress {
-            print("Member email: \(email)")
-        }
-    }
+  }
 }
 
 {% endhighlight %}
@@ -311,22 +320,24 @@ This is all you need to integrate the Presence SDK. Now you can run the applicat
 
 {% capture Android_set_view %}
 
+## Configuring Your Layout View
+
 Specify a layout view in your desired layout file, for now this layout should fill the whole screen
 The ID for this layout will be referenced in the next step
 
 {% highlight java %}
 <android.support.constraint.ConstraintLayout
-    android:id="@+id/presenceSDKView"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginBottom="0dp"
-    android:layout_marginEnd="0dp"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+  android:id="@+id/presenceSDKView"
+  android:layout_width="0dp"
+  android:layout_height="0dp"
+  android:layout_marginBottom="0dp"
+  android:layout_marginEnd="0dp"
+  android:layout_marginStart="0dp"
+  android:layout_marginTop="0dp"
+  app:layout_constraintBottom_toBottomOf="parent"
+  app:layout_constraintEnd_toEndOf="parent"
+  app:layout_constraintStart_toStartOf="parent"
+  app:layout_constraintTop_toTopOf="parent"/>
 {% endhighlight %}
 
 {% endcapture %}
@@ -345,6 +356,12 @@ Presence sdk clients can set their own branding theme color by defining this col
 
 {% highlight html %}
 <color name="tmx_color_branding">#FFAA81</color>
+{% endhighlight %}
+
+Also, there is a way to change the color at run time.
+
+{% highlight java %}
+presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000")); 
 {% endhighlight %}
 
 The defined color will be displayed on all action buttons, action bars and ticket details page. If the above color variable is not defined in the client’s apk project, Tmx sdk will use a default color.
@@ -368,7 +385,7 @@ A simple Logout handler function can look like this:
 
 {% highlight swift %}
 @IBAction func logout(sender: UIButton) {
-    PresenceSDK.getPresenceSDK().logOut()
+  PresenceSDK.getPresenceSDK().logOut()
 }
 {% endhighlight %}
 
@@ -405,7 +422,7 @@ PresenceSDK.getPresenceSDK(context).logOut();
 Presence SDK also provides some helper methods for checking if user is 	logged into any of the supported services.
 
 {% highlight java %}
-//  Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
+// Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
 PresenceSDK.getPresenceSDK(context).isLoggedIn();
 // Method to check if user is logged in Host
 PresenceSDK.getPresenceSDK(context).isLoggedIntoHost();
@@ -423,60 +440,60 @@ Notifications - You can observe these notifications to receive updates from Pres
 {% highlight swift %}
 @objcMembers final public class Action : NSObject {
 
-        /////////////////////////////////////////////////////////////////////////////////////////
-	 // Notified when all user events are displayed
-    	 // The payload will be nil.
-        public static let ACTION_MYTICKETSCREENSHOWED: String
+  /////////////////////////////////////////////////////////////////////////////////////////
+  // Notified when all user events are displayed
+  // The payload will be nil.
+  public static let ACTION_MYTICKETSCREENSHOWED: String
 
-	 // Notified when user selects a specific event to via tickets
-	 // The payload will contain all the mandatory data.
-        public static let ACTION_MANAGETICKETSCREENSHOWED: String
+  // Notified when user selects a specific event to via tickets
+  // The payload will contain all the mandatory data.
+  public static let ACTION_MANAGETICKETSCREENSHOWED: String
 
-	 // Notified when user visits the Add Payment Method screen
-	 // The payload will contain all the mandatory data.
-        public static let ACTION_ADDPAYMENTINFOSCREENSHOWED: String
+  // Notified when user visits the Add Payment Method screen
+  // The payload will contain all the mandatory data.
+  public static let ACTION_ADDPAYMENTINFOSCREENSHOWED: String
 
-	 // Notified when user visits the Barcode screen
-	 // The payload will contain all the mandatory data.
-        public static let ACTION_MYTICKETBARCODESCREENSHOWED: String
+  // Notified when user visits the Barcode screen
+  // The payload will contain all the mandatory data.
+  public static let ACTION_MYTICKETBARCODESCREENSHOWED: String
 
-	 // Notified when user visits the Tickets Detail screen
-	 // The payload will contain all the mandatory data.
-        public static let ACTION_TICKETDETAILSSCREENSHOWED: String
+  // Notified when user visits the Tickets Detail screen
+  // The payload will contain all the mandatory data.
+  public static let ACTION_TICKETDETAILSSCREENSHOWED: String
 
-	
-        // Transactional Actions
-        /////////////////////////////////////////////////////////////////////////////////////////
+  
+  // Transactional Actions
+  /////////////////////////////////////////////////////////////////////////////////////////
 
-	 // Notified when user tries to Initiate Ticket Transfer
-	 // The payload will contain all the mandatory data and will also contain
-	 // INITIATE_TRANSFER_TICKET_COUNT and INITIATE_TRANSFER_TICKET_FACEVALUE
-        public static let ACTION_TRANSFERINITIATED: String
+  // Notified when user tries to Initiate Ticket Transfer
+  // The payload will contain all the mandatory data and will also contain
+  // INITIATE_TRANSFER_TICKET_COUNT and INITIATE_TRANSFER_TICKET_FACEVALUE
+  public static let ACTION_TRANSFERINITIATED: String
 
-	 // Notified when user Cancels a Ticket Transfer
-	 // The payload will contain all the mandatory data and will also contain
-	 // CANCEL_TRANSFER_ID
-        public static let ACTION_TRANSFERCANCELLED: String
+  // Notified when user Cancels a Ticket Transfer
+  // The payload will contain all the mandatory data and will also contain
+  // CANCEL_TRANSFER_ID
+  public static let ACTION_TRANSFERCANCELLED: String
 
-	 // Notified when user Post a ticket for Resale
-	 // The payload will contain all the mandatory data and will also contain
-	 // INITIATE_RESALE_TICKET_COUNT and INITIATE_RESALE_PRICE
-	 // Payload will also contain RESALE_BUYER_FEES, RESALE_SELLER_FEES,
-	 // RESALE_SELLER_PAYOUT and RESALE_ORIGINAL_FACE_VALUE
-        public static let ACTION_RESALEINITIATED: String
+  // Notified when user Post a ticket for Resale
+  // The payload will contain all the mandatory data and will also contain
+  // INITIATE_RESALE_TICKET_COUNT and INITIATE_RESALE_PRICE
+  // Payload will also contain RESALE_BUYER_FEES, RESALE_SELLER_FEES,
+  // RESALE_SELLER_PAYOUT and RESALE_ORIGINAL_FACE_VALUE
+  public static let ACTION_RESALEINITIATED: String
 
-	 // Notified when user Cancels a posted ticket for Resale
-	 // The payload will contain all the mandatory data and will also contain
-	 // CANCEL_RESALE_POSTING_ID
-        public static let ACTION_RESALECANCELLED: String
+  // Notified when user Cancels a posted ticket for Resale
+  // The payload will contain all the mandatory data and will also contain
+  // CANCEL_RESALE_POSTING_ID
+  public static let ACTION_RESALECANCELLED: String
 
- // Notified when user Edit a Posted ticket for Resale
-	 // The payload will contain all the mandatory data and will also contain
-	 // UPDATE_RESALE_POSTING_ID and UPDATE_RESALE_PRICE
+  // Notified when user Edit a Posted ticket for Resale
+  // The payload will contain all the mandatory data and will also contain
+  // UPDATE_RESALE_POSTING_ID and UPDATE_RESALE_PRICE
 
-	 // Payload will also contain RESALE_BUYER_FEES, RESALE_SELLER_FEES,
-        // RESALE_SELLER_PAYOUT and RESALE_ORIGINAL_FACE_VALUE
-        public static let ACTION_RESALEEDITED: String
+  // Payload will also contain RESALE_BUYER_FEES, RESALE_SELLER_FEES,
+  // RESALE_SELLER_PAYOUT and RESALE_ORIGINAL_FACE_VALUE
+  public static let ACTION_RESALEEDITED: String
 }
 
 {% endhighlight %}
@@ -486,53 +503,53 @@ Payload Data for the Notifications – Only relevant information is sent out wit
 {% highlight swift %}
 @objcMembers final public class Data : NSObject {
 
-	 // Mandatory Payload Data with all the Notifications
-        public static let EVENT_ID: String
+  // Mandatory Payload Data with all the Notifications
+  public static let EVENT_ID: String
 
-        public static let EVENT_NAME: String
+  public static let EVENT_NAME: String
 
-        public static let EVENT_DATE: String
+  public static let EVENT_DATE: String
 
-        public static let EVENT_IMAGE_URL: String
+  public static let EVENT_IMAGE_URL: String
 
-        public static let VENUE_NAME: String
+  public static let VENUE_NAME: String
 
-        public static let VENUE_ID: String
+  public static let VENUE_ID: String
 
-        public static let CURRENT_TICKET_COUNT: String
+  public static let CURRENT_TICKET_COUNT: String
 
-        public static let ARTIST_NAME: String
+  public static let ARTIST_NAME: String
 
-        public static let ARTIST_ID: String
+  public static let ARTIST_ID: String
 
 
-	 // Notification Specific Payload Data
-        public static let INITIATE_TRANSFER_TICKET_COUNT: String
+  // Notification Specific Payload Data
+  public static let INITIATE_TRANSFER_TICKET_COUNT: String
 
-        public static let INITIATE_TRANSFER_TICKET_FACEVALUE: String
+  public static let INITIATE_TRANSFER_TICKET_FACEVALUE: String
 
-        public static let CANCEL_TRANSFER_ID: String
+  public static let CANCEL_TRANSFER_ID: String
 
-        public static let CANCEL_TRANSFER_ORDER_ID: String
+  public static let CANCEL_TRANSFER_ORDER_ID: String
 
-        public static let INITIATE_RESALE_TICKET_COUNT: String
+  public static let INITIATE_RESALE_TICKET_COUNT: String
 
-        public static let INITIATE_RESALE_PRICE: String
+  public static let INITIATE_RESALE_PRICE: String
 
-        public static let UPDATE_RESALE_POSTING_ID: String
+  public static let UPDATE_RESALE_POSTING_ID: String
 
-        public static let UPDATE_RESALE_PRICE: String
+  public static let UPDATE_RESALE_PRICE: String
 
-        public static let RESALE_BUYER_FEES: String
+  public static let RESALE_BUYER_FEES: String
 
-        public static let RESALE_ORIGINAL_FACE_VALUE: String
+  public static let RESALE_ORIGINAL_FACE_VALUE: String
 
-        public static let RESALE_SELLER_PAYOUT: String
+  public static let RESALE_SELLER_PAYOUT: String
 
-        public static let RESALE_SELLER_FEES: String
+  public static let RESALE_SELLER_FEES: String
 
-        public static let CANCEL_RESALE_POSTING_ID: String
-    }
+  public static let CANCEL_RESALE_POSTING_ID: String
+}
 {% endhighlight %}
 
 ## Analytics Usage
@@ -541,12 +558,11 @@ If you want to track ACTION_MANAGETICKETSCREENSHOWED event you should add an obs
 
 {% highlight swift %}
 override func viewDidLoad() {
-   super.viewDidLoad()
-      
-   NotificationCenter.default.addObserver(self, selector: #selector(self.ticketsScreenShown),
+  super.viewDidLoad()
 
-      					name: NSNotification.Name(rawValue:PresenceEventAnalytics.Action.ACTION_MANAGETICKETSCREENSHOWED),
-                                               object: nil)
+  NotificationCenter.default.addObserver(self, selector: #selector(self.ticketsScreenShown),
+    name: NSNotification.Name(rawValue:PresenceEventAnalytics.Action.ACTION_MANAGETICKETSCREENSHOWED),
+    object: nil)
 }
 {% endhighlight %}
 
@@ -554,10 +570,9 @@ And the notification handler will look something like this:
 
 {% highlight swift %}
 @objc func ticketsScreenShown(_ notification: Notification) {
-        
-        let eventId = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_ID] ?? ""
-        let eventName = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_NAME] ?? ""
-        print("Event_Id: \(eventId), Event_Name: \(eventName)")
+  let eventId = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_ID] ?? ""
+  let eventName = notification.userInfo?[PresenceEventAnalytics.Data.EVENT_NAME] ?? ""
+  print("Event_Id: \(eventId), Event_Name: \(eventName)")
 }
 {% endhighlight %}
 {% endcapture %}
@@ -570,36 +585,36 @@ Notification Events – You can observe these notifications to receive udpates f
 {% highlight java %}
 public static final class Action {
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // UI events (Start)
-    /////////////////////////////////////////////////////////////////////////////////////////
-    public static final String ACTION_MYTICKETSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MYTICKETSCREENSHOWED";
-    public static final String ACTION_MANAGETICKETSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MANAGETICKETSCREENSHOWED";
-    public static final String ACTION_ADDPAYMENTINFOSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.ADDPAYMENTINFOSCREENSHOWED";
-    public static final String ACTION_REVIEWPOSTINGSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.REVIEWPOSTINGSCREENSHOWED";
-    public static final String ACTION_POSTINGCONFIRMATIONSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.POSTINGCONFIRMATIONSCREENSHOWED";
-    public static final String ACTION_CANCELPOSTINGSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.CANCELPOSTINGSCREENSHOWED";
-    public static final String ACTION_CANCELPOSTINGCONFIRMSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.CANCELPOSTINGCONFIRMSCREENSHOWED";
-    public static final String ACTION_MYTICKETBARCODESCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MYTICKETBARCODESCREENSHOWED";
-    public static final String ACTION_TICKETDETAILSSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.TICKETDETAILSSCREENSHOWED";
-    public static final String ACTION_TICKETSTUBIMAGESHARED = "com.ticketmaster.presencesdk.eventanalytic.action.TICKETSTUBIMAGESHARED";
+  /////////////////////////////////////////////////////////////////////////////////////////
+  // UI events (Start)
+  /////////////////////////////////////////////////////////////////////////////////////////
+  public static final String ACTION_MYTICKETSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MYTICKETSCREENSHOWED";
+  public static final String ACTION_MANAGETICKETSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MANAGETICKETSCREENSHOWED";
+  public static final String ACTION_ADDPAYMENTINFOSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.ADDPAYMENTINFOSCREENSHOWED";
+  public static final String ACTION_REVIEWPOSTINGSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.REVIEWPOSTINGSCREENSHOWED";
+  public static final String ACTION_POSTINGCONFIRMATIONSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.POSTINGCONFIRMATIONSCREENSHOWED";
+  public static final String ACTION_CANCELPOSTINGSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.CANCELPOSTINGSCREENSHOWED";
+  public static final String ACTION_CANCELPOSTINGCONFIRMSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.CANCELPOSTINGCONFIRMSCREENSHOWED";
+  public static final String ACTION_MYTICKETBARCODESCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.MYTICKETBARCODESCREENSHOWED";
+  public static final String ACTION_TICKETDETAILSSCREENSHOWED = "com.ticketmaster.presencesdk.eventanalytic.action.TICKETDETAILSSCREENSHOWED";
+  public static final String ACTION_TICKETSTUBIMAGESHARED = "com.ticketmaster.presencesdk.eventanalytic.action.TICKETSTUBIMAGESHARED";
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // UI events (End)
-    /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  // UI events (End)
+  /////////////////////////////////////////////////////////////////////////////////////////
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // Business operation events (Start)
-    /////////////////////////////////////////////////////////////////////////////////////////
-    public static final String ACTION_TRANSFERINITIATED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERINITIATED";
-    public static final String ACTION_TRANSFERCANCELLED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERCANCELLED";
-    public static final String ACTION_TRANSFERACCEPTED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERACCEPTED";
-    public static final String ACTION_RESALEINITIATED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALEINITIATED";
-    public static final String ACTION_RESALECANCELLED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALECANCELLED";
-    public static final String ACTION_RESALEUPDATED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALEEDITED";
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // Business operation events (End)
-    /////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  // Business operation events (Start)
+  /////////////////////////////////////////////////////////////////////////////////////////
+  public static final String ACTION_TRANSFERINITIATED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERINITIATED";
+  public static final String ACTION_TRANSFERCANCELLED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERCANCELLED";
+  public static final String ACTION_TRANSFERACCEPTED = "com.ticketmaster.presencesdk.eventanalytic.action.TRANSFERACCEPTED";
+  public static final String ACTION_RESALEINITIATED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALEINITIATED";
+  public static final String ACTION_RESALECANCELLED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALECANCELLED";
+  public static final String ACTION_RESALEUPDATED = "com.ticketmaster.presencesdk.eventanalytic.action.RESALEEDITED";
+  /////////////////////////////////////////////////////////////////////////////////////////
+  // Business operation events (End)
+  /////////////////////////////////////////////////////////////////////////////////////////
 }
 {% endhighlight %}
 
@@ -608,51 +623,51 @@ Payload Data for the Notifications – Only relevant information is sent out wit
 {% highlight java %}
 public static final class Data {
 
-    // general data for event details, and ticket details
-    public static final String EVENT_ID = "event_id";
-    public static final String EVENT_NAME = "event_name";
-    public static final String EVENT_DATE = "event_date";
-    public static final String EVENT_IMAGE_URL = "event_image_url";
-    public static final String EVENT_ORDER_ID = "event_order_id";
-    public static final String VENUE_NAME = "venue_name";
-    public static final String VENUE_ID = "venu_id";
-    public static final String CURRENT_TICKET_COUNT = "current_ticket_count";
-    public static final String EVENT_ARTIST_NAME = "artist_name";
-    public static final String EVENT_ARTIST_ID = "artist_id";
+  // general data for event details, and ticket details
+  public static final String EVENT_ID = "event_id";
+  public static final String EVENT_NAME = "event_name";
+  public static final String EVENT_DATE = "event_date";
+  public static final String EVENT_IMAGE_URL = "event_image_url";
+  public static final String EVENT_ORDER_ID = "event_order_id";
+  public static final String VENUE_NAME = "venue_name";
+  public static final String VENUE_ID = "venu_id";
+  public static final String CURRENT_TICKET_COUNT = "current_ticket_count";
+  public static final String EVENT_ARTIST_NAME = "artist_name";
+  public static final String EVENT_ARTIST_ID = "artist_id";
 
-    // data for transfer initiate event
-    public static final String INITIATE_TRANSFER_TICKET_COUNT = "initiate_transfer_ticket_count";
-    public static final String INITIATE_TRANSFER_TICKET_FACEVALUE = "initiate_transfer_ticket_facevalue";
-    public static final String INITIATE_TRANSFER_TICKET_SERIALIZABLE = "initiate_transfer_ticket_serializable";
+  // data for transfer initiate event
+  public static final String INITIATE_TRANSFER_TICKET_COUNT = "initiate_transfer_ticket_count";
+  public static final String INITIATE_TRANSFER_TICKET_FACEVALUE = "initiate_transfer_ticket_facevalue";
+  public static final String INITIATE_TRANSFER_TICKET_SERIALIZABLE = "initiate_transfer_ticket_serializable";
 
-    // data for transfer cancel event
-    public static final String CANCEL_TRANSFER_ID = "cancel_transfer_id";
-    public static final String CANCEL_TRANSFER_ORDER_ID = "cancel_transfer_order_id";
+  // data for transfer cancel event
+  public static final String CANCEL_TRANSFER_ID = "cancel_transfer_id";
+  public static final String CANCEL_TRANSFER_ORDER_ID = "cancel_transfer_order_id";
 
 
-    // data for resale initiate event
-    public static final String INITIATE_RESALE_TICKET_COUNT = "initiate_resale_ticket_count";
-    public static final String INITIATE_RESALE_PRICE = "initiate_resale_price";
-    public static final String INITIATE_RESALE_TICKET_SERIALIZABLE = "initiate_resale_ticket_serializable";
+  // data for resale initiate event
+  public static final String INITIATE_RESALE_TICKET_COUNT = "initiate_resale_ticket_count";
+  public static final String INITIATE_RESALE_PRICE = "initiate_resale_price";
+  public static final String INITIATE_RESALE_TICKET_SERIALIZABLE = "initiate_resale_ticket_serializable";
 
-    // data for resale update event
-    public static final String UPDATE_RESALE_PRICE = "update_resale_price";
-    public static final String UPDATE_RESALE_POSTING_ID = "update_resale_posting_id";
+  // data for resale update event
+  public static final String UPDATE_RESALE_PRICE = "update_resale_price";
+  public static final String UPDATE_RESALE_POSTING_ID = "update_resale_posting_id";
 
-    // data for resale initiate and update events
-    public static final String RESALE_BUYER_FEES = "resale_buyer_fees";
-    public static final String RESALE_ORIGINAL_FACE_VALUE = "resale_original_face_value";
-    public static final String RESALE_SELLER_PAYOUT = "resale_seller_payout";
-    public static final String RESALE_SELLER_FEES = "resale_seller_fees";
+  // data for resale initiate and update events
+  public static final String RESALE_BUYER_FEES = "resale_buyer_fees";
+  public static final String RESALE_ORIGINAL_FACE_VALUE = "resale_original_face_value";
+  public static final String RESALE_SELLER_PAYOUT = "resale_seller_payout";
+  public static final String RESALE_SELLER_FEES = "resale_seller_fees";
 
-    // data for resale cancel event
-    public static final String CANCEL_RESALE_POSTING_ID = "cancel_resale_posting_id";
+  // data for resale cancel event
+  public static final String CANCEL_RESALE_POSTING_ID = "cancel_resale_posting_id";
 
-    //data for sharing image
-    public static final String SHARE_TICKET_IMAGE_DIR = "share_ticket_image_path";
-    public static final String SHARE_TICKET_IMAGE_FILENAME = "share_ticket_image_filename";
-    public static final String SHARE_TICKET_EVENT_ID = "share_ticket_event_id";
-    public static final String SHARE_TICKET_EVENT_NAME = "share_ticket_event_name";
+  //data for sharing image
+  public static final String SHARE_TICKET_IMAGE_DIR = "share_ticket_image_path";
+  public static final String SHARE_TICKET_IMAGE_FILENAME = "share_ticket_image_filename";
+  public static final String SHARE_TICKET_EVENT_ID = "share_ticket_event_id";
+  public static final String SHARE_TICKET_EVENT_NAME = "share_ticket_event_name";
 }
 {% endhighlight %}
 
@@ -670,13 +685,13 @@ You can implement receiver mAnalyticsEventReceiver as follows:
 
 {% highlight java %}
 private BroadcastReceiver mAnalyticEventReceiver = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
+  @Override
+  public void onReceive(Context context, Intent intent) {
 
-        if (PresenceEventAnalytics.Action.ACTION_MYTICKETSCREENSHOWED.equals(intent.getAction())) {
-            Toast.makeText(MainActivity.this, "Analytic Event: My tickets screen showed.", Toast.LENGTH_LONG).show();
-        }
+    if (PresenceEventAnalytics.Action.ACTION_MYTICKETSCREENSHOWED.equals(intent.getAction())) {
+      Toast.makeText(MainActivity.this, "Analytic Event: My tickets screen showed.", Toast.LENGTH_LONG).show();
     }
+  }
 };
 {% endhighlight %}
 {% endcapture %}
@@ -713,13 +728,13 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-1.1.1.1.aar
+-	PresenceSDK-release-x.x.x.x.aar
 
 Supported API levels
 
 -	API level 16 ~ 25
 
-## Release Notes
+## Release Notes Version 1.2.0
 
 ### Requirements
 
@@ -846,7 +861,9 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0.zip) Presence SDK iOS.
+[Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0_swift4.zip) Presence SDK iOS - Swift 4.
+
+[Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0_swift3.1.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
