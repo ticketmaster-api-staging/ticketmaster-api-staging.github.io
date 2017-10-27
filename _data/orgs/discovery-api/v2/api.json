@@ -588,21 +588,21 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "Music,-Country"
         }, {
           "name" : "classificationId",
           "in" : "query",
-          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationId>'. Be aware that negative filters may cause decreased performance",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "KZFzniwnSyZfZ7v7nJ,-KZazBEonSMnZfZ7vAvE"
         }, {
           "name" : "marketId",
           "in" : "query",
@@ -1525,22 +1525,22 @@
           "type" : "boolean",
           "default" : false
         },
-        "rangeDurationField" : {
+        "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "durationField" : {
+        "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
         },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -1605,13 +1605,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
@@ -2421,6 +2421,10 @@
     "PublicVisibility" : {
       "type" : "object",
       "description" : "The class defines the public visibility period on the Discovery/Publish API."
+    },
+    "PublishingSource" : {
+      "type" : "object",
+      "description" : "PublishingSource"
     },
     "Relationship" : {
       "type" : "object",
