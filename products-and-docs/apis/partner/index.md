@@ -461,7 +461,7 @@ https://app.ticketmaster.com/partners/v1/events/1AeZZfEGkD0xtGV/cart?apikey=GkB8
         "areas" : [ { "id" : 2 } ],
         
 				
-        // Optional. Section/Row/Seat identifiers.  Using 'places' is preferred over this.
+        // Optional. Section/Row/Seat identifiers.  
         "section": "CLB239",
         "row": "C",
         "begin_seat": 17,
