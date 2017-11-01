@@ -428,6 +428,9 @@ nav{
           text-align: left;
           font-size: 14px;
           margin-bottom: 6px;
+          &.off {
+            display: none;
+          }
         }
         ul {
           margin-bottom: 0;

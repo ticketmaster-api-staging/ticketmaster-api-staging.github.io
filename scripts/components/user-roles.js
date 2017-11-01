@@ -26,7 +26,10 @@
 		console.log(points.indexOf('m'));
 		if (points.indexOf('i') != -1) document.querySelector('.aside-menu li.i.off').classList.remove('off');
 		// if (points.indexOf('c') != -1) document.querySelector('.aside-menu li.c.off').classList.remove('off');
-		if (points.indexOf('m') != -1) document.querySelector('.aside-menu li.m.off').classList.remove('off');
+		if (points.indexOf('m') != -1) {
+			document.querySelector('.aside-menu li.m.off').classList.remove('off');
+			document.querySelector('#expand-menu .expand-column li.m.off').classList.remove('off');
+		}
 	}
 
 })();
