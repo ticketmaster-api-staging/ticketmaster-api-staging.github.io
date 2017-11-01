@@ -104,7 +104,7 @@ router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
 
 /* OAuth API Access [START] */
 router.get('/products-and-docs/apis/oauth/', function(req, res) {
-  var role = getRole(req);
+  var role = getRole(req, res);
   if (role.indexOf('internal') != -1) {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/oauth/'));
   } else {
@@ -112,6 +112,17 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
   }
 });
 /* OAuth API Access [END] */
+
+/* Marketplace API Access [START] */
+router.get('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
+  var role = getRole(req, res);
+  if (role.indexOf('marketplace') != -1) {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
+  } else {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
+  }
+});
+/* Marketplace API Access [END] */
 
 /* Get user apps [START] */
 router.get('/user/apps/', function(req, res, next) {
