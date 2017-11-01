@@ -65,7 +65,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -217,7 +217,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -588,12 +588,12 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "Music,-Country"
         }, {
           "name" : "classificationId",
           "in" : "query",
@@ -714,7 +714,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -892,7 +892,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -1125,7 +1125,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -1557,10 +1557,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
