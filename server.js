@@ -64,7 +64,7 @@ function getRole(req, res) {
   
             req.session.user = roles;
             res.cookie('tk-m', base64Encode(rolesMenu.toString()));
-            console.log("User new in session:" + roles);
+            // console.log("User new in session:" + roles);
         }
     }
     else {
@@ -74,7 +74,7 @@ function getRole(req, res) {
         }
         else {
             roles = req.session.user;
-            console.log("User stored in session: " + roles);
+            // console.log("User stored in session: " + roles);
         }
     }
     return roles;
@@ -148,6 +148,7 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(function(req, res, next) {
+    getRole(req, res);
     if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
         res.redirect(301, 'https://' + req.headers['host'] + req.url);
     }
@@ -160,4 +161,4 @@ app.use(function(req, res, next) {
     res.sendFile(path.join(__dirname+'/_site/404.html'));
 });
 
-console.log('Listening on port:', staticSiteOptions.portnum);
+// console.log('Listening on port:', staticSiteOptions.portnum);
