@@ -148,6 +148,7 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(function(req, res, next) {
+    var role = getRole(req, res);
     if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
         res.redirect(301, 'https://' + req.headers['host'] + req.url);
     }
