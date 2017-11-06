@@ -93,6 +93,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
 
 router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
     var role = getRole(req, res);
+    console.log(role);
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
     }
@@ -161,4 +162,4 @@ app.use(function(req, res, next) {
     res.sendFile(path.join(__dirname+'/_site/404.html'));
 });
 
-// console.log('Listening on port:', staticSiteOptions.portnum);
+console.log('Listening on port:', staticSiteOptions.portnum);
