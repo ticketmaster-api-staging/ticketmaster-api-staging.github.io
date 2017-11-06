@@ -83,10 +83,10 @@ function getRole(req, res) {
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
   var role = getRole(req, res);
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
   else {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
   }
 
 });
