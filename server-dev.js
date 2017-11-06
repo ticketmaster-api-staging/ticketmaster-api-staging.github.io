@@ -63,17 +63,17 @@ function getRole(req, res) {
       /* Commerce user [END] */
       req.session.user = roles;
       res.cookie('tk-m', base64Encode(rolesMenu.toString()));
-	    console.log("User new in session:" + roles);
+	    // console.log("User new in session:" + roles);
 	  }
   }
   else {
     if (req.cookies['tk-u'] == undefined) {
-      req.cookies['connect.sid'] = undefined;
-      req.cookies['tk-m'] = undefined;
+        req.cookies['connect.sid'] = undefined;
+        req.cookies['tk-m'] = undefined;
 	  }
 	  else {
       roles = req.session.user;
-      console.log("User stored in session: " + roles);
+      // console.log("User stored in session: " + roles);
 	  }
   }
   return roles;
@@ -82,6 +82,7 @@ function getRole(req, res) {
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
   var role = getRole(req, res);
+  console.log('Auth: internal = ' + role.indexOf('internal') + ' commerce = ' + role.indexOf('commerce'));
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
   }
@@ -93,6 +94,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
 
 router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
   var role = getRole(req, res);
+  console.log('Simple: internal = ' + role.indexOf('internal') + ' commerce = ' + role.indexOf('commerce'));
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
 	  res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }

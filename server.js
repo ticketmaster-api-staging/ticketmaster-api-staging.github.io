@@ -83,6 +83,7 @@ function getRole(req, res) {
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
     var role = getRole(req, res);
+    console.log('Auth: internal = ' + role.indexOf('internal') + ' commerce = ' + role.indexOf('commerce'));
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
     }
@@ -93,7 +94,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
 
 router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
     var role = getRole(req, res);
-    console.log(role);
+    console.log('Simple: internal = ' + role.indexOf('internal') + ' commerce = ' + role.indexOf('commerce'));
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
     }
