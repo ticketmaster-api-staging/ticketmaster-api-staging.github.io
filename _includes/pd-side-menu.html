@@ -101,10 +101,11 @@
             <!--automenu for Swagger api-->
             <li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "commerce-api" %}
-                {% include partials/autodoc/side-menu-generate.html%}
-                <!--{% comment %}<!--faq-api menu item can be here--><!--
-                                {% include partials/autodoc/side-menu-faq.html %}
-                        {% endcomment %}-->
+                {% include partials/autodoc/side-menu-generate.html %}
+                {% comment %}
+                  <!--faq-api menu item can be here-->
+                  <!-- {% include partials/autodoc/side-menu-faq.html %} -->
+                {% endcomment %}
                 {% endif %}
             </li><!--END automenu-->
             
