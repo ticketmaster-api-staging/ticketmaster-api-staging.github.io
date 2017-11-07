@@ -11,9 +11,8 @@ keywords: SDK, Presence, Ticket Management, iOS, Android
 
 
 {% capture iOS_importing %}
-Follow these simple steps to integrate and configure the SDK:
 
-Step 1: Drag and drop the PresenceSDK.framework into your project’s General -> Embedded Binaries settings (copy items if needed)
+Step 1: Drag and drop the PresenceSDK.framework and iOSExperienceSDK.framework into your project’s General -> Embedded Binaries settings (copy items if needed)
 
 ![PresenceSDK iOS Step 1](/assets/img/products-and-docs/PresenceSDK-iOS-Step-1.png)
 
@@ -70,7 +69,7 @@ If you have provided correct configuration you will see a similar screen at star
 
 
 {% capture Android_importing %}
-Step 1. Drop Presence sdk aar file in your application project libs folder
+Step 1. Drop Presence sdk and Experience sdk jar files in your application project libs folder
 
 Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR package”. Specify and locate the aar file.
 
@@ -78,11 +77,11 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 
 ![PresenceSDK Android Step 2](/assets/img/products-and-docs/PresenceSDK-Android-Step-1-2.png)
 
-Step 3. Go to your app module build gradle file and set the name
-of each aar file as compile dependencies as follows:
+Step 3. Got your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.2.0.1’)
+compile project(‘:PresenceSDK-release-1.3.0.0’)
+compile fileTree(include: [‘*.jar’], dir: ‘libs’) // for experience sdk jar file
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -172,7 +171,30 @@ private void launchPresenceSDK() {
 }
 {% endhighlight %}
 
-Step 7. Call the configurePresenceSDK() and launchPresenceSDK() methods in the activity class onCreate() method.
+Step 7. Create configureExperienceSDK() method inside the same activity class. In this method, you will configure about experience sdk.
+	
+Here is the sample code about how to set experience sdk wrapper object and set it to presence sdk.
+
+{% highlight java %}
+private void configureExperienceSDK() {
+  // specify these parameters to integrate ExperienceSDK
+  // and pass them into PresenceSDK
+  // this will NOT crash if no ExperienceSDK lib provided
+  // presenceSDK.start() will check the availability of ExperienceSDK lib
+  ExperienceConfiguration wrapper = new ExperienceConfiguration.Builder()
+    .setAppId(TmxConstants.Experience.EXPERIENCE_APP_ID)
+    .setAppName(TmxConstants.Experience.EXPERIENCE_APP_NAME)
+    .setApiKey(TmxConstants.Experience.EXPERIENCE_API_KEY)
+    .setAppSource(TmxConstants.Experience.EXPERIENCE_APP_NAME)
+    .setSubdomain(TmxConstants.Experience.EXPERIENCE_SUBDOMAIN)
+    .setDevServers(false)
+    .build();
+	
+    presenceSDK.setExperienceConfiguration(wrapper);
+}
+{% endhighlight %}
+
+Step 8. Call the configurePresenceSDK() and launchPresenceSDK() methods in the activity class onCreate() method.
 
 {% highlight java %}
 @Override
@@ -184,6 +206,8 @@ protected void onCreate(Bundle savedInstanceState) {
   configurePresenceSDK();
   // call launch presence sdk method
   launchPresenceSDK();
+  // configure experience sdk
+  configureExperienceSDK();
 }
 {% endhighlight %}
 
@@ -315,6 +339,27 @@ class ViewController: UIViewController, PresenceLoginDelegate {
 {% endhighlight %}
 
 This is all you need to integrate the Presence SDK. Now you can run the application and Login into your configured accounts.
+
+### Configure Experience SDK
+
+Presence SDK is packaged with Experience SDK and you have to embed both the frameworks to use Presence SDK. If you don’t want to use Experience SDK in your client app than please skip this step but if your client app also wants to provide Experience SDK features than you will also need to configure it. To configure Experience SDK please use this convenient method:
+
+{% highlight swift %}
+func configureExperienceSDK() {
+  let experienceConfiguration = ExperienceConfiguration.Builder()
+    .setAppId("yourAppId")
+    .setAppSource("yourAppSource")
+    .setSubdomain("subdomainForYourApp")
+    .setAppName("yourAppName")
+    .setApiKey("yourApiKey")
+    .setApiSubdomain("apiSubdomainForYourApp")
+    .build()
+  PresenceSDK.getPresenceSDK().setExperienceConfiguration(experienceConfiguration)
+}
+{% endhighlight %}
+
+You can call this method from didFinishLaunchingWithOptions() method of AppDelegate class.
+
 
 {% endcapture %}
 
@@ -712,6 +757,8 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 ## Release Notes
 
+To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
+
 ### Requirements
 
 -	To build, you must use XCode 9.0 and the iOS 11.0 SDK
@@ -728,7 +775,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-x.x.x.x.aar
+-	PresenceSDK-release-1.3.0.0.aar
 
 Supported API levels
 
@@ -752,6 +799,15 @@ Supported API levels
 
 
 {% capture iOS_changelog %}
+### Changes (11/6/17 Release 1.3.0)
+- Experience SDK Integration.
+- Improved Login Screen for the SDK.
+- Support for iPhone X screen size.
+- Added refresh button for fans with no tickets
+- Added support for honoring custom tint color for navigation bar configured via UIAppearance.
+- Bug fixes for adding Mastercard as refund card and other UI issues.
+
+
 ### Changes (10/16/17 Release 1.2.0)
 
 -	Added support for entering verification code for linking TMR account for Archtics.
@@ -819,6 +875,14 @@ Supported API levels
 
 {% capture Android_changelog %}
 
+### Changes (11/06/2017 Release 1.3.0)
+- Experience sdk integration
+- Android wallet support
+- Main login entry screen change
+- Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
+- Bug fixes for master card and branding coloring support for action bar
+
+
 ### Changes (10/16/2017 Release 1.2.0)
 
 - Added support for entering verification code for linking TMR account for
@@ -861,13 +925,13 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0_swift4.zip) Presence SDK iOS - Swift 4.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK ExperienceSDK.zip) Presence SDK iOS - Swift 4.
 
-[Download](/products-and-docs/sdks/presence/ios/iOS_Presence_SDK-Version_1_2_0_swift3.1.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK ExperienceSDK-Swift3.1.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android_Presence_SDK-Version_1_2_0.zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_3_0 .zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
