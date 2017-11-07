@@ -755,7 +755,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework
 
-## Release Notes
+## Release Notes Version 1.3.0
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
