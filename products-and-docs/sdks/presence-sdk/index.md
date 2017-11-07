@@ -766,9 +766,14 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 ### Whats New?
 
--	Added support for entering verification code for TMR account linking for Archtics.
--	Fixed seat description selection for posting flow for Archtics.
--	Separated the login flow from main SDK so it can just be used for login and fetching valid access token. 
+-	Experience SDK Integration.
+-	Improved Login Screen for the SDK.
+-	Support for iPhone X screen size.
+-	Added refresh button for fans with no tickets
+-	Added support for honoring custom tint color for navigation bar configured via UIAppearance.
+-	Bug fixes for adding Mastercard as refund card and other UI issues.
+
+
 {% endcapture %}
 
 {% capture Android_whatyouneed %}
@@ -781,7 +786,7 @@ Supported API levels
 
 -	API level 16 ~ 25
 
-## Release Notes Version 1.2.0
+## Release Notes Version 1.3.0
 
 ### Requirements
 
@@ -795,6 +800,7 @@ Supported API levels
 -	Added handling of session expiry error
 -	Fixed in-field crash/issues
 -	Fixed edit resale operation with 4 digit price
+
 {% endcapture %}
 
 
