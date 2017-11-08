@@ -759,10 +759,15 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-### Requirements
+### Requirements for using Swift 4 build
 
--	To build, you must use XCode 9.0 and the iOS 11.0 SDK
--	Minimum iOS 9.0, supported through iOS 11
+- To build, you must use XCode 9.0 and the iOS 11.0 SDK
+- Minimum iOS 9.0, supported through iOS 11
+
+### Requirements for using Swift 3.1 build
+
+- To build, you must use XCode 8.3.3 and the iOS 10.3 SDK
+- Minimum iOS 9.0, supported through iOS 10.3.3
 
 ### Whats New?
 
