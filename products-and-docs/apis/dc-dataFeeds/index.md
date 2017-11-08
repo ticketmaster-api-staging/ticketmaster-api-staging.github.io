@@ -15,8 +15,7 @@ keywords: Partner API, host and API, reserve tickets, create a cart, order manag
 {: .article}
 # Discovery Feed
 
-The Ticketmaster Discovery Feed provides access to event content on Ticketmaster. All data is sourced from the Discovery API and delivered as a data feed.
-
+The Ticketmaster Discovery Feed provides access to event content on Ticketmaster. All data is sourced from the Discovery API and delivered as a separate file per country with multiple formats available
 ## Overview
 {: #overview }
 
@@ -43,7 +42,7 @@ All connections must be made over SSL using https.
 
 
 {: .article}
-## Discovery Feed [GET]
+## Get Events [GET]
 {: #discovery-feed-details}
 
 Download a list of events in supported countries. The following formats are available: csv, xml or json.
@@ -70,8 +69,8 @@ http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}
         * `resaleEventUrl` (string) – URL to buy resale tickets for the event
         * `eventName` (string) - 	Name of the event
         * `eventNotes` (string) - 	Notes for the event
-        * `eventStatus`
-        * `eventImageUrl`
+        * `eventStatus` (string) -  Status of the event
+        * `eventImageUrl` (string) – Public URL of the event image
         * `eventInfo` (date) - Event Date is Local Date YYYY-MM-DD format
         * `eventStartDateTime` (string) – Event start date/time (UTC format)
         *	`eventEndDateTime` (string) – Event end date/time (UTC format)
