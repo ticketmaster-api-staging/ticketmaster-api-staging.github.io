@@ -346,7 +346,7 @@ Presence SDK is packaged with Experience SDK and you have to embed both the fram
 
 {% highlight swift %}
 func configureExperienceSDK() {
-  let experienceConfiguration = ExperienceConfiguration.Builder()
+  let experienceConfiguration = ExperienceConfiguration.Builder.init()
     .setAppId("yourAppId")
     .setAppSource("yourAppSource")
     .setSubdomain("subdomainForYourApp")
@@ -936,9 +936,9 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK ExperienceSDK - Version 1_3_0.zip) Presence SDK iOS - Swift 4.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_0.zip) Presence SDK iOS - Swift 4.
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK ExperienceSDK-Swift3.1 - Version 1_3_0.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_0.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
