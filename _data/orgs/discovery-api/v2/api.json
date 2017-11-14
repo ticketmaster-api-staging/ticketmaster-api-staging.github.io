@@ -588,7 +588,7 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
+          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
@@ -1472,7 +1472,6 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
-          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -1531,12 +1530,12 @@
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "maximumValue" : {
           "type" : "integer",
@@ -1557,10 +1556,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
@@ -1605,13 +1604,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "unitMillis" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
         },
         "name" : {
           "type" : "string"
