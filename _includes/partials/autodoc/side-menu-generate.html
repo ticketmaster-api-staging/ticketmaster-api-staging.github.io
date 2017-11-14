@@ -7,7 +7,7 @@
         <li><a href="#overview">Overview</a></li>
     {% endif %}-->
     {% if methodsDescription.before.menuItem %}
-        {% for menuItemBefore in methodsDescription.before.menuItem | split: ' '%}
+        {% for menuItemBefore in methodsDescription.before.menuItem | split: ' ' %}
         <li><a href="#{{ menuItemAfter | lstrip
                             | downcase
                             | replace: ' ' , '-'
@@ -44,7 +44,7 @@
                 {% if listTag.pathsParent == routeInner[0] and indexLoop == 0 %}
                     <!--{% comment %}<p class="red code">=== : <b>{{indexLoop}}</b> : {{listTag.pathsParent}}, {{ currrentMethodPath }}</p>{% endcomment %}-->
                     {% for method in routeInner[1] %}
-                        {% include partials/autodoc/side-menu-layout.html%}
+                        {% include partials/autodoc/side-menu-layout.html %}
                     {% endfor %}
 
                 {%endif%}
@@ -118,7 +118,7 @@
 {% endfor %}
 
     {% if methodsDescription.after.menuItem %}
-        {% for menuItemAfter in methodsDescription.after.menuItem | split: ' '%}
+        {% for menuItemAfter in methodsDescription.after.menuItem | split: ' ' %}
             <li><a href="#{{ menuItemAfter | lstrip
                         | downcase
                         | replace: ' ' , '-'
@@ -131,7 +131,7 @@
         {% endfor %}
     {% endif %}
 
-    {% include partials/changelog-apis.html%}
+    {% include partials/changelog-apis.html %}
 
     <li><a href="#disqus_thread">Disqus</a></li>
 </ul>
