@@ -1525,15 +1525,15 @@
           "type" : "boolean",
           "default" : false
         },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "maximumValue" : {
           "type" : "integer",
@@ -1557,10 +1557,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
