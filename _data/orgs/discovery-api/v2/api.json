@@ -1492,7 +1492,7 @@
         "type" : {
           "position" : 5,
           "description" : "A Type represents a kind or group of people. (Donation, Group, Individual, Merchandise, Event Style, etc)",
-          "$ref" : "#/definitions/Level"
+          "$ref" : "#/definitions/Type"
         },
         "subType" : {
           "position" : 6,
@@ -2601,6 +2601,21 @@
         }
       },
       "description" : "Twitter data"
+    },
+    "Type" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ID of the classification's level"
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "The Name of the classification's level"
+        }
+      },
+      "description" : "Type"
     },
     "Venue" : {
       "type" : "object",
