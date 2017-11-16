@@ -124,6 +124,18 @@ router.get('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
 });
 /* Marketplace API Access [END] */
 
+/* Marketplace Release Notes [START] */
+router.get('/products-and-docs/apis/marketplace-api/release-notes/', function(req, res) {
+  var role = getRole(req, res);
+  if (role.indexOf('marketplace') != -1) {
+      var res_ = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/release-notes/open-marketplace');
+      res.send(res_.getBody().toString());
+  } else {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
+  }
+});
+/* Marketplace Release Notes API Access [END] */
+
 /* Get user apps [START] */
 router.get('/user/apps/', function(req, res, next) {
     if (req.cookies['tk-u'] != undefined && req.session.apps) {
@@ -172,6 +184,8 @@ http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   getRole(req, res);
   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
       res.redirect(301, 'https://' + req.headers['host'] + req.url);
