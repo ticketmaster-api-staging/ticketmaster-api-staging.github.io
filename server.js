@@ -22,6 +22,7 @@ var apps;
 function getRequestURI(userId, path) {
     // var res = syncrequest('GET', process.env.DRUPAL_PORTAL_URL + userId + path);
     var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/user/' + userId + path);
+    console.log(res);
     return res.getBody().toString();
 }
 
