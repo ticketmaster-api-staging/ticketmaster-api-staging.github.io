@@ -71,7 +71,7 @@ http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}
         * `eventNotes` (string) - 	Notes for the event
         * `eventStatus` (string) -  Status of the event
         * `eventImageUrl` (string) – Public URL of the event image
-        * `eventInfo` (date) - Event Date is Local Date YYYY-MM-DD format
+        * `eventInfo` (string) - Event Information
         * `eventStartDateTime` (string) – Event start date/time (UTC format)
         *	`eventEndDateTime` (string) – Event end date/time (UTC format)
         * `eventStartLocalDate` (string) – Event date in the venue's timezone MM/DD/YY format
