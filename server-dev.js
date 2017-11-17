@@ -21,7 +21,6 @@ var apps;
 
 function getRequestURI(userId, path) {
   var res = syncrequest('GET', 'https://developer-acct.ticketmaster.com/open-platform/user/' + userId + path);
-  console.log('https://developer-acct.ticketmaster.com/open-platform/user/' + userId + path);
   return res.getBody().toString();
 }
 

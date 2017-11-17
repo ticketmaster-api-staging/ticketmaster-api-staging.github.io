@@ -129,7 +129,6 @@ router.get('/products-and-docs/apis/marketplace-api/release-notes/', function(re
   var role = getRole(req, res);
   if (role.indexOf('marketplace') != -1) {
       var res_ = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/release-notes/open-marketplace');
-      console.log('res=' + res_);
       res.send(res_.getBody().toString());
   } else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
