@@ -69,35 +69,34 @@ If you have provided correct configuration you will see a similar screen at star
 
 
 {% capture Android_importing %}
-Step 1. Drop Presence sdk and Experience sdk jar files in your application project libs folder
+Step 1. Drop Presence sdk file in your application project libs folder
 
-Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR package”. Specify and locate the aar file.
+Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR package”. Specify and locate the Presence sdk aar file.
 
 ![PresenceSDK Android Step 1](/assets/img/products-and-docs/PresenceSDK-Android-Step-1.png)
 
 ![PresenceSDK Android Step 2](/assets/img/products-and-docs/PresenceSDK-Android-Step-1-2.png)
 
-Step 3. Got your app module build gradle file and set the name of each aar file as compile dependencies as follows:
+Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
 compile project(‘:PresenceSDK-release-1.3.0.0’)
-compile fileTree(include: [‘*.jar’], dir: ‘libs’) // for experience sdk jar file
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
 
 {% highlight java %}
-compile 'com.android.support:cardview-v7:24.2.1'
-compile 'com.android.support:appcompat-v7:24.2.1'
-compile 'com.android.support:support-v4:24.2.1'
-compile 'com.android.support:recyclerview-v7:24.2.1'
-compile 'com.android.support:design:24.2.1'
+compile 'com.android.support:cardview-v7:25.3.1'
+compile 'com.android.support:appcompat-v7:25.3.1'
+compile 'com.android.support:support-v4:25.3.1'
+compile 'com.android.support:recyclerview-v7:25.3.1'
+compile 'com.android.support:design:25.3.1'
 compile 'com.android.volley:volley:1.0.0'
 compile 'com.google.code.gson:gson:2.4'
 compile 'com.squareup.picasso:picasso:2.5.2'
 compile 'com.romandanylyk:pageindicatorview:0.0.5'
 compile 'com.google.zxing:core:3.2.1'
-compile 'com.android.support:percent:24.2.1'
+compile 'com.android.support:percent:25.3.1'
 {% endhighlight %}
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
@@ -108,68 +107,74 @@ Step 5. Create a configurePresenceSDK() method inside your activity class. In th
 
 {% highlight java %}
 private void configurePresenceSDK() {
-  PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(
-    consumerKey /*Consumer key provided on dev portal*/, 
+  PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(consumerKey /*Consumer key provided on dev portal*/, 
     displayName /*your team display name */, 
     useNewAccountManager /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */);
 
   // Configure your branding color for the SDK
   //opaque red
-  presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000")); 
+  presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
+  Color.parseColor("#ffff0000")); 
 }
+
 {% endhighlight %}
 
 **NOTE:**
 
 1. Be aware that you need to pass application context object (not activity context) to PresenceSDK.getPresenceSDK() method. If it is not an application context, the presence sdk might reject and throw a runtime exception with a message to bring it to developer’s attention.
 
-2. To get consumer key please create an account on https://developer.ticketmaster.com and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
+2. To get consumer key please create an account on [https://developer.ticketmaster.com](https://developer.ticketmaster.com) and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
+
 
 Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In this method, you will implement a login 	listener and start the presence sdk 
 
 {% highlight java %}
 private void launchPresenceSDK() {
-  PresenceSDK.getPresenceSDK(this).start(this, 
-    R.id.presenceSDK, /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
-    new TMLoginListener() {
-      @Override
-      public void onLoginSuccessful(TMLoginApi.BackendName 			backendName, String accessToken) {
-        Log.i(TAG, "Inside onLoginSuccessful");
-      }
+  PresenceSDK.getPresenceSDK(getApplicationContext()).start(this,
+    R.id.presenceSDK /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
+    , new TMLoginListener() {
+        @Override
+        public void onLoginSuccessful(TMLoginApi.BackendName 			backendName, String accessToken) {
+          Log.i(TAG, "Inside onLoginSuccessful");
+        }
 
-      Override
-      public void onLoginFailed(TMLoginApi.BackendName backendName, 			String errorMessage) {
-        Log.i(TAG, "Inside onLoginFailed");
-      }
+        Override
+        public void onLoginFailed(TMLoginApi.BackendName backendName, 			String errorMessage) {
+          Log.i(TAG, "Inside onLoginFailed");
+        }
 
-      @Override
-      public void onLoginCancelled(TMLoginApi.BackendName 			backendName) {
-        Log.i(TAG, "Inside onLoginCancelled");
-      }
+        @Override
+        public void onLoginCancelled(TMLoginApi.BackendName 			backendName) {
+          Log.i(TAG, "Inside onLoginCancelled");
+        }
 
-      @Override
-      public void onLoginMethodUsed(TMLoginApi.BackendName 			backendName, TMLoginApi.LoginMethod method) {
-        Log.i(TAG, "Inside onLoginMethodUsed");
-      }
+        @Override
+        public void onLoginMethodUsed(TMLoginApi.BackendName 			backendName, TMLoginApi.LoginMethod method) {
+          Log.i(TAG, "Inside onLoginMethodUsed");
+        }
 
-      @Override
-      public void onLoginForgotPasswordClicked(TMLoginApi.BackendName 			backendName) {
-        Log.i(TAG, "Inside onLoginForgotPasswordClicked");
-      }
+        @Override
+        public void onLoginForgotPasswordClicked(TMLoginApi.BackendName 			backendName) {
+          Log.i(TAG, "Inside onLoginForgotPasswordClicked");
+        }
 
-      @Override
-      public void onCacheCleared() {
-        Log.i(TAG, "Inside onCacheCleared");
-      }
+        @Override
+        public void onCacheCleared() {
+          Log.i(TAG, "Inside onCacheCleared");
+        }
 
-      @Override
-      public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo 			member) {
-        Log.i(TAG, "Inside onMemberUpdated");
-      }
-    }
-  );
+        @Override
+        public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo 			member) {
+          Log.i(TAG, "Inside onMemberUpdated");
+        }
+		  });
 }
+
 {% endhighlight %}
+
+**NOTE:** 
+
+You need to have a hosting activity layout where you need to add a 	framelayout to hold Presence sdk entry 	fragment. So, you will need to use the 	correct id of the framelayout specified in PresenceSDK.start() method. See code 	comment above.
 
 Step 7. Create configureExperienceSDK() method inside the same activity class. In this method, you will configure about experience sdk.
 	
@@ -194,7 +199,7 @@ private void configureExperienceSDK() {
 }
 {% endhighlight %}
 
-Step 8. Call the configurePresenceSDK() and launchPresenceSDK() methods in the activity class onCreate() method.
+Step 8. Call the configurePresenceSDK(), launchPresenceSDK() and configureExperienceSDK() methods in the activity class onCreate() method.
 
 {% highlight java %}
 @Override
@@ -204,24 +209,41 @@ protected void onCreate(Bundle savedInstanceState) {
   setContentView(R.layout.activity_main); 
   // call configure presence sdk method
   configurePresenceSDK();
-  // call launch presence sdk method
-  launchPresenceSDK();
   // configure experience sdk
   configureExperienceSDK();
+  // call launch presence sdk method
+  launchPresenceSDK();
 }
+
 {% endhighlight %}
 
 This will load the entry fragment (UI shown below) where a login screen will be prompted to users to choose Ticketmaster or Team Account to login. 
 
 ![PresenceSDK Android Step 7](/assets/img/products-and-docs/PresenceSDK-Android-Step-1-7.png)
 
-Step 8. Define the “AppTheme” style in styles.xml as follows:
+Step 9. Define the “AppTheme” style in styles.xml as follows:
 
 {% highlight html %}
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 {% endhighlight %}
 
-Step 9. Try to build and compile. At this point, it should be compiled without errors.
+Step 10. Add tools:replace for theme and label in application level  as follow:
+
+{% highlight html %}
+<application
+android:allowBackup="true"
+android:icon="@mipmap/ic_launcher"
+android:label="@string/app_name"
+android:roundIcon="@mipmap/ic_launcher_round"
+android:supportsRtl="true"
+android:testOnly="false"
+android:theme="@style/AppTheme"
+tools:replace="android:theme, android:label">
+
+{% endhighlight %}
+
+Step 11: Try to build and compile. At this point, it should be compiled without errors.
+
 {% endcapture %}
 
 
@@ -400,8 +422,10 @@ presenceSDK.setBrandingColor(color: UIColor.blue)
 Presence sdk clients can set their own branding theme color by defining this color value in their application resource “colors.xml” file:
 
 {% highlight html %}
-<color name="tmx_color_branding">#FFAA81</color>
+<color name="presence_sdk_color_branding">#FFAA81</color>
 {% endhighlight %}
+
+The defined color will be displayed on all action buttons, action bars and ticket details page. If the above color variable is not defined in the client’s apk project, Tmx sdk will use a default color.
 
 Also, there is a way to change the color at run time.
 
@@ -799,12 +823,12 @@ Supported API levels
 
 ### What’s New?
 
--	Resolved login issue of getting stuck in log-in screen after logging in and clicking “authorize” button
--	Resolved login issue of getting 401 status when clicking on an event
--	Fixed missing seats group selection view in transfer/resale flow
--	Added handling of session expiry error
--	Fixed in-field crash/issues
--	Fixed edit resale operation with 4 digit price
+-	Experience sdk integration
+-	Android wallet support
+-	Main login entry screen change
+-	Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
+-	Bug fixes for master card and branding coloring support for action bar
+
 
 {% endcapture %}
 

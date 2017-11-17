@@ -25,3 +25,5 @@ Gemfile.lock
 
 # Ingnore unit tests coverage report
 coverage
+
+ticketmaster-api.github.io.iml
