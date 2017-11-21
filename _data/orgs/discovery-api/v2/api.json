@@ -65,7 +65,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -217,7 +217,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -467,16 +467,16 @@
         "parameters" : [ {
           "name" : "sort",
           "in" : "query",
-          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onsaleStartDate,asc', 'id,asc'",
+          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onsaleStartDate,asc', 'id,asc', 'venueName,asc', 'venueName,desc'",
           "required" : false,
           "type" : "string",
           "default" : "relevance,desc",
-          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)$",
+          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)|((venueName),(asc|desc))$",
           "x-example" : ""
         }, {
           "name" : "startDateTime",
           "in" : "query",
-          "description" : "Filter events with a start date after this date",
+          "description" : "Filter with a start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -484,7 +484,7 @@
         }, {
           "name" : "endDateTime",
           "in" : "query",
-          "description" : "Filter events with a start date before this date",
+          "description" : "Filter with a start date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -492,7 +492,7 @@
         }, {
           "name" : "onsaleStartDateTime",
           "in" : "query",
-          "description" : "Filter events with onsale start date after this date",
+          "description" : "Filter with onsale start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -500,7 +500,7 @@
         }, {
           "name" : "onsaleOnStartDate",
           "in" : "query",
-          "description" : "Filter events with onsale start date on this date",
+          "description" : "Filter with onsale start date on this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -508,7 +508,7 @@
         }, {
           "name" : "onsaleOnAfterStartDate",
           "in" : "query",
-          "description" : "Filter events with onsale range within this date",
+          "description" : "Filter with onsale range within this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -516,7 +516,7 @@
         }, {
           "name" : "onsaleEndDateTime",
           "in" : "query",
-          "description" : "Filter events with onsale end date before this date",
+          "description" : "Filter with onsale end date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -524,7 +524,7 @@
         }, {
           "name" : "city",
           "in" : "query",
-          "description" : "Filter events by city",
+          "description" : "Filter by city",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -532,7 +532,7 @@
         }, {
           "name" : "countryCode",
           "in" : "query",
-          "description" : "Filter events by country code",
+          "description" : "Filter by country code",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -540,7 +540,7 @@
         }, {
           "name" : "stateCode",
           "in" : "query",
-          "description" : "Filter events by state code",
+          "description" : "Filter by state code",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -548,7 +548,7 @@
         }, {
           "name" : "postalCode",
           "in" : "query",
-          "description" : "Filter events by postal code / zipcode",
+          "description" : "Filter by postal code / zipcode",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -556,7 +556,7 @@
         }, {
           "name" : "venueId",
           "in" : "query",
-          "description" : "Filter events by venue id",
+          "description" : "Filter by venue id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -564,7 +564,7 @@
         }, {
           "name" : "attractionId",
           "in" : "query",
-          "description" : "Filter events by attraction id",
+          "description" : "Filter by attraction id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -572,7 +572,7 @@
         }, {
           "name" : "segmentId",
           "in" : "query",
-          "description" : "Filter events by segment id",
+          "description" : "Filter by segment id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -580,7 +580,7 @@
         }, {
           "name" : "segmentName",
           "in" : "query",
-          "description" : "Filter events by segment name",
+          "description" : "Filter by segment name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -588,25 +588,25 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "Music,-Country"
         }, {
           "name" : "classificationId",
           "in" : "query",
-          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter by classification id: id of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationId>'. Be aware that negative filters may cause decreased performance",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "KZFzniwnSyZfZ7v7nJ,-KZazBEonSMnZfZ7vAvE"
         }, {
           "name" : "marketId",
           "in" : "query",
-          "description" : "Filter events by market id",
+          "description" : "Filter by market id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -615,7 +615,7 @@
         }, {
           "name" : "promoterId",
           "in" : "query",
-          "description" : "Filter events by promoter id",
+          "description" : "Filter by promoter id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -624,7 +624,7 @@
         }, {
           "name" : "dmaId",
           "in" : "query",
-          "description" : "Filter events by dma id",
+          "description" : "Filter by dma id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -633,7 +633,7 @@
         }, {
           "name" : "includeTBA",
           "in" : "query",
-          "description" : "True, to include events with date to be announce (TBA)",
+          "description" : "yes, to include with date to be announce (TBA)",
           "required" : false,
           "type" : "string",
           "default" : "no if date parameter sent, yes otherwise",
@@ -643,7 +643,7 @@
         }, {
           "name" : "includeTBD",
           "in" : "query",
-          "description" : "True, to include event with a date to be defined (TBD)",
+          "description" : "yes, to include with a date to be defined (TBD)",
           "required" : false,
           "type" : "string",
           "default" : "no if date parameter sent, yes otherwise",
@@ -653,7 +653,7 @@
         }, {
           "name" : "clientVisibility",
           "in" : "query",
-          "description" : "Filter events by clientName",
+          "description" : "Filter by clientName",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -714,7 +714,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -892,7 +892,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -1125,7 +1125,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -1288,6 +1288,23 @@
         }
       },
       "description" : "Additional information for people who experience disabilities"
+    },
+    "Ada" : {
+      "type" : "object",
+      "properties" : {
+        "adaPhones" : {
+          "type" : "string"
+        },
+        "adaCustomCopy" : {
+          "type" : "string",
+          "position" : 1
+        },
+        "adaHours" : {
+          "type" : "string",
+          "position" : 2
+        }
+      },
+      "description" : "Venue ADA details"
     },
     "Address" : {
       "type" : "object",
@@ -1493,7 +1510,7 @@
         "type" : {
           "position" : 5,
           "description" : "A Type represents a kind or group of people. (Donation, Group, Individual, Merchandise, Event Style, etc)",
-          "$ref" : "#/definitions/Level"
+          "$ref" : "#/definitions/Type"
         },
         "subType" : {
           "position" : 6,
@@ -1525,10 +1542,13 @@
           "type" : "boolean",
           "default" : false
         },
-        "rangeDurationField" : {
+        "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "durationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
@@ -1538,9 +1558,6 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -2422,6 +2439,10 @@
       "type" : "object",
       "description" : "The class defines the public visibility period on the Discovery/Publish API."
     },
+    "PublishingSource" : {
+      "type" : "object",
+      "description" : "PublishingSource"
+    },
     "Relationship" : {
       "type" : "object",
       "properties" : {
@@ -2599,6 +2620,21 @@
       },
       "description" : "Twitter data"
     },
+    "Type" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ID of the classification's level"
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "The Name of the classification's level"
+        }
+      },
+      "description" : "Type"
+    },
     "Venue" : {
       "type" : "object",
       "required" : [ "id", "type" ],
@@ -2760,6 +2796,11 @@
             "type" : "integer",
             "format" : "int32"
           }
+        },
+        "ada" : {
+          "position" : 111,
+          "description" : "ADA information",
+          "$ref" : "#/definitions/Ada"
         }
       },
       "description" : "Venue"
