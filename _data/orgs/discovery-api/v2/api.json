@@ -588,7 +588,7 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
+          "description" : "Filter by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
@@ -1289,6 +1289,23 @@
       },
       "description" : "Additional information for people who experience disabilities"
     },
+    "Ada" : {
+      "type" : "object",
+      "properties" : {
+        "adaPhones" : {
+          "type" : "string"
+        },
+        "adaCustomCopy" : {
+          "type" : "string",
+          "position" : 1
+        },
+        "adaHours" : {
+          "type" : "string",
+          "position" : 2
+        }
+      },
+      "description" : "Venue ADA details"
+    },
     "Address" : {
       "type" : "object",
       "properties" : {
@@ -1472,6 +1489,7 @@
       "properties" : {
         "primary" : {
           "type" : "boolean",
+          "description" : "True if this is the entity's primary classification",
           "default" : false
         },
         "segment" : {
@@ -1527,19 +1545,19 @@
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "minimumValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
         },
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "maximumValue" : {
-          "type" : "integer",
-          "format" : "int32"
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -1604,13 +1622,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
@@ -2778,6 +2796,11 @@
             "type" : "integer",
             "format" : "int32"
           }
+        },
+        "ada" : {
+          "position" : 111,
+          "description" : "ADA information",
+          "$ref" : "#/definitions/Ada"
         }
       },
       "description" : "Venue"
