@@ -793,7 +793,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - To build, you must use XCode 8.3.3 and the iOS 10.3 SDK
 - Minimum iOS 9.0, supported through iOS 10.3.3
 
-### Whats New?
+### What’s New?
 
 -	Experience SDK Integration.
 -	Improved Login Screen for the SDK.
@@ -823,8 +823,11 @@ Supported API levels
 
 ### What’s New?
 
-- Fixed experience sdk button issue for "Return" and "Add Tickets"
-- Fixed experience button menu missing after second time the ticket view is visited.
+- Experience sdk integration
+- Android wallet support
+- Main login entry screen change
+- Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
+- Bug fixes for master card and branding coloring support for action bar
 
 {% endcapture %}
 
