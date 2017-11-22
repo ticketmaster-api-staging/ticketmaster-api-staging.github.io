@@ -80,7 +80,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.3.0.0’)
+compile project(‘:PresenceSDK-release-1.3.1.0’)
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -779,7 +779,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework
 
-## Release Notes Version 1.3.0
+## Release Notes Version 1.3.1
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
@@ -809,13 +809,13 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-1.3.0.0.aar
+-	PresenceSDK-release-1.3.*.*.aar
 
 Supported API levels
 
 -	API level 16 ~ 25
 
-## Release Notes Version 1.3.0
+## Release Notes Version 1.3.1
 
 ### Requirements
 
@@ -823,17 +823,17 @@ Supported API levels
 
 ### What’s New?
 
--	Experience sdk integration
--	Android wallet support
--	Main login entry screen change
--	Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
--	Bug fixes for master card and branding coloring support for action bar
-
+- Fixed experience sdk button issue for "Return" and "Add Tickets"
+- Fixed experience button menu missing after second time the ticket view is visited.
 
 {% endcapture %}
 
 
 {% capture iOS_changelog %}
+### Changes (11/21/17 Release 1.3.1)
+- Fixed experience sdk integration issues.
+- Fixed crash while adding a credit card for Host.
+
 ### Changes (11/6/17 Release 1.3.0)
 - Experience SDK Integration.
 - Improved Login Screen for the SDK.
@@ -910,6 +910,10 @@ Supported API levels
 
 {% capture Android_changelog %}
 
+### Changes (11/21/2017 Release 1.3.1)
+- Fixed experience sdk integration issues.
+- Fixed experience button menu missing after second time the ticket view is visited.
+
 ### Changes (11/06/2017 Release 1.3.0)
 - Experience sdk integration
 - Android wallet support
@@ -960,13 +964,13 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_0.zip) Presence SDK iOS - Swift 4.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_1.zip) Presence SDK iOS - Swift 4.
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_0.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_1.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_3_0 .zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_3_1 .zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
