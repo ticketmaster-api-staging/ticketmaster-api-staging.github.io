@@ -1620,12 +1620,12 @@ Response:
 {: .list}
 
 - (object) - Cart Response
-    * `cart_id` (object) - Cart ID
+    * `cart_id` (string) - Cart ID
     * `cart` (object) - Cart
         * `hold_time` (number) - Cart expiry time in seconds
         - `items` (array) - Items
             - {arrayitemobject} - item
-                * `item` (object) - This item could be of type "Tickets,Delivery,Processing".They are described in detail below.
+                * `item` (object) - This item could be of type "Tickets, Delivery or Processing".They are described in detail below.
         - `totals` (object) - Totals
             * `currency_code` (text) - Currency Eg. "USD"
             * `fee` (number) - Total Fees
@@ -1645,7 +1645,7 @@ Response:
 - (object) - Tickets
   * `id` (number) - Item id
   * `type` (text) - Type 'ticket'
-  * `x_num` (number) - X number
+  * `x_num` (number) -  For Host-based inventory only
   * `event_id` (text) - Event Id Eg. "3F004CBB88958BF9"
   * `num_seats` (number) - Number of seats
   * `row` (text) -  Name of Row Eg. "I"
@@ -1722,7 +1722,7 @@ Response:
 -		`payments` (array) - Payments
 		-		{arrayitemobject} - Payment
 				* `id` (number) - Item id
-				* `payment_id` (text) - Type 'processing'
+				* `payment_id` (number) - Payment Id
 				* `type` - Type of Payment (INVOICE,CC)
 				* `amount` - Amount charged
 				-		`card` (object) - Card (This included only if Payment type is not Invoice)
@@ -1770,7 +1770,6 @@ Response:
     * `expire_year` (number) - Expiration year (four digits, CC type only)
     * `bundle` (string) - Encrypted Apple Pay or Google Wallet information
 
-
 #### Wallet Token Payment (Wallet anonymous)
 
 {: .list}
@@ -1779,11 +1778,9 @@ Response:
     * `number` (string) - Wallet Token generated
     * `cin` (string) - Cvv number
 
-
 #### Member Id Payment (Wallet)
 
 {: .list}
-
 
 - `card` (object)  - Card
     * `cin` (string) - Encrypted cvv number (CC type only)
