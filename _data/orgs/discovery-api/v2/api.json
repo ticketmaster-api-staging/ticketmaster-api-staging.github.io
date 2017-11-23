@@ -1542,7 +1542,13 @@
           "type" : "boolean",
           "default" : false
         },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
         "durationField" : {
+          "$ref" : "#/definitions/DurationField"
+        },
+        "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
         "minimumValue" : {
@@ -1574,10 +1580,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
