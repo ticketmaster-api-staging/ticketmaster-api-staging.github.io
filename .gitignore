@@ -6,6 +6,8 @@ _site
 .vscode/
 .linters/
 tests/galen/reports-local
+docker
+node_modules
 
 # NodeJS libs
 node_modules
