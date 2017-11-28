@@ -376,59 +376,7 @@ Reserves the specified tickets. For integrations requiring captcha, send the cap
 
 ### Response structure:
 
-{: .nested-list}
-
-- (object) - response
-    * `cart_id` (object) - Cart ID
-    * `reserve` (object) - Reserve
-    * `cart` (object) - Cart
-        * `hold_time` (number) - Cart expiry time in seconds
-        - `items` (array) - Items
-            - {arrayitemobject} - item
-                * `id` (number) - Item id
-                * `type` (text) - Type of item. Eg 'ticket'
-                * `x_num` (number) - X number
-                * `end_seat_number` (number) - End Seat Number
-                * `event_id` (text) - Event Id Eg. "3F004CBB88958BF9"
-                * `num_seats` (number) - Number of seats
-                * `row` (text) -  Name of Row Eg. "I"
-                * `section` (text) - Section Name Eg. "MEZZ" for Mezzanine
-                * `start_seat_number` (number) - Begin Seat Number
-                * `is_ga` (boolean=true/false) - true if general admission else false.
-                - `tickets` (array) - Tickets
-                    - {arrayitemobject} - Ticket
-                        * `charges` (array) - Charges
-                            - {arrayitemobject} - Charge
-                                * `price` (number) - 
-                                * `quantity` (number) - 
-                                * `tax` (number) - 
-                                * `type` (text) - Type of charge Eg. distance, face_value, facility, service etc.      
-                        * `description` (text) - Offer name
-                        * `id` (text) - Ticket type Id
-                        * `quantity` (number) -  Number of tickets reserved
-                    - `totals` (array) - Totals
-                    - {arrayitemobject} - Total
-                        * `currency_code` (text) - Currency Eg. "USD"
-                        * `fee` (number) - Fees
-                        * `grand` (number) - Grand total
-                        * `merchandise` ( number) - Base item value. Excludes fees, taxes, and delivery
-                        * `delivery` (number) - Delivery charge
-                        * `tax` (number) - Tax
-                        * `unpaid` (number) - Unpaid balance
-                        * `upsell` (number) - Upsell cost
-                - `areas` (array) - Areas
-                    - {arrayitemobject} - area
-                        * `description` (text) - Description of the area or price level Eg. "100 Level" or "Price Level 6"
-                        * `id` (number) - Area ID
-        - `totals` (object) - Totals
-            * `currency_code` (text) - Currency Eg. "USD"
-            * `fee` (number) - Total Fees
-            * `grand` (number) - Grand total
-            * `merchandise` ( number) - Total base value of the items. Excludes fees, taxes, and delivery
-            * `delivery` (number) - Total Delivery charge
-            * `tax` (number) - Total Tax
-            * `unpaid` (number) - Total Unpaid balance
-
+ [Cart](#cart-object)
 
 >[Request](#req)
 >[Response](#res)
@@ -483,7 +431,7 @@ Status 200
         "items": [
             {
                 "end_seat_number": "7",
-                "event_id": "3F004CBB88958BF9", 
+                "event_id": "3F004CBB88958BF9",
                 "num_seats": 1,
                 "row": "I",
                 "section": "CLB234",
@@ -653,6 +601,10 @@ Add a shipping option to the event.  Note: some API users will be pre-configured
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 | `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes      |
 
+
+### Response structure:
+
+[Cart](#cart-object)
 
 >[Request](#req)
 >[Response](#res)
@@ -839,35 +791,13 @@ Sample credit-card information for use in the production environment for event i
 *Polling: No*  
 *Authorization: No*
 
-{: .nested-list}
+### Request structure:
 
-- `payment` (object)  - Payment
-    * `first_name` (string) - First name of buyer
-    * `last_name` (string) - Last name of buyer
-    * `home_phone` (string) - Phone number
-    * `type` (string) - Valid values: CC, INVOICE, APPLE_PAY, GOOGLE_WALLET
-    * `email_address` (string) - Email address of user
-    * `amount` (number) - Amount to be charged
-    * `reference` (string) - Required for type=INVOICE only. Your numeric string-quoted reference number for this invoice transaction.
-    * `address` (object) - Address
-        * `line1` (string) - Address line 1
-        * `line2` (string) - Address line 2
-        * `unit` (string) - Unit number
-        * `city` (string) - City
-        * `country` (object) - Country
-            * `code` (string) - Required, use ISO country abbreviations http://www.nationsonline.org/oneworld/country_code_list.htm
-        * `region` (object) - Region
-            * `abbreb` (string) Region abbreviation
-        * `postal_code` (string) - Postal/Zip code
-    * `card` (object) - Card information
-        * `issuer` (string) - Issuer of card (VISA, MC, AMEX, DISCOVER)
-        * `number` (string) - Encrypted credit card number (CC type only)
-        * `cin` (string) - Encrypted cvv number (CC type only)
-        * `encryption_key` (string) - Encryption certificate id (see certificate docs earlier, CC type only) 
-        * `expire_month` (number) - Expiration month (two digit, CC type only)
-        * `expire_year` (number) - Expiration year (four digits, CC type only)
-        * `bundle` (string) - Encrypted Apple Pay or Google Wallet information
+[Payment Request](#paymentRequest-object)
 
+### Response structure:
+
+[Cart](#cart-object) is returned along with the [payment](#payment-section) section added.
 
 >[Request](#req)
 >[Response](#res)
@@ -1683,6 +1613,178 @@ Response:
     "grand_total":68.74
 }
 {% endhighlight %}
+
+## Cart
+{: #cart-object}
+
+{: .list}
+
+- (object) - Cart Response
+    * `cart_id` (string) - Cart ID
+    * `cart` (object) - Cart
+        * `hold_time` (number) - Cart expiry time in seconds
+        - `items` (array) - Items
+            - {arrayitemobject} - item
+                * `item` (object) - This item could be of type "Tickets, Delivery or Processing".They are described in detail below.
+        - `totals` (object) - Totals
+            * `currency_code` (text) - Currency Eg. "USD"
+            * `fee` (number) - Total Fees
+            * `grand` (number) - Grand total
+            * `merchandise` ( number) - Total base value of the items. Excludes fees, taxes, and delivery
+            * `delivery` (number) - Total Delivery charge
+            * `tax` (number) - Total Tax
+            * `unpaid` (number) - Total Unpaid balance
+            * `upsell` (number) - Upsell
+
+
+#### Cart Item - Tickets
+
+
+{: .list}
+
+- (object) - Tickets
+  * `id` (number) - Item id
+  * `type` (text) - Type 'ticket'
+  * `x_num` (number) -  For Host-based inventory only
+  * `event_id` (text) - Event Id Eg. "3F004CBB88958BF9"
+  * `num_seats` (number) - Number of seats
+  * `row` (text) -  Name of Row Eg. "I"
+  * `section` (text) - Section Name Eg. "MEZZ" for Mezzanine
+  * `start_seat_number` (number) - Begin Seat Number
+  * `end_seat_number` (number) - End Seat Number
+  * `ga` (boolean=true/false) - true if general admission else false.
+  * `is_ga` (boolean=true/false) - true if general admission else false.
+  -		`totals` (object) - Totals
+			* `currency_code` (text) - Currency Eg. "USD"
+			* `fee` (number) - Total Fees
+			* `grand` (number) - Grand total
+			* `merchandise` ( number) - Total base value of the items. Excludes fees, taxes, and delivery
+			* `tax` (number) - Total Tax
+	-		`areas` (array) - Areas
+			-		{arrayitemobject} - area
+					* `description` (text) - Description of the area or price level Eg. "100 Level" or "Price Level 6"
+					* `id` (number) - Area ID
+	-		`tickets` (array) - Tickets
+			- 	{arrayitemobject} - Ticket
+					* `description` (text) - Offer name
+					* `id` (text) - Ticket type ID
+					* `quantity` (number) -  Number of tickets reserved
+					* `inventory_type` (string) -  Primary or Resale
+					-		`charges` (array) - Charges
+							-		{arrayitemobject} - Charge
+									* `price` (number)
+									* `quantity` (number)
+									* `tax` (number)
+									* `type` (text) - Type of charge Eg. distance, face_value, facility, service etc.
+
+#### Cart Item - Delivery
+
+{: .list}
+
+- (object) - Delivery
+  * `id` (number) - Item id
+  * `type` (text) - Type 'delivery'
+  * `carrier` (string) - e.g. "TICKETMASTER"
+  * `service_level` (string) - Type of Delivery. e.g."ETICKET"
+  -		`description` (object) - Description
+			* `long` (text) -  Eg. "Get in with:"
+			* `short` (text) - Eg. "etickets"
+			* `eta` (text) - Eg. "etickets"
+  -		`totals` (object) - Totals
+			* `currency_code` (text) - Currency Eg. "USD"
+			* `fee` (number) - Total Fees
+			* `grand` (number) - Grand total
+			* `merchandise` ( number) - Total base value of the items. Excludes fees, taxes, and delivery
+			* `tax` (number) - Total Tax
+
+
+
+#### Cart Item - Processing
+
+{: .list}
+
+- (object) - Processing
+  * `id` (number) - Item id
+  * `type` (text) - Type 'processing'
+  -		`totals` (object) - Totals
+			* `currency_code` (text) - Currency Eg. "USD"
+			* `fee` (number) - Total Fees
+			* `grand` (number) - Grand total
+			* `merchandise` ( number) - Total base value of the items. Excludes fees, taxes, and delivery
+			* `tax` (number) - Total Tax
+
+
+#### Payment Section - This section is added to Cart Response after adding billing
+{: #payment-section}
+
+{: .list}
+
+-		`payments` (array) - Payments
+		-		{arrayitemobject} - Payment
+				* `id` (number) - Item id
+				* `payment_id` (number) - Payment Id
+				* `type` - Type of Payment (INVOICE,CC)
+				* `amount` - Amount charged
+				-		`card` (object) - Card (This included only if Payment type is not Invoice)
+						* `expire_month` (number) - Expiration month
+						* `expire_year` (number) - Expiration year
+						* `issuer` (text) - Issuer of card
+						* `number` (text) - Last Four Digits for CC used.
+
+
+## Payment Request
+{: #paymentRequest-object}
+
+{: .list}
+
+- `payment` (object)  - Payment
+    * `first_name` (string) - First name of buyer
+    * `last_name` (string) - Last name of buyer
+    * `home_phone` (string) - Phone number
+    * `type` (string) - Valid values: CC, INVOICE, APPLE_PAY, GOOGLE_WALLET
+    * `email_address` (string) - Email address of user
+    * `amount` (number) - Amount to be charged
+    * `reference` (string) - Required for type=INVOICE only. Your numeric string-quoted reference number for this invoice transaction.
+    * `address` (object) - Address
+        * `line1` (string) - Address line 1
+        * `line2` (string) - Address line 2
+        * `unit` (string) - Unit number
+        * `city` (string) - City
+        * `country` (object) - Country
+            * `code` (string) - Required, use ISO country abbreviations http://www.nationsonline.org/oneworld/country_code_list.htm
+        * `region` (object) - Region
+            * `abbreb` (string) Region abbreviation
+        * `postal_code` (string) - Postal/Zip code
+    * `card` (object) - Card information is used only for(CC,Wallet,Member Id Payment).Data is different based on the Type of Payment used(Described in detail below).
+
+#### Encrypted Credit Card Payment
+
+{: .list}
+
+- `card` (object)  - Card
+    * `issuer` (string) - Issuer of card (VISA, MC, AMEX, DISCOVER)
+    * `number` (string) - Encrypted credit card number (CC type only)
+    * `cin` (string) - Encrypted cvv number (CC type only)
+    * `encryption_key` (string) - Encryption certificate id (see certificate docs earlier, CC type only)
+    * `expire_month` (number) - Expiration month (two digit, CC type only)
+    * `expire_year` (number) - Expiration year (four digits, CC type only)
+    * `bundle` (string) - Encrypted Apple Pay or Google Wallet information
+
+#### Wallet Token Payment (Wallet anonymous)
+
+{: .list}
+
+- `card` (object)  - Card
+    * `number` (string) - Wallet Token generated
+    * `cin` (string) - Cvv number
+
+#### Member Id Payment (Wallet)
+
+{: .list}
+
+- `card` (object)  - Card
+    * `cin` (string) - Encrypted cvv number (CC type only)
+    * `encryption_key` (string) - Encryption certificate id (see certificate docs earlier, CC type only)
 
 
 ## Versions
