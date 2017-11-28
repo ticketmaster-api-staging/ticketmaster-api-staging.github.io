@@ -1339,7 +1339,7 @@
     },
     "Attraction" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
@@ -1542,9 +1542,6 @@
           "type" : "boolean",
           "default" : false
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
@@ -1558,9 +1555,6 @@
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
         },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
@@ -1628,13 +1622,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "unitMillis" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
         },
         "name" : {
           "type" : "string"
@@ -1711,7 +1705,7 @@
     },
     "Event" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
@@ -2641,9 +2635,28 @@
       },
       "description" : "Type"
     },
+    "Url" : {
+      "type" : "object",
+      "required" : [ "locales", "url" ],
+      "properties" : {
+        "locales" : {
+          "type" : "array",
+          "description" : "List of locales using this specific url",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "url" : {
+          "type" : "string",
+          "description" : "URL of a web site detail page of the entity"
+        }
+      },
+      "description" : "Url"
+    },
     "Venue" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
