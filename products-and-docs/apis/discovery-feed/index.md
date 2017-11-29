@@ -45,10 +45,11 @@ All connections must be made over SSL using https.
 ## Get Events [GET]
 {: #discovery-feed-details}
 
-Download a list of events in supported countries. The following formats are available: csv, xml or json.
+Download a list of events in supported countries.The following formats are available: csv, xml or json.
+If you do not mention countryCode parameter it is defaulted to "US".
 
-http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}
-{: .code .red}
+http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}&countryCode={countryCode}
+
 
 ### Parameters
 

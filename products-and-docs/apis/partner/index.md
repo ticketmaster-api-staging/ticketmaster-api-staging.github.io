@@ -29,7 +29,9 @@ Make live API calls right now in the interactive docs:
 
 Clients will be provided an API key from Ticketmaster which should be added to every resource endpoint call.
 
-Example: `https://app.ticketmaster.com/partners/v1/events/1AeZZfEGkD0xtGV/cart?apikey=3QIvq55bS608ai6r8moig1WdW57bONry`
+The key can be sent as a query parameter "apikey" or as a header "x-api-key".
+
+Example (using apikey as query parameter): `https://app.ticketmaster.com/partners/v1/events/1AeZZfEGkD0xtGV/cart?apikey=3QIvq55bS608ai6r8moig1WdW57bONry`
 
 ### Host and API endpoint information
 
@@ -68,32 +70,6 @@ By using the Ticketmaster Developer Portal, you understand and agree to our [Ter
 ### Service Availability
 
 The Ticketmaster back-end reservation systems are distributed globally and events are processed on their local systems.  These systems go into a nightly maintenance mode between 12AM and 2AM local time. This means a show playing at Madison Square Garden will not be transactable between 12AM-2AM Eastern Time.  Use the timezone value from the event details response to note when these events may be unavailable for transactions.
-
-### Quota Policy
-
-The Partner API has a quota policy.This policy is applied for all the request made to these endpoints
-
-/events/ or
-/events/{eventId}
-
-The restrictions are as follows :
-
-		For Production   : 200 requests / minute for a client IP
-
-The following headers are returned in the response add more information about the quota
-
-	Ratelimit-Quota-Allowed :  Returns the allowed quota count
-	Ratelimit-Quota-Used    :  Returns the current quota used within a quota interval
-	Ratelimit-Expiry        :  Returns the UTC time in milliseconds which determines when the quota expires and new quota interval starts.
-
-In addition to that the just <b>Availability End Point </b>(/event/{eventId}/availability)  has an updated quota policy.The restriction is <b>3600 requests/hour </b> for an apikey.If you get a 429 error code, it means that your request was aborted because of violation of quota policy.
-
-The following headers to the availability response add more information about the quota 
-
-     Ratelimit-Expiry          :  The expiry time for the rate limit
-     Ratelimit-Quota-Allowed   :  The total no of requests allowed
-     Ratelimit-Quota-Available :  The no of requests (remaining) that can be made within the time limit
-
 
 ### Channel Partners
 See ["Channel Partners"](#channel-partner-overview)
@@ -1513,107 +1489,6 @@ Example:
 Clients can reference the *code* field when communicating and debugging errors with Ticketmaster. We will automatically be notified of any internal, unrecoverable errors.
 
 
-## Examples
-{: #examples}
-
-The following illustrates a typical purchase flow:
-
-### 1. Discover event ticket information.
-
-Request: `GET /partners/v1/events/1AeZZfEGkD0xtGV`
-
-Further ticketing operations only allowed if event.api_transactable=true.  Display a list of areas and price levels to the user to select a ticket type + price level to reserve.
-
-### 2. Display captcha to user
-
-Request: `GET /partners/v1/captcha`
-
-Response contains html to render in a webview containing a Google NoCaptcha ReCaptcha form.  Upon user-submit, the form will redirect the page to ticketmaster-g-recaptcha-response://{captcha-token}.
-Listen for redirects on the webview and obtain the captcha-token.
-
-### 3. Submit the captcha-token with reserve criteria and start a new cart session
-
-Request: `POST /partners/v1/events/1AeZZfEGkD0xtGV/cart`
-Body: `{"token" : "2822b0737710e549a2f74c1e65be19b9", "reserve" : { "tickets": [ {"id": "000000000001"}] }}`
-
-Post the captcha token. Response contains cart_id to be used on further operations on this cart.
-
-Response:
-`{"cart_id" : "6LcA5cESAAAAAPsVEe0jgHVOqlKIbkHaeK0HGhQ6cd34a074e785f2107de2c9fea0016c20", "cart" : ...}`
-
-
-### 4. Get payment encryption certificate. Extract `id` and `value` from response.
-
-Request: `GET /partners/v1/certificate`
-
-### 5. Add encrypted payment information.  Encrypt the credit card number and cvv for the payload (see example in Payment section)
-
-Request: `PUT /partners/v1/events/1AeZZfEGkD0xtGV/cart/payment`
-
-Request body:
-
-{% highlight js %}
-{
-
-    "cart_id" : "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo=",
-
-    "payment": {
-
-        "first_name": "John",           
-        "last_name": "Doe",             
-        "home_phone": "212-867-5309",   
-        "type": "CC",                   
-
-        "address": {
-            "line1": "123 Main Street", 
-            "line2": "",                
-            "unit": "1h",                
-            "city": "Los Angeles",      
-            "country": {                
-                "code": "US"
-            },
-            "region": {                 
-                "abbrev": "CA"
-            },
-            "postal_code": "90210"
-        },
-        "amount": "69.00",              
-        "card": {                       
-            "number": "qvaEc5EX2bt5pt5DiTQR4J6iYZKxsujQPdw7LXCAnbeb8cD/CiXoB1V/pG2GAHBcHS/IdIMskFg=",
-            "cin": "BYdEgXIxwz6bXG6OVQRKwj0wc9KE510eXRpwoEoTrd9t9i7=",
-            "encryption_key": "paysys-dev.0.us.999",
-            "expire_month": 12,
-            "expire_year": 2020,
-            "postal_code": "90210"
-        }
-    }
-}
-{% endhighlight %}
-
-### 6. Purchase the tickets
-
-Request: `PUT /partners/v1/events/1AeZZfEGkD0xtGV/cart`
-
-Request body:
-
-{% highlight js %}
-{
-    "cart_id" : "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo=",
-    "source_account_id" : "30f86cd70ac7216bc596aa2d060a7064"
-}
-{% endhighlight %}
-
-Response:
-
-{% highlight js %}
-{
-    "redemption_url" : "http://myorder-qa.ticketmaster.net/redeem?event_id=3F004EC9D1EBBC76&token=d2999e02-4936-41d2-zhNgdH2B7xGuuv50sAJsrJZCMY",
-    "order_token" : "d2999e02-4936-41d2-zhNgdH2B7xGuuv50sAJsrJZCMY",
-    "order_number" : "35-46145/LA1",
-    "grand_total":68.74
-}
-{% endhighlight %}
-
 ## Cart
 {: #cart-object}
 
@@ -1652,7 +1527,6 @@ Response:
   * `section` (text) - Section Name Eg. "MEZZ" for Mezzanine
   * `start_seat_number` (number) - Begin Seat Number
   * `end_seat_number` (number) - End Seat Number
-  * `ga` (boolean=true/false) - true if general admission else false.
   * `is_ga` (boolean=true/false) - true if general admission else false.
   -		`totals` (object) - Totals
 			* `currency_code` (text) - Currency Eg. "USD"
@@ -1786,14 +1660,5 @@ Response:
     * `cin` (string) - Encrypted cvv number (CC type only)
     * `encryption_key` (string) - Encryption certificate id (see certificate docs earlier, CC type only)
 
-
-## Versions
-{: #versions}
-
-| Date | API Major Version | Minor Version | Comment |
-| ---- | ----------------- | ------------- | ------- |
-| 2015-10-01 |        1          |      0        | Initial |
-| 2015-10-12 |        1          |      0        | Updated captcha and cart session usage|
-| 2016-04-16 |        1          |      0        | Updated reserve endpoint|
 
 
