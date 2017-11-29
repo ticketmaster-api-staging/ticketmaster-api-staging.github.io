@@ -79,7 +79,10 @@ keywords: FAQ, Partner  API cover
 
 {: .link-inline}
 [Why am I not receiving a barcode_id field in the Order details response?](#qf-1)
- 
+
+
+
+
 {: #partner-api-general-a .double-margin}
 ## Partner Api General
 
@@ -219,3 +222,104 @@ Shipping options vary per event.  Make a request to [Shipping endpoint [GET]](/p
 The event may not be set up correctly to emit barcodes.Please contact the client to verify Event settings.
 
 
+
+## Examples
+{: #examples}
+
+The following illustrates a typical purchase flow:
+
+### 1. Discover event ticket information.
+
+Request: `GET /partners/v1/events/1AeZZfEGkD0xtGV`
+
+Further ticketing operations only allowed if event.api_transactable=true.  Display a list of areas and price levels to the user to select a ticket type + price level to reserve.
+
+### 2. Display captcha to user
+
+Request: `GET /partners/v1/captcha`
+
+Response contains html to render in a webview containing a Google NoCaptcha ReCaptcha form.  Upon user-submit, the form will redirect the page to ticketmaster-g-recaptcha-response://{captcha-token}.
+Listen for redirects on the webview and obtain the captcha-token.
+
+### 3. Submit the captcha-token with reserve criteria and start a new cart session
+
+Request: `POST /partners/v1/events/1AeZZfEGkD0xtGV/cart`
+Body: `{"token" : "2822b0737710e549a2f74c1e65be19b9", "reserve" : { "tickets": [ {"id": "000000000001"}] }}`
+
+Post the captcha token. Response contains cart_id to be used on further operations on this cart.
+
+Response:
+`{"cart_id" : "6LcA5cESAAAAAPsVEe0jgHVOqlKIbkHaeK0HGhQ6cd34a074e785f2107de2c9fea0016c20", "cart" : ...}`
+
+
+### 4. Get payment encryption certificate. Extract `id` and `value` from response.
+
+Request: `GET /partners/v1/certificate`
+
+### 5. Add encrypted payment information.  Encrypt the credit card number and cvv for the payload (see example in Payment section)
+
+Request: `PUT /partners/v1/events/1AeZZfEGkD0xtGV/cart/payment`
+
+Request body:
+
+{% highlight js %}
+{
+
+    "cart_id" : "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo=",
+
+    "payment": {
+
+        "first_name": "John",
+        "last_name": "Doe",
+        "home_phone": "212-867-5309",
+        "type": "CC",
+
+        "address": {
+            "line1": "123 Main Street",
+            "line2": "",
+            "unit": "1h",
+            "city": "Los Angeles",
+            "country": {
+                "code": "US"
+            },
+            "region": {
+                "abbrev": "CA"
+            },
+            "postal_code": "90210"
+        },
+        "amount": "69.00",
+        "card": {
+            "number": "qvaEc5EX2bt5pt5DiTQR4J6iYZKxsujQPdw7LXCAnbeb8cD/CiXoB1V/pG2GAHBcHS/IdIMskFg=",
+            "cin": "BYdEgXIxwz6bXG6OVQRKwj0wc9KE510eXRpwoEoTrd9t9i7=",
+            "encryption_key": "paysys-dev.0.us.999",
+            "expire_month": 12,
+            "expire_year": 2020,
+            "postal_code": "90210"
+        }
+    }
+}
+{% endhighlight %}
+
+### 6. Purchase the tickets
+
+Request: `PUT /partners/v1/events/1AeZZfEGkD0xtGV/cart`
+
+Request body:
+
+{% highlight js %}
+{
+    "cart_id" : "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo=",
+    "source_account_id" : "30f86cd70ac7216bc596aa2d060a7064"
+}
+{% endhighlight %}
+
+Response:
+
+{% highlight js %}
+{
+    "redemption_url" : "http://myorder-qa.ticketmaster.net/redeem?event_id=3F004EC9D1EBBC76&token=d2999e02-4936-41d2-zhNgdH2B7xGuuv50sAJsrJZCMY",
+    "order_token" : "d2999e02-4936-41d2-zhNgdH2B7xGuuv50sAJsrJZCMY",
+    "order_number" : "35-46145/LA1",
+    "grand_total":68.74
+}
+{% endhighlight %}

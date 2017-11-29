@@ -16,6 +16,21 @@ keywords: Partner API, host and API, reserve tickets, create a cart, order manag
 The Ticketmaster Availability API lets clients find out the ticket and seat availability informaton.
 {: .article .lead}
 
+#### Quota Policy
+
+A quota policy is applied for all the request made to endpoint(s)
+
+/events/{eventId}/availability
+
+
+The following headers are returned in the response add more information about the quota
+
+	Ratelimit-Quota-Allowed :  Returns the allowed quota count
+	Ratelimit-Quota-Used    :  Returns the current quota used within a quota interval
+	Ratelimit-Expiry        :  Returns the UTC time in milliseconds which determines when the quota expires and new quota interval starts.
+	Ratelimit-Quota-Available :  The no of requests (remaining) that can be made within the time limit
+
+The restriction is <b>3600 requests/hour </b> for an apikey.If you get a 429 error code, it means that your request was aborted because of violation of quota policy.
 
 {: .article}
 ## Ticket Inventory and Seat Availability [GET]
