@@ -432,8 +432,22 @@ The ID for this layout will be referenced in the next step
 {% capture iOS_branding_color %}
 Configure your branding color with a UIColor object
 
-{% highlight java %}
+{% highlight swift %}
 presenceSDK.setBrandingColor(color: UIColor.blue)
+{% endhighlight %}
+
+### Configure Team Theme
+Configure your team's theme as `SDKTheme.Light` (default) or `SDKTheme.Dark`. The theme configuration lets PresenceSDK
+know how to setup various UI elements accourdingly. 
+{% highlight swift %}
+/**     
+Method for configuring Team Apps theme color in PresenceSDK. This theme color will be used
+on various UI elements of the SDK to provide a custom look for Team apps.
+    
+- Parameters:
+- theme: Theme to be used in the SDK.
+*/
+func setTheme(theme: SDKTheme)
 {% endhighlight %}
 
 {% endcapture %}
@@ -832,6 +846,9 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 - To build, you must use XCode 8.3.3 and the iOS 10.3 SDK
 - Minimum iOS 9.0, supported through iOS 10.3.3
+
+### General Requirements
+- Presence SDK only supports Portrait Orientation
 
 ### What’s New?
 
