@@ -279,7 +279,7 @@ extension ViewController: PresenceLoginDelegate {
   ///Called when results are returned for a member info request after successful login
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
   ///fails or an error is returned fetching member details.
-  func onMemberWasUpdated(_ member: PresenceMember?)
+  func onMemberUpdated(_ member: PresenceMember?)
 }
 {% endhighlight %}
 
