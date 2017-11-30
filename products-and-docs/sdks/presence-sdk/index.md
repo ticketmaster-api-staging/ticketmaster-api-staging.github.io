@@ -488,7 +488,7 @@ PresenceSDK.getPresenceSDK(context).logOut();
 
 ## Check Login Status
 
-Presence SDK also provides some helper methods for checking if user is 	logged into any of the supported services.
+Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
 {% highlight java %}
 // Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
@@ -499,6 +499,20 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoHost();
 PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% endhighlight%}
 
+{% endcapture %}
+
+{% capture iOS_global_methods %}
+{% highlight swift %}
+  // This method returns version number of the SDK as a String.
+  func getVersionNumber()
+{% endhighlight %}
+{% endcapture %}
+
+{% capture Android_global_methods %}
+{% highlight java %}
+  // This method returns version number of the SDK as a String.
+  public String getVersionNumber()
+{% endhighlight %}
 {% endcapture %}
 
 {% capture iOS_analytics %}
@@ -1150,6 +1164,39 @@ You've got logging in all set up, now you can set up logging out
         <!-- Android Tab -->
         <div class="tab-pane fade" id="logout-android">
             {{ Android_logout_methods | markdownify }}
+        </div>
+
+    </div>
+</form>
+</div>
+
+## Global Methods
+{: .article }
+
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#global-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#global-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="global-ios">
+            {{ iOS_global_methods | markdownify }}
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="global-android">
+            {{ Android_global_methods | markdownify }}
         </div>
 
     </div>
