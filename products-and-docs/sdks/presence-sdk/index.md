@@ -269,9 +269,11 @@ Step 3: Conform your ViewController to PresenceLoginDelegate and implement the t
 
 {% highlight swift %}
 extension ViewController: PresenceLoginDelegate {
-  ///- parameter succeeded: Returns `true` if the user granted app access/logged in.
-  ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
-  func onLoginSuccessful(_ succeeded:Bool, error:NSError?)
+  //Mandatory methods that the confirming class has to implement. ----------
+
+  ///Method is invoked if the user granted app access/logged in.
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName)
 
   ///User dismissed login window via the Cancel button
   func onLoginCanceled()
@@ -280,6 +282,28 @@ extension ViewController: PresenceLoginDelegate {
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
   ///fails or an error is returned fetching member details.
   func onMemberUpdated(_ member: PresenceMember?)
+
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
+  func onLoginFailed(backendName: PresenceLogin.BackendName, error: NSError?)
+
+  /// Notify when successfully logged-out from both backends
+  func onLogoutAllSuccessful()
+
+  ///Optional Methods ----------
+
+  /// Notify when user clicks on "forgot password" link
+  func onLoginForgotPasswordClicked()
+    
+  /// Notify when all cache is cleared
+  func onCacheCleared()
+    
+  /// Notify when successfully logged-out
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLogoutSuccessful(backendName: PresenceLogin.BackendName)
+ 
+  ///Called when the LoginWindow is made visible to the user.
+  func loginWindowDidDisplay() 
 }
 {% endhighlight %}
 
@@ -340,7 +364,7 @@ class ViewController: UIViewController, PresenceLoginDelegate {
   }
 
 
-  func onLoginSuccessful(_ succeeded:Bool, error:NSError?) {
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName) {
   }
 
   //User dismissed login window via the Cancel button
@@ -355,6 +379,12 @@ class ViewController: UIViewController, PresenceLoginDelegate {
       print("Team Member-Id: \(pMember.AccountManagerMemberID)")
       print("Host Member-Id: \(pMember.HostMemberID)")
     }
+  }
+
+  func onLogoutAllSuccessful() {
+  }
+
+  func onLoginFailed(backendName: PresenceLogin.BackendName, error: NSError?) {
   }
 }
 
