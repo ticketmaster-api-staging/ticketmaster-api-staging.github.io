@@ -25,7 +25,6 @@ import PresenceSDK  //Import this module
 Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In this method, the account credentials and branding color will be configured.
 
 {% highlight swift %}
-//Swift Version
 func configurePresenceSDK() {
   //If you are a team use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
@@ -1008,7 +1007,7 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_1.zip) Presence SDK iOS - Swift 4.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_1.zip) Presence SDK iOS - Swift 4.0.0 .
 
 [Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_1.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
