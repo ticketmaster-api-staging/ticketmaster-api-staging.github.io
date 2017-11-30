@@ -271,7 +271,7 @@ Step 3: Conform your ViewController to PresenceLoginDelegate and implement the t
 extension ViewController: PresenceLoginDelegate {
   ///- parameter succeeded: Returns `true` if the user granted app access/logged in.
   ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
-  func onLoginWasSuccessful(_ succeeded:Bool, error:NSError?)
+  func onLoginSuccessful(_ succeeded:Bool, error:NSError?)
 
   ///User dismissed login window via the Cancel button
   func onLoginCanceled()
