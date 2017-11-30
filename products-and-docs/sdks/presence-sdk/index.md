@@ -309,9 +309,12 @@ extension ViewController: PresenceLoginDelegate {
 Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
 
 {% highlight swift %}
+
+
 override func viewDidLoad() {
-  super.viewDidLoad()        
-  PresenceSDK.getPresenceSDK().start(presenceSDKView: presenceSDKView, loginDelegate: self)
+  super.viewDidLoad() 
+  // class variable: var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()       
+  persenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
 }
 {% endhighlight %}
 
@@ -339,12 +342,10 @@ import PresenceSDK
 class ViewController: UIViewController, PresenceLoginDelegate {
 
   @IBOutlet weak var presenceSDKView: PresenceSDKView?
-  var presenceSDK: PresenceSDK?
+  var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationItem.title = NSLocalizedString("My Events", comment: "")
-    presenceSDK = PresenceSDK.getPresenceSDK()
     presenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
 
   }
@@ -352,7 +353,6 @@ class ViewController: UIViewController, PresenceLoginDelegate {
   @IBAction func logout(sender: UIButton) {
     presenceSDK.logOut()
   }
-
 
   func onLoginSuccessful(backendName: PresenceLogin.BackendName) {
   }
@@ -819,7 +819,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework
 
-## Release Notes Version 1.3.1
+### Release Notes Version 1.3.1
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
