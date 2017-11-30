@@ -25,7 +25,7 @@ import PresenceSDK  //Import this module
 Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In this method, the account credentials and branding color will be configured.
 
 {% highlight swift %}
-func configurePresenceSDK() {
+private func configurePresenceSDK() {
   //If you are a team use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
     displayName: #your_team_display_name,
@@ -247,7 +247,7 @@ Step 11: Try to build and compile. At this point, it should be compiled without 
 
 
 {% capture iOS_set_view %}
-## Configuring Your ViewController
+### Configuring Your ViewController
 
 **Note**: This is a basic example for configuring the ViewController
 
@@ -478,7 +478,7 @@ A simple Logout handler function can look like this:
 }
 {% endhighlight %}
 
-## Check Login Status
+### Check Login Status
 
 Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
@@ -655,7 +655,7 @@ Payload Data for the Notifications – Only relevant information is sent out wit
 }
 {% endhighlight %}
 
-## Analytics Usage
+### Analytics Usage
 
 If you want to track ACTION_MANAGETICKETSCREENSHOWED event you should add an observer inside your ViewController’s viewDidLoad() method like this:
 
