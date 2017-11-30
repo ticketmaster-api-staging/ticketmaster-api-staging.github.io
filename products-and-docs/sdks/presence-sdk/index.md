@@ -804,6 +804,12 @@ private BroadcastReceiver mAnalyticEventReceiver = new BroadcastReceiver() {
 PresenceSDK is packaged as a Universal binary and it contains binary packages for all valid architectures including ARMv* and x86. This is great for development as you can run your app on both devices and simulators but for App Store submission you need to strip the simulator packages from your App. To do this we have provided “strip_frameworks.sh” file, just add this file to the Run Script phase under your app’s Build Phases settings and it will do the work for you. Here is a screenshot of what your Build phases will look like after adding this file:
 
 ![PresenceSDK iOS Step 5 result](/assets/img/products-and-docs/PresenceSDK-iOS-Store-Submission.png)
+
+{% highlight shell %}
+#For your copy and paste needs
+bash "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PresenceSDK.framework/strip_frameworks.sh"
+{% endhighlight %}
+
 {% endcapture %}
 
 {% capture Android_release %}
@@ -1016,6 +1022,39 @@ Supported API levels
 
 The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
 {: .lead .article}
+
+## SDK
+{: .article }
+
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#sdk-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#sdk-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="sdk-ios">
+          {{ iOS_sdk | markdownify }}          
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="sdk-android">
+          {{ Android_sdk | markdownify }}
+        </div>
+
+    </div>
+</form>
+</div>
 
 ## What You Need
 {: .article }
@@ -1319,39 +1358,6 @@ Following section describes the steps you need to follow to prepare your app for
         <!-- Android Tab -->
         <div class="tab-pane fade" id="changelog-android">
 					{{ Android_changelog | markdownify }}
-        </div>
-
-    </div>
-</form>
-</div>
-
-## SDK
-{: .article }
-
-<div class="col-lg-12 config-block">
-<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
-
-    <!--Use for mobile devices 'Go' button-->
-    <button type="submit" class="hidden"></button>
-
-    <ul class="nav nav-tabs" data-tabs="tabs">
-        <li class="active">
-            <a href="#sdk-ios" data-toggle="tab" aria-expanded="true">iOS</a>
-        </li>
-        <li class="">
-            <a id="js_styling_nav_tab" href="#sdk-android" data-toggle="tab" aria-expanded="false">Android</a>
-        </li>
-    </ul>
-
-    <div class="tab-content" style="padding-top: 0px;">
-        <!-- iOS Tab -->
-        <div class="tab-pane fade active in" id="sdk-ios">
-					{{ iOS_sdk | markdownify }}          
-        </div>
-        
-        <!-- Android Tab -->
-        <div class="tab-pane fade" id="sdk-android">
-					{{ Android_sdk | markdownify }}
         </div>
 
     </div>
