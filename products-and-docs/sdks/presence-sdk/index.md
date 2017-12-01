@@ -439,7 +439,7 @@ presenceSDK.setBrandingColor(color: UIColor.blue)
 ### Configure Team Theme
 Configure your team's theme as `SDKTheme.Light` (default) or `SDKTheme.Dark`. The theme configuration lets PresenceSDK
 know how to setup various UI elements to contrast with branding color. For example, if branding 
-color is in the dark color spectrum, a `Light` theme configuration will color various UI elements of white.
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements white.
 This will allow crucial UI element to be visible to the user.
 {% highlight swift %}
 /**     
@@ -474,7 +474,7 @@ The defined color will be displayed on all action buttons, action bars and ticke
 ### Configure Team Theme
 Configure your team's theme as `PresenceSdkTheme.Light` (default) or `PresenceSdkTheme.Dark`. The theme configuration lets PresenceSDK
 know how to setup various UI elements to contrast with branding color. For example, if branding 
-color is in the dark color spectrum, a `Light` theme configuration will color various UI elements of white.
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements white.
 This will allow crucial UI element to be visible to the user.
 {% highlight java %}
 /**
