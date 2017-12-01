@@ -438,7 +438,9 @@ presenceSDK.setBrandingColor(color: UIColor.blue)
 
 ### Configure Team Theme
 Configure your team's theme as `SDKTheme.Light` (default) or `SDKTheme.Dark`. The theme configuration lets PresenceSDK
-know how to setup various UI elements accourdingly. 
+know how to setup various UI elements to contrast with branding color. For example, if branding 
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements of white.
+This will allow crucial UI element to be visible to the user.
 {% highlight swift %}
 /**     
 Method for configuring Team Apps theme color in PresenceSDK. This theme color will be used
@@ -468,6 +470,20 @@ presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000"))
 {% endhighlight %}
 
 The defined color will be displayed on all action buttons, action bars and ticket details page. If the above color variable is not defined in the client’s apk project, Tmx sdk will use a default color.
+
+### Configure Team Theme
+Configure your team's theme as `PresenceSdkTheme.Light` (default) or `PresenceSdkTheme.Dark`. The theme configuration lets PresenceSDK
+know how to setup various UI elements to contrast with branding color. For example, if branding 
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements of white.
+This will allow crucial UI element to be visible to the user.
+{% highlight java %}
+/**
+* Method to set content color of UI elements with branding background color
+* @param theme - light theme uses white color, dark theme uses black color
+*/
+public void setTheme(PresenceSdkTheme theme)
+{% endhighlight %}
+
 {% endcapture %}
 
 {% capture iOS_logout_methods %}
@@ -837,9 +853,9 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-### Requirements for using Swift 4 build
+### Requirements for using Swift 4.0.0 build
 
-- To build, you must use XCode 9.0 and the iOS 11.0 SDK
+- To build, you must use XCode 9.0.0 and the iOS 11.0 SDK
 - Minimum iOS 9.0, supported through iOS 11
 
 ### Requirements for using Swift 3.1 build
@@ -848,7 +864,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - Minimum iOS 9.0, supported through iOS 10.3.3
 
 ### General Requirements
-- Presence SDK only supports Portrait Orientation
+- Only Portrait Orientation Supported
 
 ### What’s New?
 
@@ -877,6 +893,7 @@ Supported API levels
 ### Requirements
 
 -	Supported API level 16 ~ 25
+- Only Portrait Orientation Supported
 
 ### What’s New?
 
