@@ -2,17 +2,18 @@
 layout: documentation-single
 categories:
 - documentation
-- sdks
-- presence-sdk
-title: Presence SDK
-excerpt: The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
-keywords: SDK, Presence, Ticket Management, iOS, Android
+- generated
+- commerce-api
+- v2-internal
+title: Commerce API
+excerpt: The Ticketmaster Commerce API provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
+keywords: Commerce API, Ticket Management, iOS, Android
 ---
 
 {: .article}
-# Presence SDK 
+# Commerce API 
 
-The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
+Use the Ticketmaster Commerce API to look up available offers and products on various Ticketmaster platforms for North America markets. For formal partnerships and relationships, selected offers and products can be carted and transacted on through the cart, delivery, payment and purchase APIs – These APIs require approved access from Ticketmaster.
 {: .lead .article}
 
 ## Terms and conditions
