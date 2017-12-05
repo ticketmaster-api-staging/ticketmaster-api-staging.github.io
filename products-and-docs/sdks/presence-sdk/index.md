@@ -79,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.3.1.0’)
+compile project(‘:PresenceSDK-release-1.4.0.0’)
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -96,6 +96,7 @@ compile 'com.squareup.picasso:picasso:2.5.2'
 compile 'com.romandanylyk:pageindicatorview:0.0.5'
 compile 'com.google.zxing:core:3.2.1'
 compile 'com.android.support:percent:25.3.1'
+compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endhighlight %}
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
@@ -849,7 +850,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework
 
-### Release Notes Version 1.3.1
+### Release Notes Version 1.4.0
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
@@ -868,13 +869,13 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 ### What’s New?
 
--	Experience SDK Integration.
--	Improved Login Screen for the SDK.
--	Support for iPhone X screen size.
--	Added refresh button for fans with no tickets
--	Added support for honoring custom tint color for navigation bar configured via UIAppearance.
--	Bug fixes for adding Mastercard as refund card and other UI issues.
-
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
+- Added a new method for accessing SDK's version number.
+- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
+- Made some overall improvements and fixed some critical bugs.
 
 {% endcapture %}
 
@@ -882,31 +883,47 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-1.3.*.*.aar
+-	PresenceSDK-release-1.4.\*.\*.aar
 
 Supported API levels
 
--	API level 16 ~ 25
+-	API level 16 ~ 26
 
-## Release Notes Version 1.3.1
+## Release Notes Version 1.4.0
 
 ### Requirements
 
--	Supported API level 16 ~ 25
+-	Supported API level 16 ~ 26
 - Only Portrait Orientation Supported
 
 ### What’s New?
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added support for API level 26 (Android 8.0)
+- Added a new method for accessing SDK's version number.
+- Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
+- Fixed the background color of Event List View and made it opaque.
+- Made some overall improvements and fixed some critical bugs.
 
-- Experience sdk integration
-- Android wallet support
-- Main login entry screen change
-- Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
-- Bug fixes for master card and branding coloring support for action bar
+{% highlight java %}
+// New Dependency
+compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
+{% endhighlight %}
 
 {% endcapture %}
 
 
 {% capture iOS_changelog %}
+### Changes (12/05/2017 Release 1.4.0)
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
+- Added a new method for accessing SDK's version number.
+- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
+- Made some overall improvements and fixed some critical bugs.
+
 ### Changes (11/21/17 Release 1.3.1)
 - Fixed experience sdk integration issues.
 - Fixed crash while adding a credit card for Host.
@@ -986,6 +1003,15 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_changelog %}
+### Changes (12/05/2017 Release 1.4.0)
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added support for API level 26 (Android 8.0)
+- Added a new method for accessing SDK's version number.
+- Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
+- Fixed the background color of Event List View and made it opaque.
+- Made some overall improvements and fixed some critical bugs.
 
 ### Changes (11/21/2017 Release 1.3.1)
 - Fixed experience sdk integration issues.
