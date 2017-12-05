@@ -865,7 +865,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - Minimum iOS 9.0, supported through iOS 10.3.3
 
 ### General Requirements
-- Only Portrait Orientation Supported
+- Only Portrait Orientation Supported.
 
 ### What’s New?
 
@@ -893,14 +893,14 @@ Supported API levels
 
 ### Requirements
 
--	Supported API level 16 ~ 26
-- Only Portrait Orientation Supported
+-	Supported API level 16 ~ 26.
+- Only Portrait Orientation Supported.
 
 ### What’s New?
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
 - Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
-- Added support for API level 26 (Android 8.0)
+- Added support for API level 26 (Android 8.0).
 - Added a new method for accessing SDK's version number.
 - Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
 - Fixed the background color of Event List View and made it opaque.
@@ -1007,7 +1007,7 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
 - Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
-- Added support for API level 26 (Android 8.0)
+- Added support for API level 26 (Android 8.0).
 - Added a new method for accessing SDK's version number.
 - Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
 - Fixed the background color of Event List View and made it opaque.
@@ -1067,13 +1067,13 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_1.zip) Presence SDK iOS - Swift 4.0.0 .
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0 - Version1_4_0.zip) Presence SDK iOS - Swift 4.0.0 .
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_1.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version1_4_0.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_3_1 .zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_0 .zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
