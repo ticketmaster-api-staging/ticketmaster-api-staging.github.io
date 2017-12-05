@@ -2,6 +2,7 @@ var https = require('https'),
     http = require('http'),
     path = require('path'),
     express = require('express'),
+    bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
 	  session = require('express-session'),
 	  syncrequest = require('sync-request'),
@@ -10,6 +11,8 @@ var https = require('https'),
     fs = require('fs');
 
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 var staticSiteOptions = {
     portnum: 80,
@@ -20,7 +23,8 @@ var sess;
 var apps;
 
 function getRequestURI(userId, path) {
-  var res = syncrequest('GET', 'https://developer-acct.ticketmaster.com/open-platform/user/' + userId + path);
+  // var res = syncrequest('GET', 'https://developer-acct.ticketmaster.com/open-platform/user/' + userId + path);
+  var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.io/open-platform/user/' + userId + path);
   return res.getBody().toString();
 }
 
@@ -30,8 +34,11 @@ function base64Encode(str) {
 }  
 
 function getRole(req, res) {
-  var roles = [];
-  var rolesMenu = [];
+  var role,
+      agreement,
+      userId,
+      roles = [],
+      rolesMenu = [];
   if (req.session.user == undefined) {
     if (req.cookies['tk-u'] != undefined) {
       if (typeof Buffer.from === 'function') {
@@ -39,7 +46,9 @@ function getRole(req, res) {
       } else {
         buf = new Buffer(req.cookies['tk-u'], 'base64');
       }
-      var role = JSON.parse(getRequestURI(buf.toString(), '/roles'));
+      
+      role = JSON.parse(getRequestURI(buf.toString(), '/roles'));
+      agreement = JSON.parse(getRequestURI(buf.toString(), '/terms-of-service'));
 
       /* Internal user [START] */
       if (role.roles[10] != undefined) {
@@ -62,39 +71,78 @@ function getRole(req, res) {
       }
       /* Commerce user [END] */
       req.session.user = roles;
+      req.session.userId = buf.toString();
+      req.session.agreement = agreement;
       res.cookie('tk-m', base64Encode(rolesMenu.toString()));
-	    console.log("User new in session:" + roles);
+	    // console.log("User new in session:" + roles);
 	  }
   }
   else {
     if (req.cookies['tk-u'] == undefined) {
-      req.cookies['connect.sid'] = undefined;
-      req.cookies['tk-m'] = undefined;
+          req.cookies['connect.sid'] = undefined;
+          req.cookies['tk-m'] = undefined;
 	  }
 	  else {
-      roles = req.session.user;
-      console.log("User stored in session: " + roles);
+          userId = req.session.userId; 
+          roles = req.session.user;
+          agreement = req.session.agreement;
+          // console.log("User stored in session: " + roles + agreement);
 	  }
   }
-  return roles;
+  return {userId, roles, agreement};
 }
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
-  var role = getRole(req, res);
+  var role = getRole(req, res).roles;
+  var agreement = getRole(req, res).agreement;
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
+    if (agreement.length == 0) {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
+    }
+    else {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
+    }
+  }
+  else {
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+  }
+});
+
+router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
+  var role = getRole(req, res).roles;
+  var agreement = getRole(req, res).agreement;
+  if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
+	  if (agreement.length == 0) {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
+    }
+    else {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
+    }
+  }
+  else {
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+  }
+});
+
+router.post('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
+  var userId = getRole(req, res).userId;
+  if (userId != undefined) {
+    var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
+    req.session.agreement = "commerce-api";
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
   else {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
   }
-
 });
 
-router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
-  var role = getRole(req, res);
-  if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-	  res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
+router.post('/products-and-docs/apis/commerce/v2/', function(req, res) {
+  var userId = getRole(req, res).userId;
+  if (userId != undefined) {
+    var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
+    req.session.agreement = "commerce-api";
+    res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
   else {
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
