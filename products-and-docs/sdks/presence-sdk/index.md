@@ -314,7 +314,7 @@ Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
 
 override func viewDidLoad() {
   super.viewDidLoad() 
-  // class variable: var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()       
+  // class variable: let presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()       
   persenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
 }
 {% endhighlight %}
@@ -343,7 +343,7 @@ import PresenceSDK
 class ViewController: UIViewController, PresenceLoginDelegate {
 
   @IBOutlet weak var presenceSDKView: PresenceSDKView?
-  var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()
+  let presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()
 
   override func viewDidLoad() {
     super.viewDidLoad()
