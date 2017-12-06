@@ -25,8 +25,7 @@ import PresenceSDK  //Import this module
 Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In this method, the account credentials and branding color will be configured.
 
 {% highlight swift %}
-//Swift Version
-func configurePresenceSDK() {
+private func configurePresenceSDK() {
   //If you are a team use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
     displayName: #your_team_display_name,
@@ -80,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.3.1.0’)
+compile project(‘:PresenceSDK-release-1.4.0.0’)
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -97,6 +96,7 @@ compile 'com.squareup.picasso:picasso:2.5.2'
 compile 'com.romandanylyk:pageindicatorview:0.0.5'
 compile 'com.google.zxing:core:3.2.1'
 compile 'com.android.support:percent:25.3.1'
+compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endhighlight %}
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
@@ -248,7 +248,7 @@ Step 11: Try to build and compile. At this point, it should be compiled without 
 
 
 {% capture iOS_set_view %}
-## Configuring Your ViewController
+### Configuring Your ViewController
 
 **Note**: This is a basic example for configuring the ViewController
 
@@ -269,9 +269,11 @@ Step 3: Conform your ViewController to PresenceLoginDelegate and implement the t
 
 {% highlight swift %}
 extension ViewController: PresenceLoginDelegate {
-  ///- parameter succeeded: Returns `true` if the user granted app access/logged in.
-  ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
-  func onLoginWasSuccessful(_ succeeded:Bool, error:NSError?)
+  //Mandatory methods that the confirming class has to implement. ----------
+
+  ///Method is invoked if the user granted app access/logged in.
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName)
 
   ///User dismissed login window via the Cancel button
   func onLoginCanceled()
@@ -279,16 +281,41 @@ extension ViewController: PresenceLoginDelegate {
   ///Called when results are returned for a member info request after successful login
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
   ///fails or an error is returned fetching member details.
-  func onMemberWasUpdated(_ member: PresenceMember?)
+  func onMemberUpdated(_ member: PresenceMember?)
+
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
+  func onLoginFailed(backendName: PresenceLogin.BackendName, error: NSError?)
+
+  /// Notify when successfully logged-out from both backends
+  func onLogoutAllSuccessful()
+
+  ///Optional Methods ----------
+
+  /// Notify when user clicks on "forgot password" link
+  func onLoginForgotPasswordClicked()
+    
+  /// Notify when all cache is cleared
+  func onCacheCleared()
+    
+  /// Notify when successfully logged-out
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLogoutSuccessful(backendName: PresenceLogin.BackendName)
+ 
+  ///Called when the LoginWindow is made visible to the user.
+  func loginWindowDidDisplay() 
 }
 {% endhighlight %}
 
 Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
 
 {% highlight swift %}
+
+
 override func viewDidLoad() {
-  super.viewDidLoad()        
-  PresenceSDK.getPresenceSDK().start(presenceSDKView: presenceSDKView, loginDelegate: self)
+  super.viewDidLoad() 
+  // class variable: var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()       
+  persenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
 }
 {% endhighlight %}
 
@@ -316,31 +343,19 @@ import PresenceSDK
 class ViewController: UIViewController, PresenceLoginDelegate {
 
   @IBOutlet weak var presenceSDKView: PresenceSDKView?
-  var presenceSDK: PresenceSDK?
+  var presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationItem.title = NSLocalizedString("My Events", comment: "")
-    presenceSDK = PresenceSDK.getPresenceSDK()
     presenceSDK.start(presenceSDKView: presenceSDKView, loginDelegate: self)
 
-  }
- 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
 
   @IBAction func logout(sender: UIButton) {
     presenceSDK.logOut()
   }
 
-
-  func onLoginSuccessful(_ succeeded:Bool, error:NSError?) {
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName) {
   }
 
   //User dismissed login window via the Cancel button
@@ -355,6 +370,12 @@ class ViewController: UIViewController, PresenceLoginDelegate {
       print("Team Member-Id: \(pMember.AccountManagerMemberID)")
       print("Host Member-Id: \(pMember.HostMemberID)")
     }
+  }
+
+  func onLogoutAllSuccessful() {
+  }
+
+  func onLoginFailed(backendName: PresenceLogin.BackendName, error: NSError?) {
   }
 }
 
@@ -412,8 +433,24 @@ The ID for this layout will be referenced in the next step
 {% capture iOS_branding_color %}
 Configure your branding color with a UIColor object
 
-{% highlight java %}
+{% highlight swift %}
 presenceSDK.setBrandingColor(color: UIColor.blue)
+{% endhighlight %}
+
+### Configure Team Theme
+Configure your team's theme as `SDKTheme.Light` (default) or `SDKTheme.Dark`. The theme configuration lets PresenceSDK
+know how to setup various UI elements to contrast with branding color. For example, if branding 
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements white.
+This will allow crucial UI element to be visible to the user.
+{% highlight swift %}
+/**     
+Method for configuring Team Apps theme color in PresenceSDK. This theme color will be used
+on various UI elements of the SDK to provide a custom look for Team apps.
+    
+- Parameters:
+- theme: Theme to be used in the SDK.
+*/
+func setTheme(theme: SDKTheme)
 {% endhighlight %}
 
 {% endcapture %}
@@ -434,6 +471,20 @@ presenceSDK.getPresenceSDK(this).setBrandingColor(Color.parseColor("#ffff0000"))
 {% endhighlight %}
 
 The defined color will be displayed on all action buttons, action bars and ticket details page. If the above color variable is not defined in the client’s apk project, Tmx sdk will use a default color.
+
+### Configure Team Theme
+Configure your team's theme as `PresenceSdkTheme.Light` (default) or `PresenceSdkTheme.Dark`. The theme configuration lets PresenceSDK
+know how to setup various UI elements to contrast with branding color. For example, if branding 
+color is in the dark color spectrum, a `Light` theme configuration will color various UI elements white.
+This will allow crucial UI element to be visible to the user.
+{% highlight java %}
+/**
+* Method to set content color of UI elements with branding background color
+* @param theme - light theme uses white color, dark theme uses black color
+*/
+public void setTheme(PresenceSdkTheme theme)
+{% endhighlight %}
+
 {% endcapture %}
 
 {% capture iOS_logout_methods %}
@@ -458,7 +509,7 @@ A simple Logout handler function can look like this:
 }
 {% endhighlight %}
 
-## Check Login Status
+### Check Login Status
 
 Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
@@ -488,7 +539,7 @@ PresenceSDK.getPresenceSDK(context).logOut();
 
 ## Check Login Status
 
-Presence SDK also provides some helper methods for checking if user is 	logged into any of the supported services.
+Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
 {% highlight java %}
 // Method to check if user is logged in any of the service  i.e Host or Accounts 	Manger
@@ -499,6 +550,20 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoHost();
 PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% endhighlight%}
 
+{% endcapture %}
+
+{% capture iOS_global_methods %}
+{% highlight swift %}
+  // This method returns version number of the SDK as a String.
+  func getVersionNumber()
+{% endhighlight %}
+{% endcapture %}
+
+{% capture Android_global_methods %}
+{% highlight java %}
+  // This method returns version number of the SDK as a String.
+  public String getVersionNumber()
+{% endhighlight %}
 {% endcapture %}
 
 {% capture iOS_analytics %}
@@ -621,7 +686,7 @@ Payload Data for the Notifications – Only relevant information is sent out wit
 }
 {% endhighlight %}
 
-## Analytics Usage
+### Analytics Usage
 
 If you want to track ACTION_MANAGETICKETSCREENSHOWED event you should add an observer inside your ViewController’s viewDidLoad() method like this:
 
@@ -769,6 +834,12 @@ private BroadcastReceiver mAnalyticEventReceiver = new BroadcastReceiver() {
 PresenceSDK is packaged as a Universal binary and it contains binary packages for all valid architectures including ARMv* and x86. This is great for development as you can run your app on both devices and simulators but for App Store submission you need to strip the simulator packages from your App. To do this we have provided “strip_frameworks.sh” file, just add this file to the Run Script phase under your app’s Build Phases settings and it will do the work for you. Here is a screenshot of what your Build phases will look like after adding this file:
 
 ![PresenceSDK iOS Step 5 result](/assets/img/products-and-docs/PresenceSDK-iOS-Store-Submission.png)
+
+{% highlight shell %}
+#For your copy and paste needs
+bash "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PresenceSDK.framework/strip_frameworks.sh"
+{% endhighlight %}
+
 {% endcapture %}
 
 {% capture Android_release %}
@@ -779,13 +850,13 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework
 
-## Release Notes Version 1.3.1
+### Release Notes Version 1.4.0
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-### Requirements for using Swift 4 build
+### Requirements for using Swift 4.0.0 build
 
-- To build, you must use XCode 9.0 and the iOS 11.0 SDK
+- To build, you must use XCode 9.0.0 and the iOS 11.0 SDK
 - Minimum iOS 9.0, supported through iOS 11
 
 ### Requirements for using Swift 3.1 build
@@ -793,15 +864,18 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - To build, you must use XCode 8.3.3 and the iOS 10.3 SDK
 - Minimum iOS 9.0, supported through iOS 10.3.3
 
+### General Requirements
+- Only Portrait Orientation Supported.
+
 ### What’s New?
 
--	Experience SDK Integration.
--	Improved Login Screen for the SDK.
--	Support for iPhone X screen size.
--	Added refresh button for fans with no tickets
--	Added support for honoring custom tint color for navigation bar configured via UIAppearance.
--	Bug fixes for adding Mastercard as refund card and other UI issues.
-
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
+- Added a new method for accessing SDK's version number.
+- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
+- Made some overall improvements and fixed some critical bugs.
 
 {% endcapture %}
 
@@ -809,30 +883,47 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-1.3.*.*.aar
+-	PresenceSDK-release-1.4.\*.\*.aar
 
 Supported API levels
 
--	API level 16 ~ 25
+-	API level 16 ~ 26
 
-## Release Notes Version 1.3.1
+## Release Notes Version 1.4.0
 
 ### Requirements
 
--	Supported API level 16 ~ 25
+-	Supported API level 16 ~ 26.
+- Only Portrait Orientation Supported.
 
 ### What’s New?
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added support for API level 26 (Android 8.0).
+- Added a new method for accessing SDK's version number.
+- Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
+- Fixed the background color of Event List View and made it opaque.
+- Made some overall improvements and fixed some critical bugs.
 
-- Experience sdk integration
-- Android wallet support
-- Main login entry screen change
-- Fixed potential resource naming collision issue with client projects. All presence sdk resources are named with “presence_sdk_” prefix.
-- Bug fixes for master card and branding coloring support for action bar
+{% highlight java %}
+// New Dependency
+compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
+{% endhighlight %}
 
 {% endcapture %}
 
 
 {% capture iOS_changelog %}
+### Changes (12/05/2017 Release 1.4.0)
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
+- Added a new method for accessing SDK's version number.
+- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
+- Made some overall improvements and fixed some critical bugs.
+
 ### Changes (11/21/17 Release 1.3.1)
 - Fixed experience sdk integration issues.
 - Fixed crash while adding a credit card for Host.
@@ -912,6 +1003,15 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_changelog %}
+### Changes (12/05/2017 Release 1.4.0)
+- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
+- Added support for VIP color and text.
+- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
+- Added support for API level 26 (Android 8.0).
+- Added a new method for accessing SDK's version number.
+- Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
+- Fixed the background color of Event List View and made it opaque.
+- Made some overall improvements and fixed some critical bugs.
 
 ### Changes (11/21/2017 Release 1.3.1)
 - Fixed experience sdk integration issues.
@@ -967,13 +1067,13 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK - Version 1_3_1.zip) Presence SDK iOS - Swift 4.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0 - Version1_4_0.zip) Presence SDK iOS - Swift 4.0.0 .
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version 1_3_1.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version1_4_0.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_3_1 .zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_0 .zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
@@ -981,6 +1081,39 @@ Supported API levels
 
 The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
 {: .lead .article}
+
+## SDK
+{: .article }
+
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#sdk-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#sdk-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="sdk-ios">
+          {{ iOS_sdk | markdownify }}          
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="sdk-android">
+          {{ Android_sdk | markdownify }}
+        </div>
+
+    </div>
+</form>
+</div>
 
 ## What You Need
 {: .article }
@@ -1156,6 +1289,39 @@ You've got logging in all set up, now you can set up logging out
 </form>
 </div>
 
+## Global Methods
+{: .article }
+
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#global-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#global-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="global-ios">
+            {{ iOS_global_methods | markdownify }}
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="global-android">
+            {{ Android_global_methods | markdownify }}
+        </div>
+
+    </div>
+</form>
+</div>
+
 ## Analytics
 {: .article }
 
@@ -1251,39 +1417,6 @@ Following section describes the steps you need to follow to prepare your app for
         <!-- Android Tab -->
         <div class="tab-pane fade" id="changelog-android">
 					{{ Android_changelog | markdownify }}
-        </div>
-
-    </div>
-</form>
-</div>
-
-## SDK
-{: .article }
-
-<div class="col-lg-12 config-block">
-<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
-
-    <!--Use for mobile devices 'Go' button-->
-    <button type="submit" class="hidden"></button>
-
-    <ul class="nav nav-tabs" data-tabs="tabs">
-        <li class="active">
-            <a href="#sdk-ios" data-toggle="tab" aria-expanded="true">iOS</a>
-        </li>
-        <li class="">
-            <a id="js_styling_nav_tab" href="#sdk-android" data-toggle="tab" aria-expanded="false">Android</a>
-        </li>
-    </ul>
-
-    <div class="tab-content" style="padding-top: 0px;">
-        <!-- iOS Tab -->
-        <div class="tab-pane fade active in" id="sdk-ios">
-					{{ iOS_sdk | markdownify }}          
-        </div>
-        
-        <!-- Android Tab -->
-        <div class="tab-pane fade" id="sdk-android">
-					{{ Android_sdk | markdownify }}
         </div>
 
     </div>
