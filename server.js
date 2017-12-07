@@ -95,7 +95,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
     var role = getRole(req, res).roles;
     var agreement = getRole(req, res).agreement;
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-      if (agreement.length == 0) {
+      if (agreement.indexOf('commerce-api') == -1) {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
       }
       else {
@@ -111,7 +111,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
     var role = getRole(req, res).roles;
     var agreement = getRole(req, res).agreement;
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-      if (agreement.length == 0) {
+      if (agreement.indexOf('commerce-api') == -1) {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
       }
       else {
@@ -127,7 +127,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
     var userId = getRole(req, res).userId;
     if (userId != undefined) {
       var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-      req.session.agreement = "commerce-api";
+      req.session.agreement.push("commerce-api");
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
     }
     else {
@@ -139,7 +139,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
     var userId = getRole(req, res).userId;
     if (userId != undefined) {
       var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-      req.session.agreement = "commerce-api";
+      req.session.agreement.push("commerce-api");
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
     }
     else {
@@ -179,7 +179,7 @@ router.post('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
     var userId = getRole(req, res).userId;
     if (userId != undefined) {
       var statusTerms = getRequestURI(userId, '/terms-of-service/marketplace-api/accept');
-      req.session.agreement = "marketplace-api";
+      req.session.agreement.push("marketplace-api");
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
     }
     else {
