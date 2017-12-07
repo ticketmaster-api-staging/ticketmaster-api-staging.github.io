@@ -11,8 +11,8 @@ var https = require('https'),
     fs = require('fs');
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var staticSiteOptions = {
     portnum: 80,
@@ -25,6 +25,7 @@ var apps;
 function getRequestURI(userId, path) {
   // var res = syncrequest('GET', 'https://developer-acct.ticketmaster.com/open-platform/user/' + userId + path);
   var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.io/open-platform/user/' + userId + path);
+  console.log('https://dev-livenation.devportal.apigee.io/open-platform/user/' + userId + path);
   return res.getBody().toString();
 }
 
@@ -97,7 +98,7 @@ router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, re
   var role = getRole(req, res).roles;
   var agreement = getRole(req, res).agreement;
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-    if (agreement.length == 0) {
+    if (agreement.indexOf('commerce-api') == -1) {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
     }
     else {
@@ -113,7 +114,7 @@ router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
   var role = getRole(req, res).roles;
   var agreement = getRole(req, res).agreement;
   if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-	  if (agreement.length == 0) {
+    if (agreement.indexOf('commerce-api') == -1) {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
     }
     else {
@@ -129,7 +130,7 @@ router.post('/products-and-docs/apis/commerce/v2/internal.html', function(req, r
   var userId = getRole(req, res).userId;
   if (userId != undefined) {
     var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-    req.session.agreement = "commerce-api";
+    req.session.agreement.push("commerce-api");
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
   else {
@@ -141,7 +142,7 @@ router.post('/products-and-docs/apis/commerce/v2/', function(req, res) {
   var userId = getRole(req, res).userId;
   if (userId != undefined) {
     var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-    req.session.agreement = "commerce-api";
+    req.session.agreement.push("commerce-api");
     res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
   }
   else {
@@ -163,21 +164,45 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 
 /* Marketplace API Access [START] */
 router.get('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
-  var role = getRole(req, res);
+  var role = getRole(req, res).roles;
+  var agreement = getRole(req, res).agreement;
   if (role.indexOf('marketplace') != -1) {
+    if (agreement.indexOf('marketplace-api') == -1) {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/terms-and-conditions.html'));
+    }
+    else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
+    }
   } else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
   }
+});
+
+router.post('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
+    var userId = getRole(req, res).userId;
+    if (userId != undefined) {
+      var statusTerms = getRequestURI(userId, '/terms-of-service/marketplace-api/accept');
+      req.session.agreement.push("marketplace-api");
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
+    }
+    else {
+      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/'));
+    }
 });
 /* Marketplace API Access [END] */
 
 /* Marketplace Release Notes [START] */
 router.get('/products-and-docs/apis/marketplace-api/release-notes/', function(req, res) {
-  var role = getRole(req, res);
+  var role = getRole(req, res).roles;
+  var agreement = getRole(req, res).agreement;
   if (role.indexOf('marketplace') != -1) {
+    if (agreement.length == 0) {
+        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
+    }
+    else {
       var res_ = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/release-notes/open-marketplace');
       res.send(res_.getBody().toString());
+    }
   } else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
   }
