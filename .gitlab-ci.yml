@@ -19,31 +19,10 @@ variables:
 # TODO add npm build and test tasks here
 build:
   stage: build
-  image: node:6.5.0
+  image: 889199535989.dkr.ecr.us-east-1.amazonaws.com/dpa-portal/dev/jekyll:1.0.0
   tags:
     - tm-prod cicd build
   script:
-    - NODE_ENV=development
-    - apt-get update >/dev/null
-    - apt-get install -y locales >/dev/null
-    - echo "en_US UTF-8" > /etc/locale.gen
-    - locale-gen en_US.UTF-8
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - export LC_ALL=en_US.UTF-8
-    - apt-get -y update
-    - apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
-    - apt-get -y install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
-    - gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-    - curl -sSL https://get.rvm.io | bash -s stable
-    - source /usr/local/rvm/scripts/rvm
-    - rvm install 2.2.5
-    - rvm use 2.2.5 --default
-    - ruby -v
-    - gem install jekyll
-    - gem install jekyll-redirect-from
-    - gem install jekyll-sass-converter
-    - gem install jekyll-seo-tag
     - npm install
     - npm run build
     - jekyll build
