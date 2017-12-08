@@ -16,7 +16,7 @@ This TM Wordpress Widget allows clients, artists, and partners to setup and prov
 
 ## Introduction
 
-This Wordpress plugin allows using Event discovery widget and Countdown widget in Wordpress.
+This Wordpress plugin allows using Event Discovery Widget, Countdown Widget, Calendar Widget and Map Widget in Wordpress.
 
 ## Installation
 
