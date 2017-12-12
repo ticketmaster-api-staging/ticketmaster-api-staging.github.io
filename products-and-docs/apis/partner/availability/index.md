@@ -2,6 +2,8 @@
 layout: documentation
 categories:
 - documentation
+- availability
+- partner
 redirect_from: 
 - "/apis/partner/availability"
 title: Availability API
@@ -31,6 +33,120 @@ The following headers are returned in the response add more information about th
 	Ratelimit-Quota-Available :  The no of requests (remaining) that can be made within the time limit
 
 The restriction is <b>3600 requests/hour </b> for an apikey.If you get a 429 error code, it means that your request was aborted because of violation of quota policy.
+
+
+{: .article}
+## Get Event ID [GET]
+{: #retrieve-event}
+
+Returns an alphanumeric event id based on a Venue-supplied event code+host combination<br/>
+
+/partners/v1/events/{event_code}/{event_host}/id
+{: .code .red}
+
+*Polling: No*
+
+### Parameters
+
+| Parameter  | Description          | Type              | Example      | Required |
+|:-----------|:---------------------|:----------------- |:------------------ |:-------- |
+| `event_code` | The event code given by the venue.     | string            |     "53-45243"           | Yes      |
+| `event_host` | The event host given by the venue.     | string            |     "NY1"           | Yes      |
+
+
+>[Request](#req)
+>[Response](#res)
+{: .reqres}
+
+{% highlight bash %}
+https://app.ticketmaster.com/partners/v1/events/53-45243/NY1/id?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
+{% endhighlight %}
+
+{% highlight js %}
+Status 200
+{
+    "event" : {
+        "id" : "0B004D43F86C478F"
+
+    }
+}
+{% endhighlight %}
+
+
+{: .article}
+## Event Inventory [GET]
+{: #inventory-management}
+For use by Channel Partners only. Discover events available to transact on. For specifically-enabled accounts only.
+
+/partners/v1/events
+{: .code .red}
+
+*Polling: No*
+
+### Response structure:
+
+{: .nested-list}
+
+- `events` (array)  - Events.
+    - {arrayitemobject} - event
+        * `eventCode` (string) -  Event code  Eg: "EPT0726E"
+        * `eventHost` (string) -  Host system Eg: "LA2"
+        * `eventId` (string) - Event ID Eg. "0B004D43F86C478F"
+        * `eventDate` (date) - Event Date is Local Date YYYY-MM-DD format
+        * `eventTime` (time) - Event Time is Local Time HH:MM:SS format
+        * `timeZone` (text) - Time zone of the event venue location Eg: "America/Los_Angeles"
+        * `seatLocationMapRestrict`(boolean) - when true, host's ascii map through the sell prompt in tmwin will not be displayed.
+        * `locRowSeatRestrict`(boolean) - when true, requires any client/partner to hide row and seat names from the customer.
+        * `locXnumAddescRestrict`(boolean) - when true, Xnumbers, ADDDESC, section on the event will not be displayed.
+        * `offers` (array) - Offers on the Event
+            - {arrayitemobject} - offer
+                * `repName` (text) - Offer name. Eg: "GPAS4"
+                * `ticketType` (text) - Ticket Type Id Eg: "00004C440003"
+
+>[Request](#req)
+>[Response](#res)
+{: .reqres}
+
+{% highlight bash %}
+https://app.ticketmaster.com/partners/v1/events?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
+{% endhighlight %}
+
+{% highlight js %}
+Status 200
+{
+    "events" : [
+        {
+            "eventCode" : "EPT0726E",
+            "eventHost" : "LA2",
+            "eventId" : "0B004D43F86C478F",
+            "eventDate" : "2015-07-26",
+            "eventTime" : "18:30:00",
+            "timeZone" : "America/Los_Angeles",
+            "seatLocationMapRestrict": false,
+            "locXnumAddescRestrict": false,
+            "locRowSeatRestrict": false,
+            "offers": [
+                { "repName": "GPAS4", "ticketType": "00004C440003" }
+            ]
+        },
+        {
+            "eventCode" : "EPT0896A",
+            "eventHost" : "LA2",
+            "eventId" : "0C004F43F86C4BAC",
+            "eventDate" : "2015-07-27",
+            "eventTime" : "18:30:00",
+            "timeZone" : "America/Los_Angeles",
+            "offers": [
+                { "repName": "GPAS4", "ticketType": "00004C440004" }
+            ]
+        }
+
+        // ...
+    ]
+}
+{% endhighlight %}
+
+
 
 {: .article}
 ## Ticket Inventory and Seat Availability [GET]

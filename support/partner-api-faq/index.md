@@ -16,6 +16,7 @@ keywords: FAQ, Partner  API cover
 [How can I integrate and test the Partner API?](#q-0)
 [Why am I getting 4XX and 5XX errors?](#q-1)
 [Can the API handle concurrent calls?](#q-2)
+[What are "Channel Partners"?](#q-3)
 
 #### Oauth
 
@@ -98,6 +99,12 @@ Please see [Error Responses](/products-and-docs/apis/partner/#error-responses)
 {: #q-2}
 #### Can the API handle concurrent calls?
 The API does not support concurrent calls to any cart end point.
+
+
+{: #q-3}
+#### What are "Channel Partners"?
+Ticketmaster works with various "channel partners" who deal directly with venues, clients, and promoters to source inventory, often at discounted prices and available for sale exclusively through their own platforms.  Ticketmaster provides additional APIs to service their needs and requires specific agreements on usage.  Contact Ticketmaster for enabling the following APIs.
+
 
 {: #oauth-a .double-margin}
 ## Oauth

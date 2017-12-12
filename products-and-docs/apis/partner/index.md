@@ -48,7 +48,8 @@ Here you can test API transactions for different scenarios like credit card and 
 
 #### Universal Ids
 
-Partner API will now use Universal Ids for all its endpoints . The universal Ids can be fetched using the <a href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a> .
+Partner API will now use Universal Ids for all its endpoints . The universal Ids can be fetched using the <a href="/products-and-docs/apis/discovery-feed/">Discovery Feed</a> or
+ <a href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a> .
 
 ### Best Practices
 
@@ -70,9 +71,6 @@ By using the Ticketmaster Developer Portal, you understand and agree to our [Ter
 ### Service Availability
 
 The Ticketmaster back-end reservation systems are distributed globally and events are processed on their local systems.  These systems go into a nightly maintenance mode between 12AM and 2AM local time. This means a show playing at Madison Square Garden will not be transactable between 12AM-2AM Eastern Time.  Use the timezone value from the event details response to note when these events may be unavailable for transactions.
-
-### Channel Partners
-See ["Channel Partners"](#channel-partner-overview)
 
 ### Support/FAQs
 
@@ -124,127 +122,6 @@ Status 200
 The Response is a 1x1 gif pixel
 
 {% endhighlight %}
-
-
-{: .article}
-## Get Event ID [GET]
-{: #retrieve-event}
-
-Returns an alphanumeric event id based on a Venue-supplied event code+host combination<br/>
-
-/partners/v1/events/{event_code}/{event_host}/id
-{: .code .red}
-
-*Polling: No*
-
-### Parameters
-
-| Parameter  | Description          | Type              | Example      | Required |
-|:-----------|:---------------------|:----------------- |:------------------ |:-------- |
-| `event_code` | The event code given by the venue.     | string            |     "53-45243"           | Yes      |
-| `event_host` | The event host given by the venue.     | string            |     "NY1"           | Yes      |
-
-
->[Request](#req)
->[Response](#res)
-{: .reqres}
-
-{% highlight bash %}
-https://app.ticketmaster.com/partners/v1/events/53-45243/NY1/id?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
-{% endhighlight %}
-
-{% highlight js %}
-Status 200
-{
-    "event" : {
-        "id" : "0B004D43F86C478F"
-
-    }
-}
-{% endhighlight %}
-
-
-{: .article}
-## Channel Partners
-{: #channel-partner-overview}
-
-Ticketmaster works with various "channel partners" who deal directly with venues, clients, and promoters to source inventory, often at discounted prices and available for sale exclusively through their own platforms.  Ticketmaster provides additional APIs to service their needs and requires specific agreements on usage.  Contact Ticketmaster for enabling the following APIs.
-
-
-{: .article}
-## Event Inventory [GET]
-{: #inventory-management}
-For use by Channel Partners only. Discover events available to transact on. For specifically-enabled accounts only.
-
-/partners/v1/events
-{: .code .red}
-
-*Polling: No*
-
-### Response structure:
-
-{: .nested-list}
-
-- `events` (array)  - Events.
-    - {arrayitemobject} - event
-        * `eventCode` (string) -  Event code  Eg: "EPT0726E"
-        * `eventHost` (string) -  Host system Eg: "LA2"
-        * `eventId` (string) - Event ID Eg. "0B004D43F86C478F"
-        * `eventDate` (date) - Event Date is Local Date YYYY-MM-DD format
-        * `eventTime` (time) - Event Time is Local Time HH:MM:SS format
-        * `timeZone` (text) - Time zone of the event venue location Eg: "America/Los_Angeles"
-        * `seatLocationMapRestrict`(boolean) - when true, host's ascii map through the sell prompt in tmwin will not be displayed.
-        * `locRowSeatRestrict`(boolean) - when true, requires any client/partner to hide row and seat names from the customer. 
-        * `locXnumAddescRestrict`(boolean) - when true, Xnumbers, ADDDESC, section on the event will not be displayed.
-        * `offers` (array) - Offers on the Event
-            - {arrayitemobject} - offer
-                * `repName` (text) - Offer name. Eg: "GPAS4"
-                * `ticketType` (text) - Ticket Type Id Eg: "00004C440003"
-
->[Request](#req)
->[Response](#res)
-{: .reqres}
-
-{% highlight bash %}
-https://app.ticketmaster.com/partners/v1/events?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
-{% endhighlight %}
-
-{% highlight js %}
-Status 200
-{
-    "events" : [
-        {
-            "eventCode" : "EPT0726E",
-            "eventHost" : "LA2",
-            "eventId" : "0B004D43F86C478F",
-            "eventDate" : "2015-07-26",
-            "eventTime" : "18:30:00",
-            "timeZone" : "America/Los_Angeles",
-            "seatLocationMapRestrict": false,
-            "locXnumAddescRestrict": false,
-            "locRowSeatRestrict": false,
-            "offers": [
-                { "repName": "GPAS4", "ticketType": "00004C440003" }
-            ]
-        },
-        {
-            "eventCode" : "EPT0896A",
-            "eventHost" : "LA2",
-            "eventId" : "0C004F43F86C4BAC",
-            "eventDate" : "2015-07-27",
-            "eventTime" : "18:30:00",
-            "timeZone" : "America/Los_Angeles",
-            "offers": [
-                { "repName": "GPAS4", "ticketType": "00004C440004" }
-            ]
-        }
-
-        // ...
-    ]
-}
-{% endhighlight %}
-
-
 
 
 {: .article}
@@ -1009,7 +886,6 @@ For now, the response is the same with or without the Authorization Header.
     * `currency_code` (text) - Currency of the total value of the order
     * `order_token` (text) - Order Token
     * `order_number` (text) - HOST order ID
-    * `tm_app_url` (url) - Custom scheme URL that Ticketmaster app supports
 
 >[Request](#req)
 >[Response](#res)

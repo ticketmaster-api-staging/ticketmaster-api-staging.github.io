@@ -3,6 +3,7 @@ layout: documentation
 categories:
 - documentation
 - top-picks
+- partner
 title: The Top Picks API
 excerpt: Seat recommendations based on current availability, sampling across various areas of a venue and available price points.
 keywords: Partner API, TopPicks, Top Picks, host and API, reserve tickets
@@ -52,6 +53,14 @@ The Ticketmaster back-end reservation systems are distributed globally and event
 Retrieve reservable seat information based on specific criteria.
 
 /top-picks/v1/events/{event_id}?apikey={apikey}
+{: .code .red}
+
+
+#### Universal Ids Support
+
+The TopPicks service also supports queries using universal ids via the path
+
+ /top-picks/v1/events/id/{universalEventId}?apikey={apikey}
 {: .code .red}
 
 ### URL Parameters

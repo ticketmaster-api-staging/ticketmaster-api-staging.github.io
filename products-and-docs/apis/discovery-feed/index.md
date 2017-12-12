@@ -3,6 +3,7 @@ layout: documentation
 categories:
 - documentation
 - discovery-feed
+- partner
 redirect_from:
 - "/apis/discovery-feed/"
 
@@ -77,6 +78,11 @@ http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}&countryC
         *	`eventEndDateTime` (string) – Event end date/time (UTC format)
         * `eventStartLocalDate` (string) – Event date in the venue's timezone MM/DD/YY format
         *	`eventStartLocalTime` (string) – Event start time in the venue's timezone HH:MM format
+        - `promoters` (array)  - Promoters
+            - {arrayitemobject} - Promoter
+                *  `id` (string)
+                *  `name` (string)
+                *  `description` (string)
         - `venue` (object) - Venue
              *	`venueName` (string) – Name of the venue
              *	`legacyVenueId` (string) – unique ID of the venue (old format)

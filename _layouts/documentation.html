@@ -66,7 +66,11 @@ layout: default
 <script src="{{'/scripts/components/list-collapse.js' | prepend: site.baseurl }}"></script>
 <script src="{{'/scripts/components/user-roles.js' | prepend: site.baseurl }}"></script>
 
-{% include disqus.html %}
+{%  if page.categories contains  "partner" %}
+
+{% else %}
+		{% include disqus.html %}
+{%endif%}
 
 {% if page.categories contains "replace_apikey" %}
 {%if site.local_test_apikeys == 'true' %}
