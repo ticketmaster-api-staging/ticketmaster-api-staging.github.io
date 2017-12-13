@@ -2124,6 +2124,7 @@ var TicketmasterCalendarWidget = function () {
 
         this.tabsRootContainer = document.createElement("div");
         this.tabsRootContainer.classList.add("tabs");
+
         this.tabsRootContainer.innerHTML = '<span class="tb active">Day</span><span class="tb">Week</span><span class="tb">Month</span><span class="tb">Year</span>';
         this.widgetRoot.appendChild(this.tabsRootContainer);
 
@@ -2194,6 +2195,27 @@ var TicketmasterCalendarWidget = function () {
         this.eventsRootContainer.style.borderWidth = "0";
         this.widgetRoot.style.borderRadius = this.config.borderradius + "px";
         this.widgetRoot.style.borderWidth = this.borderSize + "px";
+
+        /* If custom colors isset */
+        if (this.widgetRoot.getAttribute("w-background") != undefined) this.tabsRootContainer.style.background = this.widgetRoot.getAttribute("w-background");
+        if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
+            var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
+                selColor = this.widgetRoot.querySelectorAll('.selector-title');
+            tabsColor.forEach(function (el, i) {
+                el.style.color = _this.widgetRoot.getAttribute("w-textcolor");
+            });
+            selColor.forEach(function (el, i) {
+                el.style.color = _this.widgetRoot.getAttribute("w-textcolor");
+            });
+        }
+
+        if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+            this.tabsRootContainer.children[0].style.color = this.widgetRoot.getAttribute("w-tabcolor");
+        }
+        if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+            this.tabsRootContainer.children[0].style.background = this.widgetRoot.getAttribute("w-tabbackground");
+        }
+        /* If custom colors isset */
 
         //this.clear();
 
@@ -2816,6 +2838,23 @@ var TicketmasterCalendarWidget = function () {
             var spinner = widget.querySelector('.spinner-container');
             spinner.classList.remove('hide');
             var oldTheme = this.config.constructor();
+            if (this.widgetRoot.getAttribute("w-background") != undefined) this.widgetRoot.firstChild.style.background = this.widgetRoot.getAttribute("w-background");
+            if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
+                var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
+                    selColor = this.widgetRoot.querySelectorAll('.selector-title');
+                tabsColor.forEach(function (el, i) {
+                    el.style.color = _this8.widgetRoot.getAttribute("w-textcolor");
+                });
+                selColor.forEach(function (el, i) {
+                    el.style.color = _this8.widgetRoot.getAttribute("w-textcolor");
+                });
+            }
+            if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+                this.widgetRoot.querySelector('.tb.active').style.color = this.widgetRoot.getAttribute("w-tabcolor");
+            }
+            if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+                this.widgetRoot.querySelector('.tb.active').style.background = this.widgetRoot.getAttribute("w-tabbackground");
+            }
             for (var attr in this.config) {
                 if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
             }
@@ -3326,25 +3365,30 @@ var TabsControls = function () {
         key: "removeActiveTab",
         value: function removeActiveTab(this_) {
             var tabs = this_.querySelectorAll('.tb');
+            var tabColor = this_.querySelector('.tb:not(.active)').style.color;
+            var tabBackground = this_.querySelector('.tb:not(.active)').style.background;
+            var tabActiveColor = this_.querySelector('.tb.active').style.color;
+            var tabActiveBackground = this_.querySelector('.tb.active').style.background;
+            if (tabActiveColor == '') tabActiveColor = '#ffffff';
+            if (tabActiveBackground == '') tabActiveBackground = '#b7c9d2';
             var tabsLenght = tabs.length;
             for (var i = 0; i < tabsLenght; i++) {
-                // Array.from(tabs).forEach(tab => {
                 var _tab = tabs[i];
                 if (_tab.classList.contains("active")) _tab.classList.remove("active");
-                // });
+                _tab.style.color = tabColor;
+                _tab.style.background = tabBackground;
             }
             var tab = this_.nextSibling.querySelectorAll('.tab');
             var tabLenght = tab.length;
             for (var _i5 = 0; _i5 < tabLenght; _i5++) {
-                // Array.from(tab).forEach(tb => {
                 var tb = tab[_i5];
                 if (tb.classList.contains("active")) tb.classList.remove("active");
-                // });
             }
+            return { tabActiveColor: tabActiveColor, tabActiveBackground: tabActiveBackground };
         }
     }, {
         key: "selActiveTab",
-        value: function selActiveTab(activeTab, this_) {
+        value: function selActiveTab(activeTab, this_, activeTabParams) {
             var tabs = this_.nextSibling;
             tabs.children[activeTab].classList.add('active');
         }
@@ -3362,10 +3406,13 @@ var TabsControls = function () {
             var tab = tabs[i];
             tab.addEventListener('click', function (e) {
                 var this_ = e.target.parentNode;
-                self.removeActiveTab(this_);
+                var activeTabParams = self.removeActiveTab(this_);
+                console.log(activeTabParams);
                 var index = Array.prototype.indexOf.call(this_.children, e.target);
                 this.classList.add("active");
-                self.selActiveTab(index, this_);
+                this.style.color = activeTabParams.tabActiveColor;
+                this.style.background = activeTabParams.tabActiveBackground;
+                self.selActiveTab(index, this_, activeTabParams);
             });
         }
         // });

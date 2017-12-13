@@ -203,6 +203,7 @@ class TicketmasterCalendarWidget {
 
         this.tabsRootContainer = document.createElement("div");
         this.tabsRootContainer.classList.add("tabs");
+
         this.tabsRootContainer.innerHTML = '<span class="tb active">Day</span><span class="tb">Week</span><span class="tb">Month</span><span class="tb">Year</span>';
         this.widgetRoot.appendChild(this.tabsRootContainer);
 
@@ -217,8 +218,6 @@ class TicketmasterCalendarWidget {
 
         let leftSelector = new SelectorControls(this.tab1RootContainer, 'sliderLeftSelector', this.getCurrentWeek(), 'period', this.update.bind(this));
         let RightSelector = new SelectorControls(this.tab1RootContainer, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
-
-
 
         this.tab2RootContainer = document.createElement("div");
         this.tab2RootContainer.classList.add("tab");
@@ -276,6 +275,27 @@ class TicketmasterCalendarWidget {
         this.eventsRootContainer.style.borderWidth = `0`;
         this.widgetRoot.style.borderRadius = `${this.config.borderradius}px`;
         this.widgetRoot.style.borderWidth = `${this.borderSize}px`;
+
+        /* If custom colors isset */
+        if (this.widgetRoot.getAttribute("w-background") != undefined) this.tabsRootContainer.style.background = this.widgetRoot.getAttribute("w-background");
+        if (this.widgetRoot.getAttribute("w-textcolor") != undefined)  {
+            var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
+                selColor = this.widgetRoot.querySelectorAll('.selector-title');
+            tabsColor.forEach((el,i) => {
+                el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+            });
+            selColor.forEach((el,i) => {
+                el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+            });
+        }
+        
+        if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+            this.tabsRootContainer.children[0].style.color = this.widgetRoot.getAttribute("w-tabcolor");
+        }
+        if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+            this.tabsRootContainer.children[0].style.background = this.widgetRoot.getAttribute("w-tabbackground");
+        }
+        /* If custom colors isset */
 
         //this.clear();
 
@@ -863,6 +883,23 @@ class TicketmasterCalendarWidget {
         let spinner = widget.querySelector('.spinner-container');
         spinner.classList.remove('hide');
         let oldTheme = this.config.constructor();
+        if (this.widgetRoot.getAttribute("w-background") != undefined) this.widgetRoot.firstChild.style.background = this.widgetRoot.getAttribute("w-background");
+        if (this.widgetRoot.getAttribute("w-textcolor") != undefined)  {
+            var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
+                selColor = this.widgetRoot.querySelectorAll('.selector-title');
+            tabsColor.forEach((el,i) => {
+                el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+            });
+            selColor.forEach((el,i) => {
+                el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+            });
+        }
+        if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+            this.widgetRoot.querySelector('.tb.active').style.color = this.widgetRoot.getAttribute("w-tabcolor");
+        }
+        if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+            this.widgetRoot.querySelector('.tb.active').style.background = this.widgetRoot.getAttribute("w-tabbackground");
+        }
         for (let attr in this.config) {
             if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
         }
@@ -1374,24 +1411,29 @@ class TabsControls {
 
     removeActiveTab(this_) {
         let tabs = this_.querySelectorAll('.tb');
+        let tabColor = this_.querySelector('.tb:not(.active)').style.color;
+        let tabBackground = this_.querySelector('.tb:not(.active)').style.background;
+        let tabActiveColor = this_.querySelector('.tb.active').style.color;
+        let tabActiveBackground = this_.querySelector('.tb.active').style.background;
+        if (tabActiveColor == '') tabActiveColor = '#ffffff'; 
+        if (tabActiveBackground == '') tabActiveBackground = '#b7c9d2';
         var tabsLenght = tabs.length;
         for (let i=0; i < tabsLenght; i++) {
-            // Array.from(tabs).forEach(tab => {
             let tab = tabs[i];
             if (tab.classList.contains("active")) tab.classList.remove("active");
-            // });
+            tab.style.color = tabColor;
+            tab.style.background = tabBackground;
         }
         let tab = this_.nextSibling.querySelectorAll('.tab');
         var tabLenght = tab.length;
-        for (let i=0; i < tabLenght; i++) {
-            // Array.from(tab).forEach(tb => {
+        for (let i=0; i < tabLenght; i++) {            
             let tb = tab[i];
             if (tb.classList.contains("active")) tb.classList.remove("active");
-            // });
         }
+        return { tabActiveColor, tabActiveBackground }
     }
 
-    selActiveTab(activeTab, this_) {
+    selActiveTab(activeTab, this_, activeTabParams) {
         let tabs = this_.nextSibling;
         tabs.children[activeTab].classList.add('active');
     }
@@ -1406,10 +1448,13 @@ class TabsControls {
             let tab = tabs[i];
             tab.addEventListener('click', function (e) {
                 let this_ = e.target.parentNode;
-                self.removeActiveTab(this_);
+                let activeTabParams = self.removeActiveTab(this_);
+                console.log(activeTabParams);
                 let index = Array.prototype.indexOf.call(this_.children, e.target);
                 this.classList.add("active");
-                self.selActiveTab(index, this_);
+                this.style.color = activeTabParams.tabActiveColor;
+                this.style.background = activeTabParams.tabActiveBackground;
+                self.selActiveTab(index, this_, activeTabParams);
             });
          }
          // });

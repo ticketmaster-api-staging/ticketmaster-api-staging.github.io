@@ -74,7 +74,6 @@
 
     var changeState = function(event){
         if(!event.target.name || event.target.name === "w-googleapikey") return;
-
         let widgetNode = document.querySelector("div[w-tmapikey]"),
             targetValue = event.target.value,
             targetName = event.target.name,
@@ -147,7 +146,7 @@
                 document.querySelector('.js_get_widget_code').classList.remove('disabled');
             }
         }
-
+        
         if(targetName === "w-theme"){
             if(targetValue === 'simple'){
                 $colorSchemeSelector.hide();
@@ -159,6 +158,37 @@
                 widgetNode.setAttribute('w-height', getHeightByTheme(targetValue));
             }
             widgetNode.setAttribute('w-border', getBorderByTheme(targetValue));
+        }
+
+        if(targetName === "w-colorscheme"){
+            if (targetValue === 'custom') {
+              $(".widget__color_scheme_custom").show();
+            }
+            else {
+              $(".widget__color_scheme_custom").hide();
+              let calWidget = document.querySelector('div[w-type="clendar"]');
+              console.log(calWidget);
+              calWidget.removeAttribute("w-background");
+              calWidget.removeAttribute("w-textcolor");
+              calWidget.removeAttribute("w-tabcolor");
+              calWidget.removeAttribute("w-tabbackground");
+            }
+        }
+
+        if (targetName === "w-background") {
+            widgetNode.setAttribute('w-background', this.value);
+        }
+
+        if (targetName === "w-textcolor") {
+            widgetNode.setAttribute('w-textcolor', this.value);
+        }
+
+        if (targetName === "w-tabcolor") {
+            widgetNode.setAttribute('w-tabcolor', this.value);
+        }
+
+        if (targetName === "w-tabbackground") {
+            widgetNode.setAttribute('w-tabbackground', this.value);
         }
 
         if(targetName === "w-layout"){
@@ -548,5 +578,4 @@
             widget.update();
         }
     });
-
 })();

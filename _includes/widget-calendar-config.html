@@ -110,11 +110,42 @@
                             <input checked id="w-colorscheme-light" type="radio" value="light" name="w-colorscheme">
                             <label for="w-colorscheme-light">Light</label>
                             <input id="w-colorscheme-dark" type="radio" value="dark" name="w-colorscheme">
-                            <label for="w-colorscheme-dark">Dark</label>
+							<label for="w-colorscheme-dark">Dark</label>
+							<input id="w-colorscheme-custom" type="radio" value="custom" name="w-colorscheme">
+							<label for="w-colorscheme-custom">Custom</label>
                         </div>
-                    </div>
-                </div>
+					</div>
+					
+                    <div class="widget__color_scheme_custom" style="display: none">
+						<div class="row row-native">
+						    <div class="col-lg-6">
+							    <label for="w-background">
+								   Background color: <span class="config_field__description"></span>
+								</label>
+								<input id="w-background" name="w-background" type="text" size="7" min="7" max="7" value="#f1f4f6">
+							</div>
+							<div class="col-lg-6">
+								<label for="w-textcolor">
+									Text color: <span class="config_field__description"></span>
+								</label>
+								<input id="w-textcolor" name="w-textcolor" type="text" size="7" min="7" max="7" value="#b7c9d3">
+							</div>
+							<div class="col-lg-6">
+								<label for="w-tabcolor">
+									Active tab color: <span class="config_field__description"></span>
+								</label>
+								<input id="w-tabcolor" name="w-tabcolor" type="text" size="7" min="7" max="7" value="#ffffff">
+							</div>
+							<div class="col-lg-6">
+								<label for="w-tabbackground">
+									Active tab background: <span class="config_field__description"></span>
+								</label>
+								<input id="w-tabbackground" name="w-tabbackground" type="text" size="7" min="7" max="7" value="#b7c9d2">
+							</div>
+						</div>
+					</div>
 
+                </div>
             </div>
 
             <div class="row row-native">
