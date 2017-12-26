@@ -78,8 +78,8 @@
 
     var changeState = function changeState(event) {
         if (!event.target.name || event.target.name === "w-googleapikey") return;
-
         var widgetNode = document.querySelector("div[w-tmapikey]"),
+            cleanStyles = [document.querySelector(".tabs"), document.querySelector(".tabs-container"), document.querySelectorAll(".tab"), document.querySelectorAll(".tb"), document.querySelectorAll(".selector-title")],
             targetValue = event.target.value,
             targetName = event.target.name,
             $tabButtons = $('.js-tab-buttons');
@@ -160,6 +160,79 @@
                 widgetNode.setAttribute('w-height', getHeightByTheme(targetValue));
             }
             widgetNode.setAttribute('w-border', getBorderByTheme(targetValue));
+        }
+
+        if (targetName === "w-colorscheme") {
+            if (targetValue === 'custom') {
+                $(".widget__color_scheme_custom").show();
+            } else {
+                $('.widget__color_scheme_custom').hide();
+                widgetNode.removeAttribute('w-background');
+                widgetNode.removeAttribute('w-textcolor');
+                widgetNode.removeAttribute('w-bordercolor');
+                widgetNode.removeAttribute('w-tabsbordercolor');
+                widgetNode.removeAttribute('w-tabsbordercolor');
+                widgetNode.removeAttribute('w-tabcolor');
+                widgetNode.removeAttribute('w-tabbackground');
+                widgetNode.removeAttribute('w-hovertabcolor');
+                widgetNode.removeAttribute('w-hovertabbackground');
+                widgetNode.removeAttribute('w-selectorcolorhover');
+                widgetNode.removeAttribute('w-datesbackground');
+                widgetNode.removeAttribute('w-datescolor');
+                widgetNode.removeAttribute('w-datescolorhover');
+                var customSheet = document.querySelector('div[w-type="calendar"]').getElementsByTagName('style')[0];
+                if (customSheet != undefined) {
+                    customSheet.parentNode.removeChild(customSheet);
+                }
+            }
+        }
+
+        if (targetName === "w-background") {
+            widgetNode.setAttribute('w-background', this.value);
+        }
+
+        if (targetName === "w-textcolor") {
+            widgetNode.setAttribute('w-textcolor', this.value);
+        }
+
+        if (targetName === "w-bordercolor") {
+            widgetNode.setAttribute('w-bordercolor', this.value);
+        }
+
+        if (targetName === "w-tabsbordercolor") {
+            widgetNode.setAttribute('w-tabsbordercolor', this.value);
+        }
+
+        if (targetName === "w-tabcolor") {
+            widgetNode.setAttribute('w-tabcolor', this.value);
+        }
+
+        if (targetName === "w-tabbackground") {
+            widgetNode.setAttribute('w-tabbackground', this.value);
+        }
+
+        if (targetName === "w-hovertabcolor") {
+            widgetNode.setAttribute('w-hovertabcolor', this.value);
+        }
+
+        if (targetName === "w-hovertabbackground") {
+            widgetNode.setAttribute('w-hovertabbackground', this.value);
+        }
+
+        if (targetName === "w-selectorcolorhover") {
+            widgetNode.setAttribute('w-selectorcolorhover', this.value);
+        }
+
+        if (targetName === "w-datesbackground") {
+            widgetNode.setAttribute('w-datesbackground', this.value);
+        }
+
+        if (targetName === "w-datescolor") {
+            widgetNode.setAttribute('w-datescolor', this.value);
+        }
+
+        if (targetName === "w-datescolorhover") {
+            widgetNode.setAttribute('w-datescolorhover', this.value);
         }
 
         if (targetName === "w-layout") {
