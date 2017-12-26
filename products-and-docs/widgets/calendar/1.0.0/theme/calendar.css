@@ -1000,7 +1000,7 @@ div[w-theme="calendar"] .selector-title {
 div[w-theme="calendar"] .selector-title:after {
 	position: absolute;
 	right: 0;
-	top: 8px;
+	top: 7px;
 	content: "";
 	display: inline-block;
 	width: 8px;
@@ -1023,7 +1023,7 @@ div[w-theme="calendar"] .selector-title.open:after,
 div[w-theme="calendar"] .selector-title.open:hover:after {
 	position: absolute;
 	right: 0;
-	top: 8px;
+	top: 12px;
 	content: "";
 	display: inline-block;
 	width: 8px;
