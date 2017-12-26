@@ -971,6 +971,11 @@ div[w-theme="calendar"] .sliderRightSelector {
 	width: 122px;
 }
 
+div[w-theme="calendar"] .sliderLeftSelector:hover,
+div[w-theme="calendar"] .sliderRightSelector:hover {
+	cursor: pointer;
+}
+
 div[w-theme="calendar"] .selector-title {
 	text-align: left;
 	font-family: 'TMSans-Bold', Arial, serif;
