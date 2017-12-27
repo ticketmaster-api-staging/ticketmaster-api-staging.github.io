@@ -615,5 +615,7 @@
             widget.update();
         }
     });
+
+    $('input.color-picker').minicolors();
 })();
 //# sourceMappingURL=main-widget-config.js.map
