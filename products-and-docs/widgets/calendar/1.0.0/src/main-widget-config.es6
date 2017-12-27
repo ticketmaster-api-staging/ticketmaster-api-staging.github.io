@@ -629,4 +629,7 @@
             widget.update();
         }
     });
+
+    $('input.color-picker').minicolors();
+
 })();
