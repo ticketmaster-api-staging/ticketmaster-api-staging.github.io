@@ -994,7 +994,7 @@ div[w-theme="calendar"] .selector-title {
     -ms-user-select: none;
     user-select: none;
     text-shadow: none;
-    border: 0;
+    border: none;
 }
 
 div[w-theme="calendar"] .selector-title:after {

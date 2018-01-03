@@ -2196,28 +2196,7 @@ var TicketmasterCalendarWidget = function () {
         this.widgetRoot.style.borderRadius = this.config.borderradius + "px";
         this.widgetRoot.style.borderWidth = this.borderSize + "px";
 
-        /* If custom colors isset */
-        if (this.widgetRoot.getAttribute("w-background") != undefined) this.tabsRootContainer.style.background = this.widgetRoot.getAttribute("w-background");
-        if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
-            var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
-                selColor = this.widgetRoot.querySelectorAll('.selector-title');
-            tabsColor.forEach(function (el, i) {
-                el.style.color = _this.widgetRoot.getAttribute("w-textcolor");
-            });
-            selColor.forEach(function (el, i) {
-                el.style.color = _this.widgetRoot.getAttribute("w-textcolor");
-            });
-        }
-
-        if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
-            this.tabsRootContainer.children[0].style.color = this.widgetRoot.getAttribute("w-tabcolor");
-        }
-        if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
-            this.tabsRootContainer.children[0].style.background = this.widgetRoot.getAttribute("w-tabbackground");
-        }
-        /* If custom colors isset */
-
-        //this.clear();
+        this.loadCustomStyle();
 
         this.AdditionalElements();
 
@@ -2830,6 +2809,155 @@ var TicketmasterCalendarWidget = function () {
             this.clearEvents();
         }
     }, {
+        key: "loadCustomStyle",
+        value: function loadCustomStyle() {
+
+            var sheet = void 0;
+
+            if (this.widgetRoot.getElementsByTagName('style')[0] == undefined) {
+                var cusStyle = document.createElement("style");
+                this.widgetRoot.appendChild(cusStyle);
+                sheet = cusStyle.sheet;
+            } else {
+                sheet = this.widgetRoot.getElementsByTagName('style')[0].sheet;
+            }
+
+            if (this.widgetRoot.getAttribute("w-background") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs', 'background: ' + this.widgetRoot.getAttribute("w-background"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs { background: ' + this.widgetRoot.getAttribute("w-background") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span', 'color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span { color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title', 'color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title { color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title:after', 'border-color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:after { border-color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-bordercolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"]', 'border-color: ' + this.widgetRoot.getAttribute("w-bordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] { border-color: ' + this.widgetRoot.getAttribute("w-bordercolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabsbordercolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"] .tabs span', 'border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span { border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span:first-child', 'border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:first-child { border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active', 'color: ' + this.widgetRoot.getAttribute("w-tabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active { color: ' + this.widgetRoot.getAttribute("w-tabcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active:hover', 'color: ' + this.widgetRoot.getAttribute("w-tabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active:hover { color: ' + this.widgetRoot.getAttribute("w-tabcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active', 'background: ' + this.widgetRoot.getAttribute("w-tabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active { background: ' + this.widgetRoot.getAttribute("w-tabbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active:hover', 'background: ' + this.widgetRoot.getAttribute("w-tabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active:hover { background: ' + this.widgetRoot.getAttribute("w-tabbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-hovertabcolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"] .tabs span:hover', 'color: ' + this.widgetRoot.getAttribute("w-hovertabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:hover { color: ' + this.widgetRoot.getAttribute("w-hovertabcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-hovertabbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span:hover', 'background: ' + this.widgetRoot.getAttribute("w-hovertabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:hover { background: ' + this.widgetRoot.getAttribute("w-hovertabbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-selectorcolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-title:hover', 'color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:hover { color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title:hover:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:hover:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title.open:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title.open:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title.open:hover:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title.open:hover:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datesbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content', 'background: ' + this.widgetRoot.getAttribute("w-datesbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content { background: ' + this.widgetRoot.getAttribute("w-datesbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datescolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content span', 'color: ' + this.widgetRoot.getAttribute("w-datescolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content span { color: ' + this.widgetRoot.getAttribute("w-datescolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datescolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content span:hover', 'color: ' + this.widgetRoot.getAttribute("w-datescolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content span:hover { color: ' + this.widgetRoot.getAttribute("w-datescolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-schedulesdotscolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .d .round', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .d .round { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar table td.today .round', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar table td.today .round { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .year .month .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .year .month .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-schedulesdotscolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .d .round:hover', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .d .round:hover { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-popuscolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name:hover, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name:hover', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name:hover, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name:hover { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .place, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .place', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .place, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .place { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name:hover, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name:hover', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name:hover, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name:hover { color: ' + this.widgetRoot.getAttribute("w-popuscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .place, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .place', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .place, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .place { color: ' + this.widgetRoot.getAttribute("w-popuscolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-popusbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup-up', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup-up { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .tail:before', 'border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent');
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .tail:before { border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .tail-up:before', 'border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent');
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .tail-up:before { border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup-up', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup-up { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .tail:before', 'border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent');
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .tail:before { border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .tail-up:before', 'border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent');
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .tail-up:before { border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent}', 0);
+            }
+            /* If custom colors isset */
+        }
+    }, {
         key: "update",
         value: function update() {
             var _this8 = this;
@@ -2838,28 +2966,33 @@ var TicketmasterCalendarWidget = function () {
             var spinner = widget.querySelector('.spinner-container');
             spinner.classList.remove('hide');
             var oldTheme = this.config.constructor();
+            /*
             if (this.widgetRoot.getAttribute("w-background") != undefined) this.widgetRoot.firstChild.style.background = this.widgetRoot.getAttribute("w-background");
-            if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
+            if (this.widgetRoot.getAttribute("w-textcolor") != undefined)  {
                 var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
                     selColor = this.widgetRoot.querySelectorAll('.selector-title');
-                tabsColor.forEach(function (el, i) {
-                    el.style.color = _this8.widgetRoot.getAttribute("w-textcolor");
+                tabsColor.forEach((el,i) => {
+                    el.style.color = this.widgetRoot.getAttribute("w-textcolor");
                 });
-                selColor.forEach(function (el, i) {
-                    el.style.color = _this8.widgetRoot.getAttribute("w-textcolor");
+                selColor.forEach((el,i) => {
+                    el.style.color = this.widgetRoot.getAttribute("w-textcolor");
                 });
             }
+            /*
             if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
                 this.widgetRoot.querySelector('.tb.active').style.color = this.widgetRoot.getAttribute("w-tabcolor");
             }
             if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
                 this.widgetRoot.querySelector('.tb.active').style.background = this.widgetRoot.getAttribute("w-tabbackground");
             }
+            */
             for (var attr in this.config) {
                 if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
             }
 
             this.config = this.widgetRoot.attributes;
+
+            this.loadCustomStyle();
 
             this.widgetRoot.style.height = this.widgetHeight + "px";
             this.widgetRoot.style.width = this.config.width + "px";
@@ -3365,30 +3498,25 @@ var TabsControls = function () {
         key: "removeActiveTab",
         value: function removeActiveTab(this_) {
             var tabs = this_.querySelectorAll('.tb');
-            var tabColor = this_.querySelector('.tb:not(.active)').style.color;
-            var tabBackground = this_.querySelector('.tb:not(.active)').style.background;
-            var tabActiveColor = this_.querySelector('.tb.active').style.color;
-            var tabActiveBackground = this_.querySelector('.tb.active').style.background;
-            if (tabActiveColor == '') tabActiveColor = '#ffffff';
-            if (tabActiveBackground == '') tabActiveBackground = '#b7c9d2';
             var tabsLenght = tabs.length;
             for (var i = 0; i < tabsLenght; i++) {
+                // Array.from(tabs).forEach(tab => {
                 var _tab = tabs[i];
                 if (_tab.classList.contains("active")) _tab.classList.remove("active");
-                _tab.style.color = tabColor;
-                _tab.style.background = tabBackground;
+                // });
             }
             var tab = this_.nextSibling.querySelectorAll('.tab');
             var tabLenght = tab.length;
             for (var _i5 = 0; _i5 < tabLenght; _i5++) {
+                // Array.from(tab).forEach(tb => {
                 var tb = tab[_i5];
                 if (tb.classList.contains("active")) tb.classList.remove("active");
+                // });
             }
-            return { tabActiveColor: tabActiveColor, tabActiveBackground: tabActiveBackground };
         }
     }, {
         key: "selActiveTab",
-        value: function selActiveTab(activeTab, this_, activeTabParams) {
+        value: function selActiveTab(activeTab, this_) {
             var tabs = this_.nextSibling;
             tabs.children[activeTab].classList.add('active');
         }
@@ -3406,13 +3534,10 @@ var TabsControls = function () {
             var tab = tabs[i];
             tab.addEventListener('click', function (e) {
                 var this_ = e.target.parentNode;
-                var activeTabParams = self.removeActiveTab(this_);
-                console.log(activeTabParams);
+                self.removeActiveTab(this_);
                 var index = Array.prototype.indexOf.call(this_.children, e.target);
                 this.classList.add("active");
-                this.style.color = activeTabParams.tabActiveColor;
-                this.style.background = activeTabParams.tabActiveBackground;
-                self.selActiveTab(index, this_, activeTabParams);
+                self.selActiveTab(index, this_);
             });
         }
         // });

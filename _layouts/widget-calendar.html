@@ -3,6 +3,7 @@ layout: documentation-single
 ---
 
 <link id="widget-theme-listview" rel="stylesheet" href="{{ "/products-and-docs/widgets/calendar/1.0.0/theme/calendar.css" | prepend: site.baseurl }}">
+<link id="widget-theme-picker" rel="stylesheet" href="{{ "/products-and-docs/widgets/calendar/1.0.0/theme/jquery.minicolors.css" | prepend: site.baseurl }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
 
 
@@ -52,10 +53,6 @@ layout: documentation-single
                       w-affiliateid=""
                       w-segmentid=""
                       w-proportion="standart"
-                      w-background="#f1f4f6"
-                      w-textcolor="#b7c9d3"
-                      w-tabcolor="#ffffff"
-                      w-tabbackground="#b7c9d2"
                     ></div>
                 </div>
             </div>
@@ -167,6 +164,7 @@ layout: documentation-single
 
 
 <script type="text/javascript" src="{{'/scripts/vendors/datetimepicker.js' | prepend: site.baseurl }}"></script>
+<script type="text/javascript" src="{{'/scripts/vendors/jquery.minicolors.js' | prepend: site.baseurl }}"></script>
 {%if site.local_test_apikeys == 'true' %}
 	<script src="{{'/scripts/components/api-key-service-testKeys.js' | prepend: site.baseurl }}"></script>
 {%else%}
