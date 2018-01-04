@@ -1000,7 +1000,7 @@ div[w-theme="calendar"] .selector-title {
 div[w-theme="calendar"] .selector-title:after {
     position: absolute;
     right: 0;
-    top: 13px;
+    top: 8px;
     content: "";
     display: inline-block;
     width: 8px;
@@ -1015,14 +1015,14 @@ div[w-theme="calendar"] .selector-title:hover:after {
   border-color: #009cde;
   opacity:1;
   transform: rotate(136deg);
-  top: 13px;
+  top: 8px;
 }
 
 div[w-theme="calendar"] .selector-title.open:after,
 div[w-theme="calendar"] .selector-title.open:hover:after {
   position: absolute;
   right: 0;
-  top: 13px;
+  top: 8px;
   content: "";
   display: inline-block;
   width: 8px;
@@ -1034,7 +1034,7 @@ div[w-theme="calendar"] .selector-title.open:hover:after {
   border-color: #009cde;
   opacity:1;
   transform: rotate(-45deg);
-  top: 18px;
+  top: 8px;
 }
 
 div[w-theme="calendar"] .sliderRightSelector .selector-title {

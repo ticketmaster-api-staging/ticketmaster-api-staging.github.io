@@ -27,25 +27,25 @@ class TicketmasterCalendarWidget {
 
     get eventUrl(){ return "http://www.ticketmaster.com/event/"; }
 
-    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
     get themeUrl() {
         return (window.location.host === 'developer.ticketmaster.com')
-          ? `http://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/`
+          ? `https://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/`
           : `https://ticketmaster-api-staging.github.io/products-and-docs/widgets/calendar/1.0.0/theme/`;
     }
 
     get portalUrl(){
         return (window.location.host === 'developer.ticketmaster.com')
-          ? `http://developer.ticketmaster.com/`
+          ? `https://developer.ticketmaster.com/`
           : `https://ticketmaster-api-staging.github.io/`;
     }
 
     get logoUrl() { return "http://www.ticketmaster.com/"; }
 
-    get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
+    get legalNoticeUrl() { return "https://developer.ticketmaster.com/support/terms-of-use/"; }
 
-    get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
+    get questionUrl() { return "https://developer.ticketmaster.com/support/faq/"; }
 
     get widgetVersion() { return `1.0.80`; }
 
@@ -1496,7 +1496,7 @@ class TicketmasterCalendarWidget {
     }
 
     makeImageUrl(id){
-        return `https://app.ticketmaster.com/discovery/v2/events/${id}/images.json`;
+        return `https://app.ticketmaster.com/discovery-widgets/v2/events/${id}/images.json`;
     }
 
     /* Config block */
@@ -1662,7 +1662,7 @@ class SelectorControls {
 
 class WeekScheduler {
 
-    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
     get eventReqAttrs(){
         let calendarWidgetRoot = this.eventsRootContainer.parentNode.parentNode.parentNode;
@@ -1819,7 +1819,7 @@ class WeekScheduler {
             "endDateTime": endDateTime,
             "classificationId": classificationid,
             "radius": radius,
-            "size": "500"
+            "size": "200"
         }
 
     }
@@ -2525,7 +2525,7 @@ class WeekScheduler {
 
 class MonthScheduler {
 
-    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
     get eventReqAttrs(){
         let calendarWidgetRoot = this.monthSchedulerRoot.parentNode.parentNode.parentNode;
@@ -2668,7 +2668,7 @@ class MonthScheduler {
             "endDateTime": endDateTime,
             "classificationId": classificationid,
             "radius": radius,
-            "size": "500",
+            "size": "200",
             "page": 0
         }
     }
@@ -2821,7 +2821,7 @@ class MonthScheduler {
         let calendarWidgetRoot = schedulerRoot.parentNode.parentNode.parentNode;
         let spinner = schedulerRoot.querySelector('.spinner-container');
         let prm = [];
-        let url = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=500&page=0&sort=date,asc';
+        let url = 'https://app.ticketmaster.com/discovery-widgets/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=200&page=0&sort=date,asc';
 
         if (this && this.readyState == XMLHttpRequest.DONE) {
 
@@ -3477,7 +3477,7 @@ class MonthScheduler {
 
 class YearScheduler {
 
-    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
     get eventReqAttrs(){
         let calendarWidgetRoot = this.yearSchedulerRoot.parentNode.parentNode.parentNode;

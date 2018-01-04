@@ -259,7 +259,7 @@ var TicketmasterCountdownWidget = function () {
   }, {
     key: 'apiUrl',
     get: function get() {
-      return this.config.id ? 'https://app.ticketmaster.com/discovery/v2/events/' + this.config.id + '.json' : 'https://app.ticketmaster.com/discovery/v2/events/' + this.eventId + '.json';
+      return this.config.id ? 'https://app.ticketmaster.com/discovery-widgets/v2/events/' + this.config.id + '.json' : 'https://app.ticketmaster.com/discovery-widgets/v2/events/' + this.eventId + '.json';
     }
   }, {
     key: 'themeUrl',
@@ -289,7 +289,7 @@ var TicketmasterCountdownWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-5122";
+      return '' + "1.0.-5120";
     }
   }, {
     key: 'questionUrl',
@@ -933,7 +933,7 @@ var TicketmasterCountdownWidget = function () {
         return this;
       };
       var zipVegas = '89109',
-          url = 'https://app.ticketmaster.com/discovery/v2/events.json',
+          url = 'https://app.ticketmaster.com/discovery-widgets/v2/events.json',
           newAttr = Object.assign({}, this.eventReqAttrs),
           d = new Date(0),
           convertedNewStartDate = void 0;

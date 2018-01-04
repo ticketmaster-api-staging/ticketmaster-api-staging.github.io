@@ -1952,17 +1952,17 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "themeUrl",
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "http://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/" : "https://ticketmaster-api-staging.github.io/products-and-docs/widgets/calendar/1.0.0/theme/";
+            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/" : "https://ticketmaster-api-staging.github.io/products-and-docs/widgets/calendar/1.0.0/theme/";
         }
     }, {
         key: "portalUrl",
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "http://developer.ticketmaster.com/" : "https://ticketmaster-api-staging.github.io/";
+            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/" : "https://ticketmaster-api-staging.github.io/";
         }
     }, {
         key: "logoUrl",
@@ -1972,12 +1972,12 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "legalNoticeUrl",
         get: function get() {
-            return "http://developer.ticketmaster.com/support/terms-of-use/";
+            return "https://developer.ticketmaster.com/support/terms-of-use/";
         }
     }, {
         key: "questionUrl",
         get: function get() {
-            return "http://developer.ticketmaster.com/support/faq/";
+            return "https://developer.ticketmaster.com/support/faq/";
         }
     }, {
         key: "widgetVersion",
@@ -3446,7 +3446,7 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "makeImageUrl",
         value: function makeImageUrl(id) {
-            return "https://app.ticketmaster.com/discovery/v2/events/" + id + "/images.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events/" + id + "/images.json";
         }
 
         /* Config block */
@@ -4335,7 +4335,7 @@ var WeekScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
@@ -4484,7 +4484,7 @@ var WeekScheduler = function () {
                 "endDateTime": endDateTime,
                 "classificationId": classificationid,
                 "radius": radius,
-                "size": "500"
+                "size": "200"
             };
         }
     }, {
@@ -4715,7 +4715,7 @@ var MonthScheduler = function () {
             var calendarWidgetRoot = schedulerRoot.parentNode.parentNode.parentNode;
             var spinner = schedulerRoot.querySelector('.spinner-container');
             var prm = [];
-            var url = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=500&page=0&sort=date,asc';
+            var url = 'https://app.ticketmaster.com/discovery-widgets/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=200&page=0&sort=date,asc';
 
             if (this && this.readyState == XMLHttpRequest.DONE) {
 
@@ -5344,7 +5344,7 @@ var MonthScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
@@ -5480,7 +5480,7 @@ var MonthScheduler = function () {
                 "endDateTime": endDateTime,
                 "classificationId": classificationid,
                 "radius": radius,
-                "size": "500",
+                "size": "200",
                 "page": 0
             };
         }
@@ -5866,7 +5866,7 @@ var YearScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
