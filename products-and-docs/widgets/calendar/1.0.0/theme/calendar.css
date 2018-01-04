@@ -993,12 +993,56 @@ div[w-theme="calendar"] .selector-title {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-	  text-shadow: none;
+    text-shadow: none;
+    border: none;
+}
+
+div[w-theme="calendar"] .selector-title:after {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid #b7c9d3;
+    border-top: 1.5px solid #b7c9d3;
+    transform: rotate(136deg);
+    background: none;
+}
+
+div[w-theme="calendar"] .selector-title:hover:after {
+  border-color: #009cde;
+  opacity:1;
+  transform: rotate(136deg);
+  top: 8px;
+}
+
+div[w-theme="calendar"] .selector-title.open:after,
+div[w-theme="calendar"] .selector-title.open:hover:after {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #b7c9d3;
+  border-top: 1.5px solid #b7c9d3;
+  transform: rotate(136deg);
+  background: none;
+  border-color: #009cde;
+  opacity:1;
+  transform: rotate(-45deg);
+  top: 8px;
 }
 
 div[w-theme="calendar"] .sliderRightSelector .selector-title {
 }
 
+div[w-theme="calendar"] .selector-title:before {display: none;}
+
+/*
 div[w-theme="calendar"] .selector-title:before,
 div[w-theme="calendar"] .selector-title:after {
     content: '';
@@ -1024,7 +1068,6 @@ div[w-theme="calendar"] .selector-title:after {
     background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/small-shevron.svg");
 
 }
-
 div[w-theme="calendar"] .selector-title.open:after,
 div[w-theme="calendar"] .selector-title.open:before {
     -ms-transform: rotate(180deg);
@@ -1048,6 +1091,7 @@ div[w-theme="calendar"] .selector-title:hover:before {
 div[w-theme="calendar"] .selector-title:hover:after {
     opacity: 0;
 }
+*/
 
 div[w-theme="calendar"] .selector-content {
     font-family: 'TMSans-Bold', Arial, serif;
@@ -1104,7 +1148,8 @@ div[w-theme="calendar"] .monthScheduler {
 div[w-theme="calendar"] .monthScheduler .calendar {
 	margin: 0px auto;
 	padding: 0;
-	height: 273px;
+    height: 273px;
+    background: #fff;
 }
 div[w-theme="calendar"][w-colorscheme="dark"] .monthScheduler .calendar {
 	background: #414141;
@@ -1446,6 +1491,7 @@ div[w-theme="calendar"] .year {
     height: 273px;
     text-align: center;
     position: relative;
+    background: #fff;
 }
 
 div[w-theme="calendar"][w-colorscheme="dark"] .year {

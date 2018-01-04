@@ -158,17 +158,17 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'apiUrl',
     get: function get() {
-      return "https://app.ticketmaster.com/discovery/v2/events.json";
+      return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
     }
   }, {
     key: 'themeUrl',
     get: function get() {
-      return window.location.host === 'developer.ticketmaster.com' ? 'http://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/';
+      return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/';
     }
   }, {
     key: 'portalUrl',
     get: function get() {
-      return window.location.host === 'developer.ticketmaster.com' ? 'http://developer.ticketmaster.com/' : 'https://ticketmaster-api-staging.github.io/';
+      return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/' : 'https://ticketmaster-api-staging.github.io/';
     }
   }, {
     key: 'logoUrl',
@@ -178,17 +178,17 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'legalNoticeUrl',
     get: function get() {
-      return "http://developer.ticketmaster.com/support/terms-of-use/";
+      return "https://developer.ticketmaster.com/support/terms-of-use/";
     }
   }, {
     key: 'questionUrl',
     get: function get() {
-      return "http://developer.ticketmaster.com/support/faq/";
+      return "https://developer.ticketmaster.com/support/faq/";
     }
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.520";
+      return '' + "1.0.-5120";
     }
   }, {
     key: 'geocodeUrl',
@@ -1674,7 +1674,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'makeImageUrl',
     value: function makeImageUrl(id) {
-      return 'https://app.ticketmaster.com/discovery/v2/events/' + id + '/images.json';
+      return 'https://app.ticketmaster.com/discovery-widgets/v2/events/' + id + '/images.json';
     }
 
     /*
@@ -1707,23 +1707,31 @@ var TicketmasterEventDiscoveryWidget = function () {
       if (period == "year") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-        firstDay = new Date().toISOString().slice(0, 19) + 'Z';
-        lastDay = new Date(new Date().valueOf() + 24 * 365 * 60 * 60 * 1000).toISOString().slice(0, 19) + 'Z';
+        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+        // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
+        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+        lastDay = new Date(new Date().valueOf() + 24 * 365 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else if (period == "month") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-        firstDay = new Date().toISOString().slice(0, 19) + 'Z';
-        lastDay = new Date(new Date().valueOf() + 24 * 31 * 60 * 60 * 1000).toISOString().slice(0, 19) + 'Z';
+        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+        // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
+        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+        lastDay = new Date(new Date().valueOf() + 24 * 31 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else if (period == "week") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-        firstDay = new Date().toISOString().slice(0, 19) + 'Z';
-        lastDay = new Date(new Date().valueOf() + 24 * 7 * 60 * 60 * 1000).toISOString().slice(0, 19) + 'Z';
+        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+        // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
+        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+        lastDay = new Date(new Date().valueOf() + 24 * 7 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-        firstDay = new Date().toISOString().slice(0, 19) + 'Z';
-        lastDay = new Date(new Date().valueOf() + 24 * 60 * 60 * 1000).toISOString().slice(0, 19) + 'Z';
+        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+        // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
+        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+        lastDay = new Date(new Date().valueOf() + 24 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       }
 
       // return [this.toShortISOString(firstDay), this.toShortISOString(lastDay)];
