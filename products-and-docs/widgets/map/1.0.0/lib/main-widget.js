@@ -134,7 +134,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "themeUrl",
@@ -164,7 +164,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: "widgetVersion",
         get: function get() {
-            return "" + "1.0.429";
+            return "" + "1.0.772";
         }
     }, {
         key: "geocodeUrl",
@@ -1065,7 +1065,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: "makeImageUrl",
         value: function makeImageUrl(id) {
-            return "https://app.ticketmaster.com/discovery/v2/events/" + id + "/images.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events/" + id + "/images.json";
         }
 
         /*
