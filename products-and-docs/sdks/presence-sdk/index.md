@@ -273,10 +273,12 @@ extension ViewController: PresenceLoginDelegate {
 
   ///Method is invoked if the user granted app access/logged in.
   ///- parameter backendName: Name of the backend this callback event is associated with.
-  func onLoginSuccessful(backendName: PresenceLogin.BackendName)
+  ///- parameter accessToken: access token returned from the specified backend.
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String)
 
   ///User dismissed login window via the Cancel button
-  func onLoginCanceled()
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLoginCancelled(backendName: PresenceLogin.BackendName)
     
   ///Called when results are returned for a member info request after successful login
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
@@ -339,7 +341,6 @@ Your ViewController’s implementation should look like this:
 {% highlight swift %}
 import PresenceSDK
 
-
 class ViewController: UIViewController, PresenceLoginDelegate {
 
   @IBOutlet weak var presenceSDKView: PresenceSDKView?
@@ -355,15 +356,12 @@ class ViewController: UIViewController, PresenceLoginDelegate {
     presenceSDK.logOut()
   }
 
-  func onLoginSuccessful(backendName: PresenceLogin.BackendName) {
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String) {
   }
 
-  //User dismissed login window via the Cancel button
-  func onLoginCancelled() {
+  func onLoginCancelled(backendName: PresenceLogin.BackendName) {
   }
 
-  ///Called when results are returned for a Member info request after login
-  ///- parameter member: Member object. Member object is `nil` if login fails or an error is returned fetching member details.
   func onMemberUpdated(_ member: PresenceMember?) {
     if let pMember = member {
       print("Member Email: \(pMember.emailAddress)")
@@ -850,7 +848,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-## Release Notes Version 1.4.0
+## Release Notes Version 1.4.1
 
 ### Requirements for using Swift 4.0.0 build
 
@@ -887,7 +885,7 @@ Supported API levels
 
 -	API level 16 ~ 26
 
-## Release Notes Version 1.4.0
+## Release Notes Version 1.4.1
 
 ### Requirements
 
@@ -913,6 +911,11 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 
 
 {% capture iOS_changelog %}
+### Changes(01/09/2018 Release 1.4.1)
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Upgrade to Experience iOS SDK v4.9.1 to allow access to certain Experience Swift objects.
+
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
