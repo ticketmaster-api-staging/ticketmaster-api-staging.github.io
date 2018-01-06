@@ -28,8 +28,8 @@ Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In
 private func configurePresenceSDK() {
   //If you are a team use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
-    displayName: #your_team_display_name,
-    useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
+                                         displayName: #your_team_display_name,
+                               useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
   
   //If you are not a team and just going to login in Ticketmaster account than use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal)
@@ -394,6 +394,7 @@ func configureExperienceSDK() {
     .setAppName("yourAppName")
     .setApiKey("yourApiKey")
     .setApiSubdomain("apiSubdomainForYourApp")
+    .setSsoSigningKey("SsoSingingKey")
     .build()
   PresenceSDK.getPresenceSDK().setExperienceConfiguration(experienceConfiguration)
 }
@@ -554,6 +555,15 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% highlight swift %}
   // This method returns version number of the SDK as a String.
   func getVersionNumber()
+
+  /**
+  Method for getting a valid OAUTH Access Token
+     
+  - Parameters:
+  - backendName: Token for Host or AccountManager
+  - success: This block will be called when a valid token is fetched successfully, the success block will provide a valid access token.
+  - failure: This block will be called when there is some error fetching the token, the failure block will provide an error object. */  
+  func getAccessToken(backendName: PresenceLogin.BackendName, success: @escaping AccessTokenSuccessCompletionHandler, failure: @escaping AccessTokenFailureCompletionHandler)
 {% endhighlight %}
 {% endcapture %}
 
@@ -915,6 +925,7 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.1 to allow access to certain Experience Swift objects.
+- Added new parameters to `onLoginSuccessful()` & `onLoginCancelled()` PresenceLoginDelegate methods.
 
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
