@@ -895,13 +895,11 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 ### What’s New?
 
-- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
-- Added support for VIP color and text.
-- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
-- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
-- Added a new method for accessing SDK's version number.
-- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
-- Made some overall improvements and fixed some critical bugs.
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend
+- Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 
 {% endcapture %}
 
@@ -1036,6 +1034,11 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endcapture %}
 
 {% capture Android_changelog %}
+### Changes (01/09/2018 Release 1.4.1)
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Upgrade to Experience Android SDK 5.0.2
+
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
