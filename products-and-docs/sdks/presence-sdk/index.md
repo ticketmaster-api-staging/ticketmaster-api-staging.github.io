@@ -115,6 +115,18 @@ private void configurePresenceSDK() {
   //opaque red
   presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
   Color.parseColor("#ffff0000")); 
+
+  new PresenceSdkConfigListener () {
+    @Override
+    public void onPresenceSdkConfigSuccessful() {
+      configurePreseneSDK();
+    }
+
+    @Override
+    public void onPresenceSdkConfigFailed(String errorMessge) {
+      log.e(TAG,”Error configuring presence sdk”);
+    }
+  }
 }
 
 {% endhighlight %}
@@ -192,9 +204,10 @@ private void configureExperienceSDK() {
     .setApiKey(TmxConstants.Experience.EXPERIENCE_API_KEY)
     .setAppSource(TmxConstants.Experience.EXPERIENCE_APP_NAME)
     .setSubdomain(TmxConstants.Experience.EXPERIENCE_SUBDOMAIN)
+    .setSsoSigningKey(TmxConstants.Experience.EXPERIENCE_SSOSIGNINGKEY)
     .setDevServers(false)
     .build();
-	
+  
     presenceSDK.setExperienceConfiguration(wrapper);
 }
 {% endhighlight %}
@@ -207,12 +220,10 @@ protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   // set layout where you want to load presence sdk login entry view
   setContentView(R.layout.activity_main); 
-  // call configure presence sdk method
-  configurePresenceSDK();
   // configure experience sdk
   configureExperienceSDK();
-  // call launch presence sdk method
-  launchPresenceSDK();
+// call configure presence sdk method
+  configurePresenceSDK();
 }
 
 {% endhighlight %}
@@ -571,6 +582,15 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% highlight java %}
   // This method returns version number of the SDK as a String.
   public String getVersionNumber()
+
+  /**
+  * To get access token for a particular backend specified.
+  * guarantee that it will not expires in 15 min
+  * @param backendName       Backend type (Host or Archtics)
+  * @param loginListener     TMLoginListener object to call back about login status and access token, if successful result. Cannot be null.
+  */
+  public void getAccessToken(@NonNull TMLoginApi.BackendName backendName, 
+                                @NonNull TMLoginListener loginListener)
 {% endhighlight %}
 {% endcapture %}
 
@@ -925,7 +945,8 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Added new parameters to `onLoginSuccessful()` & `onLoginCancelled()` PresenceLoginDelegate methods.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend
+- Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
