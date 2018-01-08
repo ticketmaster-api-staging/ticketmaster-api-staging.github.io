@@ -924,7 +924,7 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 ### Changes(01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
-- Upgrade to Experience iOS SDK v4.9.1 to allow access to certain Experience Swift objects.
+- Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
 - Added new parameters to `onLoginSuccessful()` & `onLoginCancelled()` PresenceLoginDelegate methods.
 
 ### Changes (12/05/2017 Release 1.4.0)
