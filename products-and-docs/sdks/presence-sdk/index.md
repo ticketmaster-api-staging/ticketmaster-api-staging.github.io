@@ -928,7 +928,6 @@ Supported API levels
 ### What’s New?
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
-- Upgrade to Experience Android SDK 5.0.2.
 - Bug fixes and performance enhancements.
 {% endcapture %}
 
@@ -1033,7 +1032,6 @@ Supported API levels
 ### Changes (01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
-- Upgrade to Experience Android SDK 5.0.2.
 - Bug fixes and performance enhancements.
 
 ### Changes (12/05/2017 Release 1.4.0)
