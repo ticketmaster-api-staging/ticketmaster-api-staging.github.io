@@ -143,7 +143,7 @@ Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In t
 {% highlight java %}
 private void launchPresenceSDK() {
   PresenceSDK.getPresenceSDK(getApplicationContext()).start(this,
-    R.id.presenceSDK /*the id of the framelayout defined in activity layout where you want to load PreseneSDK UI fragment */
+    R.id.presenceSDK /*the id of the framelayout defined in activity layout where you want to load PresenceSDK UI fragment */
     , new TMLoginListener() {
         @Override
         public void onLoginSuccessful(TMLoginApi.BackendName backendName, String accessToken) {
@@ -748,7 +748,7 @@ And the notification handler will look something like this:
 {% capture Android_analytics %}
 For tracking user activity in the Presence SDK a separate class PresenceEventAnalytics is provided that lists all the user actions that are notified via local broadcast manager notifications together with the payload data.
 
-Notification Events – You can observe these notifications to receive udpates from Presence SDK.
+Notification Events – You can observe these notifications to receive updates from Presence SDK.
 
 {% highlight java %}
 public static final class Action {
@@ -1077,7 +1077,7 @@ Supported API levels
 
 ### Changes (09/13/2017 Release 1.0.0)
 
--	Resolved login issue of getting stuck in log-in screen after logging in and clicking“authorize” button.
+-	Resolved login issue of getting stuck in log-in screen after logging in and clicking “authorize” button.
 -	Resolved login issue of getting 401 status when clicking on an event
 -	Handled session expiry error
 -	Fixed crashlytics crashes
