@@ -28,8 +28,8 @@ Step 3: Create a configurePresenceSDK() method inside your AppDelegate class. In
 private func configurePresenceSDK() {
   //If you are a team use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal,
-    displayName: #your_team_display_name,
-    useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
+                                             displayName: #your_team_display_name,
+                                   useNewAccountsManager: #true/false for choosing between new or old account manager, by default it will choose old accounts manager)
   
   //If you are not a team and just going to login in Ticketmaster account than use the following method to configure Presence SDK
   PresenceSDK.getPresenceSDK().setConfig(consumerKey: #consumer_key provided on dev portal)
@@ -79,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.4.0.0’)
+compile project(‘:PresenceSDK-release-1.4.1.0’)
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -109,12 +109,24 @@ Step 5. Create a configurePresenceSDK() method inside your activity class. In th
 private void configurePresenceSDK() {
   PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(consumerKey /*Consumer key provided on dev portal*/, 
     displayName /*your team display name */, 
-    useNewAccountManager /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */);
+    useNewAccountManager, /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */
+    new PresenceSdkConfigListener () {
+    @Override
+    public void onPresenceSdkConfigSuccessful() {
+      configurePreseneSDK();
+    }
+
+    @Override
+    public void onPresenceSdkConfigFailed(String errorMessge) {
+      log.e(TAG,”Error configuring presence sdk”);
+    }
+  });
+
 
   // Configure your branding color for the SDK
   //opaque red
   presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
-  Color.parseColor("#ffff0000")); 
+  Color.parseColor("#ffff0000"));
 }
 
 {% endhighlight %}
@@ -131,30 +143,30 @@ Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In t
 {% highlight java %}
 private void launchPresenceSDK() {
   PresenceSDK.getPresenceSDK(getApplicationContext()).start(this,
-    R.id.presenceSDK /*the id of the framelayout defined in 		activity layout where you want to load PreseneSDK UI fragment */
+    R.id.presenceSDK /*the id of the framelayout defined in activity layout where you want to load PreseneSDK UI fragment */
     , new TMLoginListener() {
         @Override
-        public void onLoginSuccessful(TMLoginApi.BackendName 			backendName, String accessToken) {
+        public void onLoginSuccessful(TMLoginApi.BackendName backendName, String accessToken) {
           Log.i(TAG, "Inside onLoginSuccessful");
         }
 
         Override
-        public void onLoginFailed(TMLoginApi.BackendName backendName, 			String errorMessage) {
+        public void onLoginFailed(TMLoginApi.BackendName backendName, String errorMessage) {
           Log.i(TAG, "Inside onLoginFailed");
         }
 
         @Override
-        public void onLoginCancelled(TMLoginApi.BackendName 			backendName) {
+        public void onLoginCancelled(TMLoginApi.BackendName backendName) {
           Log.i(TAG, "Inside onLoginCancelled");
         }
 
         @Override
-        public void onLoginMethodUsed(TMLoginApi.BackendName 			backendName, TMLoginApi.LoginMethod method) {
+        public void onLoginMethodUsed(TMLoginApi.BackendName backendName, TMLoginApi.LoginMethod method) {
           Log.i(TAG, "Inside onLoginMethodUsed");
         }
 
         @Override
-        public void onLoginForgotPasswordClicked(TMLoginApi.BackendName 			backendName) {
+        public void onLoginForgotPasswordClicked(TMLoginApi.BackendName backendName) {
           Log.i(TAG, "Inside onLoginForgotPasswordClicked");
         }
 
@@ -164,7 +176,7 @@ private void launchPresenceSDK() {
         }
 
         @Override
-        public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo 			member) {
+        public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo member) {
           Log.i(TAG, "Inside onMemberUpdated");
         }
 		  });
@@ -192,9 +204,10 @@ private void configureExperienceSDK() {
     .setApiKey(TmxConstants.Experience.EXPERIENCE_API_KEY)
     .setAppSource(TmxConstants.Experience.EXPERIENCE_APP_NAME)
     .setSubdomain(TmxConstants.Experience.EXPERIENCE_SUBDOMAIN)
+    .setSsoSigningKey(TmxConstants.Experience.EXPERIENCE_SSOSIGNINGKEY)
     .setDevServers(false)
     .build();
-	
+  
     presenceSDK.setExperienceConfiguration(wrapper);
 }
 {% endhighlight %}
@@ -207,12 +220,10 @@ protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   // set layout where you want to load presence sdk login entry view
   setContentView(R.layout.activity_main); 
-  // call configure presence sdk method
-  configurePresenceSDK();
   // configure experience sdk
   configureExperienceSDK();
-  // call launch presence sdk method
-  launchPresenceSDK();
+// call configure presence sdk method
+  configurePresenceSDK();
 }
 
 {% endhighlight %}
@@ -273,10 +284,12 @@ extension ViewController: PresenceLoginDelegate {
 
   ///Method is invoked if the user granted app access/logged in.
   ///- parameter backendName: Name of the backend this callback event is associated with.
-  func onLoginSuccessful(backendName: PresenceLogin.BackendName)
+  ///- parameter accessToken: access token returned from the specified backend.
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String)
 
   ///User dismissed login window via the Cancel button
-  func onLoginCanceled()
+  ///- parameter backendName: Name of the backend this callback event is associated with.
+  func onLoginCancelled(backendName: PresenceLogin.BackendName)
     
   ///Called when results are returned for a member info request after successful login
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
@@ -339,7 +352,6 @@ Your ViewController’s implementation should look like this:
 {% highlight swift %}
 import PresenceSDK
 
-
 class ViewController: UIViewController, PresenceLoginDelegate {
 
   @IBOutlet weak var presenceSDKView: PresenceSDKView?
@@ -355,15 +367,12 @@ class ViewController: UIViewController, PresenceLoginDelegate {
     presenceSDK.logOut()
   }
 
-  func onLoginSuccessful(backendName: PresenceLogin.BackendName) {
+  func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String) {
   }
 
-  //User dismissed login window via the Cancel button
-  func onLoginCancelled() {
+  func onLoginCancelled(backendName: PresenceLogin.BackendName) {
   }
 
-  ///Called when results are returned for a Member info request after login
-  ///- parameter member: Member object. Member object is `nil` if login fails or an error is returned fetching member details.
   func onMemberUpdated(_ member: PresenceMember?) {
     if let pMember = member {
       print("Member Email: \(pMember.emailAddress)")
@@ -396,6 +405,7 @@ func configureExperienceSDK() {
     .setAppName("yourAppName")
     .setApiKey("yourApiKey")
     .setApiSubdomain("apiSubdomainForYourApp")
+    .setSsoSigningKey("SsoSingingKey")
     .build()
   PresenceSDK.getPresenceSDK().setExperienceConfiguration(experienceConfiguration)
 }
@@ -514,7 +524,8 @@ A simple Logout handler function can look like this:
 Presence SDK also provides some helper methods for checking if user is logged into any of the supported services.
 
 {% highlight swift %}
-// Method to check if user is logged in any of the services i.e Host or Accounts Manager.
+// Method to check if user is logged in any of the services i.e Host or Accounts
+// Manager.
 PresenceSDK.getPresenceSDK().isLoggedIn()
 
 // Method to check if user is logged in Host.
@@ -556,6 +567,19 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% highlight swift %}
   // This method returns version number of the SDK as a String.
   func getVersionNumber()
+
+  /**
+  Method for getting a valid OAUTH Access Token
+     
+  - Parameters:
+  - backendName: Token for Host or AccountManager
+  - success: This block will be called when a valid token is fetched
+    successfully, the success block will provide a valid access token.
+  - failure: This block will be called when there is some error fetching the
+    token, the failure block will provide an error object. */  
+  func getAccessToken(backendName: PresenceLogin.BackendName, 
+                          success: @escaping AccessTokenSuccessCompletionHandler, 
+                          failure: @escaping AccessTokenFailureCompletionHandler)
 {% endhighlight %}
 {% endcapture %}
 
@@ -563,6 +587,16 @@ PresenceSDK.getPresenceSDK(context).isLoggedIntoTeam();
 {% highlight java %}
   // This method returns version number of the SDK as a String.
   public String getVersionNumber()
+
+  /**
+  * To get access token for a particular backend specified.
+  * guarantee that it will not expires in 15 min
+  * @param backendName       Backend type (Host or Archtics)
+  * @param loginListener     TMLoginListener object to call back about login
+  * status and access token, if successful result. Cannot be null.
+  */
+  public void getAccessToken(@NonNull TMLoginApi.BackendName backendName, 
+                                @NonNull TMLoginListener loginListener)
 {% endhighlight %}
 {% endcapture %}
 
@@ -850,7 +884,7 @@ No additional actions required.
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-## Release Notes Version 1.4.0
+## Release Notes Version 1.4.1
 
 ### Requirements for using Swift 4.0.0 build
 
@@ -867,14 +901,11 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 
 ### What’s New?
 
-- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
-- Added support for VIP color and text.
-- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
-- Added few more delegate methods for the Login flow to have function parity between iOS and Android SDK.
-- Added a new method for accessing SDK's version number.
-- Made Add to Wallet button more accessible by making it available on both front and back of ticket card.
-- Made some overall improvements and fixed some critical bugs.
-
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend
+- Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 {% endcapture %}
 
 {% capture Android_whatyouneed %}
@@ -887,7 +918,7 @@ Supported API levels
 
 -	API level 16 ~ 26
 
-## Release Notes Version 1.4.0
+## Release Notes Version 1.4.1
 
 ### Requirements
 
@@ -895,24 +926,21 @@ Supported API levels
 - Only Portrait Orientation Supported.
 
 ### What’s New?
-- Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
-- Added support for VIP color and text.
-- Added option to choose between Dark and Light theme for the SDK that works together with configured branding color.
-- Added support for API level 26 (Android 8.0).
-- Added a new method for accessing SDK's version number.
-- Made Add to Android Pay button more accessible by making it available on both front and back of ticket card.
-- Fixed the background color of Event List View and made it opaque.
-- Made some overall improvements and fixed some critical bugs.
-
-{% highlight java %}
-// New Dependency
-compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
-{% endhighlight %}
-
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Bug fixes and performance enhancements.
 {% endcapture %}
 
 
 {% capture iOS_changelog %}
+### Changes(01/09/2018 Release 1.4.1)
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend.
+- Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
+- Bug fixes and performance enhancements.
+
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
@@ -1001,6 +1029,11 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endcapture %}
 
 {% capture Android_changelog %}
+### Changes (01/09/2018 Release 1.4.1)
+- Add new method for fetching the access token for Host and Archtics.
+- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
+- Bug fixes and performance enhancements.
+
 ### Changes (12/05/2017 Release 1.4.0)
 - Added support for prefetching all tickets in background so barcodes are accessible even in offline mode.
 - Added support for VIP color and text.
@@ -1065,13 +1098,13 @@ compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0 - Version1_4_0.zip) Presence SDK iOS - Swift 4.0.0 .
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0-Version1_4_1.zip) Presence SDK iOS - Swift 4.0.0 .
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1 - Version1_4_0.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1-Version1_4_1.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_0 .zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_1.zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
