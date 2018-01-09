@@ -79,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.4.0.0’)
+compile project(‘:PresenceSDK-release-1.4.1.0’)
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -109,14 +109,8 @@ Step 5. Create a configurePresenceSDK() method inside your activity class. In th
 private void configurePresenceSDK() {
   PresenceSDK.getPresenceSDK(getApplicationContext()).setConfig(consumerKey /*Consumer key provided on dev portal*/, 
     displayName /*your team display name */, 
-    useNewAccountManager /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */);
-
-  // Configure your branding color for the SDK
-  //opaque red
-  presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
-  Color.parseColor("#ffff0000")); 
-
-  new PresenceSdkConfigListener () {
+    useNewAccountManager, /*true/false for choosing between new or old account manager, by default it will choose old accounts manager */
+    new PresenceSdkConfigListener () {
     @Override
     public void onPresenceSdkConfigSuccessful() {
       configurePreseneSDK();
@@ -126,7 +120,13 @@ private void configurePresenceSDK() {
     public void onPresenceSdkConfigFailed(String errorMessge) {
       log.e(TAG,”Error configuring presence sdk”);
     }
-  }
+  });
+
+
+  // Configure your branding color for the SDK
+  //opaque red
+  presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
+  Color.parseColor("#ffff0000"));
 }
 
 {% endhighlight %}
@@ -1104,7 +1104,7 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_0 .zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_1.zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
