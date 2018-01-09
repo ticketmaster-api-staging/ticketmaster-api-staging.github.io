@@ -904,7 +904,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specified backend
 - Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 {% endcapture %}
 
@@ -937,7 +937,7 @@ Supported API levels
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specified backend.
 - Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 - Bug fixes and performance enhancements.
 
@@ -1253,7 +1253,7 @@ Now that we've imported the SDK into your project we can set up the views to dis
 ## Specifying a branding color
 {: .article }
 
-Now that the SDK is initalized you can add some flair by specifying your team color to change the look of the SDK throughout
+Now that the SDK is initialized you can add some flair by specifying your team color to change the look of the SDK throughout
 
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
