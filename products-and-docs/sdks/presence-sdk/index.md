@@ -143,7 +143,7 @@ Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In t
 {% highlight java %}
 private void launchPresenceSDK() {
   PresenceSDK.getPresenceSDK(getApplicationContext()).start(this,
-    R.id.presenceSDK /*the id of the framelayout defined in activity layout where you want to load PreseneSDK UI fragment */
+    R.id.presenceSDK /*the id of the framelayout defined in activity layout where you want to load PresenceSDK UI fragment */
     , new TMLoginListener() {
         @Override
         public void onLoginSuccessful(TMLoginApi.BackendName backendName, String accessToken) {
@@ -748,7 +748,7 @@ And the notification handler will look something like this:
 {% capture Android_analytics %}
 For tracking user activity in the Presence SDK a separate class PresenceEventAnalytics is provided that lists all the user actions that are notified via local broadcast manager notifications together with the payload data.
 
-Notification Events – You can observe these notifications to receive udpates from Presence SDK.
+Notification Events – You can observe these notifications to receive updates from Presence SDK.
 
 {% highlight java %}
 public static final class Action {
@@ -904,7 +904,7 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specified backend
 - Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 {% endcapture %}
 
@@ -937,7 +937,7 @@ Supported API levels
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
 - Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specidied backend.
+- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specified backend.
 - Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 - Bug fixes and performance enhancements.
 
@@ -1077,7 +1077,7 @@ Supported API levels
 
 ### Changes (09/13/2017 Release 1.0.0)
 
--	Resolved login issue of getting stuck in log-in screen after logging in and clicking“authorize” button.
+-	Resolved login issue of getting stuck in log-in screen after logging in and clicking “authorize” button.
 -	Resolved login issue of getting 401 status when clicking on an event
 -	Handled session expiry error
 -	Fixed crashlytics crashes
@@ -1253,7 +1253,7 @@ Now that we've imported the SDK into your project we can set up the views to dis
 ## Specifying a branding color
 {: .article }
 
-Now that the SDK is initalized you can add some flair by specifying your team color to change the look of the SDK throughout
+Now that the SDK is initialized you can add some flair by specifying your team color to change the look of the SDK throughout
 
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
