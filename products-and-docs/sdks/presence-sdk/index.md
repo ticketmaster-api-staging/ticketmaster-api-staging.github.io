@@ -79,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(‘:PresenceSDK-release-1.4.1.0’)
+compile project(':PresenceSDK-release-1.4.1.0')
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -96,7 +96,7 @@ compile 'com.squareup.picasso:picasso:2.5.2'
 compile 'com.romandanylyk:pageindicatorview:0.0.5'
 compile 'com.google.zxing:core:3.2.1'
 compile 'com.android.support:percent:25.3.1'
-compile ‘org.apache.httpcomponents:httpclient-android:4.3.5.1’
+compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 {% endhighlight %}
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
