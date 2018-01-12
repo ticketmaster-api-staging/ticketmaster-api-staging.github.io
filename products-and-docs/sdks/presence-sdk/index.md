@@ -125,7 +125,7 @@ private void configurePresenceSDK() {
 
   // Configure your branding color for the SDK
   //opaque red
-  presenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
+  PresenceSDK.getPresenceSDK(getApplicationContext()).setBrandingColor(
   Color.parseColor("#ffff0000"));
 }
 
