@@ -150,7 +150,7 @@ private void launchPresenceSDK() {
           Log.i(TAG, "Inside onLoginSuccessful");
         }
 
-        Override
+        @Override
         public void onLoginFailed(TMLoginApi.BackendName backendName, String errorMessage) {
           Log.i(TAG, "Inside onLoginFailed");
         }
@@ -178,6 +178,16 @@ private void launchPresenceSDK() {
         @Override
         public void onMemberUpdated(@Nullable TMLoginApi.MemberInfo member) {
           Log.i(TAG, "Inside onMemberUpdated");
+        }
+
+        @Override
+        public void onLogoutSuccessful(TMLoginApi.BackendName backendName) {
+          Log.i(TAG, "Inside onLogoutSuccessful")
+        }
+
+        @Override
+        public void onLogoutAllSuccessful() {
+          Log.i(TAG, "Inside onLogoutAllSuccessful")
         }
 		  });
 }
@@ -208,6 +218,8 @@ private void configureExperienceSDK() {
     .setDevServers(false)
     .build();
   
+    // presenceSDK is an class property 
+    // presenceSDK = PresenceSDK.getPresenceSDK(getApplicationContext())
     presenceSDK.setExperienceConfiguration(wrapper);
 }
 {% endhighlight %}
