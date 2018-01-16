@@ -103,7 +103,22 @@ After adding them, the build gradle dependencies will look similar to the one sh
 
 ![PresenceSDK Android Step 4](/assets/img/products-and-docs/PresenceSDK-Android-Step-1-4.png)
 
-Step 5. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured.
+Step 5. Add tools:replace for theme and label in AndroidManifest.xml file as follow:
+
+{% highlight html %}
+<application
+android:allowBackup="true"
+android:icon="@mipmap/ic_launcher"
+android:label="@string/app_name"
+android:roundIcon="@mipmap/ic_launcher_round"
+android:supportsRtl="true"
+android:testOnly="false"
+android:theme="@style/AppTheme"
+tools:replace="android:theme, android:label">
+
+{% endhighlight %}
+
+Step 6. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured.
 
 {% highlight java %}
 private void configurePresenceSDK() {
@@ -138,7 +153,9 @@ private void configurePresenceSDK() {
 2. To get consumer key please create an account on [https://developer.ticketmaster.com](https://developer.ticketmaster.com) and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 
-Step 6.  Create launchPresenceSDK() method inside the same 	activity class. In this method, you will implement a login 	listener and start the presence sdk 
+Step 7.  Create launchPresenceSDK() method inside the same 	activity class. In this method, you will implement a login 	listener and start the presence sdk. 
+
+**NOTE:** Guide to setting up a framelayout (`R.id.presenceSDK`) used in the example below can be found under **Setting up the views** section.
 
 {% highlight java %}
 private void launchPresenceSDK() {
@@ -198,7 +215,7 @@ private void launchPresenceSDK() {
 
 You need to have a hosting activity layout where you need to add a 	framelayout to hold Presence sdk entry 	fragment. So, you will need to use the 	correct id of the framelayout specified in PresenceSDK.start() method. See code 	comment above.
 
-Step 7. Create configureExperienceSDK() method inside the same activity class. In this method, you will configure about experience sdk.
+Step 8. Create configureExperienceSDK() method inside the same activity class. In this method, you will configure about experience sdk.
 	
 Here is the sample code about how to set experience sdk wrapper object and set it to presence sdk.
 
@@ -224,7 +241,7 @@ private void configureExperienceSDK() {
 }
 {% endhighlight %}
 
-Step 8. Call the configurePresenceSDK(), launchPresenceSDK() and configureExperienceSDK() methods in the activity class onCreate() method.
+Step 9. Call the configurePresenceSDK(), launchPresenceSDK() and configureExperienceSDK() methods in the activity class onCreate() method.
 
 {% highlight java %}
 @Override
@@ -244,25 +261,10 @@ This will load the entry fragment (UI shown below) where a login screen will be 
 
 ![PresenceSDK Android Step 7](/assets/img/products-and-docs/PresenceSDK-Android-Step-1-7.png)
 
-Step 9. Define the “AppTheme” style in styles.xml as follows:
+Step 10. Define the “AppTheme” style in styles.xml as follows:
 
 {% highlight html %}
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-{% endhighlight %}
-
-Step 10. Add tools:replace for theme and label in application level  as follow:
-
-{% highlight html %}
-<application
-android:allowBackup="true"
-android:icon="@mipmap/ic_launcher"
-android:label="@string/app_name"
-android:roundIcon="@mipmap/ic_launcher_round"
-android:supportsRtl="true"
-android:testOnly="false"
-android:theme="@style/AppTheme"
-tools:replace="android:theme, android:label">
-
 {% endhighlight %}
 
 Step 11: Try to build and compile. At this point, it should be compiled without errors.
