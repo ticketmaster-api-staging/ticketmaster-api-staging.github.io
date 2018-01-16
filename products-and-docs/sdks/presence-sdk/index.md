@@ -186,12 +186,15 @@ private void configureExperienceSDK() {
   // and pass them into PresenceSDK
   // this will NOT crash if no ExperienceSDK lib provided
   // presenceSDK.start() will check the availability of ExperienceSDK lib
+  // setSsoSigningKey() is optional, allows to use Pinless Feature
+  // to disable pin prompt within add, return, and upgrade buttons.
   ExperienceConfiguration wrapper = new ExperienceConfiguration.Builder()
-    .setAppId(TmxConstants.Experience.EXPERIENCE_APP_ID)
-    .setAppName(TmxConstants.Experience.EXPERIENCE_APP_NAME)
-    .setApiKey(TmxConstants.Experience.EXPERIENCE_API_KEY)
-    .setAppSource(TmxConstants.Experience.EXPERIENCE_APP_NAME)
-    .setSubdomain(TmxConstants.Experience.EXPERIENCE_SUBDOMAIN)
+    .setAppId("yourAppId")
+    .setAppName("yourAppName")
+    .setApiKey("yourApiKey")
+    .setAppSource("yourAppSource")
+    .setSubdomain("subdomainForYourApp")
+    .setSsoSigningKey("yourSsoSigningKey")
     .setDevServers(false)
     .build();
 	
