@@ -118,7 +118,7 @@ tools:replace="android:theme, android:label">
 
 {% endhighlight %}
 
-Step 6. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured.
+Step 6. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured. Call method `launchPresenceSDK`, to be discussed in step 7, inside the `onPresenceSdkConfigSuccessful` listener method.
 
 {% highlight java %}
 private void configurePresenceSDK() {
@@ -128,7 +128,7 @@ private void configurePresenceSDK() {
     new PresenceSdkConfigListener () {
     @Override
     public void onPresenceSdkConfigSuccessful() {
-      configurePreseneSDK();
+      launchPresenceSDK();
     }
 
     @Override
@@ -153,7 +153,7 @@ private void configurePresenceSDK() {
 2. To get consumer key please create an account on [https://developer.ticketmaster.com](https://developer.ticketmaster.com) and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 
-Step 7.  Create launchPresenceSDK() method inside the same 	activity class. In this method, you will implement a login 	listener and start the presence sdk. 
+Step 7.  Create launchPresenceSDK() method inside the same activity class. In this method, you will implement a login listener and start the presence sdk. 
 
 **NOTE:** Guide to setting up a framelayout (`R.id.presenceSDK`) used in the example below can be found under **Setting up the views** section.
 
@@ -241,7 +241,7 @@ private void configureExperienceSDK() {
 }
 {% endhighlight %}
 
-Step 9. Call the configurePresenceSDK(), launchPresenceSDK() and configureExperienceSDK() methods in the activity class onCreate() method.
+Step 9. Call the configurePresenceSDK() and configureExperienceSDK() methods in the activity class onCreate() method.
 
 {% highlight java %}
 @Override
