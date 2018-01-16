@@ -46,8 +46,9 @@ All connections must be made over SSL using https.
 ## Get Events [GET]
 {: #discovery-feed-details}
 
-Download a list of events in supported countries.The following formats are available: csv, xml or json.
+Download a list of events in supported countries.The following formats are available: csv, xml or json.The Discovery Feed generates .gz (non-tar) files for the requested format.
 If you do not mention countryCode parameter it is defaulted to "US".
+
 
 http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}&countryCode={countryCode}
 
@@ -103,6 +104,16 @@ http://app.ticketmaster.com/dc/feeds/v1/events.{format}?apikey={apikey}&countryC
                  *  `legacyAttractionId` (string) – unique ID of the attraction (old format)
                  *  `attractionId` (string) – list of unique attraction IDs
                  *  `attractionImageUrl` (string) – list of attraction image URLs
+                 *  `classificationSegmentId`(string) - Segment Id
+                 *  `classificationSegment`(string) - A Segment is a primary genre for an attraction
+                 *  `classificationGenreId`(string) - Genre Id
+                 *  `classificationGenre`(string) - Secondary Genre to further describe an attraction
+                 *  `classificationSubGenreId`(string) - Sub Genre Id
+                 *  `classificationSubGenre`(string) - Tertiary Genre for additional detail when describing an attraction
+                 *  `classificationTypeId`(string) - Classification Type Id
+                 *  `classificationType`(string) - A Type represents a kind of attraction
+                 *  `classificationSubTypeId`(string) - Classification Sub Type Id
+                 *  `classificationSubType` (string) - Secondary Type to further categorize an attraction
                  - `images` (array) - Images
                     - {arrayitemobject} - Image
                        *  `ratio` (string)
@@ -337,6 +348,16 @@ Status 200
           "fallback" : false
         }
       } ]
+    "classificationSegmentId" : "KZFzniwnSyZfZ7v7na",
+    "classificationSegment" : "Arts & Theatre",
+    "classificationGenreId" : "KnvZfZ7v7nl",
+    "classificationGenre" : "Fine Art",
+    "classificationSubGenreId" : "KZazBEonSMnZfZ7v7ld",
+    "classificationSubGenre" : "Fine Art",
+    "classificationTypeId" : "KZAyXgnZfZ7v7lt",
+    "classificationType" : "Event Style",
+    "classificationSubTypeId" : "KZFzBErXgnZfZ7vA6I",
+    "classificationSubType" : "Exhibit"
     }
   } ],
   "images" : [ {
