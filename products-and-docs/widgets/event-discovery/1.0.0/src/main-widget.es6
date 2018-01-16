@@ -21,25 +21,25 @@ class TicketmasterEventDiscoveryWidget {
 
   get eventUrl(){ return "https://www.ticketmaster.com/event/"; }
 
-  get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+  get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
   get themeUrl() {
     return (window.location.host === 'developer.ticketmaster.com')
-      ? `http://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/`
+      ? `https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/`
       : `https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/`;
   }
 
   get portalUrl(){
     return (window.location.host === 'developer.ticketmaster.com')
-      ? `http://developer.ticketmaster.com/`
+      ? `https://developer.ticketmaster.com/`
       : `https://ticketmaster-api-staging.github.io/`;
   }
 
   get logoUrl() { return "https://www.ticketmaster.com/"; }
 
-  get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
+  get legalNoticeUrl() { return "https://developer.ticketmaster.com/support/terms-of-use/"; }
 
-  get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
+  get questionUrl() { return "https://developer.ticketmaster.com/support/faq/"; }
 
   get widgetVersion() { return `${__VERSION__}`; }
 
@@ -1467,7 +1467,7 @@ class TicketmasterEventDiscoveryWidget {
   }
 
   makeImageUrl(id){
-    return `https://app.ticketmaster.com/discovery/v2/events/${id}/images.json`;
+    return `https://app.ticketmaster.com/discovery-widgets/v2/events/${id}/images.json`;
   }
 
 
@@ -1501,25 +1501,33 @@ class TicketmasterEventDiscoveryWidget {
     if(period == "year" ) {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-      firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
+      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+      // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
+      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
+      lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     }
     else if(period == "month") {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-      firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
+      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+      // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
+      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
+      lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     }
     else if(period == "week") {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-      firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
+      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+      // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
+      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
+      lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     } else {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-      firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
+      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
+      // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
+      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
+      lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     }
 
     // return [this.toShortISOString(firstDay), this.toShortISOString(lastDay)];

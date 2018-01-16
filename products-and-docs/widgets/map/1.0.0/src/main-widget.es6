@@ -17,7 +17,7 @@ class TicketmasterMapWidget {
 
     get eventUrl(){ return "https://www.ticketmaster.com/event/"; }
 
-    get apiUrl(){ return "https://app.ticketmaster.com/discovery/v2/events.json"; }
+    get apiUrl(){ return "https://app.ticketmaster.com/discovery-widgets/v2/events.json"; }
 
     get themeUrl() {
         return (window.location.host === 'developer.ticketmaster.com')
@@ -947,7 +947,7 @@ class TicketmasterMapWidget {
     }
 
     makeImageUrl(id){
-        return `https://app.ticketmaster.com/discovery/v2/events/${id}/images.json`;
+        return `https://app.ticketmaster.com/discovery-widgets/v2/events/${id}/images.json`;
     }
 
     /*

@@ -112,7 +112,7 @@ class TicketmasterCountdownWidget {
   set eventId(id){ this.config.id = id;}
   get eventId(){ return this.config.id;}
 
-  get apiUrl(){ return this.config.id ? `https://app.ticketmaster.com/discovery/v2/events/${this.config.id}.json` : `https://app.ticketmaster.com/discovery/v2/events/${this.eventId}.json`; }
+  get apiUrl(){ return this.config.id ? `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.config.id}.json` : `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.eventId}.json`; }
 
   get themeUrl() {
     return (window.location.host === 'developer.ticketmaster.com')
@@ -749,7 +749,7 @@ class TicketmasterCountdownWidget {
       return this;
     };
     let zipVegas='89109',
-      url=`https://app.ticketmaster.com/discovery/v2/events.json`,
+      url=`https://app.ticketmaster.com/discovery-widgets/v2/events.json`,
       newAttr = Object.assign({},this.eventReqAttrs),
       d = new Date(0),
       convertedNewStartDate;

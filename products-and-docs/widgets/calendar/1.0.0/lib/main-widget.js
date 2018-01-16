@@ -1952,17 +1952,17 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "themeUrl",
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "http://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/" : "https://ticketmaster-api-staging.github.io/products-and-docs/widgets/calendar/1.0.0/theme/";
+            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/products-and-docs/widgets/calendar/1.0.0/theme/" : "https://ticketmaster-api-staging.github.io/products-and-docs/widgets/calendar/1.0.0/theme/";
         }
     }, {
         key: "portalUrl",
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "http://developer.ticketmaster.com/" : "https://ticketmaster-api-staging.github.io/";
+            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/" : "https://ticketmaster-api-staging.github.io/";
         }
     }, {
         key: "logoUrl",
@@ -1972,12 +1972,12 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "legalNoticeUrl",
         get: function get() {
-            return "http://developer.ticketmaster.com/support/terms-of-use/";
+            return "https://developer.ticketmaster.com/support/terms-of-use/";
         }
     }, {
         key: "questionUrl",
         get: function get() {
-            return "http://developer.ticketmaster.com/support/faq/";
+            return "https://developer.ticketmaster.com/support/faq/";
         }
     }, {
         key: "widgetVersion",
@@ -2124,6 +2124,7 @@ var TicketmasterCalendarWidget = function () {
 
         this.tabsRootContainer = document.createElement("div");
         this.tabsRootContainer.classList.add("tabs");
+
         this.tabsRootContainer.innerHTML = '<span class="tb active">Day</span><span class="tb">Week</span><span class="tb">Month</span><span class="tb">Year</span>';
         this.widgetRoot.appendChild(this.tabsRootContainer);
 
@@ -2195,7 +2196,7 @@ var TicketmasterCalendarWidget = function () {
         this.widgetRoot.style.borderRadius = this.config.borderradius + "px";
         this.widgetRoot.style.borderWidth = this.borderSize + "px";
 
-        //this.clear();
+        this.loadCustomStyle();
 
         this.AdditionalElements();
 
@@ -2808,6 +2809,155 @@ var TicketmasterCalendarWidget = function () {
             this.clearEvents();
         }
     }, {
+        key: "loadCustomStyle",
+        value: function loadCustomStyle() {
+
+            var sheet = void 0;
+
+            if (this.widgetRoot.getElementsByTagName('style')[0] == undefined) {
+                var cusStyle = document.createElement("style");
+                this.widgetRoot.appendChild(cusStyle);
+                sheet = cusStyle.sheet;
+            } else {
+                sheet = this.widgetRoot.getElementsByTagName('style')[0].sheet;
+            }
+
+            if (this.widgetRoot.getAttribute("w-background") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs', 'background: ' + this.widgetRoot.getAttribute("w-background"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs { background: ' + this.widgetRoot.getAttribute("w-background") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-textcolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span', 'color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span { color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title', 'color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title { color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title:after', 'border-color: ' + this.widgetRoot.getAttribute("w-textcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:after { border-color: ' + this.widgetRoot.getAttribute("w-textcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-bordercolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"]', 'border-color: ' + this.widgetRoot.getAttribute("w-bordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] { border-color: ' + this.widgetRoot.getAttribute("w-bordercolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabsbordercolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"] .tabs span', 'border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span { border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span:first-child', 'border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:first-child { border-color: ' + this.widgetRoot.getAttribute("w-tabsbordercolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active', 'color: ' + this.widgetRoot.getAttribute("w-tabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active { color: ' + this.widgetRoot.getAttribute("w-tabcolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active:hover', 'color: ' + this.widgetRoot.getAttribute("w-tabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active:hover { color: ' + this.widgetRoot.getAttribute("w-tabcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active', 'background: ' + this.widgetRoot.getAttribute("w-tabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active { background: ' + this.widgetRoot.getAttribute("w-tabbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .tabs span.active:hover', 'background: ' + this.widgetRoot.getAttribute("w-tabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span.active:hover { background: ' + this.widgetRoot.getAttribute("w-tabbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-hovertabcolor") != undefined) {
+                sheet.addRule('.div[w-theme="calendar"] .tabs span:hover', 'color: ' + this.widgetRoot.getAttribute("w-hovertabcolor"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:hover { color: ' + this.widgetRoot.getAttribute("w-hovertabcolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-hovertabbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .tabs span:hover', 'background: ' + this.widgetRoot.getAttribute("w-hovertabbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .tabs span:hover { background: ' + this.widgetRoot.getAttribute("w-hovertabbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-selectorcolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-title:hover', 'color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:hover { color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title:hover:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title:hover:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title.open:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title.open:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .selector-title.open:hover:after', 'border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-title.open:hover:after { border-color: ' + this.widgetRoot.getAttribute("w-selectorcolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datesbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content', 'background: ' + this.widgetRoot.getAttribute("w-datesbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content { background: ' + this.widgetRoot.getAttribute("w-datesbackground") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datescolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content span', 'color: ' + this.widgetRoot.getAttribute("w-datescolor"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content span { color: ' + this.widgetRoot.getAttribute("w-datescolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-datescolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .selector-content span:hover', 'color: ' + this.widgetRoot.getAttribute("w-datescolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .selector-content span:hover { color: ' + this.widgetRoot.getAttribute("w-datescolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-schedulesdotscolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .d .round', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .d .round { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar table td.today .round', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar table td.today .round { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .year .month .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .year .month .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-schedulesdotscolorhover") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .d .round:hover', 'color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .d .round:hover { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count', 'background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count { background: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count', 'border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .round:hover, div[w-theme="calendar"] .monthScheduler .calendar .round:hover .count, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .round, div[w-theme="calendar"] .monthScheduler .calendar .round-holder.active .count { border-color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-popuscolor") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name:hover, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name:hover', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .name:hover, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .name:hover { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .place, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .place', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .date, div[w-theme="calendar"] .weekSсheduler .days .popup .event .event-holder .place, div[w-theme="calendar"] .weekSсheduler .days .popup-up .event .event-holder .place { color: ' + this.widgetRoot.getAttribute("w-schedulesdotscolorhover") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name:hover, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name:hover', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .name:hover, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .name:hover { color: ' + this.widgetRoot.getAttribute("w-popuscolor") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .place, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .place', 'color: ' + this.widgetRoot.getAttribute("w-popuscolor"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .date, div[w-theme="calendar"] .monthScheduler .calendar .popup .event .event-holder .place, div[w-theme="calendar"] .monthScheduler .calendar .popup-up .event .event-holder .place { color: ' + this.widgetRoot.getAttribute("w-popuscolor") + ' }', 0);
+            }
+
+            if (this.widgetRoot.getAttribute("w-popusbackground") != undefined) {
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .popup-up', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .popup-up { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .tail:before', 'border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent');
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .tail:before { border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .weekSсheduler .days .tail-up:before', 'border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent');
+                sheet.insertRule('div[w-theme="calendar"] .weekSсheduler .days .tail-up:before { border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .popup-up', 'background: ' + this.widgetRoot.getAttribute("w-popusbackground"));
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .popup-up { background: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' }', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .tail:before', 'border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent');
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .tail:before { border-color: transparent transparent ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent}', 0);
+                sheet.addRule('div[w-theme="calendar"] .monthScheduler .calendar .tail-up:before', 'border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent');
+                sheet.insertRule('div[w-theme="calendar"] .monthScheduler .calendar .tail-up:before { border-color: ' + this.widgetRoot.getAttribute("w-popusbackground") + ' transparent transparent transparent}', 0);
+            }
+            /* If custom colors isset */
+        }
+    }, {
         key: "update",
         value: function update() {
             var _this8 = this;
@@ -2816,11 +2966,33 @@ var TicketmasterCalendarWidget = function () {
             var spinner = widget.querySelector('.spinner-container');
             spinner.classList.remove('hide');
             var oldTheme = this.config.constructor();
+            /*
+            if (this.widgetRoot.getAttribute("w-background") != undefined) this.widgetRoot.firstChild.style.background = this.widgetRoot.getAttribute("w-background");
+            if (this.widgetRoot.getAttribute("w-textcolor") != undefined)  {
+                var tabsColor = this.widgetRoot.querySelectorAll('.tb:not(.active)'),
+                    selColor = this.widgetRoot.querySelectorAll('.selector-title');
+                tabsColor.forEach((el,i) => {
+                    el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+                });
+                selColor.forEach((el,i) => {
+                    el.style.color = this.widgetRoot.getAttribute("w-textcolor");
+                });
+            }
+            /*
+            if (this.widgetRoot.getAttribute("w-tabcolor") != undefined) {
+                this.widgetRoot.querySelector('.tb.active').style.color = this.widgetRoot.getAttribute("w-tabcolor");
+            }
+            if (this.widgetRoot.getAttribute("w-tabbackground") != undefined) {
+                this.widgetRoot.querySelector('.tb.active').style.background = this.widgetRoot.getAttribute("w-tabbackground");
+            }
+            */
             for (var attr in this.config) {
                 if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
             }
 
             this.config = this.widgetRoot.attributes;
+
+            this.loadCustomStyle();
 
             this.widgetRoot.style.height = this.widgetHeight + "px";
             this.widgetRoot.style.width = this.config.width + "px";
@@ -3274,7 +3446,7 @@ var TicketmasterCalendarWidget = function () {
     }, {
         key: "makeImageUrl",
         value: function makeImageUrl(id) {
-            return "https://app.ticketmaster.com/discovery/v2/events/" + id + "/images.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events/" + id + "/images.json";
         }
 
         /* Config block */
@@ -4163,7 +4335,7 @@ var WeekScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
@@ -4312,7 +4484,7 @@ var WeekScheduler = function () {
                 "endDateTime": endDateTime,
                 "classificationId": classificationid,
                 "radius": radius,
-                "size": "500"
+                "size": "200"
             };
         }
     }, {
@@ -4543,7 +4715,7 @@ var MonthScheduler = function () {
             var calendarWidgetRoot = schedulerRoot.parentNode.parentNode.parentNode;
             var spinner = schedulerRoot.querySelector('.spinner-container');
             var prm = [];
-            var url = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=500&page=0&sort=date,asc';
+            var url = 'https://app.ticketmaster.com/discovery-widgets/v2/events.json?apikey=aJVApdB1RoA41ejGebe0o4Ai9gufoCbd&latlong=36.1697096,-115.1236952&keyword=&startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-09-02T23:59:59Z&classificationId=&radius=5&size=200&page=0&sort=date,asc';
 
             if (this && this.readyState == XMLHttpRequest.DONE) {
 
@@ -5172,7 +5344,7 @@ var MonthScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
@@ -5308,7 +5480,7 @@ var MonthScheduler = function () {
                 "endDateTime": endDateTime,
                 "classificationId": classificationid,
                 "radius": radius,
-                "size": "500",
+                "size": "200",
                 "page": 0
             };
         }
@@ -5694,7 +5866,7 @@ var YearScheduler = function () {
     }, {
         key: "apiUrl",
         get: function get() {
-            return "https://app.ticketmaster.com/discovery/v2/events.json";
+            return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
         key: "eventReqAttrs",
