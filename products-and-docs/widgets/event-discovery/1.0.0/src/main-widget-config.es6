@@ -225,7 +225,7 @@
        decArrow.classList.add('disabled');
        }
        else {
-       numInputClass.removeAttribute('disabled');
+       numInputClass.removeAttribut e('disabled');
        numInputClass.value = '25';
        incArrow.classList.remove('disabled');
        decArrow.classList.remove('disabled');
