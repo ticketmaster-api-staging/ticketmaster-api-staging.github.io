@@ -35,7 +35,7 @@
 													{% endfor %}
 													{% if groups_uniq.size >=2 %}
 													{% for groupName in groups_uniq %}
-														{%assign id = groupName | lstrip	| downcase	| replace: ' ' , '-'	| replace: '[' , '-'	| replace: ']' , '-'	| replace: '/' , '-'	| replace: '\' , '-'	| replace: '(' , '-'	| replace: ')' , '-' %}
+														{%assign id = groupName | lstrip	| downcase	| replace: ' ' , '-'	| replace: '[' , '-'	| replace: ']' , '-'	| replace: '/' , '-'	| replace: '\' , '-'	| replace: '(' , '-'	| replace: ')' , '-' | replace: '&' , 'and' %}
 															<li>
 																<a href="/partners/certified-partners/#{{id}}"
 																	 aria-controls="{{id}}"
