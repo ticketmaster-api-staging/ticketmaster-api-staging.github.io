@@ -6,6 +6,7 @@ stages:
 
 variables:
   ECRHOST: "889199535989.dkr.ecr.us-east-1.amazonaws.com"
+  NEWECRHOST: "tmhub.io"
 
   DEV_SHORTREPO: "dpa-portal/dev/ctrl"
   DEV_REPOSITORY: "$ECRHOST/$DEV_SHORTREPO"
@@ -14,12 +15,14 @@ variables:
   PROD_REPOSITORY: "$ECRHOST/$PROD_SHORTREPO"
 
   VERSION: configs
-  TERRAFORMERIMAGE: "889199535989.dkr.ecr.us-east-1.amazonaws.com/ticketmaster/terraformer:v0.8.8_cd"
+  TERRAFORMERIMAGE: "$NEWECRHOST/ticketmaster/terraformer:v0.8.8_cd"
+
+  BUILD_IMAGE: $NEWECRHOST/dpa-portal/dev/jekyll:1.0.0
 
 # TODO add npm build and test tasks here
 build:
   stage: build
-  image: 889199535989.dkr.ecr.us-east-1.amazonaws.com/dpa-portal/dev/jekyll:1.0.0
+  image: $BUILD_IMAGE
   tags:
     - tm-prod cicd build
   script:
