@@ -219,6 +219,16 @@ All query parameters in snapshotImageUrl must be maintained and un-altered. Clie
 | `apikey`   |  Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 
 
+### Response
+
+
+| Status Code  | Note          |
+|:-----------|:---------------------|
+| 200   | Image Rendered     |
+| 204   | Image not available. Event may not be configured with interactive seat map data.        |
+
+#### Sample response for status=200
+
 ![pick image](/assets/img/products-and-docs/top-pick-1.png)
 
 
