@@ -18,7 +18,7 @@
 	{% for group in groups_names %}{%comment%} <!-- Loop through out-and-outer groups --> {%endcomment%}
 		{%assign id = group | lstrip	| downcase	| replace: ' ' , '-'	| replace: '[' , '-'	| replace: ']' , '-'	| replace: '/' , '-'	| replace: '\' , '-'	| replace: '(' , '-'	| replace: ')' , '-' | replace: '&' , 'and' %}
 			<li role="presentation" class="hidden-xs {% if forloop.first == true %}active{%endif%}">
-				<a class="tab" href="{{id | prepend: '#'}}" aria-controls="{{id}}" role="tab" data-toggle="tab">{{group}} test</a>
+				<a class="tab" href="{{id | prepend: '#'}}" aria-controls="{{id}}" role="tab" data-toggle="tab">{{group}}</a>
 			</li>
 		{%assign id = nil%}
 	{%endfor%}
