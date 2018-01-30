@@ -1204,13 +1204,13 @@ Check out new features, understand expected functionality, and even experiment w
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="sampleapp-ios">
           {{ iOS_sampleapp | markdownify }} 
-          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/iOSPresenceSDK_SampleApp.html">Learn more and Download</a>     
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/iOS/">Learn more and Download</a>     
         </div>
         
         <!-- Android Tab -->
         <div class="tab-pane fade" id="sampleapp-android">
           {{ Android_sampleapp | markdownify }}
-          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/androidPresenceSDK_SampleApp.html">Learn more and Download</a>
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/android/">Learn more and Download</a>
         </div>
 
     </div>

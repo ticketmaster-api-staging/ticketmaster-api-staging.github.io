@@ -49,7 +49,9 @@ Check out new features, understand expected functionality, and even experiment w
 **Note:** To get consumer key please create an account on [https://developer.ticketmaster.com](https://developer-acct.ticketmaster.com/user/login) and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 ### Installation
-Download the sample app by clicking this link directly from your iPhone (link will not work on otherwise). [LINK TO DOWNLOAD]
+Download the sample app by clicking this link directly from your iPhone (link will not work on otherwise).
+
+<a class="button button-blue" href="itms-services://?action=download-manifest&amp;url=localhost:4000/products-and-docs/sdks/presence/ios/app.plist">Download and Install</a>
 
 If you encounter an “Untrusted Enterprise Developer” error:
 Click `Settings > General > Profiles & Device Management`.
