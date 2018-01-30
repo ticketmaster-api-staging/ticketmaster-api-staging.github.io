@@ -1129,9 +1129,9 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0-Version1_4_1.zip) Presence SDK iOS - Swift 4.0.0 .
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0-Version1_5_0.zip) Presence SDK iOS - Swift 4.0.0 .
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1-Version1_4_1.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1-Version1_5_0.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}

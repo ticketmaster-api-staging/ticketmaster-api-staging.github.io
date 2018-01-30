@@ -51,7 +51,10 @@ Check out new features, understand expected functionality, and even experiment w
 ### Installation
 Download the sample app by clicking this link directly from your iPhone (link will not work on otherwise).
 
-<a class="button button-blue" href="itms-services://?action=download-manifest&amp;url=localhost:4000/products-and-docs/sdks/presence/ios/app.plist">Download and Install</a>
+<a class="button button-blue" href="itms-services://?action=download-manifest&amp;url=https://developer.ticketmaster.com/products-and-docs/sdks/presence/ios/app.plist">Download and Install</a>
+<a class="button button-blue" href="itms-services://?action=download-manifest&amp;url=localhost:4000/products-and-docs/sdks/presence/ios/app1.plist">Download from LocalHost</a>
+<a class="button button-blue" href="itms-services://?action=download-manifest&amp;url=https://developer-portal.staging.ticketmaster.com/products-and-docs/sdks/presence/ios/app2.plist">Download from Staging</a>
+
 
 If you encounter an “Untrusted Enterprise Developer” error:
 Click `Settings > General > Profiles & Device Management`.
