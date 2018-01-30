@@ -896,16 +896,13 @@ bash "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PresenceSDK.framework/stri
 No additional actions required.
 {% endcapture %}
 
+
 {% capture iOS_sampleapp%}
-The Sample App empowers clients and integrators to easily demo the newest version of the Presence SDK on their iPhone.
-
-Check out new features, understand expected functionality, and even experiment with color schemes to customize the SDK for your particular app: no developer resources required!
-
 
 {% endcapture %}
 
 {% capture Android_sampleapp%}
-ANDROID!
+
 {% endcapture %}
 
 
@@ -1184,6 +1181,10 @@ The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features
 ## Sample App
 {: .article }
 
+The Sample App empowers clients and integrators to easily demo the newest version of the Presence SDK on their Mobile Phones.
+
+Check out new features, understand expected functionality, and even experiment with color schemes to customize the SDK for your particular app: no developer resources required!
+
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -1202,16 +1203,17 @@ The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features
     <div class="tab-content" style="padding-top: 0px;">
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="sampleapp-ios">
-          {{ iOS_sampleapp | markdownify }}          
+          {{ iOS_sampleapp | markdownify }} 
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/iOSPresenceSDK_SampleApp.html">Learn more and Download</a>     
         </div>
         
         <!-- Android Tab -->
         <div class="tab-pane fade" id="sampleapp-android">
           {{ Android_sampleapp | markdownify }}
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/androidPresenceSDK_SampleApp.html">Learn more and Download</a>
         </div>
 
     </div>
-    <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/iOSPresenceSDK_SampleApp.html">Learn more</a>
 </form>
 </div>
 
