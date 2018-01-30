@@ -1,9 +1,4 @@
 {
   "presets": ["es2015", "stage-0"],
-  "plugins": ["transform-decorators-legacy"],
-  "env": {
-    "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
-    }
-  }
+  "plugins": ["transform-decorators-legacy"]
 }

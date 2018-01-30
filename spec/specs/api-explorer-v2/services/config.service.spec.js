@@ -20,6 +20,18 @@ describe('API Explorer config service', function () {
 		this.module = require('scripts/api-explorer/v2/src/services/config.service.js');
 	});
 
+	it('should load config.json by ajax', () => {
+
+
+		expect(window.$.ajax).toBeCalledWith({
+			"dataType": "json",
+			"type": "GET",
+			"url": "https://ticketmaster.com/scripts/api-explorer/v2/config.json",
+			"async": true,
+			"complete" : jasmine.any(Function)
+		})
+	});
+
 	it('should update config value', () => {
 		expect(this.module()).toBeUndefined();
 		window.$.ajax.mock.calls[0][0].complete({responseJSON:cfgMock});
