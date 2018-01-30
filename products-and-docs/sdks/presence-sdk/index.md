@@ -79,7 +79,7 @@ Step 2. Import it through “File -> New -> New Module -> Import .JAR / .AAR pac
 Step 3. Go to your app module build gradle file and set the name of each aar file as compile dependencies as follows:
 
 {% highlight java %}
-compile project(':PresenceSDK-release-1.4.1.0')
+compile project(':PresenceSDK-release-1.5.0.0')
 {% endhighlight %}
 
 Step 4. Add the following dependencies in the same place as step #3:
@@ -896,11 +896,22 @@ bash "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/PresenceSDK.framework/stri
 No additional actions required.
 {% endcapture %}
 
+
+{% capture iOS_sampleapp%}
+
+{% endcapture %}
+
+{% capture Android_sampleapp%}
+
+{% endcapture %}
+
+
+
 {% capture iOS_whatyouneed %}
 
 To integrate the Presence SDK in your application, you will need PresenceSDK.framework and iOSExperienceSDK.framework.
 
-## Release Notes Version 1.4.1
+## Release Notes Version 1.5.0
 
 ### Requirements for using Swift 4.0.0 build
 
@@ -934,7 +945,7 @@ Supported API levels
 
 -	API level 16 ~ 26
 
-## Release Notes Version 1.4.1
+## Release Notes Version 1.5.0
 
 ### Requirements
 
@@ -949,6 +960,8 @@ Supported API levels
 
 
 {% capture iOS_changelog %}
+### Changes(01/30/2018 Release 1.5.0)
+
 ### Changes(01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
@@ -1045,6 +1058,8 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_changelog %}
+### Changes(01/30/2018 Release 1.5.0)
+
 ### Changes (01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
 - Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
@@ -1114,9 +1129,9 @@ Supported API levels
 {% endcapture %}
 
 {% capture iOS_sdk %}
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0-Version1_4_1.zip) Presence SDK iOS - Swift 4.0.0 .
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift4.0.0-Version1_5_0.zip) Presence SDK iOS - Swift 4.0.0 .
 
-[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1-Version1_4_1.zip) Presence SDK iOS - Swift 3.1.
+[Download](/products-and-docs/sdks/presence/ios/PresenceSDK+ExperienceSDK-Swift3.1-Version1_5_0.zip) Presence SDK iOS - Swift 3.1.
 {% endcapture %}
 
 {% capture Android_sdk %}
@@ -1156,6 +1171,46 @@ The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features
         <!-- Android Tab -->
         <div class="tab-pane fade" id="sdk-android">
           {{ Android_sdk | markdownify }}
+        </div>
+
+    </div>
+
+</form>
+</div>
+
+## Sample App
+{: .article }
+
+The Sample App empowers clients and integrators to easily demo the newest version of the Presence SDK on their Mobile Phones.
+
+Check out new features, understand expected functionality, and even experiment with color schemes to customize the SDK for your particular app: no developer resources required!
+
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
+
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#sampleapp-ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#sampleapp-android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="sampleapp-ios">
+          {{ iOS_sampleapp | markdownify }} 
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/iOS/">Learn more and Download</a>     
+        </div>
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="sampleapp-android">
+          {{ Android_sampleapp | markdownify }}
+          <a class="button button-blue" href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/android/">Learn more and Download</a>
         </div>
 
     </div>
