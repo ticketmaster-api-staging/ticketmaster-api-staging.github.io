@@ -42,16 +42,20 @@ Check out new features, understand expected functionality, and even experiment w
 
 ### Prerequisites
 {: .article }
-- Android Phone running Android 4.1 (Jelly Bean)
+- Android Phone running Jellybean 4.1 - Oreo 8.0 (API 16 - 26)
 - TM Developer Account with registered app that has been approved for Presence SDK
 - Archtics Team account or Host Ticketmaster account with available event tickets in order to fully interact with the SDK's capabilities.
 
 **Note:** To get consumer key please create an account on [https://developer.ticketmaster.com](https://developer-acct.ticketmaster.com/user/login) and register your app and it will generate a consumer key that can be used in the above method. Before you can use Presence SDK you will have to provide the generated consumer key together with consumer secret and redirect URI to Presence SDK support team so we can configure your app on our end!
 
 ### Installation
-Download the sample app by clicking this link directly from your Android Phone (link will not work on otherwise). [LINK TO DOWNLOAD]
+Download the sample app by clicking this link directly from your Android Phone (link will not work on otherwise).
 
-[Instructions on how to trust provision profile]
+<a class="button button-blue" href="/products-and-docs/sdks/presence/android/app-prod-debug.apk">Download and Install</a>
+
+You must allow installation of apps from unknown sources in order to install the Sample App .apk file:
+Click `Settings > Security > Unknown Sources` (Allow installation of apps from Unknown Sources)
+Install the app by clicking `Downloads > Open the Android-PresenceSDK APK > Install`
 
 ### Sample App Notes
 Before you begin, you will need to log in to the developer portal and copy the Consumer Key for your app: [https://developer-acct.ticketmaster.com/user/login](https://developer-acct.ticketmaster.com/user/login)
@@ -69,8 +73,7 @@ Configure your branding color by entering a hex code (E.g. black `000000`, red `
 
 Select a color theme for your text (light theme should be selected with darker branding colors, while dark theme should be selected with lighter branding colors).
 
-If you have an Experience account and want to demo the Experience SDK functionality, select Yes to enter your Experience credentials.
-Otherwise, click Launch SDK.
+If you have an Experience account and want to demo the Experience SDK functionality, select Yes to enter your Experience credentials. **Note:** Experience SDK only supports Android Lollipop 5.0 - Oreo 8.0 (API level 20-26)
 
 Now you can log into this version of the SDK and manage your real tickets! 
 
