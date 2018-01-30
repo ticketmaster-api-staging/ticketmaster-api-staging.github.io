@@ -2,7 +2,6 @@ import './polyfills/promisePolyfill';
 
 import TicketmasterCalendarWidget from './classes/TicketmasterCalendarWidget';
 import TabsControls from './classes/TabsControls';
-import SelectorControls from './classes/SelectorControls';
 import WeekScheduler from './classes/WeekScheduler';
 import MonthScheduler from './classes/MonthScheduler';
 import YearScheduler from './classes/YearScheduler';
@@ -35,6 +34,9 @@ window.yearSchedulers = [];
 
 })();
 
-if(typeof module !== "undefined") {
-    module.exports = { TicketmasterCalendarWidget, WeekScheduler, MonthScheduler, YearScheduler, TabsControls, SelectorControls };
-}
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+

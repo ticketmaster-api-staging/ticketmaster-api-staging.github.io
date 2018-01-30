@@ -72,7 +72,6 @@ var widgetsLib =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 class SelectorControls {
 
 	constructor(root, selectorClass, selectorContent, attribute, update) {
@@ -143,7 +142,7 @@ class SelectorControls {
 	}
 
 }
-/* harmony export (immutable) */ __webpack_exports__["default"] = SelectorControls;
+/* harmony export (immutable) */ __webpack_exports__["a"] = SelectorControls;
 
 
 
@@ -1296,8 +1295,8 @@ class MonthScheduler {
 		let delRightselector = schedulerRoot.parentNode.getElementsByClassName('sliderRightSelector')[0];
 		delRightselector.parentElement.removeChild(delRightselector);
 
-		let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](schedulerRoot.parentNode, 'sliderLeftSelector', this.getMonthes(), 'period', this.update.bind(this));
-		let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](schedulerRoot.parentNode, 'sliderRightSelector', this.getCategories(), 'classificationId', this.update.bind(this));
+		let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](schedulerRoot.parentNode, 'sliderLeftSelector', this.getMonthes(), 'period', this.update.bind(this));
+		let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](schedulerRoot.parentNode, 'sliderRightSelector', this.getCategories(), 'classificationId', this.update.bind(this));
 		let month = schedulerRoot.getElementsByClassName('calendar')[0];
 		schedulerRoot.removeChild(month);
 		this.monthRootContainer = document.createElement("div");
@@ -1310,8 +1309,8 @@ class MonthScheduler {
 		if (!root) return;
 		this.monthSchedulerRoot = root;
 		if (this.monthSchedulerRoot.parentNode.querySelector('.sliderLeftSelector') == null) {
-			let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.monthSchedulerRoot.parentNode, 'sliderLeftSelector', this.getMonthes(), 'period', this.update.bind(this));
-			let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.monthSchedulerRoot.parentNode, 'sliderRightSelector', this.getCategories(), 'classificationId', this.update.bind(this));
+			let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.monthSchedulerRoot.parentNode, 'sliderLeftSelector', this.getMonthes(), 'period', this.update.bind(this));
+			let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.monthSchedulerRoot.parentNode, 'sliderRightSelector', this.getCategories(), 'classificationId', this.update.bind(this));
 		}
 		if (this.monthSchedulerRoot.querySelector('.calendar') == null) {
 			this.initMessage(this.monthSchedulerRoot);
@@ -1595,8 +1594,8 @@ class TicketmasterCalendarWidget {
 		this.tab1RootContainer.classList.add("active");
 		this.tabsRootContainer.appendChild(this.tab1RootContainer);
 
-		let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.tab1RootContainer, 'sliderLeftSelector', this.getCurrentWeek(), 'period', this.update.bind(this));
-		let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.tab1RootContainer, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
+		let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.tab1RootContainer, 'sliderLeftSelector', this.getCurrentWeek(), 'period', this.update.bind(this));
+		let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.tab1RootContainer, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
 
 		this.tab2RootContainer = document.createElement("div");
 		this.tab2RootContainer.classList.add("tab");
@@ -3782,8 +3781,8 @@ class WeekScheduler {
 		this.weekSchedulerRoot = root;
 		this.getCurrentMonth();
 		if (this.weekSchedulerRoot.parentNode.querySelector('.sliderLeftSelector') == null) {
-			let leftSelector1 = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.weekSchedulerRoot.parentNode, 'sliderLeftSelector', this.getCurrentMonth(), 'w-period', this.update.bind(this));
-			let RightSelector1 = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.weekSchedulerRoot.parentNode, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
+			let leftSelector1 = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.weekSchedulerRoot.parentNode, 'sliderLeftSelector', this.getCurrentMonth(), 'w-period', this.update.bind(this));
+			let RightSelector1 = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.weekSchedulerRoot.parentNode, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
 		}
 		if (this.weekSchedulerRoot.querySelector('.days') == null) {
 			this.weekdaysRootContainer = document.createElement("div");
@@ -4226,8 +4225,8 @@ class YearScheduler {
 		if (!root) return;
 		this.yearSchedulerRoot = root;
 		if (this.yearSchedulerRoot.parentNode.querySelector('.sliderLeftSelector') == null) {
-			let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.yearSchedulerRoot.parentNode, 'sliderLeftSelector', this.getYears(), 'period', this.update.bind(this));
-			let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["default"](this.yearSchedulerRoot.parentNode, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
+			let leftSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.yearSchedulerRoot.parentNode, 'sliderLeftSelector', this.getYears(), 'period', this.update.bind(this));
+			let RightSelector = new __WEBPACK_IMPORTED_MODULE_0__SelectorControls__["a" /* default */](this.yearSchedulerRoot.parentNode, 'sliderRightSelector', '<span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationId="">All Events</span><span w-classificationId="KZFzniwnSyZfZ7v7na">Arts & Theatre</span><span w-classificationId="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationId="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationId="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationId="KZFzniwnSyZfZ7v7nE">Sports</span></span>', 'classificationId', this.update.bind(this));
 		}
 		if (this.yearSchedulerRoot.querySelector('.year') == null) {
 			this.yearRootContainer = document.createElement("div");
@@ -4294,10 +4293,6 @@ var _TabsControls = __webpack_require__(4);
 
 var _TabsControls2 = _interopRequireDefault(_TabsControls);
 
-var _SelectorControls = __webpack_require__(0);
-
-var _SelectorControls2 = _interopRequireDefault(_SelectorControls);
-
 var _WeekScheduler = __webpack_require__(6);
 
 var _WeekScheduler2 = _interopRequireDefault(_WeekScheduler);
@@ -4341,9 +4336,11 @@ window.yearSchedulers = [];
     }
 })();
 
-if (true) {
-    module.exports = { TicketmasterCalendarWidget: _TicketmasterCalendarWidget2.default, WeekScheduler: _WeekScheduler2.default, MonthScheduler: _MonthScheduler2.default, YearScheduler: _YearScheduler2.default, TabsControls: _TabsControls2.default, SelectorControls: _SelectorControls2.default };
-}
+(function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 /***/ }),
 /* 11 */

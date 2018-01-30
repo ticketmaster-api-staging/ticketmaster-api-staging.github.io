@@ -18,7 +18,6 @@
     "calendar-widget-1.0.0-once": "babel products-and-docs/widgets/calendar/1.0.0/src -d products-and-docs/widgets/calendar/1.0.0/lib --source-maps",
     "calendar-widget-1.0.0": "npm run calendar-widget-1.0.0-once -- -w",
     "calendar-widget-new": "webpack --config webpack.config-widgets.js",
-		"jest-tmp": "./node_modules/.bin/jest",
     "map-widget-1.0.0-once": "webpack --config webpack.config-widgets.js",
     "map-widget-1.0.0": "npm run map-widget-1.0.0-once -- -w",
     "start-watch": "jekyll serve --watch --incremental --force_polling --limit_posts 1",
