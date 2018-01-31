@@ -927,19 +927,21 @@ To integrate the Presence SDK in your application, you will need PresenceSDK.fra
 - Only Portrait Orientation Supported.
 
 ### What’s New?
+- Created a Sample App for clients and integrators to easily demo the SDK.
+- Added local in-app notifications to alert user if tickets could not be refreshed.
+- Identity Host Login to enable future support of social logins, such as Facebook.
+- Updated the access token to be valid for 15 minute minimum.
+- Added a new getMemberInfo() method that can be used to fetch logged in member information.
+- Fixed event time to be displayed in event's timezone.
+- Minor UI Improvements and bug fixes.
 
-- Add new method for fetching the access token for Host and Archtics.
-- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
-- Upgrade to Experience iOS SDK v4.9.3 for Swift 3.1 and Experience iOS SDK v5.0.5 for Swift 4.0.0 to allow access to certain Experience Swift objects.
-- Updated `onLoginSuccessful()` PresenceLoginDelegate method to return accessToken from the specified backend
-- Updated `onLoginCancelled()` PresenceLoginDelegate method to return the backend name associated with a callback event.
 {% endcapture %}
 
 {% capture Android_whatyouneed %}
 
 To integrate Presence sdk in your application, you will need the following aar file:
 
--	PresenceSDK-release-1.4.\*.\*.aar
+-	PresenceSDK-release-1.5.\*.\*.aar
 
 Supported API levels
 
@@ -953,14 +955,29 @@ Supported API levels
 - Only Portrait Orientation Supported.
 
 ### What’s New?
-- Add new method for fetching the access token for Host and Archtics.
-- Add Experience SDK SSO Pinless Feature to disable pin prompt within add, return, and upgrade buttons.
-- Bug fixes and performance enhancements.
+- Created a Sample App for clients and integrators to easily demo the SDK.
+- Updated Experience SDK version to 5.0.3 that includes loading spinner fix.
+- Added local in-app notifications to alert user if tickets could not be refreshed.
+- Identity Host Login to enable future support of social logins, such as Facebook.
+- Added a new getMemberInfo() method that can be used to fetch logged in member information.
+- Fixed an issue related to empty screen being displayed (due to device no-network) on the app launch when user already has cached information.
+- Fixed a crash during cancel transfer flow.
+- Fixed a crash that could occur during seat selection in posting and transfer flow.
+- Experience SDK deep link removed to no longer force the app selection prompt for links.
+- Minor bug fixes and improvements in ticket caching logic and counters.
+
 {% endcapture %}
 
 
 {% capture iOS_changelog %}
-### Changes(01/30/2018 Release 1.5.0)
+### Changes(01/31/2018 Release 1.5.0)
+- Created a Sample App for clients and integrators to easily demo the SDK.
+- Added local in-app notifications to alert user if tickets could not be refreshed.
+- Identity Host Login to enable future support of social logins, such as Facebook.
+- Updated the access token to be valid for 15 minute minimum.
+- Added a new getMemberInfo() method that can be used to fetch logged in member information.
+- Fixed event time to be displayed in event's timezone.
+- Minor UI Improvements and bug fixes.
 
 ### Changes(01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
@@ -1058,7 +1075,17 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_changelog %}
-### Changes(01/30/2018 Release 1.5.0)
+### Changes(01/31/2018 Release 1.5.0)
+- Created a Sample App for clients and integrators to easily demo the SDK.
+- Updated Experience SDK version to 5.0.3 that includes loading spinner fix.
+- Added local in-app notifications to alert user if tickets could not be refreshed.
+- Identity Host Login to enable future support of social logins, such as Facebook.
+- Added a new getMemberInfo() method that can be used to fetch logged in member information.
+- Fixed an issue related to empty screen being displayed (due to device no-network) on the app launch when user already has cached information.
+- Fixed a crash during cancel transfer flow.
+- Fixed a crash that could occur during seat selection in posting and transfer flow.
+- Experience SDK deep link removed to no longer force the app selection prompt for links.
+- Minor bug fixes and improvements in ticket caching logic and counters.
 
 ### Changes (01/09/2018 Release 1.4.1)
 - Add new method for fetching the access token for Host and Archtics.
@@ -1135,7 +1162,7 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_sdk %}
-[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_4_1.zip)  Presence SDK Android.
+[Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_5_0 .zip)  Presence SDK Android.
 {% endcapture %}
 
 {: .article}
