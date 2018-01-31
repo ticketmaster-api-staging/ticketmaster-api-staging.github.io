@@ -3,9 +3,9 @@
  * @param event
  */
 
-var onmessage = function(event) {
-  var code = event.data;
+let onmessage = function(event) {
+  let code = event.data;
   importScripts('json-parse.js');
-  var result = highlightJson(code, {expanded: true});
+  let result = highlightJson(code, {expanded: true});
   postMessage(result);
 };

@@ -8,12 +8,12 @@ function ClipboardFallback(clipboard) {
   this.msg = '';
   this.action = '';
 
-  if(this.clipboard){
+  if (this.clipboard) {
     this.init();
   }
 }
 
-ClipboardFallback.prototype.init = function () {
+ClipboardFallback.prototype.init = function() {
   // Add clipboard event listeners. Don't use chaining.
   this.clipboard.on('success', this.successHandler.bind(this));
   this.clipboard.on('error', this.errorHandler.bind(this));
@@ -21,10 +21,10 @@ ClipboardFallback.prototype.init = function () {
 
 ClipboardFallback.prototype.successHandler = function(e) {
   // Add success css class. Remove after delay.
-  var $elem = $(e.trigger),
+  let $elem = $(e.trigger),
     cssClass = this.successCssClass;
   $elem.addClass(cssClass);
-  this.successTimeout = setTimeout(function(){
+  this.successTimeout = setTimeout(function() {
     $elem.removeClass(cssClass);
   }, this.successDelay);
 };
@@ -40,11 +40,11 @@ ClipboardFallback.prototype.errorHandler = function(e) {
 
 ClipboardFallback.prototype.showTooltip = function() {
   // Do nothing if tooltip plugin not loaded.
-  if(!$().tooltip) {
+  if (!$().tooltip) {
     return;
   }
 
-  var $elem = $(this.elem),
+  let $elem = $(this.elem),
     $clone = $elem.clone(); // Make copy of target element
 
   // Clear copy
@@ -62,31 +62,29 @@ ClipboardFallback.prototype.showTooltip = function() {
   $clone
     .tooltip({
       trigger: 'manual',
-      title: this.msg
+      title: this.msg,
     })
     .tooltip('show');
 
   // After delay show original target and destroy copy
-  this.errorTimeout = setTimeout(function () {
+  this.errorTimeout = setTimeout(function() {
     $elem.show();
     $clone
       .tooltip('destroy')
       .remove();
-  }, this.errorDelay)
+  }, this.errorDelay);
 };
 
 ClipboardFallback.prototype.setFallbackMessage = function() {
   // Set fallback message depend on userAgent
   this.msg = '';
-  var actionKey = (this.action === 'cut' ? 'X' : 'C');
+  let actionKey = (this.action === 'cut' ? 'X' : 'C');
 
   if (/iPhone|iPad/i.test(navigator.userAgent)) {
     this.msg = 'No support :(';
-  }
-  else if (/Mac/i.test(navigator.userAgent)) {
+  } else if (/Mac/i.test(navigator.userAgent)) {
     this.msg = 'Press ⌘-' + actionKey + ' to ' + this.action;
-  }
-  else {
+  } else {
     this.msg = 'Press Ctrl-' + actionKey + ' to ' + this.action;
   }
 };
