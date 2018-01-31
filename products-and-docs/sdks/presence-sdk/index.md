@@ -970,7 +970,7 @@ Supported API levels
 
 
 {% capture iOS_changelog %}
-### Changes(01/30/2018 Release 1.5.0)
+### Changes(01/31/2018 Release 1.5.0)
 - Created a Sample App for clients and integrators to easily demo the SDK.
 - Added local in-app notifications to alert user if tickets could not be refreshed.
 - Identity Host Login to enable future support of social logins, such as Facebook.
@@ -1075,7 +1075,7 @@ Supported API levels
 {% endcapture %}
 
 {% capture Android_changelog %}
-### Changes(01/30/2018 Release 1.5.0)
+### Changes(01/31/2018 Release 1.5.0)
 - Created a Sample App for clients and integrators to easily demo the SDK.
 - Updated Experience SDK version to 5.0.3 that includes loading spinner fix.
 - Added local in-app notifications to alert user if tickets could not be refreshed.
