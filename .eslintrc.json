@@ -9,7 +9,7 @@
     "linebreak-style": ["warn", "windows"],
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
-    "indent": ["error", 2],
+    "indent": ["warn", 2],
     "eol-last": ["error", "always"],
     "no-multiple-empty-lines": [2, {"max": 1}],
     "max-len": ["warn", 100, 2],

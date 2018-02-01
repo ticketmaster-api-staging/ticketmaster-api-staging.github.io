@@ -79,7 +79,7 @@ function drawThreads(threads, start, limit) {
     content += '</div>';
   }
   content += '<div class="pager">';
-  for ( i = 0; i < countPages; i++) {
+  for ( let i = 0; i < countPages; i++) {
     if (i != startPage) content += '<a href="/support/forum/?page=' + (i+1) + '" rel="' + i + '">' + (i+1) + '</a>';
     else content += '<span>' + (i+1) + '</span>';
   }

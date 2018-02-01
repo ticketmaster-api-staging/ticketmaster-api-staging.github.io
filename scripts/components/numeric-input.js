@@ -76,20 +76,20 @@
     }
 
     return this.each(function() {
-        	  let $numeric_input = $(this),
-        incBtn, decBtn, step,
-        $max = ($numeric_input.attr('max')) ? parseInt($numeric_input.attr('max')) : Number.MAX_SAFE_INTEGER,
-        $min = ($numeric_input.attr('min')) ? parseInt($numeric_input.attr('min')) : Number.MIN_SAFE_INTEGER;
+      let $numeric_input = $(this),
+            incBtn, decBtn, step,
+            $max = ($numeric_input.attr('max')) ? parseInt($numeric_input.attr('max')) : Number.MAX_SAFE_INTEGER,
+            $min = ($numeric_input.attr('min')) ? parseInt($numeric_input.attr('min')) : Number.MIN_SAFE_INTEGER;
 
       init($numeric_input);
 
       incBtn = $(this).siblings( '.arrow__inc' ); // find increment button
       decBtn = $(this).siblings( '.arrow__dec' ); // find decrement button
 
-					  if ( $(this).prop('disabled') ) {
-        incBtn.addClass('disabled');
-        decBtn.addClass('disabled');
-      }
+					if ( $(this).prop('disabled') ) {
+    incBtn.addClass('disabled');
+    decBtn.addClass('disabled');
+  }
 
       // EVENTS
       $numeric_input.change(function() {
@@ -98,12 +98,12 @@
 
       incBtn.click(function() {
 							  if (!$(this).hasClass('disabled')) {
-          let value = getParsedValue($numeric_input, null);
-          let step = getStep($numeric_input);
-          let newValue;
+    let value = getParsedValue($numeric_input, null);
+    let step = getStep($numeric_input);
+    let newValue;
 
-          checkInputAttr($numeric_input);
-          newValue = value + step;
+    checkInputAttr($numeric_input);
+    newValue = value + step;
 
           if (newValue >= $max) {
             newValue = $max;
@@ -112,36 +112,36 @@
             decBtn.removeClass('disabled');
           }
 
-          $numeric_input.val(newValue);
-          $numeric_input.attr('value', newValue);// update  value attribute, need for "widget config panel"
-          $numeric_input.trigger('change');// need for update "widget config panel"
+    $numeric_input.val(newValue);
+    $numeric_input.attr('value', newValue);// update  value attribute, need for "widget config panel"
+    $numeric_input.trigger('change');// need for update "widget config panel"
 
-          return false;
+    return false;
         }
       });
 
       decBtn.click(function() {
 						    if (!$(this).hasClass('disabled')) {
-          let newValue;
-          let value = getParsedValue($numeric_input, null);
-          let step = getStep($numeric_input);
+      let newValue;
+      let value = getParsedValue($numeric_input, null);
+      let step = getStep($numeric_input);
 
-          checkInputAttr($numeric_input);
-          newValue = value - step;
+      checkInputAttr($numeric_input);
+      newValue = value - step;
 
-          if (newValue <= $min) {
+      if (newValue <= $min) {
             newValue = $min;
             $(this).addClass('disabled');
           } else {
             incBtn.removeClass('disabled');
           }
 
-          $numeric_input.val(newValue);
-          $numeric_input.attr('value', newValue); // update  value attribute, need for "widget config panel"
-          $numeric_input.trigger('change'); // need for update "widget config panel"
+      $numeric_input.val(newValue);
+      $numeric_input.attr('value', newValue); // update  value attribute, need for "widget config panel"
+      $numeric_input.trigger('change'); // need for update "widget config panel"
 
           return false;
-        }
+    }
       });
     });
   };

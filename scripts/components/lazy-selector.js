@@ -123,7 +123,7 @@
      */
     let initMap = function(lat, lng) {
     	let modal = $modal,
-        mapCenter = new google.maps.LatLng(lat || 55, lng || 43);
+      mapCenter = new google.maps.LatLng(lat || 55, lng || 43);
 
       if (map === null) {
         // initialize map object
@@ -509,6 +509,7 @@
         }
 
         if (item.id) {
+					let venue = item;
           let buttonSetId = $('<button data-event=' + item.id + '/>')
             .addClass('js_lazy-sel_btn btn btn-submit')
             .text('Use this ID')
@@ -616,6 +617,7 @@
         }
 
         if (item.id) {
+        	let venue = item;
           let buttonSetId = $('<button data-event=' + item.id + '/>')
             .addClass('js_lazy-sel_btn btn btn-submit')
             .text('Use this ID')
