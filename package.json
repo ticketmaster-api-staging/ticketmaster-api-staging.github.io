@@ -6,7 +6,8 @@
   "scripts": {
     "es-lint": "./node_modules/.bin/eslint -f html ./scripts/**/*.js -o .linters/es-lint-report.html || start .linters/es-lint-report.html",
     "sass-lint": "./node_modules/.bin/sass-lint --verbose --config .sass-lint.json && start .linters/sass-lint-report.html",
-    "lint": "npm run es-lint && npm run sass-lint",
+    "lint": "npm run es-lint",
+		"lint-all": "npm run es-lint && npm run sass-lint",
     "build": "npm run build-swagger-api && webpack --bail --progress --profile",
     "build-jekyll": "jekyll build --watch",
     "start": "node server.js",

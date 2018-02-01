@@ -28,6 +28,7 @@ build:
     - tm-prod cicd build
   script:
     - npm install
+    - npm run lint
     - npm test
     - npm run build
     - jekyll build
