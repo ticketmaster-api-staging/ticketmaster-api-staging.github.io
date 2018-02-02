@@ -2,7 +2,6 @@ var https = require('https'),
     http = require('http'),
     path = require('path'),
     express = require('express'),
-    bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
 	  session = require('express-session'),
 	  syncrequest = require('sync-request'),
@@ -11,8 +10,6 @@ var https = require('https'),
     fs = require('fs');
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
 
 var staticSiteOptions = {
     portnum: 80,
@@ -138,29 +135,6 @@ router.get('/products-and-docs/apis/marketplace-api/release-notes/', function(re
   }
 });
 /* Marketplace Release Notes API Access [END] */
-
-/* Presense SDK Terms and Conditions [START] */
-router.get('/products-and-docs/sdks/presence-sdk/', function(req, res) {
-  var role = getRole(req, res);
-  if (role.length == 0) {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/sdks/presence-sdk/terms-and-conditions.html'));
-  } else {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/sdks/presence-sdk/'));
-  }
-});
-router.get('/products-and-docs/sdks/presence-sdk/index.html', function(req, res) {
-  var role = getRole(req, res);
-  if (role.length == 0) {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/sdks/presence-sdk/terms-and-conditions.html'));
-  } else {
-    res.sendFile(path.join(__dirname+'/_site/products-and-docs/sdks/presence-sdk/'));
-  }
-});
-router.post('/products-and-docs/sdks/presence-sdk/', function(req, res) {
-  console.log(JSON.stringify(req.body.terms));
-  res.sendFile(path.join(__dirname+'/_site/products-and-docs/sdks/presence-sdk/index.html'));
-});
-/* Presense SDK Terms and Conditions [END] */
 
 /* Get user apps [START] */
 router.get('/user/apps/', function(req, res, next) {
