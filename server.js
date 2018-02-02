@@ -20,9 +20,7 @@ var sess;
 var apps;
 
 function getRequestURI(userId, path) {
-    // var res = syncrequest('GET', process.env.DRUPAL_PORTAL_URL + userId + path);
-    // TODO replace 'https://dev-livenation.devportal.apigee.io/open-platform/user/' to prod address
-    var res = syncrequest('GET', 'https://dev-livenation.devportal.apigee.io/open-platform/user/' + userId + path);
+    var res = syncrequest('GET', process.env.DRUPAL_PORTAL_URL + userId + path);
     return res.getBody().toString();
 }
 
@@ -32,11 +30,8 @@ function base64Encode(str) {
 }  
 
 function getRole(req, res) {
-    var role,
-        agreement,
-        userId,
-        roles = [],
-        rolesMenu = []; 
+    var roles = [];
+    var rolesMenu = [];
     if (req.session.user == undefined) {
         if (req.cookies['tk-u'] != undefined) {
             if (typeof Buffer.from === 'function') {
@@ -44,9 +39,7 @@ function getRole(req, res) {
             } else {
                 buf = new Buffer(req.cookies['tk-u'], 'base64');
             }
-            
-            role = JSON.parse(getRequestURI(buf.toString(), '/roles'));
-            agreement = JSON.parse(getRequestURI(buf.toString(), '/terms-of-service'));
+            var role = JSON.parse(getRequestURI(buf.toString(), '/roles'));
             
             /* Internal user [START] */
             if (role.roles[10] != undefined) {
@@ -68,9 +61,8 @@ function getRole(req, res) {
                 rolesMenu.push('c');
             }
             /* Commerce user [END] */
+  
             req.session.user = roles;
-            req.session.userId = buf.toString();
-            req.session.agreement = agreement;
             res.cookie('tk-m', base64Encode(rolesMenu.toString()));
             // console.log("User new in session:" + roles);
         }
@@ -81,69 +73,31 @@ function getRole(req, res) {
             req.cookies['tk-m'] = undefined;
         }
         else {
-            userId = req.session.userId; 
             roles = req.session.user;
-            agreement = req.session.agreement;
             // console.log("User stored in session: " + roles);
         }
     }
-    return {userId, roles, agreement};
+    return roles;
 }
 
 /* Commerce API Access [START] */
 router.get('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
-    var role = getRole(req, res).roles;
-    var agreement = getRole(req, res).agreement;
+    var role = getRole(req, res);
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-      if (agreement.length == 0) {
-        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
-      }
-      else {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
-      }
     }
     else {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
     }
-  });
-  
-  router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
-    var role = getRole(req, res).roles;
-    var agreement = getRole(req, res).agreement;
+});
+
+router.get('/products-and-docs/apis/commerce/v2/', function(req, res) {
+    var role = getRole(req, res);
     if (role.indexOf('internal') != -1 || role.indexOf('commerce') != -1) {
-      if (agreement.length == 0) {
-        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
-      }
-      else {
         res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
-      }
     }
     else {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
-    }
-  });
-  
-  router.post('/products-and-docs/apis/commerce/v2/internal.html', function(req, res) {
-    var userId = getRole(req, res).userId;
-    if (userId != undefined) {
-      var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-      req.session.agreement = "commerce-api";
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
-    }
-    else {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
-    }
-  });
-  
-  router.post('/products-and-docs/apis/commerce/v2/', function(req, res) {
-    var userId = getRole(req, res).userId;
-    if (userId != undefined) {
-      var statusTerms = getRequestURI(userId, '/terms-of-service/commerce-api/accept');
-      req.session.agreement = "commerce-api";
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/internal.html'));
-    }
-    else {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
+        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/'));
     }
 });
 /* Commerce API Access [END] */
@@ -161,45 +115,21 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 
 /* Marketplace API Access [START] */
 router.get('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
-  var role = getRole(req, res).roles;
-  var agreement = getRole(req, res).agreement;
+  var role = getRole(req, res);
   if (role.indexOf('marketplace') != -1) {
-    if (agreement.indexOf('marketplace-api') == -1) {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/terms-and-conditions.html'));
-    }
-    else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
-    }
   } else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
   }
-});
-
-router.post('/products-and-docs/apis/marketplace-api/v1/', function(req, res) {
-    var userId = getRole(req, res).userId;
-    if (userId != undefined) {
-      var statusTerms = getRequestURI(userId, '/terms-of-service/marketplace-api/accept');
-      req.session.agreement = "marketplace-api";
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/index.html'));
-    }
-    else {
-      res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/marketplace-api/v1/'));
-    }
 });
 /* Marketplace API Access [END] */
 
 /* Marketplace Release Notes [START] */
 router.get('/products-and-docs/apis/marketplace-api/release-notes/', function(req, res) {
-  var role = getRole(req, res).roles;
-  var agreement = getRole(req, res).agreement;
+  var role = getRole(req, res);
   if (role.indexOf('marketplace') != -1) {
-    if (agreement.length == 0) {
-        res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/commerce/v2/terms-and-conditions.html'));
-    }
-    else {
       var res_ = syncrequest('GET', 'https://dev-livenation.devportal.apigee.com/open-platform/release-notes/open-marketplace');
       res.send(res_.getBody().toString());
-    }
   } else {
       res.sendFile(path.join(__dirname+'/_site/products-and-docs/apis/getting-started/index.html'));
   }
