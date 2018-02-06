@@ -53,7 +53,15 @@
     ],
     "roots": [
       "<rootDir>/spec/"
-    ]
+    ],
+		"coverageThreshold": {
+			"global": {
+				"statements": 71,
+				"branches": 59,
+				"functions": 78,
+				"lines": 73
+			}
+		}
   },
   "repository": {
     "type": "git",
