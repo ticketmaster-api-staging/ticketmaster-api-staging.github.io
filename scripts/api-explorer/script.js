@@ -582,6 +582,7 @@ Object.byString = function(o, s) {
     self.init = function() {
       let resPage = responseObject.page,
         subcolumn,
+				subColumnMapImage,
         listGroup,
         title;
 
