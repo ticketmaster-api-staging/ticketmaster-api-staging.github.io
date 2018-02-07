@@ -1,4 +1,5 @@
 (function() {
+  const desktopSize = 1200;
   let calculate_offset = function() {
     if (window.innerWidth < desktopSize) {
       return -10;
@@ -26,8 +27,7 @@
     stickyHeaderTop = $('.menu').offset().top + calculate_offset(),
     belowFooter = false,
     bgHeader = $('.bg-header'),
-    footer = $('#footer'),
-    desktopSize = 1200;
+    footer = $('#footer');
 
   if ( window.innerWidth < desktopSize ) {
     hideMenu();
@@ -63,7 +63,7 @@
     }
   };
 
-    // Check the initial Poistion of the Sticky Header
+  // Check the initial Poistion of the Sticky Header
   window.onload = function() {
     if ( $(window).scrollTop() >= menu.offset().top + calculate_offset() ) {
       menu.addClass('fixed');
