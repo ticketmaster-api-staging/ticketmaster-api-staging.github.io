@@ -4,8 +4,13 @@
   }, i[r].l=1*new Date(); a=s.createElement(o),
   m=s.getElementsByTagName(o)[0]; a.async=1; a.src=g; m.parentNode.insertBefore(a, m);
 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
 ga('create', 'UA-72344127-1', 'auto');
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+
 ga('send', 'pageview');
+ga('tmOpenPlatform.send', 'pageview');
+
 (function() {
   // var item = sessionStorage.getItem('tk-api-email');
   function getCookie(name) {
