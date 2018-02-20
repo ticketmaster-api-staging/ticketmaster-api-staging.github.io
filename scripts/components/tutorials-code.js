@@ -39,7 +39,9 @@ $(document).ready(function() {
                   .remove()
                   .end()
                   .html();
-              } else {let title = '';};
+              } else {
+                let title = '';
+              };
 
               let content = $(this).parent().parent()
                 .clone(true)
