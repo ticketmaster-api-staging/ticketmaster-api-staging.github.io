@@ -1,6 +1,5 @@
 stages:
   - build
-  - test
   - dockerize build
   - release
   - deploy
@@ -28,8 +27,8 @@ build:
     - tm-prod cicd build
   script:
     - npm install
-    - npm run lint
-    - npm test
+#    - npm run lint
+#    - npm test
     - npm run build
     - jekyll build
     - echo -e '*n!package.json' > .dockerignore

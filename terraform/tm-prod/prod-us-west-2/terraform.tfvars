@@ -4,6 +4,7 @@ terraformer_bucket = "terraform.prod1.us-west-2.tmaws"
 
 # Your Terraform Variables
 # See Naming Standard: https://contegixapp1.livenation.com/confluence/display/AWS/Naming+Standards
+
 aws_region = "us-west-2"
 account_tag = "tm-prod"
 product_code_tag = "PRD1585"
@@ -13,14 +14,14 @@ vpc = "prod"
 subnets_postfix = "pubin"
 product_name = "dpa-portal"
 
-zone = "prod-tmaws.io"
-public_zone = "prod-tmaws.io"
+zone = "pub-tmaws.io"
+public_zone = "pub-tmaws.io"
 ssh_key = "cet-prod-west"
 enable_monitoring = "false"
-ssl_certificate = "arn:aws:acm:us-west-2:350611111791:certificate/ab07dc48-5c3f-43c8-a5f8-030c48daeea0"
+ssl_certificate = "arn:aws:acm:us-west-2:638386993804:certificate/022b9dcd-9d2a-4d00-a811-b566cabb3f12"
 ssl_folder = "cert-prod"
 
-app_elb_internal = true
+app_elb_internal = false
 app_elb_dns_alias_name = "dpa-controller"
 app_instance_port = 80
 app_instance_type = "t2.medium"
