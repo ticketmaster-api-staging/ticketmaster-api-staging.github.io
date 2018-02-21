@@ -13,7 +13,6 @@ describe("EDWWidget", () => {
 		window.__VERSION__ = 'mockedVersion';
 		setFixture();
 		module = require('products-and-docs/widgets/event-discovery/1.0.0/src/main-widget.es6');
-		widget = new module.TicketmasterEventDiscoveryWidget();
 		widget = new module.TicketmasterEventDiscoveryWidget(document.querySelector('div[w-type="event-discovery"]'));
 	});
 
@@ -71,7 +70,7 @@ describe("EDWWidget", () => {
 
 	it('#isBarcodeWidget should be Defined', () => {
 		widget.widgetConfig = {
-				theme:'oldschool'
+			theme:'oldschool'
 		}
 		expect(widget.isBarcodeWidget).toBeTruthy();
 		widget.widgetConfig = {
@@ -537,141 +536,167 @@ describe("EDWWidget", () => {
 		expect(typeof(widget.publishEventsGroup)).toBe('function');
 	});
 
-	it('#eventsLoadingHandler should be defined', () => {
-		let responseTxt = '[{"id":"vv1k0Zf0C6G7Dsmj","url":"http://www.ticketmaster.com/event/0900524387EF1B9C","name":"Bryan Adams","date":{"day":"2017-05-20","time":"18:00:00"},"address":{"line1":"2700 N. Vermont Ave","name":"Greek Theatre"},"location":{"lat":34.11948811,"lng":-118.29629093},"img":"https://s1.ticketm.net/dam/a/6b4/91e51635-4d17-42cb-9495-6f6702a546b4_288631_RECOMENDATION_16_9.jpg"},{"id":"vvG1iZfGxi-dEf","url":"http://www.ticketmaster.com/event/0B0050C8AC8439D4","name":"The Bodyguard (Touring)","date":{"day":"2017-05-17","time":"20:00:00"},"address":{"line1":"6233 Hollywood Blvd.","name":"Hollywood Pantages Theatre"},"location":{"lat":34.10200961,"lng":-118.32586552},"img":"https://s1.ticketm.net/dam/a/fd9/e1435468-e4f2-4c23-b7b8-61728c267fd9_241751_RECOMENDATION_16_9.jpg"}]';
-		let latlngbounds = {
-			extend: function() {return true}
+	describe('Widget #eventsLoadingHandler', () => {
+		const groupEventsByNameMock = jest.fn();
+		const publishEventMock = jest.fn();
+		const initSliderMock = jest.fn();
+		const publishEventsGroupMock = jest.fn();
+		const setEventsCounterMock = jest.fn();
+		const	resetReduceParamsOrderMock = jest.fn();
+		const hideMessageMock = jest.fn();
+		const hideMessageWithDelayMock = jest.fn();
+		const reduceParamsAndReloadEventsMock = jest.fn();
+		const getAttributeMock = jest.fn();
+
+		const verifyCalls = (func, res) => {
+			expect(func.mock.calls.length).toBe(res);
 		};
-		var events = responseTxt;
-		var i= 1;
-		widget.eventsLoadingHandler.bind({
+
+		const verifyCallsWithArgs = (func, callNum, argNum, res) => {
+			expect(func.mock.calls[callNum][argNum]).toEqual(res);
+		}
+
+		beforeEach(() => {
+			groupEventsByNameMock.mockReset();
+			publishEventMock.mockReset();
+			initSliderMock.mockReset();
+			publishEventsGroupMock.mockReset();
+			setEventsCounterMock.mockReset();
+			resetReduceParamsOrderMock.mockReset();
+			hideMessageMock.mockReset();
+		});
+
+		const responseTxt = [{
+			name: '1',
+		},
+			{
+				name: '2',
+			},
+			{
+				name: '1',
+			},
+			{
+				name: '3',
+			}];
+		const sortedByName = [
+			[
+				{name: '1'}, {name: '1'},
+			],
+			[
+				{name: '2'},
+			],
+			[
+				{name: '3'},
+			],
+		];
+		const widgetMock = {
+			readyState: XMLHttpRequest.DONE,
+			status: 200,
+			responseText: JSON.stringify(responseTxt),
 			widget: {
-				clearEvents: function(){},
-				reduceParamsAndReloadEvents: function(){},
-				groupEventsByName: function(){},
-				formatDate: function(){},
-				isUniverseUrl: function(){},
-				isListView: function(){return false},
-				isListViewThumbnails: function(){return false},
-				setMarkers: function(){},
-				resetReduceParamsOrder:function(){},
-				hideMessageWithDelay:function(){},
-				hideMessageWithoutDelay: function() {return true},
-				hideMessage: function(events,i){},
-				eventsGroups: {
-					map: function(){}
-				},
-				initSlider: function(){},
-				setEventsCounter: function(){},
-				config:{
-					theme:'simple'
-				},
-				widgetRoot:{
-					firstChild: ''
-				}
+				groupEventsByName: groupEventsByNameMock,
+				publishEvent: publishEventMock,
+				publishEventsGroup: publishEventsGroupMock,
+				hideMessageDelay: 500,
+				hideMessageWithDelay: hideMessageWithDelayMock,
+				hideMessage: hideMessageMock,
+				eventsGroups: sortedByName,
+				initSlider: initSliderMock,
+				setEventsCounter: setEventsCounterMock,
+				resetReduceParamsOrder: resetReduceParamsOrderMock,
+				reduceParamsAndReloadEvents: reduceParamsAndReloadEventsMock,
+				hideMessageWithoutDelay: function() {},
+				clearEvents: function() {},
 			},
-			readyState:XMLHttpRequest.DONE,
-			status:200,
-			responseText:responseTxt,
-			latlngbounds: {
-				extend: function() {return true}
-			}
-		})();
-		expect(typeof(widget.eventsLoadingHandler)).toBe('function');
-		widget.eventsLoadingHandler.bind({
-			widget: {
-				clearEvents: function () {
-					return true
+		};
+
+		it('should group events by name and publish them if there are no sorting param', () => {
+			const additionalMockParams = {
+				widget: {
+					...widgetMock.widget,
+					widgetRoot: {
+						getAttribute: getAttributeMock.mockReturnValue(false),
+					},
 				},
-				reduceParamsAndReloadEvents: function () {
-					return true
+			};
+			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+
+			verifyCalls(groupEventsByNameMock, 1);
+			verifyCalls(publishEventMock, 2);
+			verifyCalls(publishEventsGroupMock, 1);
+			verifyCalls(initSliderMock, 1);
+			verifyCalls(setEventsCounterMock, 1);
+			verifyCalls(resetReduceParamsOrderMock, 1);
+			verifyCalls(hideMessageMock, 1);
+
+			verifyCallsWithArgs(publishEventsGroupMock, 0, 0, [{"name":"1"}, {"name":"1"}]);
+			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"2"});
+			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"3"});
+
+			expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
+		});
+
+		it('should group events by name and publish them if sorting params set to group by name value', () => {
+			const additionalMockParams = {
+				widget: {
+					...widgetMock.widget,
+					widgetRoot: {
+						getAttribute: getAttributeMock.mockReturnValue('groupByName'),
+					},
 				},
-				groupEventsByName: function () {
-					return true
+			};
+			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+
+			verifyCalls(groupEventsByNameMock, 1);
+			verifyCalls(publishEventMock, 2);
+			verifyCalls(publishEventsGroupMock, 1);
+			verifyCalls(initSliderMock, 1);
+			verifyCalls(setEventsCounterMock, 1);
+			verifyCalls(resetReduceParamsOrderMock, 1);
+			verifyCalls(hideMessageMock, 1);
+
+			verifyCallsWithArgs(publishEventsGroupMock, 0, 0, [{"name":"1"}, {"name":"1"}]);
+			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"2"});
+			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"3"});
+
+			expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
+		});
+
+		it('just publish events if sorting param is set to ascending value', () => {
+			const additionalMockParams = {
+				widget: {
+					...widgetMock.widget,
+					hideMessageWithoutDelay: false,
+					widgetRoot: {
+						getAttribute: getAttributeMock.mockReturnValue('dateAscending'),
+					},
 				},
-				setMarkers: function () {
-					return true
-				},
-				config:{
-					theme:'simple'
-				}
-			},
-			readyState:XMLHttpRequest.DONE,
-			status:400,
-			responseText:responseTxt
-		})();
-		expect(typeof(widget.eventsLoadingHandler)).toBe('function');
-		widget.eventsLoadingHandler.bind({
-			widget: {
-				clearEvents: function(){},
-				reduceParamsAndReloadEvents: function(){},
-				groupEventsByName: function(){},
-				formatDate: function(){},
-				isUniverseUrl: function(){},
-				setMarkers: function(){},
-				resetReduceParamsOrder:function(){},
-				hideMessageWithDelay:function(){},
-				hideMessageWithoutDelay: undefined,
-				hideMessage: function(events,i){},
-				eventsGroups: {
-					map: function(){}
-				},
-				initSlider: function(){},
-				setEventsCounter: function(){},
-				config:{
-					theme:'simple'
-				},
-				widgetRoot:{
-					firstChild: ''
-				}
-			},
-			readyState:XMLHttpRequest.DONE,
-			status:200,
-			responseText:responseTxt,
-			latlngbounds: {
-				extend: function() {return true}
-			}
-		})();
-		expect(typeof(widget.eventsLoadingHandler)).toBe('function');
-		widget.eventsLoadingHandler.bind({
-			widget: {
-				clearEvents: function(){},
-				reduceParamsAndReloadEvents: function(){},
-				groupEventsByName: function(){},
-				formatDate: function(){},
-				isUniverseUrl: function(){},
-				setMarkers: function(){},
-				resetReduceParamsOrder:function(){},
-				hideMessageWithDelay:function(){},
-				isFullWidth: function() {return true},
-				hideMessageWithoutDelay: undefined,
-				hideMessage: function(events,i){},
-				eventsGroups: {
-					map: function(){}
-				},
-				initSlider: function(){},
-				setEventsCounter: function(){},
-				config:{
-					theme:'simple'
-				},
-				widgetRoot:{
-					firstChild: ''
-				},
-				events: {
-					length: function(){return false}
-				},
-			},
-			readyState:XMLHttpRequest.DONE,
-			status:200,
-			responseText:responseTxt,
-			events: {
-				length: function(){return false}
-			},
-			latlngbounds: {
-				extend: function() {return true}
-			}
-		})();
-		expect(typeof(widget.eventsLoadingHandler)).toBe('function');
+			};
+			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+
+			verifyCalls(publishEventMock, 4);
+			verifyCalls(initSliderMock, 1);
+			verifyCalls(setEventsCounterMock, 1);
+			verifyCalls(resetReduceParamsOrderMock, 1);
+			verifyCalls(hideMessageWithDelayMock, 1);
+
+			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"1"});
+			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"2"});
+			verifyCallsWithArgs(publishEventMock, 2, 0, {"name":"1"});
+			verifyCallsWithArgs(publishEventMock, 3, 0, {"name":"3"});
+			verifyCallsWithArgs(hideMessageWithDelayMock, 0, 0, 500);
+		});
+
+		it('should resend request if response do not have 200 status', () => {
+			const additionalMockParams = {
+				...widgetMock,
+				status: 400,
+			};
+			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+
+			verifyCalls(reduceParamsAndReloadEventsMock, 1);
+			expect(reduceParamsAndReloadEventsMock.mock.instances[0]).toBe(additionalMockParams.widget);
+		});
 	});
 
 	it('#addScroll should be defined', () => {
