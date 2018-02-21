@@ -72,7 +72,7 @@ func configureExperienceSDK() {
 }
 {% endhighlight %}
 
-You can call this method from didFinishLaunchingWithOptions() method of AppDelegate class.
+You can call this method from didFinishLaunchingWithOptions() method in your AppDelegate class.
 {% endcapture %}
 
 
