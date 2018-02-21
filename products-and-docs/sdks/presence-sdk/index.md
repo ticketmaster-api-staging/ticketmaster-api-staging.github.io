@@ -53,16 +53,26 @@ func application(_ application: UIApplication,
 }
 {% endhighlight %}
 
-In your storyboard, create a UIViewController or you may use the preset one provided by XCode when a new project is created.  This UIViewController will be the starting point for Presence SDK. 
+### Configure Experience SDK
 
-Step 5: Drag and drop a UIView from the Object Library in the Utility panel inside this UIViewController. For this UIView, change the class to PresenceSDKView and Module as PresenceSDK. Before moving on make sure you set the constraints for this UIView.
+Presence SDK is packaged with Experience SDK and you have to embed both the frameworks to use Presence SDK. If you don’t want to use Experience SDK in your client app than please skip this step but if your client app also wants to provide Experience SDK features than you will also need to configure it. To configure Experience SDK please use this convenient method:
 
-![PresenceSDK iOS Step 5](/assets/img/products-and-docs/PresenceSDK-iOS-Step-2.png)
+{% highlight swift %}
+func configureExperienceSDK() {
+  let experienceConfiguration = ExperienceConfiguration.Builder.init()
+    .setAppId("yourAppId")
+    .setAppSource("yourAppSource")
+    .setSubdomain("subdomainForYourApp")
+    .setAppName("yourAppName")
+    .setApiKey("yourApiKey")
+    .setApiSubdomain("apiSubdomainForYourApp")
+    .setSsoSigningKey("SsoSingingKey")
+    .build()
+  PresenceSDK.getPresenceSDK().setExperienceConfiguration(experienceConfiguration)
+}
+{% endhighlight %}
 
-If you have provided correct configuration you will see a similar screen at startup when you run the application:
-
-
-![PresenceSDK iOS Step 5 result](/assets/img/products-and-docs/PresenceSDK-iOS-Step-5.png)
+You can call this method from didFinishLaunchingWithOptions() method in your AppDelegate class.
 {% endcapture %}
 
 
@@ -275,24 +285,47 @@ Step 11: Try to build and compile. At this point, it should be compiled without 
 
 
 {% capture iOS_set_view %}
+### Setup PresenceSDKView
+
+In your storyboard, create a UIViewController or you may use the preset one provided by XCode when a new project is created.  This UIViewController will be the starting point for Presence SDK. 
+
+Step 1: Drag and drop a UIView from the Object Library (located in the Utility panel) inside this UIViewController. For this UIView, in the Identity Inspector, change the class to `PresenceSDKView` and Module to `PresenceSDK`. Finally, set the constraints to the UIView to the edges of the View Controller.
+
+Step 2: Like the UIView from the previous step, drag and drop a UIBarButtonItem onto the Navigation Item of the View Controller. If the View Controller doesnt have a Navigation item, you may drag and drop from the Object Library before adding a UIBarButtonItem. Double click the UIBarButtonItem's title and type in "Logout".
+
+![PresenceSDK iOS Step 1](/assets/img/products-and-docs/PresenceSDK-iOS-Step-1A.png)
+
+You may now run the application and if you have provided correct configuration, you will see a similar screen to the image below at startup.
+
+**NOTE:** Further setup required. You still need to configure your application to handle PresenceSDK events.
+
+![PresenceSDK iOS Step 1 result](/assets/img/products-and-docs/PresenceSDK-iOS-Step-1B.png)
+
 ### Configuring Your ViewController
 
 **Note**: This is a basic example for configuring the ViewController
 
-Step 1: Import PresenceSDK. Again, UIKit is imported automatically by importing PresenceSDK so if you like, you may delete the import UIKit code-line.
+Step 3: Import the PresenceSDK module. Again, UIKit is imported automatically when importing PresenceSDK, so if you like, you may delete the `import UIKit` code-line.
 
 {% highlight swift %}
 import PresenceSDK
 {% endhighlight %}
 
-Step 2: Create an outlet to the UIView that is of type PresenceSDKView.
+Step 4: Create an `IBOutlet` to the UIView you setup in step 1. When the outlet is created, please make sure the view is of type PresenceSDKView. Also, create an `IBAction` method called `logout` for the UIBarButtonItem you setup in step 2. In the method `logout`, call the `logOut` method in the PresenceSDK.
 
 {% highlight swift %}
 //Connect your PresenceSDKView here
 @IBOutlet weak var presenceSDKView: PresenceSDKView? = nil
+
+...
+
+@IBAction func logout(_ sender: UIBarButtonItem) {
+  // class variable: let presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK() 
+  presenceSDK.logOut()
+}
 {% endhighlight %}
 
-Step 3: Conform your ViewController to PresenceLoginDelegate and implement the three required protocol functions.
+Step 5: Conform your ViewController to PresenceLoginDelegate and implement the required and optional protocol methods:
 
 {% highlight swift %}
 extension ViewController: PresenceLoginDelegate {
@@ -310,7 +343,7 @@ extension ViewController: PresenceLoginDelegate {
   ///Called when results are returned for a member info request after successful login
   ///- parameter member: PresenceMember object. PresenceMember object is `nil` if login 
   ///fails or an error is returned fetching member details.
-  func onMemberUpdated(_ member: PresenceMember?)
+  func onMemberUpdated(backendName: PresenceLogin.BackendName, member: PresenceMember?)
 
   ///- parameter backendName: Name of the backend this callback event is associated with.
   ///- parameter error: If available, an `NSError` object is returned. Defaults is `nil`.
@@ -336,7 +369,7 @@ extension ViewController: PresenceLoginDelegate {
 }
 {% endhighlight %}
 
-Step 4: Start PresenceSDK inside viewDidLoad() life cycle method.
+Step 6: Start PresenceSDK inside viewDidLoad() life cycle method.
 
 {% highlight swift %}
 
@@ -348,7 +381,7 @@ override func viewDidLoad() {
 }
 {% endhighlight %}
 
-Step 5: If you need to get information for logged in member, you can use one the protocol methods.
+Step 7: If you need to get information for logged in member, you can use one the protocol methods.
 
 {% highlight swift %}
 ///Called when results are returned for a Member info request after login
@@ -368,9 +401,9 @@ Your ViewController’s implementation should look like this:
 {% highlight swift %}
 import PresenceSDK
 
-class ViewController: UIViewController, PresenceLoginDelegate {
+class ViewController: UIViewController {
 
-  @IBOutlet weak var presenceSDKView: PresenceSDKView?
+  @IBOutlet weak var presenceSDKView: PresenceSDKView? = nil
   let presenceSDK: PresenceSDK = PresenceSDK.getPresenceSDK()
 
   override func viewDidLoad() {
@@ -379,9 +412,12 @@ class ViewController: UIViewController, PresenceLoginDelegate {
 
   }
 
-  @IBAction func logout(sender: UIButton) {
+  @IBAction func logout(_ sender: UIBarButtonItem) {
     presenceSDK.logOut()
   }
+}
+
+extension ViewController: PresenceLoginDelegate{
 
   func onLoginSuccessful(backendName: PresenceLogin.BackendName, accessToken: String) {
   }
@@ -389,7 +425,7 @@ class ViewController: UIViewController, PresenceLoginDelegate {
   func onLoginCancelled(backendName: PresenceLogin.BackendName) {
   }
 
-  func onMemberUpdated(_ member: PresenceMember?) {
+  func onMemberUpdated(backendName: PresenceLogin.BackendName, member: PresenceMember?) {
     if let pMember = member {
       print("Member Email: \(pMember.emailAddress)")
       print("Team Member-Id: \(pMember.AccountManagerMemberID)")
@@ -406,29 +442,7 @@ class ViewController: UIViewController, PresenceLoginDelegate {
 
 {% endhighlight %}
 
-This is all you need to integrate the Presence SDK. Now you can run the application and Login into your configured accounts.
-
-### Configure Experience SDK
-
-Presence SDK is packaged with Experience SDK and you have to embed both the frameworks to use Presence SDK. If you don’t want to use Experience SDK in your client app than please skip this step but if your client app also wants to provide Experience SDK features than you will also need to configure it. To configure Experience SDK please use this convenient method:
-
-{% highlight swift %}
-func configureExperienceSDK() {
-  let experienceConfiguration = ExperienceConfiguration.Builder.init()
-    .setAppId("yourAppId")
-    .setAppSource("yourAppSource")
-    .setSubdomain("subdomainForYourApp")
-    .setAppName("yourAppName")
-    .setApiKey("yourApiKey")
-    .setApiSubdomain("apiSubdomainForYourApp")
-    .setSsoSigningKey("SsoSingingKey")
-    .build()
-  PresenceSDK.getPresenceSDK().setExperienceConfiguration(experienceConfiguration)
-}
-{% endhighlight %}
-
-You can call this method from didFinishLaunchingWithOptions() method of AppDelegate class.
-
+You have finish integrating PresenceSDK. Now, you may run the application, if everything was configured properly, you should see your tickets once you log in.
 
 {% endcapture %}
 
@@ -530,7 +544,7 @@ PresenceSDK.getPresenceSDK().logOutTeam()
 A simple Logout handler function can look like this:
 
 {% highlight swift %}
-@IBAction func logout(sender: UIButton) {
+@IBAction func logout(_ sender: UIBarButtonItem) {
   PresenceSDK.getPresenceSDK().logOut()
 }
 {% endhighlight %}
