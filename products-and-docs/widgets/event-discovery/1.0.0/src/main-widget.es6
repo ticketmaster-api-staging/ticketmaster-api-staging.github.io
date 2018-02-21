@@ -1103,37 +1103,42 @@ class TicketmasterEventDiscoveryWidget {
 
   eventsLoadingHandler(){
     let widget = this.widget;
+    const groupByNameSortingField = 'groupByName';
     widget.clearEvents(); // Additional clearing after each loading
     if (this && this.readyState == XMLHttpRequest.DONE ) {
       if(this.status == 200){
         widget.events = JSON.parse(this.responseText);
-
         if(widget.events.length){
-          widget.groupEventsByName.call(widget);
-          widget.eventsGroups.map(function(group, i){
-            if(group.length === 1)
-              widget.publishEvent(group[0]);
-            else
-              widget.publishEventsGroup.call(widget, group, i);
-          });
+          const sorting = widget.widgetRoot.getAttribute('w-sorting');
+          if(sorting == groupByNameSortingField || !sorting ){
+              widget.groupEventsByName.call(widget);
+              widget.eventsGroups.map(function(group, i){
+                  if(group.length === 1){
+                      widget.publishEvent(group[0]);
+                  } else {
+                      widget.publishEventsGroup.call(widget, group, i);
+                  }
+              });
+          } else {
+              widget.eventsGroups = widget.events;
+              widget.eventsGroups.map(function(group) {
+                  widget.publishEvent(group);
+              });
+          }
+
           if (!widget.isListView && !widget.isListViewThumbnails) widget.initSlider();
 
           widget.setEventsCounter();
           widget.resetReduceParamsOrder();
-          if(widget.hideMessageWithoutDelay)
-            widget.hideMessage();
-          else
-            widget.hideMessageWithDelay(widget.hideMessageDelay);
-
-        }else{
+          if(widget.hideMessageWithoutDelay) {
+              widget.hideMessage();
+          } else {
+              widget.hideMessageWithDelay(widget.hideMessageDelay);
+          }
+        } else{
           widget.reduceParamsAndReloadEvents.call(widget);
         }
-      }
-      else if(this.status == 400) {
-        widget.reduceParamsAndReloadEvents.call(widget);
-        console.log('There was an error 400');
-      }
-      else {
+      } else {
         widget.reduceParamsAndReloadEvents.call(widget);
         console.log('something else other than 200 was returned');
       }
