@@ -16,6 +16,13 @@ let $modalAlert = $('#contact-alert-modal'),
 $contactForm.submit(function(e) {
   let charCount = $textAreaDescription.val().length;
   function sendRequest(formData, formKey) {
+		// FIXME: HOTFIX OF NOT WORKING EMAIL. SECOND TMP EMAIL
+		$.ajax({
+			dataType: 'jsonp',
+			url: 'https://getsimpleform.com/messages/ajax?form_api_token=fb26e05303743de8c91761ccf9a753d2',
+			data: formData,
+		});
+
     $.ajax({
       dataType: 'jsonp',
       url: 'https://getsimpleform.com/messages/ajax?form_api_token='+formKey,
