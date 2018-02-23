@@ -4,6 +4,7 @@ categories:
 - documentation
 - sdks
 - presence-sdk-integrate
+- android
 
 title: Android Presence SDK Reference and Integration Guide
 

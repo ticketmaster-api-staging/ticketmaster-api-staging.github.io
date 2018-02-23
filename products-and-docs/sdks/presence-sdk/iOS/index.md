@@ -4,6 +4,7 @@ categories:
 - documentation
 - sdks
 - presence-sdk-integrate
+- iOS
 
 title: iOS Presence SDK Reference and Integration Guide
 

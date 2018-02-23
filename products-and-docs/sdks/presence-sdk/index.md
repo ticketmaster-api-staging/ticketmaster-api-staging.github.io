@@ -72,6 +72,34 @@ Supported API levels
 
 {% endcapture %}
 
+{% capture iOS_guides %}
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 comntent">
+    <div class="tutorials-article">
+                <a href="/products-and-docs/sdks/presence-sdk/iOS/index.html"><img src="/assets/img/tutorial/presenceSDKSampleApp/presenceSampleApp.png" class="image" alt="iOS Presence SDK Reference and Integration Guide"></a>
+            <div class="announcement">
+                <h3><a href="/products-and-docs/sdks/presence-sdk/iOS/index.html">iOS Presence SDK Reference and Integration Guide</a></h3>
+                <p>Integrating the Presence SDK into your iOS app is fast and simple.</p>
+                <a class="button button-blue" href="/products-and-docs/sdks/presence-sdk/iOS/index.html">Learn more</a>
+              </div>            
+        </div>
+</div>
+{% endcapture %}
+
+
+
+{% capture android_guides %}
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 comntent">
+    <div class="tutorials-article">
+                <a href="/products-and-docs/sdks/presence-sdk/android/index.html"><img src="/assets/img/tutorial/presenceSDKSampleApp/presenceSampleApp.png" class="image" alt="Android Presence SDK Reference and Integration Guide"></a>
+            <div class="announcement">
+                <h3><a href="/products-and-docs/sdks/presence-sdk/android/index.html">Android Presence SDK Reference and Integration Guide</a></h3>
+                <p>Integrating the Presence SDK into your Android app is fast and simple.</p>
+                <a class="button button-blue" href="/products-and-docs/sdks/presence-sdk/android/index.html">Learn more</a>
+            </div>            
+        </div>
+</div>
+{% endcapture %}
+
 
 {% capture iOS_changelog %}
 ### Changes(01/31/2018 Release 1.5.0)
@@ -385,28 +413,37 @@ Check out new features, understand expected functionality, and even experiment w
 ## Reference and Integration Guides
 Here you can learn how to integrate the Presence SDK into your application. In addition, you will find a reference guide for methods to customize your integration, analytics, and release information for when you app is ready to be publish to the Apple App or Google Play store.
 {: .lead .article}
+<div class="col-lg-12 config-block">
+<form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
-<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 comntent">
-{% for presence-sdk-integrate in site.pages %}
-    {% if presence-sdk-integrate.categories[2] == "presence-sdk-integrate" %}
-        <div class="tutorials-article">
-            {% if presence-sdk-integrate.img %}
-                {% if presence-sdk-integrate.link %}<a href="{{ presence-sdk-integrate.link }}">{% endif %}<img src="{{ presence-sdk-integrate.img }}" class="image" alt="{{presence-sdk-integrate.title}}"/>{% if presence-sdk-integrate.link %}</a>{% endif %}
-            {% endif %}
-            <div class="announcement">
-                <h3>{% if presence-sdk-integrate.link %}<a href="{{ presence-sdk-integrate.link }}">{% endif %}{{ presence-sdk-integrate.title }}{% if presence-sdk-integrate.link %}</a>{% endif %}</h3>
-                <p>{{ presence-sdk-integrate.announcement }}</p>
-                {% if presence-sdk-integrate.link %}<a class="button button-blue" href="{{ presence-sdk-integrate.link }}">Learn more</a>{% endif %}
-                <div class="tags">
-                    {% for tag in presence-sdk-integrate.tags %}
-                        <button class="tag-btn" tag="{{tag}}">{{tag}}</button>
-                    {% endfor %}
-                </div>
-            </div>            
+    <!--Use for mobile devices 'Go' button-->
+    <button type="submit" class="hidden"></button>
+
+    <ul class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+            <a href="#guides_ios" data-toggle="tab" aria-expanded="true">iOS</a>
+        </li>
+        <li class="">
+            <a id="js_styling_nav_tab" href="#guides_android" data-toggle="tab" aria-expanded="false">Android</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0px;">
+        <!-- iOS Tab -->
+        <div class="tab-pane fade active in" id="guides_ios">
+          {{ iOS_guides | markdownify }}          
         </div>
-    {% endif %}
-{% endfor %}
+        
+        <!-- Android Tab -->
+        <div class="tab-pane fade" id="guides_android">
+          {{ android_guides | markdownify }}
+        </div>
+
+    </div>
+
+</form>
 </div>
+
 
 ## Change log
 {: .article }
