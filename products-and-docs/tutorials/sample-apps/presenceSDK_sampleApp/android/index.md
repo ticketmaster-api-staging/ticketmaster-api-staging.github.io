@@ -14,7 +14,7 @@ link: "/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/android/in
 announcement: "Demo the newest version of the Presence SDK Directly on your Android device!"
 
 tags: 
-  - PresenceSDk
+  - PresenceSDK
   - Android
 
 excerpt: Demo the newest version of the Presence SDK!
