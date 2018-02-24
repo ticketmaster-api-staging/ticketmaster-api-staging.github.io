@@ -84,8 +84,10 @@ android:supportsRtl="true"
 android:testOnly="false"
 android:theme="@style/AppTheme"
 tools:replace="android:theme, android:label">
-
 {% endhighlight %}
+
+`tools` will be in red if `xmlns:tools` is not imported. Android Studio will automatically add it if you click on `tools` and hold option and press return. To manually add it, type `xmlns:tools="http://schemas.android.com/tools"` inside the `manifest` tag.
+
 
 Step 6. Create a configurePresenceSDK() method inside your activity class. In this method, the account credentials and branding color will be configured. Call method `launchPresenceSDK`, to be discussed in step 7, inside the `onPresenceSdkConfigSuccessful` listener method.
 
@@ -240,13 +242,11 @@ Step 10. Define the “AppTheme” style in styles.xml as follows:
 
 Step 11: Try to build and compile. At this point, it should be compiled without errors.
 
-
 ## Setting Up the Views
-
 ### Configuring Your Layout View
 
 Specify a layout view in your desired layout file, for now this layout should fill the whole screen
-The ID for this layout will be referenced in the next step
+The ID for this layout is used in Step 7 above.
 
 {% highlight java %}
 <android.support.constraint.ConstraintLayout
