@@ -289,7 +289,7 @@ var TicketmasterCountdownWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.761";
+      return '' + "1.0.-4986";
     }
   }, {
     key: 'questionUrl',
@@ -1167,6 +1167,9 @@ var widgetsCountdown = [];
 
 ga('create', 'UA-78317809-1', 'auto');
 ga('send', 'pageview');
+
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'load');
 
 if (true) {
   module.exports = { CountdownClock: CountdownClock, TicketmasterCountdownWidget: TicketmasterCountdownWidget, widgetsCountdown: widgetsCountdown };

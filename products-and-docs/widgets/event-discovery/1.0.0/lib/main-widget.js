@@ -163,7 +163,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'themeUrl',
     get: function get() {
-      return window.location.host === 'developer.ticketmaster.com' ? 'http://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/';
+      return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/';
     }
   }, {
     key: 'portalUrl',
@@ -178,17 +178,17 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'legalNoticeUrl',
     get: function get() {
-      return "http://developer.ticketmaster.com/support/terms-of-use/";
+      return "https://developer.ticketmaster.com/support/terms-of-use/";
     }
   }, {
     key: 'questionUrl',
     get: function get() {
-      return "http://developer.ticketmaster.com/support/faq/";
+      return "https://developer.ticketmaster.com/support/faq/";
     }
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.750";
+      return '' + "1.0.-4986";
     }
   }, {
     key: 'geocodeUrl',
@@ -367,7 +367,6 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       /*plugins for 'buy button'*/
       this.embedUniversePlugin();
-
       this.embedTMPlugin();
 
       this.initBuyBtn();
@@ -668,7 +667,7 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       var question = document.createElement('span'),
           toolTip = document.createElement('div'),
-          tooltipHtml = '\n      <div class="tooltip-inner">\n        <a href="' + this.questionUrl + '" target = "_blank" >About widget</a>\n        <div class="place">version: <b>' + this.widgetVersion + '</b></div>\n      </div>';
+          tooltipHtml = '\n      <div class="tooltip-inner"> \n        <a href="' + this.questionUrl + '" target = "_blank" >About widget</a>\n        <div class="place">version: <b>' + this.widgetVersion + '</b></div>\n      </div>';
       question.classList.add("event-question");
       question.addEventListener('click', toolTipHandler);
       toolTip.classList.add("tooltip-version");
@@ -1722,37 +1721,29 @@ var TicketmasterEventDiscoveryWidget = function () {
       if (period == "year") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-
         // firstDay = new Date().toISOString().slice(0,19) + 'Z';
         // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
-
         firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
         lastDay = new Date(new Date().valueOf() + 24 * 365 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else if (period == "month") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-
         // firstDay = new Date().toISOString().slice(0,19) + 'Z';
         // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
-
         firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
         lastDay = new Date(new Date().valueOf() + 24 * 31 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else if (period == "week") {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-
         // firstDay = new Date().toISOString().slice(0,19) + 'Z';
         // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
-
         firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
         lastDay = new Date(new Date().valueOf() + 24 * 7 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else {
         // firstDay = new Date( new Date(new Date()).toISOString() );
         // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-
         // firstDay = new Date().toISOString().slice(0,19) + 'Z';
         // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
-
         firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
         lastDay = new Date(new Date().valueOf() + 24 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       }
@@ -1781,6 +1772,9 @@ var widgetsEventDiscovery = [];
 
 ga('create', 'UA-78315612-1', 'auto');
 ga('send', 'pageview');
+
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'load');
 
 if (true) {
   module.exports = { widgetsEventDiscovery: widgetsEventDiscovery, TicketmasterEventDiscoveryWidget: TicketmasterEventDiscoveryWidget };
