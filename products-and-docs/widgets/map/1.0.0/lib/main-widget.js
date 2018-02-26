@@ -164,7 +164,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: "widgetVersion",
         get: function get() {
-            return "" + "1.0.-5120";
+            return "" + "1.0.-4986";
         }
     }, {
         key: "geocodeUrl",
@@ -1141,6 +1141,9 @@ var widgetsMap = [];
 
 ga('create', 'UA-78315612-1', 'auto');
 ga('send', 'pageview');
+
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'MapWidget', 'load');
 
 if (true) {
     module.exports = { TicketmasterMapWidget: TicketmasterMapWidget, widgetsMap: widgetsMap };
