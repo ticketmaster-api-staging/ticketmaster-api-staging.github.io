@@ -188,7 +188,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-5018";
+      return '' + "1.0.-4986";
     }
   }, {
     key: 'geocodeUrl',
@@ -1772,6 +1772,9 @@ var widgetsEventDiscovery = [];
 
 ga('create', 'UA-78315612-1', 'auto');
 ga('send', 'pageview');
+
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'load');
 
 if (true) {
   module.exports = { widgetsEventDiscovery: widgetsEventDiscovery, TicketmasterEventDiscoveryWidget: TicketmasterEventDiscoveryWidget };

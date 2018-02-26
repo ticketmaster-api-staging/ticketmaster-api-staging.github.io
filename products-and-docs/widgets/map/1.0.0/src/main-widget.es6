@@ -1023,6 +1023,9 @@ let widgetsMap = [];
 ga('create', 'UA-78315612-1', 'auto');
 ga('send', 'pageview');
 
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'MapWidget', 'load');
+
 if(typeof module !== "undefined") {
     module.exports = { TicketmasterMapWidget, widgetsMap };
 }
