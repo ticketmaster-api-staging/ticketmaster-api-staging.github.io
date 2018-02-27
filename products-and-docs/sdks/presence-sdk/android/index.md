@@ -54,19 +54,23 @@ compile project(':PresenceSDK-release-1.5.0.0')
 Step 4. Add the following dependencies in the same place as step #3:
 
 {% highlight java %}
-compile 'com.android.support:cardview-v7:25.3.1'
-compile 'com.android.support:appcompat-v7:25.3.1'
-compile 'com.android.support:support-v4:25.3.1'
-compile 'com.android.support:recyclerview-v7:25.3.1'
-compile 'com.android.support:design:25.3.1'
+implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+compile 'com.android.support:cardview-v7:26.1.0'
+compile 'com.android.support:appcompat-v7:26.1.0'
+compile 'com.android.support:support-v4:26.1.0'
+compile 'com.android.support:recyclerview-v7:26.1.0'
+compile 'com.android.support:design:26.1.0'
 compile 'com.android.volley:volley:1.0.0'
 compile 'com.google.code.gson:gson:2.4'
 compile 'com.squareup.picasso:picasso:2.5.2'
 compile 'com.romandanylyk:pageindicatorview:0.0.5'
 compile 'com.google.zxing:core:3.2.1'
-compile 'com.android.support:percent:25.3.1'
+compile 'com.android.support:percent:26.1.0'
 compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 {% endhighlight %}
+
+Dependency `implementation 'com.android.support.constraint:constraint-layout:1.0.2'` may already be added to the app level build gradle. Nothing will happen if there is a duplicate dependency but for the sake of cleaniness, verify if your project already includes it.
 
 After adding them, the build gradle dependencies will look similar to the one shown as below:
 

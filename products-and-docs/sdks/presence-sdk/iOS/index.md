@@ -124,6 +124,11 @@ Step 2: Like the UIView from the previous step, drag and drop a UIBarButtonItem 
 
 You may now run the application and if you have provided correct configuration, you will see a similar screen to the image below at startup.
 
+**IMPORTANT:** If your project is in Objective-C, you will get a run time fatal error:
+`dyld: Library not loaded: @rpath/libswiftContacts.dylib
+  Referenced from: */Frameworks/PresenceSDK.framework/PresenceSDK
+  Reason: image not found`. To fix this error, in your project build settings, set `YES` for `Always Embed Swift Standard Libraries` under `Build Options`.
+
 **NOTE:** Further setup required. You still need to configure your application to handle PresenceSDK events.
 
 ![PresenceSDK iOS Step 1 result](/assets/img/products-and-docs/PresenceSDK-iOS-Step-1B.png)

@@ -297,15 +297,14 @@ Supported API levels
 [Download](/products-and-docs/sdks/presence/android/Android Presence SDK - Version 1_5_0 .zip)  Presence SDK Android.
 {% endcapture %}
 
-{: .article}
-# Presence SDK 
+{: #presenceSDK}
+# Presence SDK
 
-The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
 {: .lead .article}
+The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features in your 3rd party iOS and Android apps
 
+{: #download}
 ## SDK
-{: .article }
-
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -337,13 +336,13 @@ The Ticketmaster Presence SDK provides a simple way to add Ticketmaster features
 </form>
 </div>
 
+{: #sample_app}
 ## Sample App
-{: .article }
 
+{: .body}
 The Sample App empowers clients and integrators to easily demo the newest version of the Presence SDK on their Mobile Phones.
 
 Check out new features, understand expected functionality, and even experiment with color schemes to customize the SDK for your particular app: no developer resources required!
-
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -376,9 +375,9 @@ Check out new features, understand expected functionality, and even experiment w
 </form>
 </div>
 
-## What You Need
-{: .article }
 
+{: #what_you_need}
+## What You Need
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -397,12 +396,12 @@ Check out new features, understand expected functionality, and even experiment w
     <div class="tab-content" style="padding-top: 0px;">
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="whatyouneed-ios">
-					{{ iOS_whatyouneed | markdownify }}          
+                    {{ iOS_whatyouneed | markdownify }}          
         </div>
         
         <!-- Android Tab -->
         <div class="tab-pane fade" id="whatyouneed-android">
-					{{ Android_whatyouneed | markdownify }}
+                    {{ Android_whatyouneed | markdownify }}
         </div>
 
     </div>
@@ -410,9 +409,12 @@ Check out new features, understand expected functionality, and even experiment w
 </div>
 
 
+{: #ref_and_int}
 ## Reference and Integration Guides
+
+{: .body}
 Here you can learn how to integrate the Presence SDK into your application. In addition, you will find a reference guide for methods to customize your integration, analytics, and release information for when you app is ready to be publish to the Apple App or Google Play store.
-{: .lead .article}
+
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -445,9 +447,10 @@ Here you can learn how to integrate the Presence SDK into your application. In a
 </div>
 
 
+{: #changeLog}
 ## Change log
-{: .article }
 
+{: .article }
 <div class="col-lg-12 config-block">
 <form accept-charset="UTF-8" class="main-widget-config-form common_tabs" method="post" autocomplete="off">
 
@@ -466,12 +469,12 @@ Here you can learn how to integrate the Presence SDK into your application. In a
     <div class="tab-content" style="padding-top: 0px;">
         <!-- iOS Tab -->
         <div class="tab-pane fade active in" id="changelog-ios">
-					{{ iOS_changelog | markdownify }}          
+                    {{ iOS_changelog | markdownify }}          
         </div>
         
         <!-- Android Tab -->
         <div class="tab-pane fade" id="changelog-android">
-					{{ Android_changelog | markdownify }}
+                    {{ Android_changelog | markdownify }}
         </div>
 
     </div>
