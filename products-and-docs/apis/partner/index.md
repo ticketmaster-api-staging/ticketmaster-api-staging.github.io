@@ -381,6 +381,7 @@ Status 200
             "carrier": "TICKETMASTER",
             "id": "1",
             "service_level": "ETICKET",
+            "requires_address": false,
             "totals": {
                 "currency_code": "USD",
                 "fee": 0.0,
@@ -394,6 +395,7 @@ Status 200
             "carrier": "USPS",
             "id": "2",
             "service_level": "MAIL",
+            "requires_address": true,
             "totals": {
                 "currency_code": "USD",
                 "fee": 0.5,
@@ -407,6 +409,7 @@ Status 200
             "carrier": "USPS",
             "id": "3",
             "service_level": "AIRMAIL",
+            "requires_address": true,
             "totals": {
                 "currency_code": "USD",
                 "fee": 0.5,
@@ -420,6 +423,7 @@ Status 200
             "carrier": "TICKETMASTER",
             "id": "4",
             "service_level": "WILLCALL",
+            "requires_address": false,
             "totals": {
                 "currency_code": "USD",
                 "fee": 2.5,
