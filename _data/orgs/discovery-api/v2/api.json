@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "The Ticketmaster Discovery API allows you to search for events, attractions, or venues.",
+    "description" : "The Ticketmaster Discovery API allows you to search for events,\n                                    attractions, or venues.",
     "version" : "v2",
     "title" : "Discovery API",
     "contact" : {
@@ -1611,12 +1611,12 @@
         "rangeDurationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "leapDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "maximumValue" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "leapDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "name" : {
           "type" : "string"
@@ -1633,10 +1633,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
@@ -1653,6 +1653,16 @@
         },
         "id" : {
           "type" : "string"
+        }
+      }
+    },
+    "Default" : {
+      "type" : "object",
+      "properties" : {
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "default locale as determined by the publisher"
         }
       }
     },
@@ -1681,13 +1691,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "precise" : {
-          "type" : "boolean",
-          "default" : false
-        },
         "unitMillis" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "precise" : {
+          "type" : "boolean",
+          "default" : false
         },
         "name" : {
           "type" : "string"
@@ -1749,6 +1759,9 @@
     "EntityChanges" : {
       "type" : "object",
       "properties" : {
+        "correlationId" : {
+          "type" : "string"
+        },
         "newlyCreated" : {
           "type" : "boolean",
           "default" : false
