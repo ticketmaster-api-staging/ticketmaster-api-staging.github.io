@@ -51,7 +51,7 @@ Check out new features, understand expected functionality, and even experiment w
 ### Installation
 Download the sample app by clicking this link directly from your Android Phone (link will not work on otherwise).
 
-<a class="button button-blue" href="/products-and-docs/sdks/presence/android/app-prod-debug.apk">Download and Install</a>
+<a class="button button-blue" href="/products-and-docs/sdks/presence/android/app-prod-release.apk">Download and Install</a>
 
 You must allow installation of apps from unknown sources in order to install the Sample App .apk file:
 Click `Settings > Security > Unknown Sources` (Allow installation of apps from Unknown Sources)

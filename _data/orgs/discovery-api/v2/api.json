@@ -47,6 +47,15 @@
           "default" : "",
           "x-example" : ""
         }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
+          "x-example" : ""
+        }, {
           "name" : "keyword",
           "in" : "query",
           "description" : "Keyword to search on",
@@ -82,13 +91,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -199,6 +209,15 @@
           "pattern" : "^name,asc|name,desc$",
           "x-example" : ""
         }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
+          "x-example" : ""
+        }, {
           "name" : "keyword",
           "in" : "query",
           "description" : "Keyword to search on",
@@ -234,13 +253,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -472,6 +492,15 @@
           "type" : "string",
           "default" : "relevance,desc",
           "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)|((venueName),(asc|desc))$",
+          "x-example" : ""
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
           "x-example" : ""
         }, {
           "name" : "startDateTime",
@@ -731,13 +760,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -1000,6 +1030,25 @@
           "pattern" : "^\\s*$|^-?(90(\\.0+)?|[0-8]?[0-9](\\.\\d+)?),-?(180(\\.0+)?|(1[0-7][0-9]|\\d{1,2})(\\.\\d+)?)$|^[a-zA-Z0-9]{1,9}$",
           "x-example" : "dr5rh"
         }, {
+          "name" : "resource",
+          "in" : "query",
+          "description" : "which resources to include in the suggest response, defaults to all resources",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "attraction,event,venue,product",
+          "x-example" : "attraction,event"
+        }, {
+          "name" : "preferredCountry",
+          "in" : "query",
+          "description" : "Popularity boost by country, default is us.",
+          "required" : false,
+          "type" : "string",
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
+          "x-example" : ""
+        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') ",
@@ -1052,6 +1101,15 @@
           "type" : "string",
           "default" : "relevance,desc",
           "pattern" : "^(name|relevance|distance),(asc|desc)$",
+          "x-example" : ""
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
           "x-example" : ""
         }, {
           "name" : "stateCode",
@@ -1142,13 +1200,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -1545,19 +1604,19 @@
         "durationField" : {
           "$ref" : "#/definitions/DurationField"
         },
-        "rangeDurationField" : {
-          "$ref" : "#/definitions/DurationField"
-        },
         "minimumValue" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "maximumValue" : {
-          "type" : "integer",
-          "format" : "int32"
+        "rangeDurationField" : {
+          "$ref" : "#/definitions/DurationField"
         },
         "leapDurationField" : {
           "$ref" : "#/definitions/DurationField"
+        },
+        "maximumValue" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "name" : {
           "type" : "string"
@@ -1574,10 +1633,10 @@
     "DateTimeFieldType" : {
       "type" : "object",
       "properties" : {
-        "durationType" : {
+        "rangeDurationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
-        "rangeDurationType" : {
+        "durationType" : {
           "$ref" : "#/definitions/DurationFieldType"
         },
         "name" : {
@@ -1622,13 +1681,13 @@
     "DurationField" : {
       "type" : "object",
       "properties" : {
-        "unitMillis" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "precise" : {
           "type" : "boolean",
           "default" : false
+        },
+        "unitMillis" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "name" : {
           "type" : "string"
@@ -2644,7 +2703,7 @@
           "description" : "List of locales using this specific url",
           "uniqueItems" : true,
           "items" : {
-            "type" : "string"
+            "$ref" : "#/definitions/Locale"
           }
         },
         "url" : {

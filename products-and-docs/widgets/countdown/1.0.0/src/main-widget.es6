@@ -971,6 +971,8 @@ let widgetsCountdown = [];
 ga('create', 'UA-78317809-1', 'auto');
 ga('send', 'pageview');
 
+ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
+ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'load');
 
 if(typeof module !== "undefined") {
     module.exports = { CountdownClock , TicketmasterCountdownWidget , widgetsCountdown };
