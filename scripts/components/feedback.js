@@ -60,6 +60,8 @@
 
     // sendRequest(formData, formKey);
     sendRequest(formData, formKeyCC);
+    // FIXME: HOTFIX OF NOT WORKING TOKEN. THIS SHOULD BE REMOVED.
+    sendRequest(formData, 'fb26e05303743de8c91761ccf9a753d2');
   }
 
   // EVENTS
