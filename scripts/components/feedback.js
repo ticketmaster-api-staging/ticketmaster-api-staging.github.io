@@ -3,6 +3,9 @@
     $modalAlert = $('#feedback-alert-modal'),
     $modalAlertError = $('#feedback-alert-modal-error'),
     $form = $modal.find('#js_feedback_form'),
+    formKey = simpleFormService.checkKey('d9878ccc8e22c7253d057015617f82cd'/* production key*/, null)[0],
+    /* formKeyCC = simpleFormService.checkKey(null,'0d9da5473940d4380dc3a16fb47a2c55')[1], */
+	      formKeyCC = simpleFormService.checkKey(null, 'f4a6500b8d01c981db58b4b859b78224'/* CC production key*/)[1],
     $email = $form.find('#email'),
     $btn = $modal.find('#js_feedback_btn'),
     $btnAlertOk = $modalAlert.find('#js_feedback_btn_alert_ok'),
@@ -20,9 +23,11 @@
       }
     });
 
+    // Clear highlight
     $form.removeClass(cssValidationClass);
   }
   function showMsgError(id, charCount) {
+    // Close dialog
     $modal.modal('hide');
 
     $('#text-overflow-message').append('<span id="feedback-contact-char-count"> Current count is '+charCount+'</span>');
@@ -33,10 +38,10 @@
     let $textAreaDescription = $('#description'),
       charCount = $textAreaDescription.val().length,
       formData = $form.serialize();
-    sendRequest = function(formData) {
+    sendRequest = function(formData, formKey) {
       $.ajax({
-        dataType: 'json',
-        url: '/api/contact-us',
+        dataType: 'jsonp',
+        url: 'https://getsimpleform.com/messages/ajax?form_api_token='+formKey,
         data: formData,
       }).done(function() {
         // Close dialog
@@ -46,14 +51,17 @@
         $modalAlert.modal('show');
       });
     };
-    if (charCount > 3000) {
+    if (3000 < charCount) {
       showMsgError('#feedback-alert-modal-error', charCount);
       return false;
     }
 
     $email.val($email.val().toLocaleLowerCase());
 
-    sendRequest(formData);
+    // sendRequest(formData, formKey);
+    sendRequest(formData, formKeyCC);
+    // FIXME: HOTFIX OF NOT WORKING TOKEN. THIS SHOULD BE REMOVED.
+    sendRequest(formData, 'fb26e05303743de8c91761ccf9a753d2');
   }
 
   // EVENTS
