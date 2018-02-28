@@ -7,7 +7,7 @@
     "es-lint": "./node_modules/.bin/eslint -f html ./scripts/**/*.js -o .linters/es-lint-report.html || start .linters/es-lint-report.html",
     "sass-lint": "./node_modules/.bin/sass-lint --verbose --config .sass-lint.json && start .linters/sass-lint-report.html",
     "lint": "npm run es-lint",
-    "lint-all": "npm run es-lint && npm run sass-lint",
+		"lint-all": "npm run es-lint && npm run sass-lint",
     "build": "npm run build-swagger-api && webpack --bail --progress --profile",
     "build-jekyll": "jekyll build --watch",
     "start": "node server.js",
@@ -54,14 +54,14 @@
     "roots": [
       "<rootDir>/spec/"
     ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 71,
-        "branches": 58,
-        "functions": 78,
-        "lines": 73
-      }
-    }
+		"coverageThreshold": {
+			"global": {
+				"statements": 71,
+				"branches": 58,
+				"functions": 78,
+				"lines": 73
+			}
+		}
   },
   "repository": {
     "type": "git",
@@ -118,9 +118,6 @@
     "knockout-postbox": "^0.5.2",
     "knockout-scrollbar": "0.0.3",
     "knockout.validation": "^2.0.3",
-    "liquidjs": "^3.1.0",
-    "moment": "^2.20.1",
-    "nodemailer": "^4.6.0",
     "slick-carousel": "^1.6.0",
     "sync-request": "^4.1.0"
   }
