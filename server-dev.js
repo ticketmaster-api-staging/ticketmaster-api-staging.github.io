@@ -1,21 +1,19 @@
-const https = require('https');
-const http = require('http');
-const path = require('path');
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const syncrequest = require('sync-request');
-const url = require('url');
-const router = express.Router();
-const fs = require('fs');
+var https = require('https'),
+	http = require('http'),
+	path = require('path'),
+	express = require('express'),
+	cookieParser = require('cookie-parser'),
+	session = require('express-session'),
+	syncrequest = require('sync-request'),
+	url = require('url'),
+	router = express.Router(),
+	fs = require('fs');
 
-const contactUsController = require('./server/controllers/contact-us');
+var app = express();
 
-const app = express();
-
-const staticSiteOptions = {
-  portnum: 80,
-  maxAge: 1000 * 60 * 15,
+var staticSiteOptions = {
+	portnum: 80,
+	maxAge: 1000 * 60 * 15
 };
 
 var sess;
@@ -114,8 +112,6 @@ router.get('/user/apps/', function(req, res, next) {
 	}
 	res.send(apps);
 });
-
-router.get('/api/contact-us', contactUsController);
 /* Get user apps [END] */
 
 app.use(cookieParser());
