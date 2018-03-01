@@ -9,11 +9,13 @@ var https = require('https'),
 	router = express.Router(),
 	fs = require('fs');
 
-var app = express();
+const contactUsController = require('./server/controllers/contact-us');
+
+const app = express();
 
 var staticSiteOptions = {
-	portnum: 80,
-	maxAge: 1000 * 60 * 15
+  portnum: 80,
+  maxAge: 1000 * 60 * 15,
 };
 
 var sess;
@@ -112,6 +114,8 @@ router.get('/user/apps/', function(req, res, next) {
 	}
 	res.send(apps);
 });
+
+router.get('/api/contact-us', contactUsController);
 /* Get user apps [END] */
 
 app.use(cookieParser());
