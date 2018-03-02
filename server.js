@@ -88,7 +88,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 	}
 });
 /* OAuth API Access [END] */
-const contactUsController = require(path.resolve('server', 'controllers', 'contact-us.js'));
+const contactUsController = require('./contact-us');
 router.get('/api/contact-us', contactUsController.test);
 
 app.use(cookieParser());
