@@ -90,7 +90,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 });
 /* OAuth API Access [END] */
 
-router.get('/api/contact-us', () => {});
+router.get('/api/contact-us', contactUsController);
 
 app.use(cookieParser());
 var hour = 3600000;
