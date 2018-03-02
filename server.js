@@ -9,7 +9,6 @@ var https = require('https'),
 	router = express.Router(),
 	fs = require('fs');
 
-const contactUsController = require(path.resolve('server', 'controllers', 'contact-us'));
 
 var app = express();
 
@@ -89,8 +88,8 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 	}
 });
 /* OAuth API Access [END] */
-
-router.get('/api/contact-us', contactUsController);
+const contactUsController = require(path.resolve('server', 'controllers', 'contact-us.js'));
+router.get('/api/contact-us', contactUsController.test);
 
 app.use(cookieParser());
 var hour = 3600000;
@@ -102,7 +101,6 @@ app.use(session({
 	saveUninitialized: true,
 	resave: true,
 }));
-
 
 app.use(router);
 
@@ -126,5 +124,3 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, '_site')));
 
 console.log('Listening on port:', staticSiteOptions.portnum);
-console.log(contactUsController);
-console.log(path.resolve('server', 'controllers', 'contact-us'));
