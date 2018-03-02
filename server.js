@@ -9,7 +9,7 @@ var https = require('https'),
 	router = express.Router(),
 	fs = require('fs');
 
-const contactUsController = require('./server/controllers/contact-us');
+// const contactUsController = require('./server/controllers/contact-us');
 
 var app = express();
 
