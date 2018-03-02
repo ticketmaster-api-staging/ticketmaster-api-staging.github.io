@@ -9,7 +9,7 @@ var https = require('https'),
 	router = express.Router(),
 	fs = require('fs');
 
-const contactUsController = require(path.resolve('server', 'controllers', 'contact-us'));
+// const contactUsController = require(path.resolve('server', 'controllers', 'contact-us'));
 
 var app = express();
 
@@ -90,7 +90,7 @@ router.get('/products-and-docs/apis/oauth/', function(req, res) {
 });
 /* OAuth API Access [END] */
 
-router.get('/api/contact-us', contactUsController);
+router.get('/api/contact-us', () => {});
 
 app.use(cookieParser());
 var hour = 3600000;
