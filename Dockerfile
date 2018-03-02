@@ -11,6 +11,7 @@ ADD ./extracted_queries.json ./
 
 ADD data ./data
 ADD server.js ./
+ADD server ./server
 
 ENTRYPOINT ./node_modules/.bin/babel-node  ./server.js
 
