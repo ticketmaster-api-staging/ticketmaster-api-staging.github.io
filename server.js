@@ -9,7 +9,7 @@ var https = require('https'),
 	router = express.Router(),
 	fs = require('fs');
 
-const contactUsController = require(path.resolve(__dirname, 'server', 'controllers', 'contact-us'));
+const contactUsController = require(path.resolve('server', 'controllers', 'contact-us'));
 
 var app = express();
 
@@ -126,3 +126,5 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, '_site')));
 
 console.log('Listening on port:', staticSiteOptions.portnum);
+console.log(contactUsController);
+console.log(path.resolve('server', 'controllers', 'contact-us'));
