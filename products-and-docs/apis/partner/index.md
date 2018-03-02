@@ -971,8 +971,9 @@ Client applications may receive the following json response for any resource mar
 
 {% highlight js %}
 {
-    "polling_url": "https://app.ticketmaster.com/partners/v1/polling/cart/tickets/PUT/00000001080E06000000006BB7C4A8C0?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne&cart_id=bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D",
-    "wait": 4
+    "polling_url": "https://app.ticketmaster.com/partners/v1/polling-status?token=0ee566f7-cbfe-43f4-93b9-117c8d69f3d0&cart_id=eb6d42b7-cb95-48a5-acba-56514cf0d6ef",
+    "wait": 4,
+    "cart_id": "eb6d42b7-cb95-48a5-acba-56514cf0d6ef"
 }
 {% endhighlight %}
 
@@ -984,7 +985,7 @@ Clients can test polling by issuing the following header: `X-TM-FORCE-POLLING: t
 The output of the original action will eventually be returned in the body of the response.
 
 
-/partners/v1/polling/.../?apikey={apikey}&cart_id={cart_id}
+/partners/v1/polling-status?token={token}&cart_id={cart_id}&apikey={apikey}
 {: .code .red}
 
 ### Parameters
@@ -992,7 +993,8 @@ The output of the original action will eventually be returned in the body of the
 | Parameter  | Description          | Type              | Example      | Required |
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
 | `apikey`   | Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
-| `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes      |
+| `cart_id`   | Card identifier. Must be url encoded.         | string            |     "bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D"          | Yes
+| `token`    | token								| string						|   "0ee566f7-cbfe-43f4-93b9-117c8d69f3d0"				| Yes				|
 
 
 >[Request](#req)
@@ -1001,15 +1003,16 @@ The output of the original action will eventually be returned in the body of the
 
 
 {% highlight bash %}
-https://app.ticketmaster.com/partners/v1/polling/cart/tickets/PUT/00000001080E06000000006BB7C4A8C0?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne&cart_id=bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D
+https://app.ticketmaster.com/partners/v1/polling-status?token=0ee566f7-cbfe-43f4-93b9-117c8d69f3d0&cart_id=bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D&apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne
 {% endhighlight %}
 
 
 {% highlight js %}
 Status 202
 {
-    "polling_url": "https://app.ticketmaster.com/partners/v1/polling/cart/tickets/PUT/00000001080E06000000006BB7C4A8C0?apikey=GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne&cart_id=bzJVZURoNit1UkhQQ25pcE5KSHh1K09SVE9lQ0k2RktwSEZFdnAwTlNJYS82ZE5WWldiREtSTQo%3D",
-    "wait": 4
+	"polling_url": "https://app.ticketmaster.com/partners/v1/polling-status?token=0ee566f7-cbfe-43f4-93b9-117c8d69f3d0&cart_id=eb6d42b7-cb95-48a5-acba-56514cf0d6ef",
+	"wait": 4,
+	"cart_id": "eb6d42b7-cb95-48a5-acba-56514cf0d6ef"
 }
 
 Status 200
