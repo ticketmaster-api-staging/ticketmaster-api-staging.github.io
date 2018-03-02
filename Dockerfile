@@ -11,9 +11,9 @@ ADD ./extracted_queries.json ./
 
 ADD data ./data
 ADD server.js ./
-ADD server ./server
+ADD server /server
 
-ENTRYPOINT ./node_modules/.bin/babel-node  ./server.js
+ENTRYPOINT node ./server.js
 
 
 # docker run -i -t -p 8081:8081 graphql-poc
