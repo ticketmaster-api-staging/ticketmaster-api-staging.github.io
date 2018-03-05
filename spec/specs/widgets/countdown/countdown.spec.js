@@ -1,5 +1,8 @@
+import TicketmasterCountdownWidget from 'products-and-docs/widgets/countdown/1.0.0/src/classes/TicketmasterCountdownWidget.js';
+
 describe("CDWidget", () => {
 	let widget,
+		countdownClock,
 		module,
 		hideMessageDelay;
 	var setFixture = () => {
@@ -9,8 +12,7 @@ describe("CDWidget", () => {
 	beforeAll(() => {
 		window.__VERSION__ = 'mockedVersion';
 		setFixture();
-		module = require('products-and-docs/widgets/countdown/1.0.0/src/main-widget.es6');
-		widget = new module.TicketmasterCountdownWidget(document.querySelector('div[w-type="countdown"]'));
+		widget = new TicketmasterCountdownWidget(document.querySelector('div[w-type="countdown"]'));
 	});
 
 	beforeEach(function() {

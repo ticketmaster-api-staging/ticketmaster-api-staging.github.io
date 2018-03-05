@@ -1,190 +1,6 @@
-var widgetsLib =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+import CountdownClock from "./CountdownClock";
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class eventUrlCountdownClock {
-	set endTime(endTime) { this.config.endTime = endTime; }
-	get endTime(){ return this.config.endTime || new Date();}
-
-	set interval(interval) { return this.config.interval = interval; }
-	get interval(){ return this.config.interval || 1000;}
-
-	set onChange(fn) { return this.config.onChange = fn; }
-	get onChange(){ return this.config.onChange || ((time) => {})}
-
-	constructor(config = {}) {
-		this.config = config;
-		this.updateClock();
-		if(this.config.endTime) this.initInterval();
-	}
-
-	initInterval(){
-		this.timeinterval = setInterval(this.updateClock.bind(this), this.interval);
-	}
-
-	update(endTime){
-		clearInterval(this.timeinterval);
-		this.endTime = endTime;
-		this.updateClock();
-		if(endTime) this.initInterval();
-	}
-
-	updateClock() {
-		let timeRemaining = this.getTimeRemaining();
-		this.onChange(timeRemaining);
-		if (timeRemaining.total <= 0) clearInterval(this.timeinterval);
-	}
-
-	/*
-  //Covert datetime by GMT offset
-  //If toUTC is true then return UTC time other wise return local time
-  convertLocalDateToUTCDate(date, toUTC) {
-    date = new Date(date);
-    //Local time converted to UTC
-    var localOffset = date.getTimezoneOffset() * 60000;
-    var localTime = date.getTime();
-    (toUTC)
-      ? date = localTime + localOffset
-      : date = localTime - localOffset;
-    date = new Date(date);
-    return date;
-  }
-  */
-
-	getTimeRemaining() {
-		let total = Date.parse(this.endTime) - Date.parse(new Date());
-		if(total <= 0) total = 0;
-		let seconds = Math.floor((total / 1000) % 60),
-			minutes = Math.floor((total / 1000 / 60) % 60),
-			hours = Math.floor((total / 3600000 /* (1000 * 60 * 60) */) % 24),
-			days = Math.floor(total / 86400000 /* (1000 * 60 * 60 * 24) */),
-			monthLeft = 0;
-		//years = 0;
-
-		let daysInMonth = function(year,month){
-			var D=new Date(year, month-1, 1, 12);
-			return parseInt((-Date.parse(D)+D.setMonth(D.getMonth()+1)+36e5)/864e5);
-		};
-
-		let today = new Date(),
-			curr_day = today.getUTCDate(),
-			curr_month = today.getUTCMonth(),
-			curr_year = today.getUTCFullYear(),
-			curr_days_in_month = daysInMonth(curr_year, curr_month);
-
-		if(days > curr_days_in_month){
-			let servYear = new Date(this.endTime).getUTCFullYear(),
-				servMonth = new Date(this.endTime).getUTCMonth(),
-				servDay = new Date(this.endTime).getUTCDate(),
-				serv_days_in_month = daysInMonth(servYear, servMonth);
-
-			monthLeft = Math.floor( days/daysInMonth(servYear,servMonth) );
-
-			days = Math.abs(servDay - curr_day);
-
-			/*if(monthLeft > 99){
-        years = servYear - curr_year;
-        monthLeft = monthLeft-1 - years*12;
-        //console.log( 'monthLeft ',monthLeft );
-      }*/
-		}
-
-		return {
-			total,
-			//years,
-			monthLeft,
-			days,
-			hours,
-			minutes,
-			seconds
-		};
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["default"] = eventUrlCountdownClock;
-
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CountdownClock__ = __webpack_require__(0);
-
-
-class TicketmasterCountdownWidget {
+export default class TicketmasterCountdownWidget {
 
 	set config(attrs) { this.widgetConfig = this.loadConfig(attrs); }
 	get config() { return this.widgetConfig; }
@@ -219,7 +35,7 @@ class TicketmasterCountdownWidget {
 
 	get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
 
-	get widgetVersion() { return `${"1.0.-4889"}`; }
+	get widgetVersion() { return `${__VERSION__}`; }
 
 	get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
 
@@ -303,7 +119,7 @@ class TicketmasterCountdownWidget {
 
 		this.countDownWrapper.classList.add("events-count-down");
 
-		this.countdownClock = new __WEBPACK_IMPORTED_MODULE_0__CountdownClock__["default"]({
+		this.countdownClock = new CountdownClock({
 			onChange: this.onCountdownChange.bind(this)
 		});
 
@@ -1040,51 +856,3 @@ class TicketmasterCountdownWidget {
   */
 
 }
-/* harmony export (immutable) */ __webpack_exports__["default"] = TicketmasterCountdownWidget;
-
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _CountdownClock = __webpack_require__(0);
-
-var _CountdownClock2 = _interopRequireDefault(_CountdownClock);
-
-var _TicketmasterCountdownWidget = __webpack_require__(1);
-
-var _TicketmasterCountdownWidget2 = _interopRequireDefault(_TicketmasterCountdownWidget);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var widgetsCountdown = [];
-(function () {
-  var widgetContainers = document.querySelectorAll("div[w-type='countdown']");
-  for (var i = 0; i < widgetContainers.length; ++i) {
-    widgetsCountdown.push(new _TicketmasterCountdownWidget2.default(widgetContainers[i]));
-  }
-})();
-
-(function (i, s, o, g, r, a, m) {
-  i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
-    (i[r].q = i[r].q || []).push(arguments);
-  }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-ga('create', 'UA-78317809-1', 'auto');
-ga('send', 'pageview');
-
-ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
-ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'load');
-
-if (true) {
-  module.exports = { CountdownClock: _CountdownClock2.default, TicketmasterCountdownWidget: _TicketmasterCountdownWidget2.default, widgetsCountdown: widgetsCountdown };
-}
-
-/***/ })
-/******/ ]);
-//# sourceMappingURL=main-widget.js.map
