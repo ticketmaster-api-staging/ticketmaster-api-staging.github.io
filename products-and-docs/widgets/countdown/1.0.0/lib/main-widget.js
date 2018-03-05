@@ -219,7 +219,7 @@ class TicketmasterCountdownWidget {
 
 	get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
 
-	get widgetVersion() { return `${"1.0.-4889"}`; }
+	get widgetVersion() { return `${"1.0.-4912"}`; }
 
 	get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
 
@@ -419,9 +419,10 @@ class TicketmasterCountdownWidget {
 		this.buyBtn.classList.add("event-buy-btn");
 		this.buyBtn.target = '_blank';
 		this.buyBtn.href = '';
-		this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'CountdownClickBuyButton', 'click');");
 		this.buyBtn.addEventListener('click', (e) => {
 			e.preventDefault();
+      ga('send', 'event', 'CountdownClickBuyButton', 'click');
+      ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
 		});
 		this.eventsRootContainer.appendChild(this.buyBtn);
 	}
@@ -962,9 +963,12 @@ class TicketmasterCountdownWidget {
 		name.classList.add("event-name");
 		name.appendChild(nameContent);
 		this.initPretendedLink(name, itemConfig.url, true);
-		name.setAttribute('onclick', `ga('send', 'event', 'CountDownClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=light', 'click', '${itemConfig.url}');`);
+		name.addEventListener('click', function(e) {
+      e.preventDefault();
+      ga('send', 'event', 'CountDownClickeventName', 'click', itemConfig.url);
+      ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick', itemConfig.url);
+    })
 		medWrapper.appendChild(name);
-
 
 		var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
 			dateTime = document.createElement("span");
