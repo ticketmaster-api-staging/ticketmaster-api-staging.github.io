@@ -1,0 +1,96 @@
+#cloud-config
+write_files:
+  - path: "/aws/credentials"
+    permissions: "0644"
+    owner: "root"
+coreos:
+  update:
+    reboot-strategy: off
+  units:
+    ## Prevent CoreOS auto update
+    -
+      name: update-engine.service
+      command: stop
+    -
+      name: locksmithd.service
+      command: stop
+
+    ## To see Journald logs live on the instance via port: 19531 against the instance IP
+    -
+      name: systemd-journal-gatewayd.socket
+      command: start
+      enable: yes
+    -
+      name: systemd-journal-gatewayd.service
+      command: start
+      enable: yes
+    -
+      name: node-exporter.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=node exporter
+        [Service]
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=node-exporter
+        ExecStartPre=/usr/bin/docker pull prom/node-exporter
+        ExecStart=/usr/bin/docker run --rm -p 9100:9100 -v "/proc:/host/proc" -v "/sys:/host/sys" -v "/:/rootfs" --net="host" prom/node-exporter -collector.procfs /host/proc -collector.sysfs /host/proc -collector.filesystem.ignored-mount-points "^/(sys|proc|dev|host|etc)($|/)"
+    -
+      name: cadvisor.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=cadvisor
+        [Service]
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=cadvisor
+        ExecStartPre=-/usr/bin/mkdir -p /srv/cadvisor
+        ExecStartPre=-/usr/bin/wget -O /srv/cadvisor/cadvisor ${cadvisor_url}
+        ExecStartPre=-/usr/bin/chmod +x /srv/cadvisor/cadvisor
+        ExecStart=/srv/cadvisor/cadvisor -port ${cadvisor_port}
+    -
+      name: instance_id.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=instance_id.service
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/sh -c "/usr/bin/echo -n INSTANCE_ID= > /tmp/instance_id.env"
+        ExecStart=/usr/bin/sh -c "curl http://169.254.169.254/latest/meta-data/instance-id >> /tmp/instance_id.env"
+    -
+      name: ${class}.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=${inventory_code_tag}
+        [Service]
+        TimeoutStartSec=120
+        Restart=on-failure
+        RestartSec=30
+        RestartPreventExitStatus=5
+        SyslogIdentifier=${inventory_code_tag}
+        ExecStartPre=/usr/bin/mkdir -p ${ec2_log_dir}
+        ExecStartPre=/usr/bin/chmod o+rw ${ec2_log_dir}
+        ExecStartPre=/usr/bin/sh -c 'eval `docker run --rm -e AWS_REGION=us-east-1 -e REGISTRIES=tmhub.io ticketmaster/ecr-login-readonly`'
+        ExecStartPre=-/usr/bin/docker pull ${ecr_host}/${product_name}/${environment_tag}/${inventory_code_tag}:${artifact_version}
+        ExecStartPre=-/usr/bin/docker rm -f ${class}
+        ExecStart=/usr/bin/docker run \
+          -d \
+          -p ${instance_port}:${instance_port} \
+          -p ${instance_ssl_port}:${instance_ssl_port} \
+          --name ${class} \
+          -v ${ec2_log_dir}:${docker_log_dir} \
+          -e PORT="${instance_port}" \
+          -e PORTAL_URL="${portal_url}" \
+          -e DRUPAL_PORTAL_URL="${drupal_portal_url}" \
+          -e SSL_FOLDER="${ssl_folder}" \
+          ${artifact_repo}:${artifact_version}

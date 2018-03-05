@@ -17,26 +17,21 @@ describe("CalendarWidget", () => {
 		selectorControls,
 		module,
 		hideMessageDelay;
-	var setFixture = () => {
-		document.body.innerHTML = '<head></head><div w-type="calendar" w-tmapikey="y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1" w-googleapikey="AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA" w-postalcodeapi="90015" w-keyword="" w-colorscheme="light" w-width="350" w-height="600" w-size="25" w-border="0" w-borderradius="4" w-postalcode="" w-radius="" w-period="" w-layout="vertical" w-attractionid="" w-promoterid="" w-venueid="" w-affiliateid="" w-segmentid="" w-proportion="custom" w-titlelink="off" w-countrycode="US" w-source="" w-latlong=",">';
-		document.body.innerHTML += '<div class="tabs"><span class="tb active">Day</span><span class="tb">Week</span><span class="tb">Month</span><span class="tb">Year</span></div>';
-		document.body.innerHTML += '<div class="tabs-container"><div class="tab active">';
-		document.body.innerHTML += '<div class="sliderLeftSelector"><span class="selector-title">June 27</span><span class="selector-content" tabindex="-1"><span class="active" w-period="Tue Jun 27 2017 17:28:24 GMT+0300 (FLE Daylight Time)">June 27</span><span w-period="Wed Jun 28 2017 17:28:24 GMT+0300 (FLE Daylight Time)">June 28</span><span w-period="Thu Jun 29 2017 17:28:24 GMT+0300 (FLE Daylight Time)">June 29</span><span w-period="Fri Jun 30 2017 17:28:24 GMT+0300 (FLE Daylight Time)">June 30</span><span w-period="Sat Jul 01 2017 17:28:24 GMT+0300 (FLE Daylight Time)">July 1</span><span w-period="Sun Jul 02 2017 17:28:24 GMT+0300 (FLE Daylight Time)">July 2</span><span w-period="Mon Jul 03 2017 17:28:24 GMT+0300 (FLE Daylight Time)">July 3</span></span></div>';
-		document.body.innerHTML += '<div class="sliderRightSelector"><span class="selector-title">All Events</span><span class="selector-content" tabindex="-1"><span class="active" w-classificationid="">All Events</span><span w-classificationid="KZFzniwnSyZfZ7v7na">Arts &amp; Theatre</span><span w-classificationid="KZFzniwnSyZfZ7v7nn">Film</span><span w-classificationid="KZFzniwnSyZfZ7v7n1">Miscellaneous</span><span w-classificationid="KZFzniwnSyZfZ7v7nJ">Music</span><span w-classificationid="KZFzniwnSyZfZ7v7nE">Sports</span></span></div>';
-		document.body.innerHTML += '</div><div class="tab"></div><div class="tab"></div><div class="tab"></div></div>';
-		document.body.innerHTML += '<div class="event-logo centered-logo"></div><div class="event-date centered-logo"></div><div class="spinner-container"></div></div>';
+	var setFixture = ({apikey="y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1", latlong= ",", countryCode= "US", city= "",
+											keyword= "", classificationId= "", radius= "", period=""} = {}) => {
+		document.body.innerHTML = '<head></head><div w-type="calendar" w-tmapikey="' + apikey + '" w-googleapikey="AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA" w-postalcodeapi="90015" w-keyword="'+ keyword + '" w-colorscheme="light" w-width="350" w-height="600" w-size="25" w-border="0" w-borderradius="4" w-postalcode="" w-radius="' + radius + '" w-period="' + period + '" w-layout="vertical" w-attractionid="" w-promoterid="" w-venueid="" w-affiliateid="" w-segmentid="" w-proportion="custom" w-titlelink="off" w-countrycode="' + countryCode + '" w-source="" w-latlong="' + latlong + '" w-city="' + city + '" w-classificationId="' + classificationId + '">';
+
+		let calendar = document.querySelector('div[w-type="calendar"]')
+		widget = new TicketmasterCalendarWidget(calendar);
+		widgetWeek = new WeekScheduler(calendar.querySelector(".monthScheduler"));
+		widgetMonth = new MonthScheduler(calendar.querySelector(".monthScheduler"));
+		widgetYear = new YearScheduler(calendar.querySelector(".monthScheduler"));
+		tabsControls = new TabsControls(calendar);
+		selectorControls = new SelectorControls();
 	};
 	beforeAll(() => {
 		window.__VERSION__ = 'mockedVersion';
 		setFixture();
-		// module = require('products-and-docs/widgets/calendar/1.0.0/src/main-widget.es6');
-		widget = new TicketmasterCalendarWidget();
-		widget = new TicketmasterCalendarWidget(document.querySelector('div[w-type="calendar"]'));
-		widgetWeek = new WeekScheduler();
-		widgetMonth = new MonthScheduler();
-		widgetYear = new YearScheduler();
-		tabsControls = new TabsControls(document.querySelector('div[w-type="calendar"]'));
-		selectorControls = new SelectorControls();
 	});
 
 	beforeEach(function() {
@@ -196,10 +191,6 @@ describe("CalendarWidget", () => {
 	});
 
 	it('#hideMessageDelay should be 500', function(){
-		expect(widgetMonth.hideMessageDelay).toBe(3000);
-	});
-
-	it('#hideMessageDelay should be 500', function(){
 		expect(widgetYear.hideMessageDelay).toBe(3000);
 	});
 
@@ -324,12 +315,12 @@ describe("CalendarWidget", () => {
 	it('#showMessage should be defined', () => {
 		let hideMessageWithoutDelay = function() {return true};
 		widgetWeek.messageContent = {
-				innerHTML: function() {return true}
+			innerHTML: function() {return true}
 		};
 		widgetWeek.messageDialog = {
-			  classList: {
-			  	add: function() {return true}
-				}
+			classList: {
+				add: function() {return true}
+			}
 		};
 		widgetWeek.massageDialog = widgetWeek.eventsRoot;
 		widgetWeek.messageTimeout = function() {return true};
@@ -890,13 +881,15 @@ describe("CalendarWidget", () => {
 		expect(typeof(widget.publishEventsGroup)).toBe('function');
 	});
 
-  /* Tabs Controls [START] */
-
+	/* Tabs Controls [START] */
 	it('tabsContorls #setActiveTab should be BeDefined', function(){
-		let this_ = document.body.querySelector('.tabs');
-		tabsControls.setActiveTab(2);
-		expect(typeof(tabsControls.setActiveTab)).toBe('function');
-		document.querySelector('.tb').click();
+		tabsControls.setActiveTab(1);
+		let tab = document.querySelector('.tb:nth-child(4)');
+		tab.click();
+
+		expect(tabsControls.activeTabIndex).toBe(3);
+		expect(tab.getAttribute("class")).toContain('active');
+		expect(document.querySelector('.tb:nth-child(1)').getAttribute("class")).not.toContain('active');
 	});
 
 	/* Tabs Controls [END] */
@@ -916,7 +909,30 @@ describe("CalendarWidget", () => {
 	});
 	/* Selector Controls [END] */
 
-  /* WidgetWeek [START] */
+	/* WidgetWeek [START] */
+	it('widgetWeek #eventReqAttrs', function(){
+		let mockAttrs = {
+			"apikey": "mockTmapikey",
+			"latlong": "mockLatlong",
+			"countryCode": "mockCountrycode",
+			"city": "mockCity",
+			"keyword": "mockKeyword",
+			"classificationId": "mockClassificationid",
+			"radius": "mockRadius",
+			"period": "week"
+		};
+		setFixture(mockAttrs);
+		let attrs = widgetWeek.eventReqAttrs;
+
+		expect(attrs['apikey']).toBe('mockTmapikey');
+		expect(attrs['countryCode']).toBe('mockCountrycode');
+		expect(attrs['latlong']).toBe('');
+		expect(attrs['city']).toBe('mockCity');
+		expect(attrs['keyword']).toBe('mockKeyword');
+		expect(attrs['classificationId']).toBe('mockClassificationid');
+		expect(attrs['radius']).toBe('mockRadius');
+		expect(attrs['size']).toBe('200');
+	});
 
 	it('widget #tmWidgetWhiteList should be BeDefined', function(){
 		widgetWeek.apiUrl;
@@ -961,78 +977,179 @@ describe("CalendarWidget", () => {
 		expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
 	});
 
+	it('widgetWeek #startMonth .spinner-container class should be without hide class', function(){
+		widgetWeek.startMonth();
+		expect(widgetWeek.eventsRootContainer.querySelector('.spinner-container').classList.contains('hide')).toBeFalsy();
+	});
+
 	/* WidgetWeek [END] */
 
 	/* WidgetMonth [START] */
+	describe("widgetMonth", () => {
 
-	it('widgetMonth #tmWidgetWhiteList should be BeDefined', function(){
-		widgetMonth.apiUrl;
-		expect(widgetMonth.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events.json');
-	});
+		it('widgetMonth #eventReqAttrs', function(){
+			let mockAttrs = {
+				"apikey": "mockTmapikey",
+				"latlong": "mockLatlong",
+				"countryCode": "mockCountrycode",
+				"city": "mockCity",
+				"keyword": "mockKeyword",
+				"classificationId": "mockClassificationid",
+				"radius": "mockRadius",
+				"period": "week123"
+			};
+			setFixture(mockAttrs);
+			let attrs = widgetMonth.eventReqAttrs;
 
-	it('widgetMonth #tmWidgetWhiteList should be BeDefined', function(){
-		widgetMonth.messageRootContainer;
-		expect(widgetMonth.messageRootContainer).toBe('monthScheduler');
-	});
+			expect(attrs['apikey']).toBe('mockTmapikey');
+			expect(attrs['countryCode']).toBe('mockCountrycode');
+			expect(attrs['latlong']).toBe('');
+			expect(attrs['city']).toBe('mockCity');
+			expect(attrs['keyword']).toBe('mockKeyword');
+			expect(attrs['classificationId']).toBe('mockClassificationid');
+			expect(attrs['radius']).toBe('mockRadius');
+			expect(attrs['size']).toBe('200');
+			expect(attrs['page']).toBe(0);
+		});
 
-	it('#formatDate should return result', function(){
-		let noneResult = widgetMonth.formatDate('date');
-		expect(noneResult).toBe('');
+		it('widgetMonth #messageRootContainer should be BeDefined', function(){
+			expect(widgetMonth.messageRootContainer).toBe('monthScheduler');
+		});
 
-		let noneTimeResult = widgetMonth.formatDate({day : "2017-03-17"});
-		expect(noneTimeResult).toEqual("Fri, Mar 17, 2017");
+		it('widgetMonth #hideMessageDelay should be 3000', function(){
+			expect(widgetMonth.hideMessageDelay).toBe(3000);
+		});
 
-		let mockDate = {
-			dateTime : "2017-03-18T00:30:00Z",
-			day : "2017-03-17",
-			time : "20:30:00"
-		};
-		let okResult = widgetMonth.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 08:30 PM");
-		mockDate = {
-			dateTime : "2017-03-18T00:00:00Z",
-			day : "2017-03-17",
-			time : "00:00:00"
-		};
-		okResult = widgetMonth.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
+		it('widgetMonth #update delLeftselector and delRightselector should be deleted', function(){
+			let delLeftselector = widgetMonth.monthSchedulerRoot.parentNode.getElementsByClassName('sliderLeftSelector')[0];
+			let delRightselector = widgetMonth.monthSchedulerRoot.parentNode.getElementsByClassName('sliderRightSelector')[0];
+			widgetMonth.update();
+			expect(delLeftselector.parentElement).toBeFalsy();
+			expect(delRightselector.parentElement).toBeFalsy();
+		});
+
+		it('widgetMonth #startMonth .spinner-container class should be without hide class', function(){
+			widgetMonth.startMonth();
+			expect(widgetMonth.monthSchedulerRoot.querySelector('.spinner-container').classList.contains('hide')).toBeFalsy();
+		});
+
+		it('widgetMonth #tmWidgetWhiteList should be BeDefined', function(){
+			widgetMonth.apiUrl;
+			expect(widgetMonth.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events.json');
+		});
+
+		it('widgetMonth #initMessage should be defined', () => {
+			document.querySelector('.event-message__btn').click();
+			expect(typeof(widgetMonth.initMessage)).toBe('function');
+			widgetMonth.monthSchedulerRoot = {
+				innerHTML: '<div class="monthSсheduler"></div>',
+				appendChild: function() {return true}
+			}
+			widgetMonth.initMessage(widgetMonth.monthSchedulerRoot);
+		});
+
+		it('widgetMonth #formatDate should return result', function(){
+			let noneResult = widgetMonth.formatDate('date');
+			expect(noneResult).toBe('');
+
+			let noneTimeResult = widgetMonth.formatDate({day : "2017-03-17"});
+			expect(noneTimeResult).toEqual("Fri, Mar 17, 2017");
+
+			let mockDate = {
+				dateTime : "2017-03-18T00:30:00Z",
+				day : "2017-03-17",
+				time : "20:30:00"
+			};
+			let okResult = widgetMonth.formatDate(mockDate);
+			expect(okResult).toEqual("Fri, Mar 17, 2017 08:30 PM");
+			mockDate = {
+				dateTime : "2017-03-18T00:00:00Z",
+				day : "2017-03-17",
+				time : "00:00:00"
+			};
+			okResult = widgetMonth.formatDate(mockDate);
+			expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
+		});
 	});
 
 	/* WidgetMonth [END] */
 
 	/* WidgetYear [START] */
-	it('widgetYear #tmWidgetWhiteList should be BeDefined', function(){
-		widgetYear.apiUrl;
-		expect(widgetYear.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events.json');
-	});
+	describe("widgetYear", () => {
+		it('widgetYear #eventReqAttrs', function () {
+			let mockAttrs = {
+				"apikey": "mockTmapikey",
+				"latlong": "mockLatlong",
+				"countryCode": "mockCountrycode",
+				"city": "mockCity",
+				"keyword": "mockKeyword",
+				"classificationId": "mockClassificationid",
+				"radius": "mockRadius",
+				"period": "mock"
+			};
+			setFixture(mockAttrs);
 
-	it('widgetYear #tmWidgetWhiteList should be BeDefined', function(){
-		widgetYear.messageRootContainer;
-		expect(widgetYear.messageRootContainer).toBe('yearScheduler');
-	});
+			let attrs = widgetYear.eventReqAttrs;
 
-	it('#formatDate should return result', function(){
-		let noneResult = widgetYear.formatDate('date');
-		expect(noneResult).toBe('');
+			expect(attrs['apikey']).toBe('mockTmapikey');
+			expect(attrs['countryCode']).toBe('mockCountrycode');
+			expect(attrs['latlong']).toBe('');
+			expect(attrs['city']).toBe('mockCity');
+			expect(attrs['keyword']).toBe('mockKeyword');
+			expect(attrs['classificationId']).toBe('mockClassificationid');
+			expect(attrs['radius']).toBe('mockRadius');
+			expect(attrs['size']).toBe('1');
+		});
 
-		let noneTimeResult = widgetYear.formatDate({day : "2017-03-17"});
-		expect(noneTimeResult).toEqual("Fri, Mar 17, 2017");
+		it('widgetYear #apiUrl should be BeDefined', function () {
+			widgetYear.apiUrl;
+			expect(widgetYear.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events.json');
+		});
 
-		let mockDate = {
-			dateTime : "2017-03-18T00:30:00Z",
-			day : "2017-03-17",
-			time : "20:30:00"
-		};
-		let okResult = widgetYear.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 08:30 PM");
-		mockDate = {
-			dateTime : "2017-03-18T00:00:00Z",
-			day : "2017-03-17",
-			time : "00:00:00"
-		};
-		okResult = widgetYear.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
-	});
+		it('widgetYear #messageRootContainer should be BeDefined', function () {
+			widgetYear.messageRootContainer;
+			expect(widgetYear.messageRootContainer).toBe('yearScheduler');
+		});
+
+		it('widgetYear #getYears', function () {
+			let yearNow = new Date().getFullYear();
+			let yearNext = yearNow + 1;
+			let thisYearEventsSpan = '<span w-period="' + yearNow + '">Events in ' + yearNow + '</span>';
+			let nextYearEventsSpan = '<span class="active" w-period="' + yearNext + '">Events in ' + yearNext + '</span>';
+
+			expect(widgetYear.getYears()).toContain(thisYearEventsSpan);
+			expect(widgetYear.getYears()).toContain(nextYearEventsSpan);
+		});
+
+		it('#formatDate should return result', function () {
+			let noneResult = widgetYear.formatDate('date');
+			expect(noneResult).toBe('');
+
+			let noneTimeResult = widgetYear.formatDate({day: "2017-03-17"});
+			expect(noneTimeResult).toEqual("Fri, Mar 17, 2017");
+
+			let mockDate = {
+				dateTime: "2017-03-18T00:30:00Z",
+				day: "2017-03-17",
+				time: "20:30:00"
+			};
+			let okResult = widgetYear.formatDate(mockDate);
+			expect(okResult).toEqual("Fri, Mar 17, 2017 08:30 PM");
+			mockDate = {
+				dateTime: "2017-03-18T00:00:00Z",
+				day: "2017-03-17",
+				time: "00:00:00"
+			};
+			okResult = widgetYear.formatDate(mockDate);
+			expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
+		});
+
+		it('widgetYear #update  should be deleted', function () {
+			widgetYear.update();
+			expect(widgetYear.yearSchedulerRoot.querySelector('.spinner-container').classList.contains('hide')).toBeFalsy();
+		});
+	})
+
 	/* WidgetYear [END] */
 
 });
@@ -1246,16 +1363,6 @@ describe("CalendarWidgetWithoutSpyOn", () => {
 
 	it('#initMessage should be defined', () => {
 		document.querySelector('.event-message__btn').click();
-		expect(typeof(widgetMonth.initMessage)).toBe('function');
-		widgetMonth.monthSchedulerRoot = {
-			innerHTML: '<div class="monthSсheduler"></div>',
-			appendChild: function() {return true}
-		}
-		widgetMonth.initMessage(widgetMonth.monthSchedulerRoot);
-	});
-
-	it('#initMessage should be defined', () => {
-		document.querySelector('.event-message__btn').click();
 		expect(typeof(widgetYear.initMessage)).toBe('function');
 		widgetYear.yearSchedulerRoot = {
 			innerHTML: '<div class="yearSсheduler"></div>',
@@ -1307,6 +1414,7 @@ describe("CalendarWidgetWithoutSpyOn", () => {
 
 	it('#addScroll should be defined', () => {
 		widgetWeek.addScroll();
+		expect(typeof(widgetWeek.addScroll)).toBe('function');
 		expect(typeof(widgetWeek.addScroll)).toBe('function');
 	});
 

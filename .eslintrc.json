@@ -1,17 +1,4 @@
 {
-  "options": {
-    "formatter": "html",
-    "output-file": ".linters/es-lint-report.html"
-  },
-  "files": {
-    "ignore": [
-      "scripts/vendors/**/*.js",
-      "scripts/api-explorer/v2/highlightJson.worker.js",
-      "scripts/api-explorer/v2/script.js",
-      "_site/**/*.*",
-      "node_modules/**/*.*"
-    ]
-  },
   "extends": "google",
   "parser": "babel-eslint",
   "parserOptions": {
@@ -19,6 +6,25 @@
     "allowImportExportEverywhere": false
   },
   "rules": {
-    "linebreak-style": ["warn", "windows"]
+    "linebreak-style": ["warn", "windows"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "indent": ["warn", 2],
+    "eol-last": ["error", "always"],
+    "no-multiple-empty-lines": [2, {"max": 1}],
+    "max-len": ["warn", 100, 2],
+    "require-jsdoc": "warn",
+    "valid-jsdoc": "warn",
+    "one-var": "warn",
+    "prefer-rest-params": "warn",
+    "no-unused-vars": "warn",
+    "camelcase": "warn",
+    "no-invalid-this": "warn",
+    "no-tabs": "warn",
+    "guard-for-in": "warn",
+    "no-mixed-spaces-and-tabs": "warn",
+    "brace-style": "warn",
+    "new-cap": "warn"
   }
 }
+

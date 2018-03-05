@@ -25,7 +25,7 @@ class TicketmasterEventDiscoveryWidget {
 
   get themeUrl() {
     return (window.location.host === 'developer.ticketmaster.com')
-      ? `http://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/`
+      ? `https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/`
       : `https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/`;
   }
 
@@ -37,9 +37,9 @@ class TicketmasterEventDiscoveryWidget {
 
   get logoUrl() { return "https://www.ticketmaster.com/"; }
 
-  get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
+  get legalNoticeUrl() { return "https://developer.ticketmaster.com/support/terms-of-use/"; }
 
-  get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
+  get questionUrl() { return "https://developer.ticketmaster.com/support/faq/"; }
 
   get widgetVersion() { return `${__VERSION__}`; }
 
@@ -89,7 +89,7 @@ class TicketmasterEventDiscoveryWidget {
     }
     return true;
   }
-
+  
   get eventReqAttrs(){
     let WidgetRoot = this.eventsRootContainer.parentNode;
     let attrs = {},
@@ -234,7 +234,6 @@ class TicketmasterEventDiscoveryWidget {
 
       /*plugins for 'buy button'*/
         this.embedUniversePlugin();
-
         this.embedTMPlugin();
 
         this.initBuyBtn();
@@ -341,10 +340,11 @@ class TicketmasterEventDiscoveryWidget {
     this.buyBtn.classList.add("main-btn");
     this.buyBtn.target = '_blank';
     this.buyBtn.href = '';
-    this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
     this.buyBtn.addEventListener('click', (e)=> {
       // e.preventDefault(); /*used in plugins for 'buy button'*/
       this.stopAutoSlideX();
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
     });
     this.eventsRootContainer.appendChild(this.buyBtn);
   }
@@ -357,7 +357,7 @@ class TicketmasterEventDiscoveryWidget {
    */
   updateTransition(url , isAddressCenter) {
     let el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
-    (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date.centered-logo") : el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
+    (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date.centered-logo") : el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");    
     if(url !=='') {
       if(el && !isAddressCenter){
         el.classList.add("right-logo");
@@ -512,7 +512,7 @@ class TicketmasterEventDiscoveryWidget {
     let question = document.createElement('span'),
         toolTip = document.createElement('div'),
         tooltipHtml = `
-      <div class="tooltip-inner">
+      <div class="tooltip-inner"> 
         <a href="${this.questionUrl}" target = "_blank" >About widget</a>
         <div class="place">version: <b>${this.widgetVersion}</b></div>
       </div>`;
@@ -815,7 +815,7 @@ class TicketmasterEventDiscoveryWidget {
 
       window.addEventListener('resize', resizeThrottler, false);
       this.listenerResize.push(resizeThrottler);
-
+      
       function resizeThrottler() {
         // ignore resize events as long as an actualResizeHandler execution is in the queue
         if ( !resizeTimeout ) {
@@ -837,7 +837,7 @@ class TicketmasterEventDiscoveryWidget {
 
         me.eventsRoot.style.width = (me.isFullWidth) ? `${me.slideCountX * me.widgetRoot.offsetWidth }px` :  `${me.slideCountX * 100}%`;
       }
-
+      
     }else if(this.listenerResize && this.listenerResize.length !== 0){
         window.removeEventListener("resize", this.listenerResize[0], false);
         this.listenerResize.pop();
@@ -1346,7 +1346,11 @@ class TicketmasterEventDiscoveryWidget {
       barcodeBtn.classList.add("barcode");
       barcodeBtn.target = '_blank';
       barcodeBtn.href = url;
-      barcodeBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickEventName', 'click');");
+      barcodeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickEventName', 'click');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       domNode.appendChild(barcodeBtn);
       let bottomBg = document.createElement("span");
       bottomBg.classList.add("barcode-bottom");
@@ -1363,7 +1367,11 @@ class TicketmasterEventDiscoveryWidget {
       buyBtn.classList.add("event-buy-btn");
       buyBtn.target = '_blank';
       buyBtn.href = url;
-      buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+      buyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+      });
       domNode.appendChild(buyBtn);
     }
   }
@@ -1393,8 +1401,11 @@ class TicketmasterEventDiscoveryWidget {
       name.classList.add("event-name");
       name.appendChild(nameContent);
       this.initPretendedLink(name, itemConfig.url, true);
-      name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
-      name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');");
+      name.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       medWrapper.appendChild(name);
     }
     else {
@@ -1403,8 +1414,12 @@ class TicketmasterEventDiscoveryWidget {
       name.classList.add("event-pretended-link");
       name.href = itemConfig.url;
       name.appendChild(nameContent);
-      name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
-      name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');");
+      name.setAttribute('onclick', "");
+      name.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       medWrapper.appendChild(name);
     }
 
@@ -1509,7 +1524,6 @@ class TicketmasterEventDiscoveryWidget {
       // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
-
       firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
       lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     }
@@ -1518,29 +1532,21 @@ class TicketmasterEventDiscoveryWidget {
       // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
-
       firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
       lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
-
-
     }
     else if(period == "week") {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
-
       firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
       lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
-
     } else {
       // firstDay = new Date( new Date(new Date()).toISOString() );
       // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-
       // firstDay = new Date().toISOString().slice(0,19) + 'Z';
       // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
-
       firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
       lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
     }
@@ -1573,3 +1579,4 @@ ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'load');
 if(typeof module !== "undefined") {
   module.exports = { widgetsEventDiscovery, TicketmasterEventDiscoveryWidget };
 }
+
