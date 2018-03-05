@@ -6,12 +6,15 @@ _site
 .vscode/
 .linters/
 tests/galen/reports-local
+docker
+node_modules
 
 # NodeJS libs
 node_modules
 *.log
 
-
+# Server script versions
+server.old.js
 
 # Ignore Mac DS_Store files
 .DS_Store
@@ -24,3 +27,5 @@ Gemfile.lock
 
 # Ingnore unit tests coverage report
 coverage
+
+ticketmaster-api.github.io.iml

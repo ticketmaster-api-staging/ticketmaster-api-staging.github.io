@@ -1,0 +1,54 @@
+# REQUIRED FOR SERVICE-TEMPLATE:
+# Githash endpoint
+git.properties
+
+# Operating System Files
+
+*.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
+
+#git, kdiff3
+*.orig
+*.BASE.*
+*.BACKUP.*
+*.LOCAL.*
+*.REMOTE.*
+
+
+# Build Artifacts
+.gradle/
+build/
+target/
+bin/
+dependency-reduced-pom.xml
+nbactions.xml
+
+# Eclipse Project Files
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA Files
+*.iml
+*.ipr
+*.iws
+*.idea
+
+# Log files
+*.log
+
+README.html
+
+# Python
+*.pyc
+
+# Terraform template
+*.tfstate*
+.terraform/
+.terraformer/
+.terragrunt

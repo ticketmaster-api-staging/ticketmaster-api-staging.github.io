@@ -28,9 +28,9 @@
         if(userKey !== null) {
             let {inputApiKey, widgetNode , widget } = options;
             inputApiKey
-                .attr('value', userKey)
-                .data('userAPIkey', userKey)
-                .val(userKey);
+              .attr('value', userKey)
+              .data('userAPIkey', userKey)
+              .val(userKey);
             widgetNode.setAttribute("w-tmapikey", userKey);
             widget.update();
         }
@@ -153,7 +153,7 @@
                 document.querySelector('.js_get_widget_code').classList.remove('disabled');
             }
         }
-
+        
         if(targetName === "w-theme"){
             if(targetValue === 'simple'){
                 $colorSchemeSelector.hide();
@@ -169,7 +169,7 @@
 
         if(targetName === "w-colorscheme"){
             if (targetValue === 'custom') {
-                $(".widget__color_scheme_custom").show();
+              $(".widget__color_scheme_custom").show();
             } else {
                 $('.widget__color_scheme_custom').hide();
                 widgetNode.removeAttribute('w-background');
@@ -215,7 +215,7 @@
         if (targetName === "w-tabbackground") {
             widgetNode.setAttribute('w-tabbackground', this.value);
         }
-
+        
 
         if (targetName === "w-hovertabcolor") {
             widgetNode.setAttribute('w-hovertabcolor', this.value);
@@ -433,7 +433,7 @@
             document.getElementById('w-tm-api-key').value = DEFAULT_API_KEY;
             document.querySelector('[w-type="calendar"]').setAttribute('w-tmapikey', DEFAULT_API_KEY);
         }
-    }
+    }    
 
     $('.js_get_widget_code').on('click', function(){
         if ($(this).hasClass('disabled')) return;
@@ -630,6 +630,7 @@
         }
     });
 
-    $('input.color-picker').minicolors();
+    $('input.color-picker').minicolors(); 
+
 
 })();

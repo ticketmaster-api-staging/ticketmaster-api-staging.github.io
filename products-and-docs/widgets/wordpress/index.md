@@ -16,11 +16,11 @@ This TM Wordpress Widget allows clients, artists, and partners to setup and prov
 
 ## Introduction
 
-This Wordpress plugin allows using Event discovery widget and Countdown widget in Wordpress.
+This Wordpress plugin allows using Event Discovery Widget, Countdown Widget, Calendar Widget and Map Widget in Wordpress.
 
 ## Installation
 
-You don't need much to install the plugin. Just [download plugin](/products-and-docs/widgets/wordpress/ticketmaster.zip) and upload into Wordpress.
+You don't need much to install the plugin. Just [download plugin](https://downloads.wordpress.org/plugin/ticketmaster.zip) and upload into Wordpress.
 
 ### Step 1: 
 

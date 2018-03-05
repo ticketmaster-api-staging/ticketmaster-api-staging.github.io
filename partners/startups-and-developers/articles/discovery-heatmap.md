@@ -10,7 +10,10 @@ tags:
 
 ## Discovery API Heatmap
 
-#### Heatmap representing data from Discovery API. [Fullscreen](http://heatmap-1220776398.us-west-2.elb.amazonaws.com/)
+#### Heatmap representing data from Discovery API. 
+{::comment}
+[Fullscreen](http://heatmap-1220776398.us-west-2.elb.amazonaws.com/)
+{:/comment}
 
 The Discovery Heatmap fetches every public events from discovery API and refreshes them automatically in the browser every hour.
 
@@ -20,7 +23,12 @@ A user can zoom in and out with the scroll wheel (or finger pinch on a touch scr
 
 The map is optimised to be displayed in fullscreen. To do so, press the F11 key to activate the fullscreen mode in most modern browsers.
 
+![event map](/assets/img/products-and-docs/map.jpg)
+
 {% endcapture %}
 
 <div class="col-lg-8 col-md-8 col-sm-8">{{ left | markdownify }}</div>
+
+{::comment}
 <iframe style="width:100%;height:500px;" src="http://heatmap-1220776398.us-west-2.elb.amazonaws.com/"></iframe>
+{:/comment}

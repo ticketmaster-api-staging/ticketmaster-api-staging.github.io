@@ -1,14 +1,16 @@
 {
-  "name": "tkm-dp",
+  "name": "tkm-dpa",
   "version": "1.0.0",
-  "description": "Hello",
+  "description": "Ticketmaster Developer Portal",
   "main": "_site/index.html",
   "scripts": {
     "es-lint": "./node_modules/.bin/eslint -f html ./scripts/**/*.js -o .linters/es-lint-report.html || start .linters/es-lint-report.html",
     "sass-lint": "./node_modules/.bin/sass-lint --verbose --config .sass-lint.json && start .linters/sass-lint-report.html",
-    "lint": "npm run es-lint && npm run sass-lint",
+    "lint": "npm run es-lint",
+		"lint-all": "npm run es-lint && npm run sass-lint",
     "build": "npm run build-swagger-api && webpack --bail --progress --profile",
-    "start": "jekyll serve",
+    "build-jekyll": "jekyll build --watch",
+    "start": "node server.js",
     "start-with-limit-3": "jekyll serve --no-watch -I --limit_posts 3",
     "event-discovery-widget-1.0.0-once": "webpack --config webpack.config-widgets.js",
     "event-discovery-widget-1.0.0": "webpack --config webpack.config-widgets.js -w",
@@ -24,12 +26,12 @@
     "test": "bnr swaggerMerge:test && node spec/jest.js --env=jsdom",
     "build-swagger-api": "bnr swaggerMerge:MultipleTestAPI && bnr swaggerMerge:CommerceAPI && bnr swaggerMerge:CommerceAPI:internal"
   },
-	"betterScripts" : {
-		"swaggerMerge:test": "node ./bin/swagger-api-merge.js -i spec/specs/bin/mocks/apis  -o spec/specs/bin/mocks/result.json",
-		"swaggerMerge:MultipleTestAPI": "node ./bin/swagger-api-merge.js -i _data/orgs/multiple-test-api/v2/api-parts  -o _data/orgs/multiple-test-api/v2/api.json",
-		"swaggerMerge:CommerceAPI": "node ./bin/swagger-api-merge.js -i _data/orgs/commerce-api/v2/api-parts  -o _data/orgs/commerce-api/v2/api.json",
-		"swaggerMerge:CommerceAPI:internal": "node ./bin/swagger-api-merge.js -i _data/orgs/commerce-api/v2-internal/api-parts  -o _data/orgs/commerce-api/v2-internal/api.json"
-	},
+  "betterScripts": {
+    "swaggerMerge:test": "node ./bin/swagger-api-merge.js -i spec/specs/bin/mocks/apis  -o spec/specs/bin/mocks/result.json",
+    "swaggerMerge:MultipleTestAPI": "node ./bin/swagger-api-merge.js -i _data/orgs/multiple-test-api/v2/api-parts  -o _data/orgs/multiple-test-api/v2/api.json",
+    "swaggerMerge:CommerceAPI": "node ./bin/swagger-api-merge.js -i _data/orgs/commerce-api/v2/api-parts  -o _data/orgs/commerce-api/v2/api.json",
+    "swaggerMerge:CommerceAPI:internal": "node ./bin/swagger-api-merge.js -i _data/orgs/commerce-api/v2-internal/api-parts  -o _data/orgs/commerce-api/v2-internal/api.json"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js"
@@ -51,7 +53,15 @@
     ],
     "roots": [
       "<rootDir>/spec/"
-    ]
+    ],
+		"coverageThreshold": {
+			"global": {
+				"statements": 71,
+				"branches": 58,
+				"functions": 78,
+				"lines": 73
+			}
+		}
   },
   "repository": {
     "type": "git",
@@ -98,13 +108,20 @@
     "babel-runtime": "^6.18.0",
     "better-npm-run": "0.0.15",
     "clipboard": "^1.6.0",
+    "cookie-parser": "^1.4.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
+    "express": "^4.4.5",
+    "express-session": "^1.15.4",
     "jquery": "^2.2.4",
     "jstree": "^3.3.3",
     "knockout": "^3.4.1",
     "knockout-postbox": "^0.5.2",
     "knockout-scrollbar": "0.0.3",
     "knockout.validation": "^2.0.3",
-    "slick-carousel": "^1.6.0"
+    "liquidjs": "^3.1.0",
+    "moment": "^2.20.1",
+    "nodemailer": "^4.6.0",
+    "slick-carousel": "^1.6.0",
+    "sync-request": "^4.1.0"
   }
 }

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tkmdpa.taf.AcceptanceTestSuite
+-------------------------------------------------------------------------------
+Tests run: 30, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 146.745 sec - in com.tkmdpa.taf.AcceptanceTestSuite

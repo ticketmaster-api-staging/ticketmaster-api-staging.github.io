@@ -3,6 +3,7 @@ layout: documentation
 categories:
 - documentation
 - top-picks
+- partner
 title: The Top Picks API
 excerpt: Seat recommendations based on current availability, sampling across various areas of a venue and available price points.
 keywords: Partner API, TopPicks, Top Picks, host and API, reserve tickets
@@ -54,6 +55,14 @@ Retrieve reservable seat information based on specific criteria.
 /top-picks/v1/events/{event_id}?apikey={apikey}
 {: .code .red}
 
+
+#### Universal Ids Support
+
+The TopPicks service also supports queries using universal ids via the path
+
+ /top-picks/v1/events/id/{universalEventId}?apikey={apikey}
+{: .code .red}
+
 ### URL Parameters
 
 | Parameter  | Description          | Type              | Example      | Required |
@@ -73,6 +82,7 @@ Retrieve reservable seat information based on specific criteria.
 | `prices` | Price range | numbers | 50,150 | No |
 | `page` | Page number   | numbers | 1 | No |
 | `limit` | Elements per page   | numbers | 10 | No (default=30) |
+| `selection` | Type of Ticket   | string | Any, Standard, Resale(Resale is only available for select apikeys specifically configured for that.)| No |
 
 
 ### Response structure:
@@ -206,7 +216,18 @@ All query parameters in snapshotImageUrl must be maintained and un-altered. Clie
 |:-----------|:---------------------|:----------------- |:------------------ |:-------- |
 | `w`   | The width, in pixels, of the image.  (min: 102, max: 1024)      | number            |     300          | No      |
 | `pw`   | The width, in pixels, of the dropped pin in the image.         | number            |     30          | No      |
+| `apikey`   |  Your API Key         | string            |     "GkB8Z037ZfqbLCNtZViAgrEegbsrZ6Ne"          | Yes      |
 
+
+### Response
+
+
+| Status Code  | Note          |
+|:-----------|:---------------------|
+| 200   | Image Rendered     |
+| 204   | Image not available. Event may not be configured with interactive seat map data.        |
+
+#### Sample response for status=200
 
 ![pick image](/assets/img/products-and-docs/top-pick-1.png)
 

@@ -2,10 +2,6 @@
   padding-top: $fixed-header-height; /*header height*/
   position: relative;
 
-	&.oauth {
-		display: none;
-	}
-
   #disqus_thread {
     margin: $base-margin*2 0 $base-margin*3;
   }

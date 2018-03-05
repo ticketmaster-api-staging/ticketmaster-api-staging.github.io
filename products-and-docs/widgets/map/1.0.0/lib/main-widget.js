@@ -78,6 +78,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var analyticsEventHandlers = {
+    buyBtnClick: "ga('send', 'event', 'DiscoveryClickBuyButton', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');",
+    eventNameClick: "ga('send', 'event', 'DiscoveryClickeventName', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick');"
+};
+
 var TicketmasterMapWidget = function () {
     _createClass(TicketmasterMapWidget, [{
         key: "isConfigAttrExistAndNotEmpty",
@@ -164,7 +169,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: "widgetVersion",
         get: function get() {
-            return "" + "1.0.-4986";
+            return "" + "1.0.-4912";
         }
     }, {
         key: "geocodeUrl",
@@ -359,9 +364,10 @@ var TicketmasterMapWidget = function () {
             this.buyBtn.classList.add("main-btn");
             this.buyBtn.target = '_blank';
             this.buyBtn.href = '';
-            this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
             this.buyBtn.addEventListener('click', function (e) {
                 e.preventDefault();
+                ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+                ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
             });
             this.eventsRootContainer.appendChild(this.buyBtn);
         }
@@ -810,9 +816,12 @@ var TicketmasterMapWidget = function () {
                                 }
 
                                 var buyBtn = '';
-                                if (widget.isUniverseUrl(widget.events[e].url) != false) buyBtn = '<a class="buybtn" href="' + widget.events[e].url + '">BUY NOW</a>';
+                                if (widget.isUniverseUrl(widget.events[e].url) != false) {
+                                    buyBtn = "\n                              <a class=\"buybtn\" href=\"" + widget.events[e].url + "\" onclick=\"" + analyticsEventHandlers.buyBtnClick + "\" target=\"_blank\">\n                                BUY NOW\n                              </a>\n                            ";
+                                }
+                                var eventMarkup = "\n                            <div class=\"infowindow\" style=\"width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;\">\n                              <a class=\"an\" href=\"" + widget.events[e].url + "\" onclick=\"" + analyticsEventHandlers.eventNameClick + "\" target=\"_blank\">\n                                <span class=\"img\" style=\"background:url('" + widget.events[e].img + "') center center no-repeat\"></span>\n                                <span class=\"name\">" + widget.events[e].name + "</span>\n                              </a>\n                              " + buyBtn + "\n                              <div class=\"dateplace\"><span class=\"date\">" + date + "</span><span class=\"place\">" + (place + address) + "</span></div>\n                            </div>\n                          ";
 
-                                markers[e] = [widget.events[e].name, widget.events[e].location.lat, widget.events[e].location.lng, e, '<div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;"><a class="an" href="' + widget.events[e].url + '"><span class="img" style="background:url(' + widget.events[e].img + ') center center no-repeat"></span><span class="name">' + widget.events[e].name + '</span></a>' + buyBtn + '<div class="dateplace"><span class="date">' + date + '</span><span class="place">' + place + address + '</span></div></div>'];
+                                markers[e] = [widget.events[e].name, widget.events[e].location.lat, widget.events[e].location.lng, e, eventMarkup];
                                 latlngbounds.extend(new google.maps.LatLng(widget.events[e].location.lat, widget.events[e].location.lng));
                             }
                         }
@@ -974,93 +983,13 @@ var TicketmasterMapWidget = function () {
                 buyBtn.classList.add("event-buy-btn");
                 buyBtn.target = '_blank';
                 buyBtn.href = url;
-                buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+                buyBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+                    ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
+                });
                 domNode.appendChild(buyBtn);
             }
-        }
-    }, {
-        key: "createDOMItem",
-        value: function createDOMItem(itemConfig) {
-            var medWrapper = document.createElement("div");
-            medWrapper.classList.add("event-content-wraper");
-
-            var event = document.createElement("li");
-            event.classList.add("event-wrapper");
-            event.style.height = this.widgetContentHeight - this.borderSize * 2 + "px";
-            event.style.width = this.config.width - this.borderSize * 2 + "px";
-
-            this.createBackgroundImage(event, itemConfig.img);
-
-            var nameContent = document.createTextNode(itemConfig.name),
-                name = document.createElement("span");
-            name.classList.add("event-name");
-            name.appendChild(nameContent);
-            this.initPretendedLink(name, itemConfig.url, true);
-            name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName_theme=" + this.config.theme + "_width=" + this.config.width + "_height=" + this.config.height + "_color_scheme=" + this.config.colorscheme + "', 'click', '" + itemConfig.url + "');");
-            /* name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');"); */
-            medWrapper.appendChild(name);
-
-            this.addBuyButton(medWrapper, itemConfig.url);
-
-            var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
-                dateTime = document.createElement("span");
-            dateTime.classList.add("event-date", "centered-logo");
-            dateTime.appendChild(dateTimeContent);
-
-            var dateWraper = document.createElement("span");
-            dateWraper.classList.add("event-date-wraper");
-            dateWraper.appendChild(dateTime);
-            medWrapper.appendChild(dateWraper);
-
-            if (itemConfig.hasOwnProperty("address")) {
-                var addressWrapper = document.createElement("span");
-                addressWrapper.classList.add("address-wrapper");
-
-                if (itemConfig.address.hasOwnProperty("name")) {
-                    var addressNameText = document.createTextNode(itemConfig.address.name),
-                        addressName = document.createElement("span");
-                    addressName.classList.add("event-address");
-                    addressName.classList.add("event-address-name");
-                    addressName.appendChild(addressNameText);
-                    addressWrapper.appendChild(addressName);
-                }
-
-                if (itemConfig.address.hasOwnProperty("line1")) {
-                    var addressOneText = document.createTextNode(itemConfig.address.line1),
-                        addressOne = document.createElement("span");
-                    addressOne.classList.add("event-address");
-                    addressOne.appendChild(addressOneText);
-                    addressWrapper.appendChild(addressOne);
-                }
-
-                if (itemConfig.address.hasOwnProperty("line2")) {
-                    var addressTwoText = document.createTextNode(itemConfig.address.line2),
-                        addressTwo = document.createElement("span");
-                    addressTwo.classList.add("event-address");
-                    addressTwo.appendChild(addressTwoText);
-                    addressWrapper.appendChild(addressTwo);
-                }
-
-                medWrapper.appendChild(addressWrapper);
-            }
-
-            if (itemConfig.hasOwnProperty("categories")) {
-                var categoriesWrapper = document.createElement("span");
-                categoriesWrapper.classList.add("category-wrapper");
-
-                itemConfig.categories.forEach(function (element) {
-                    var categoryText = document.createTextNode(element),
-                        category = document.createElement("span");
-                    category.classList.add("event-category");
-                    category.appendChild(categoryText);
-                    categoriesWrapper.appendChild(category);
-                });
-                medWrapper.appendChild(categoriesWrapper);
-            }
-
-            event.appendChild(medWrapper);
-
-            return event;
         }
     }, {
         key: "makeImageUrl",

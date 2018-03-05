@@ -1,0 +1,77 @@
+<div class="story">
+<h1></h1>
+<div class="path">stories/products_and_docs/PD_Widgets.story</div>
+<div class="meta">
+<div class="keyword">Meta:</div>
+<div class="property">@debug </div>
+<div class="property">@regression-widgets </div>
+</div>
+<div class="narrative"><h2>Narrative:</h2>
+<div class="element inOrderTo"><span class="keyword inOrderTo">As a</span> test engineer</div>
+<div class="element asA"><span class="keyword asA">I want to</span> test Ticket Master Developer's site</div>
+<div class="element iWantTo"><span class="keyword iWantTo">So that</span> I test Widgets Page of Ticket Master Developer's site</div>
+</div>
+<div class="scenario">
+<h2>Scenario: (/products-and-docs/widgets/) Verification for general page's elements</h2>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">Then check general page elements for Widgets Page, where DISQUS = <span class="step parameter">false</span> and LeftMenu = <span class="step parameter">true</span></div>
+</div>
+<div class="scenario">
+<h2>Scenario: (/products-and-docs/widgets/) Verification for Direct Payment Button element</h2>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">DirectPaymentButton</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Direct Payment Button has has appropriate url</div>
+</div>
+<div class="scenario">
+<h2>Scenario: (/products-and-docs/widgets/) Verification for all the page's links</h2>
+<div class="examples">
+<h3>Examples:</h3>
+<div class="step">Given open Widgets page</div>
+<div class="step">When check visibility and click &lt;elementKey&gt; element of Widgets page</div>
+<div class="step">Then check that new page opened from Widgets page has &lt;pageURL&gt; and &lt;pageTitle&gt;</div>
+<table>
+<thead>
+<tr>
+<th>elementKey</th><th>pageURL</th><th>pageTitle</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Checkout Widget Button</td><td>{url}/products-and-docs/widgets/checkout/</td><td>//h1</td></tr>
+<tr>
+<td>Discovery Widget Button</td><td>{url}/products-and-docs/widgets/event-discovery/</td><td>//h1</td></tr>
+<tr>
+<td>Countdown Widget Button</td><td>{url}/products-and-docs/widgets/countdown/</td><td>//h1</td></tr>
+<tr>
+<td>Calendar Widget Button</td><td>{url}/products-and-docs/widgets/calendar/</td><td>//h1</td></tr>
+<tr>
+<td>WordPress Widget Learn Button</td><td>{url}/products-and-docs/widgets/wordpress/</td><td>//h1</td></tr>
+</tbody>
+</table>
+
+<h3 class="example">Example: {elementKey=Checkout Widget Button, pageURL={url}/products-and-docs/widgets/checkout/, pageTitle=//h1, debug=, regression-widgets=}</h3>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">Checkout Widget Button</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Widgets page has <span class="step parameter">{url}/products-and-docs/widgets/checkout/</span> and <span class="step parameter">//h1</span></div>
+
+<h3 class="example">Example: {elementKey=Discovery Widget Button, pageURL={url}/products-and-docs/widgets/event-discovery/, pageTitle=//h1, debug=, regression-widgets=}</h3>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">Discovery Widget Button</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Widgets page has <span class="step parameter">{url}/products-and-docs/widgets/event-discovery/</span> and <span class="step parameter">//h1</span></div>
+
+<h3 class="example">Example: {elementKey=Countdown Widget Button, pageURL={url}/products-and-docs/widgets/countdown/, pageTitle=//h1, debug=, regression-widgets=}</h3>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">Countdown Widget Button</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Widgets page has <span class="step parameter">{url}/products-and-docs/widgets/countdown/</span> and <span class="step parameter">//h1</span></div>
+
+<h3 class="example">Example: {elementKey=Calendar Widget Button, pageURL={url}/products-and-docs/widgets/calendar/, pageTitle=//h1, debug=, regression-widgets=}</h3>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">Calendar Widget Button</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Widgets page has <span class="step parameter">{url}/products-and-docs/widgets/calendar/</span> and <span class="step parameter">//h1</span></div>
+
+<h3 class="example">Example: {elementKey=WordPress Widget Learn Button, pageURL={url}/products-and-docs/widgets/wordpress/, pageTitle=//h1, debug=, regression-widgets=}</h3>
+<div class="step successful">Given open Widgets page</div>
+<div class="step successful">When check visibility and click <span class="step parameter">WordPress Widget Learn Button</span> element of Widgets page</div>
+<div class="step successful">Then check that new page opened from Widgets page has <span class="step parameter">{url}/products-and-docs/widgets/wordpress/</span> and <span class="step parameter">//h1</span></div>
+</div>
+</div>
+</div>

@@ -1,0 +1,199 @@
+stages:
+  - build
+  - dockerize build
+  - release
+  - deploy
+
+variables:
+  ECRHOST: "889199535989.dkr.ecr.us-east-1.amazonaws.com"
+  NEWECRHOST: "tmhub.io"
+
+  DEV_SHORTREPO: "dpa-portal/dev/ctrl"
+  DEV_REPOSITORY: "$ECRHOST/$DEV_SHORTREPO"
+
+  PROD_SHORTREPO: "dpa-portal/prod/ctrl"
+  PROD_REPOSITORY: "$ECRHOST/$PROD_SHORTREPO"
+
+  VERSION: configs
+  TERRAFORMERIMAGE: "$NEWECRHOST/ticketmaster/terraformer:v0.8.8_cd"
+
+  BUILD_IMAGE: $NEWECRHOST/dpa-portal/dev/jekyll:1.0.0
+
+# TODO add npm build and test tasks here
+build:
+  stage: build
+  image: $BUILD_IMAGE
+  tags:
+    - tm-prod cicd build
+  script:
+    - npm install
+#    - npm run lint
+#    - npm test
+    - npm run build
+    - jekyll build
+    - echo -e '*n!package.json' > .dockerignore
+  artifacts:
+    untracked: true
+    expire_in: 1 day
+  except:
+    - tags
+
+### DEV Environment Configuration
+
+dockerize-dev-build:
+  stage: dockerize build
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker build -f ./docker/deploy.dockerfile --tag $DEV_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $DEV_SHORTREPO
+    - docker push $DEV_REPOSITORY:$CI_BUILD_REF
+  only:
+    - dev@dev-portal/Ticketmaster-Developer-Portal
+
+release-dev:
+  stage: release
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker pull $DEV_REPOSITORY:$CI_BUILD_REF
+    - docker tag $DEV_REPOSITORY:$CI_BUILD_REF $DEV_REPOSITORY:$CI_BUILD_REF
+    - docker push $DEV_REPOSITORY:$CI_BUILD_REF
+  only:
+    - dev@dev-portal/Ticketmaster-Developer-Portal
+
+deploy-dev:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-nonprod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-nonprod/dev/terraform.tfvars
+    - terraformer tm-nonprod/dev apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - dev@dev-portal/Ticketmaster-Developer-Portal
+
+destroy-dev:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-nonprod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-nonprod/dev destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - dev@dev-portal/Ticketmaster-Developer-Portal
+
+release-lock-dev:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-nonprod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-nonprod/dev release-lock --terragrunt-non-interactive
+  when: manual
+  only:
+    - dev@dev-portal/Ticketmaster-Developer-Portal
+
+### PROD Environment Configuration
+
+dockerize-prod-build:
+  stage: dockerize build
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker build -f ./docker/deploy.dockerfile --tag $PROD_REPOSITORY:$CI_BUILD_REF .
+    - docker run --rm ${ECRHOST}/ticketmaster/ecr-createrepo $PROD_SHORTREPO
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+release-prod:
+  stage: release
+  tags:
+    - tm-prod cicd build
+  script:
+    - docker pull $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker tag $PROD_REPOSITORY:$CI_BUILD_REF $PROD_REPOSITORY:$CI_BUILD_REF
+    - docker push $PROD_REPOSITORY:$CI_BUILD_REF
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+deploy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod/terraform.tfvars
+    - terraformer tm-prod/prod apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+deploy-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - sed -i 's/app_instance_artifact_version = .*/app_instance_artifact_version = '\"$CI_BUILD_REF\"'/' tm-prod/prod-us-west-2/terraform.tfvars
+    - terraformer --region=us-west-2 tm-prod/prod-us-west-2 apply
+    - echo "Deployed:" "$CI_BUILD_REF"
+  when: manual
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+destroy-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+destroy-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod-us-west-2 destroy -force
+  when: manual # allows you to manually select when you will destroy the environment
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+release-lock-prod:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod release-lock --terragrunt-non-interactive
+  when: manual
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal
+
+release-lock-prod-west:
+  image: $TERRAFORMERIMAGE
+  stage: deploy
+  tags:
+    - tm-prod terraformer
+  script:
+    - cd terraform
+    - terraformer tm-prod/prod-us-west-2 release-lock --terragrunt-non-interactive
+  when: manual
+  only:
+    - master@dev-portal/Ticketmaster-Developer-Portal

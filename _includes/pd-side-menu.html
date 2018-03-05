@@ -16,7 +16,7 @@
                 </ul>
                 {% endif %}
             </li>
-           
+
             <!--automenu for Swagger api-->
             <li><a href="/products-and-docs/apis/discovery-api/v2/">Discovery API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "discovery-api" %}
@@ -27,7 +27,7 @@
                 {% endcomment %}-->
                 {% endif %}
             </li><!--END automenu-->
-						
+
 <!--{% comment %}
             <li><a href="/products-and-docs/apis/discovery/v2/">Discovery API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "discovery" and page.categories[2] == "v2" %}
@@ -98,15 +98,16 @@
             </li>
             {% endcomment %}-->
 
-						<!--automenu for Swagger api-->
-						<li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
-							{% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "commerce-api" %}
-							{% include partials/autodoc/side-menu-generate.html%}
-							<!--{% comment %}<!--faq-api menu item can be here--><!--
-											{% include partials/autodoc/side-menu-faq.html %}
-									{% endcomment %}-->
-							{% endif %}
-						</li><!--END automenu-->
+            <!--automenu for Swagger api-->
+            <li><a href="/products-and-docs/apis/commerce/v2/">Commerce API</a>
+                {% if page.categories[0] == "documentation" and page.categories[1] == "generated" and page.categories[2] == "commerce-api" %}
+                {% include partials/autodoc/side-menu-generate.html %}
+                {% comment %}
+                  <!--faq-api menu item can be here-->
+                  <!-- {% include partials/autodoc/side-menu-faq.html %} -->
+                {% endcomment %}
+                {% endif %}
+            </li><!--END automenu-->
 
             <li><a href="/products-and-docs/apis/partner/">Partner API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "partner" %}
@@ -126,6 +127,7 @@
                             <li><a href="#reserve-tickets">Reserve Tickets</a></li>
                             <li><a href="#get-shipping-options">Get Shipping Options</a></li>
                             <li><a href="#add-shipping-option">Add Shipping Option</a></li>
+													  <li><a href="#generate-wallettoken">Generate Wallet Token</a></li>
                             <li><a href="#encrypt-cert">Encryption Certificate</a></li>
                             <li><a href="#post-card">Add Billing Information</a></li>
                             <li><a href="#purchase-tickets">Commit Transactions</a></li>
@@ -147,20 +149,11 @@
                             <li><a href="#unredeemed-orders">Unredeemed orders</a></li>
                         </ul>
                     </li>
-                    <li class="sub-section">
-                        <span class="sub-section-label">Channel Partners</span>
-                        <ul class="sections menu-highlight">
-                            <li><a href="#channel-partner-overview">Overview</a></li>
-                            <li><a href="#inventory-management">Event Inventory</a></li>
-                            <li><a href="#ticket-availability">Ticket & Seat Inventory</a></li>
-                        </ul>
-                    </li>
                     <li><a href="#error-responses">Error Responses</a></li>
-                    <li><a href="#examples">Examples</a></li>
-                    <li><a href="#versions">Versions</a></li>
-                    <li><a href="#appendix">Appendix</a></li>
+                    <li><a href="/support/partner-api-faq/#examples">Examples</a></li>
+									  <li><a href="#cart-object">Cart</a></li>
+										<li><a href="#paymentRequest-object">Payment Request</a></li>
                     {% include partials/changelog-apis.html%}
-                    <li><a href="#disqus_thread">Disqus</a></li>
                 </ul>
                 {% endif %}
             </li>
@@ -171,7 +164,6 @@
                     <li><a href="#top-picks-details">Top Picks Details</a></li>
                     <li><a href="#snapshot-image">Snapshot Image</a></li>
                     {% include partials/changelog-apis.html%}
-                    <li><a href="#disqus_thread">Disqus</a></li>
                 </ul>
                 {% endif %}
             </li>
@@ -180,11 +172,17 @@
                 <ul class="sections menu-highlight">
                     <li><a href="#overview">Overview</a></li>
                     <li><a href="#inventory-status-details">Inventory Status Details</a></li>
-                    <li><a href="#disqus_thread">Disqus</a></li>
                 </ul>
                 {% endif %}
             </li>
-
+						<li><a href="/products-and-docs/apis/discovery-feed/">Discovery Feed</a>
+							{% if page.categories[0] == "documentation" and page.categories[1] == "discovery-feed" %}
+							<ul class="sections menu-highlight">
+								<li><a href="#overview">Overview</a></li>
+								<li><a href="#discovery-feed-details">Discovery Feed</a></li>
+							</ul>
+							{% endif %}
+						</li>
             <li><a href="/products-and-docs/apis/publish/">Publish API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "publish" %}
                 <ul class="sections menu-highlight">
@@ -212,7 +210,7 @@
 							{% endif %}
 						</li>-->
 						<!--END automenu-->
-					  <li class="off"><a href="/products-and-docs/apis/oauth/">OAuth API</a>
+				<li class="off"><a href="/products-and-docs/apis/oauth/">OAuth API</a>
                 {% if page.categories[0] == "documentation" and page.categories[1] == "oauth" %}
                 <ul class="sections menu-highlight">
                     <li><a href="#overview">Overview</a></li>
@@ -314,9 +312,8 @@
             <li><a href="https://github.com/ticketmaster-api/sdk-java">Java-SDK</a></li>
             <li><a href="https://github.com/ticketmaster-api/sdk-javascript">JavaScript-SDK</a></li>
             <li><a href="https://github.com/ticketmaster-api/sdk-scala">Scala-SDK</a></li>
-            <li><a href="#account-manager">Account Manager</a></li>
-            <li><a href="/products-and-docs/sdks/presence/ios">Presence SDK iOS</a></li>
-            <li><a href="/products-and-docs/sdks/presence/android">Presence SDK Android</a></li>
+            <li><a href="/products-and-docs/sdks/#account-manager">Account Manager</a></li>
+            <li><a href="/products-and-docs/sdks/presence-sdk">Presence SDK</a></li>
         </ul>
         {% endif %}
     </li>
@@ -365,6 +362,15 @@
             <li>
                 <a href="/products-and-docs/tutorials/sample-apps/" {% if page.categories[2] == "sample-apps-tutorials" or page.categories[1] == "tutorials-sample-apps" %} class="active" {% endif %} >Sample Apps</a>
                 <ul class="sections menu-highlight sd-tags-list"></ul>
+            </li>
+            <li>
+                <a href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/" {% if page.categories[2] == "sample-apps-presenceSDK" or page.categories[1] == "presence-sdk-sample-app" %} class="active" {% endif %} >Presence SDK Sample App</a>
+                {% if page.categories[2] == "sample-apps-presenceSDK" or page.categories[2] == "presence-sdk-sample-app" %}
+                <ul class="sections menu-highlight">
+                    <li><a href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/iOS/">iOS</a></li>
+                    <li><a href="/products-and-docs/tutorials/sample-apps/presenceSDK_sampleApp/android/">Android</a></li>
+                </ul>
+                {% endif %}
             </li>
         </ul>
         {% endif %}
