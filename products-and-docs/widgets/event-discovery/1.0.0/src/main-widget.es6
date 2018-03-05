@@ -340,10 +340,11 @@ class TicketmasterEventDiscoveryWidget {
     this.buyBtn.classList.add("main-btn");
     this.buyBtn.target = '_blank';
     this.buyBtn.href = '';
-    this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
     this.buyBtn.addEventListener('click', (e)=> {
       // e.preventDefault(); /*used in plugins for 'buy button'*/
       this.stopAutoSlideX();
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
     });
     this.eventsRootContainer.appendChild(this.buyBtn);
   }
@@ -1345,7 +1346,11 @@ class TicketmasterEventDiscoveryWidget {
       barcodeBtn.classList.add("barcode");
       barcodeBtn.target = '_blank';
       barcodeBtn.href = url;
-      barcodeBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickEventName', 'click');");
+      barcodeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickEventName', 'click');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       domNode.appendChild(barcodeBtn);
       let bottomBg = document.createElement("span");
       bottomBg.classList.add("barcode-bottom");
@@ -1362,7 +1367,11 @@ class TicketmasterEventDiscoveryWidget {
       buyBtn.classList.add("event-buy-btn");
       buyBtn.target = '_blank';
       buyBtn.href = url;
-      buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+      buyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+      });
       domNode.appendChild(buyBtn);
     }
   }
@@ -1392,8 +1401,11 @@ class TicketmasterEventDiscoveryWidget {
       name.classList.add("event-name");
       name.appendChild(nameContent);
       this.initPretendedLink(name, itemConfig.url, true);
-      name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
-      name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');");
+      name.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       medWrapper.appendChild(name);
     }
     else {
@@ -1402,8 +1414,12 @@ class TicketmasterEventDiscoveryWidget {
       name.classList.add("event-pretended-link");
       name.href = itemConfig.url;
       name.appendChild(nameContent);
-      name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
-      name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');");
+      name.setAttribute('onclick', "");
+      name.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
+        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+      });
       medWrapper.appendChild(name);
     }
 
