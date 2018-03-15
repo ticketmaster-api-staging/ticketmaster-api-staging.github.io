@@ -1,7 +1,11 @@
+import widgetAnalytics from '../../../helpers/widgets-analytics';
+
 const analyticsEventHandlers = {
   buyBtnClick: `ga('send', 'event', 'DiscoveryClickBuyButton', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');`,
   eventNameClick: `ga('send', 'event', 'DiscoveryClickeventName', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick');`,
 };
+
+widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET);
 
 class TicketmasterMapWidget {
 
@@ -231,6 +235,8 @@ class TicketmasterMapWidget {
             this.embedTMPlugin();
             this.initBuyBtn();
             this.initMessage();
+
+            widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
         }
     }
 
@@ -957,16 +963,7 @@ let widgetsMap = [];
 
 })();
 
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-78315612-1', 'auto');
-ga('send', 'pageview');
-
-ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
-ga('tmOpenPlatform.send', 'event', 'MapWidget', 'load');
 
 if(typeof module !== "undefined") {
     module.exports = { TicketmasterMapWidget, widgetsMap };

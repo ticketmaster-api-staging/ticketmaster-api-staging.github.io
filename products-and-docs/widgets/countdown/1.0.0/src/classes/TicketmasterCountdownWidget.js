@@ -1,4 +1,5 @@
-import CountdownClock from "./CountdownClock";
+import CountdownClock from './CountdownClock';
+import widgetAnalytics from '../../../../helpers/widgets-analytics';
 
 export default class TicketmasterCountdownWidget {
 
@@ -126,6 +127,8 @@ export default class TicketmasterCountdownWidget {
 		this.toggleSecondsVisibility();
 
 		if (this.isFullWidth) { this.initFullWidth(); }
+
+    widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
 	}
 
 	getNormalizedDateValue(val){

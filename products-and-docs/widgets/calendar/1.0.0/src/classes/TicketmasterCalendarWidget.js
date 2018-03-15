@@ -1,4 +1,5 @@
-import SelectorControls from './SelectorControls'
+import SelectorControls from './SelectorControls';
+import widgetAnalytics from '../../../../helpers/widgets-analytics';
 
 export default class TicketmasterCalendarWidget {
 
@@ -286,6 +287,8 @@ export default class TicketmasterCalendarWidget {
 		this.initMessage();
 
 		this.initSliderControls();
+
+    widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.CALENDAR_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
 
 		/* if (!this.isListView) this.initEventCounter(); */
 	}

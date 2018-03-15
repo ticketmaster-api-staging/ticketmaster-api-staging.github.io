@@ -64,11 +64,60 @@ var widgetsLib =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const TM_TRACKER_ID = 'UA-78315612-1';
+
+const DEVPORT_TRACKER_ID = 'UA-114077619-1';
+const DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
+
+const EVENT_CATEGORY = {
+  MAP_WIDGET: 'MapWidget',
+  CALENDAR_WIDGET: 'CalendarWidget',
+  COUNTDOWN_WIDGET: 'CountdownWidget',
+  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget',
+};
+
+const EVENT_NAME = {
+  RENDERED: 'rendered',
+  LOAD: 'load',
+};
+
+const sendEvent = (widgetCategory, widgetEvent) => {
+  ga('send', 'event', widgetCategory, widgetEvent);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
+};
+
+const initialize = (widgetName) => {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', TM_TRACKER_ID, 'auto');
+  ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
+
+  ga('send', 'pageview');
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  EVENT_CATEGORY,
+  EVENT_NAME,
+  initialize,
+  sendEvent,
+});
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,16 +125,24 @@ var widgetsLib =
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _widgetsAnalytics = __webpack_require__(0);
+
+var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var analyticsEventHandlers = {
-    buyBtnClick: "ga('send', 'event', 'DiscoveryClickBuyButton', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');",
-    eventNameClick: "ga('send', 'event', 'DiscoveryClickeventName', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick');"
+    buyBtnClick: 'ga(\'send\', \'event\', \'DiscoveryClickBuyButton\', \'click\'); ga(\'tmOpenPlatform.send\', \'event\', \'MapWidget\', \'buyButtonClick\');',
+    eventNameClick: 'ga(\'send\', \'event\', \'DiscoveryClickeventName\', \'click\'); ga(\'tmOpenPlatform.send\', \'event\', \'MapWidget\', \'eventNameClick\');'
 };
+
+_widgetsAnalytics2.default.initialize(_widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET);
 
 var TicketmasterMapWidget = function () {
     _createClass(TicketmasterMapWidget, [{
-        key: "isConfigAttrExistAndNotEmpty",
+        key: 'isConfigAttrExistAndNotEmpty',
         value: function isConfigAttrExistAndNotEmpty(attr) {
             if (!this.config.hasOwnProperty(attr) || this.config[attr] === "undefined") {
                 return false;
@@ -95,7 +152,7 @@ var TicketmasterMapWidget = function () {
             return true;
         }
     }, {
-        key: "config",
+        key: 'config',
         set: function set(attrs) {
             this.widgetConfig = this.loadConfig(attrs);
         },
@@ -103,7 +160,7 @@ var TicketmasterMapWidget = function () {
             return this.widgetConfig;
         }
     }, {
-        key: "events",
+        key: 'events',
         set: function set(responce) {
             this.eventsList = this.parseEvents(responce);
         },
@@ -111,98 +168,98 @@ var TicketmasterMapWidget = function () {
             return this.eventsList;
         }
     }, {
-        key: "isSimpleProportionM",
+        key: 'isSimpleProportionM',
         get: function get() {
             return this.config.proportion === 'm';
         }
     }, {
-        key: "borderSize",
+        key: 'borderSize',
         get: function get() {
             return this.config.border || 0;
         }
     }, {
-        key: "widgetHeight",
+        key: 'widgetHeight',
         get: function get() {
             return this.config.height || 600;
         }
     }, {
-        key: "widgetContentHeight",
+        key: 'widgetContentHeight',
         get: function get() {
             // return this.widgetHeight - (this.isListView || this.isSimpleProportionM ? 0 : 39) || 600;
             return this.widgetHeight;
         }
     }, {
-        key: "eventUrl",
+        key: 'eventUrl',
         get: function get() {
             return "https://www.ticketmaster.com/event/";
         }
     }, {
-        key: "apiUrl",
+        key: 'apiUrl',
         get: function get() {
             return "https://app.ticketmaster.com/discovery-widgets/v2/events.json";
         }
     }, {
-        key: "themeUrl",
+        key: 'themeUrl',
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/products-and-docs/widgets/map/1.0.0/theme/" : "https://ticketmaster-api-staging.github.io/products-and-docs/widgets/map/1.0.0/theme/";
+            return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/products-and-docs/widgets/map/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/map/1.0.0/theme/';
         }
     }, {
-        key: "portalUrl",
+        key: 'portalUrl',
         get: function get() {
-            return window.location.host === 'developer.ticketmaster.com' ? "https://developer.ticketmaster.com/" : "https://ticketmaster-api-staging.github.io/";
+            return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/' : 'https://ticketmaster-api-staging.github.io/';
         }
     }, {
-        key: "logoUrl",
+        key: 'logoUrl',
         get: function get() {
             return "https://www.ticketmaster.com/";
         }
     }, {
-        key: "legalNoticeUrl",
+        key: 'legalNoticeUrl',
         get: function get() {
             return "http://developer.ticketmaster.com/support/terms-of-use/";
         }
     }, {
-        key: "questionUrl",
+        key: 'questionUrl',
         get: function get() {
             return "http://developer.ticketmaster.com/support/faq/";
         }
     }, {
-        key: "widgetVersion",
+        key: 'widgetVersion',
         get: function get() {
-            return "" + "1.0.-4912";
+            return '' + "1.0.-4750";
         }
     }, {
-        key: "geocodeUrl",
+        key: 'geocodeUrl',
         get: function get() {
             return "https://maps.googleapis.com/maps/api/geocode/json";
         }
     }, {
-        key: "updateExceptions",
+        key: 'updateExceptions',
         get: function get() {
             return ["width", "height", "border", "borderradius", "colorscheme", "layout", "affiliateid", "propotion", "googleapikey", "latlong"];
         }
     }, {
-        key: "hideMessageDelay",
+        key: 'hideMessageDelay',
         get: function get() {
             return 5000;
         }
     }, {
-        key: "controlHiddenClass",
+        key: 'controlHiddenClass',
         get: function get() {
             return "events_control-hidden";
         }
     }, {
-        key: "tmWidgetWhiteList",
+        key: 'tmWidgetWhiteList',
         get: function get() {
             return ["2200504BAD4C848F", "00005044BDC83AE6", "1B005068DB60687F", "1B004F4DBEE45E47", "3A004F4ED7829D5E", "3A004F4ED1FC9B63", "1B004F4FF83289C5", "1B004F4FC0276888", "0E004F4F3B7DC543", "1D004F4F09C61861", "1600505AC9A972A1", "22004F4FD82795C6", "01005057AFF54574", "01005056FAD8793A", "3A004F4FB2453240", "22004F50D2149AC6", "01005059AD49507A", "01005062B4236D5D"];
         }
     }, {
-        key: "countriesWhiteList",
+        key: 'countriesWhiteList',
         get: function get() {
             return ['Australia', 'Austria', 'Belgium', 'Canada', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Spain', 'Sweden', 'Turkey', 'UAE', 'United Kingdom', 'United States'];
         }
     }, {
-        key: "eventReqAttrs",
+        key: 'eventReqAttrs',
         get: function get() {
             var mapWidgetRoot = this.eventsRootContainer.parentNode;
             var attrs = {},
@@ -307,7 +364,7 @@ var TicketmasterMapWidget = function () {
             this.eventsRoot.style.width = this.config.width + "px";
             this.eventsRootContainer.appendChild(this.eventsRoot);
 
-            if (this.config.theme !== null && !document.getElementById("widget-theme-" + this.config.theme)) {
+            if (this.config.theme !== null && !document.getElementById('widget-theme-' + this.config.theme)) {
                 this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
             }
 
@@ -316,12 +373,12 @@ var TicketmasterMapWidget = function () {
                 this.eventsRootContainer.classList.add("border");
             }
 
-            this.widgetRoot.style.height = this.widgetHeight + "px";
-            this.widgetRoot.style.width = this.config.width + "px";
-            this.eventsRootContainer.style.height = this.widgetHeight + "px";
-            this.eventsRootContainer.style.width = this.config.width + "px";
-            this.eventsRootContainer.style.borderRadius = this.config.borderradius + "px";
-            this.eventsRootContainer.style.borderWidth = this.borderSize + "px";
+            this.widgetRoot.style.height = this.widgetHeight + 'px';
+            this.widgetRoot.style.width = this.config.width + 'px';
+            this.eventsRootContainer.style.height = this.widgetHeight + 'px';
+            this.eventsRootContainer.style.width = this.config.width + 'px';
+            this.eventsRootContainer.style.borderRadius = this.config.borderradius + 'px';
+            this.eventsRootContainer.style.borderWidth = this.borderSize + 'px';
 
             //this.clear();
 
@@ -337,11 +394,13 @@ var TicketmasterMapWidget = function () {
             this.embedTMPlugin();
             this.initBuyBtn();
             this.initMessage();
+
+            _widgetsAnalytics2.default.sendEvent(_widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET, _widgetsAnalytics2.default.EVENT_NAME.RENDERED);
         }
     }
 
     _createClass(TicketmasterMapWidget, [{
-        key: "getCoordinates",
+        key: 'getCoordinates',
         value: function getCoordinates(cb) {
             var widget = this;
             if (this.config.postalcode) {
@@ -356,7 +415,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "initBuyBtn",
+        key: 'initBuyBtn',
         value: function initBuyBtn() {
             this.buyBtn = document.createElement("a");
             this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
@@ -372,7 +431,7 @@ var TicketmasterMapWidget = function () {
             this.eventsRootContainer.appendChild(this.buyBtn);
         }
     }, {
-        key: "setBuyBtnUrl",
+        key: 'setBuyBtnUrl',
         value: function setBuyBtnUrl() {
             if (this.buyBtn) {
                 var event = '',
@@ -389,19 +448,19 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "isUniverseUrl",
+        key: 'isUniverseUrl',
         value: function isUniverseUrl(url) {
             return url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g);
         }
     }, {
-        key: "isAllowedTMEvent",
+        key: 'isAllowedTMEvent',
         value: function isAllowedTMEvent(url) {
             for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++) {}
             var id = null !== n ? n[2] : void 0;
             return this.tmWidgetWhiteList.indexOf(id) > -1;
         }
     }, {
-        key: "embedTMPlugin",
+        key: 'embedTMPlugin',
         value: function embedTMPlugin() {
             var id = 'id_tm_widget';
             if (!document.getElementById(id)) {
@@ -415,7 +474,7 @@ var TicketmasterMapWidget = function () {
             this.isTMPluginInitialized = true;
         }
     }, {
-        key: "embedUniversePlugin",
+        key: 'embedUniversePlugin',
         value: function embedUniversePlugin() {
             var id = 'id_universe_widget';
             if (!document.getElementById(id)) {
@@ -432,7 +491,7 @@ var TicketmasterMapWidget = function () {
         // Message
 
     }, {
-        key: "initMessage",
+        key: 'initMessage',
         value: function initMessage() {
             var _this2 = this;
 
@@ -452,7 +511,7 @@ var TicketmasterMapWidget = function () {
             this.eventsRootContainer.appendChild(this.messageDialog);
         }
     }, {
-        key: "showMessage",
+        key: 'showMessage',
         value: function showMessage(message, hideMessageWithoutDelay) {
             if (message.length) {
                 this.hideMessageWithoutDelay = hideMessageWithoutDelay;
@@ -464,7 +523,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "hideMessageWithDelay",
+        key: 'hideMessageWithDelay',
         value: function hideMessageWithDelay(delay) {
             var _this3 = this;
 
@@ -474,7 +533,7 @@ var TicketmasterMapWidget = function () {
             }, delay);
         }
     }, {
-        key: "hideMessage",
+        key: 'hideMessage',
         value: function hideMessage() {
             if (this.messageTimeout) clearTimeout(this.messageTimeout); // Clear timeout and hide message immediately.
             this.messageDialog.classList.remove("event-message-visible");
@@ -482,7 +541,7 @@ var TicketmasterMapWidget = function () {
         // End message
 
     }, {
-        key: "useGeolocation",
+        key: 'useGeolocation',
         value: function useGeolocation() {
             var widget = this;
             var clickNearMe = function clickNearMe(e) {
@@ -504,7 +563,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "AdditionalElements",
+        key: 'AdditionalElements',
         value: function AdditionalElements() {
             var nearMeBtn = document.createElement("span");
             nearMeBtn.classList.add('near-me-btn');
@@ -539,7 +598,7 @@ var TicketmasterMapWidget = function () {
             this.eventsRootContainer.appendChild(question);
 
             var toolTip = document.createElement('div'),
-                tooltipHtml = "\n              <div class=\"tooltip-inner\"> \n                <a href=\"" + this.questionUrl + "\" target = \"_blank\" >About widget</a>\n                <div class=\"place\">version: <b>" + this.widgetVersion + "</b></div>\n              </div>";
+                tooltipHtml = '\n              <div class="tooltip-inner"> \n                <a href="' + this.questionUrl + '" target = "_blank" >About widget</a>\n                <div class="place">version: <b>' + this.widgetVersion + '</b></div>\n              </div>';
             toolTip.classList.add("tooltip-version");
             toolTip.classList.add("left");
             toolTip.innerHTML = tooltipHtml;
@@ -551,7 +610,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "formatDate",
+        key: 'formatDate',
         value: function formatDate(date) {
             var result = '';
             if (!date.day) return result; // Day is required
@@ -586,12 +645,12 @@ var TicketmasterMapWidget = function () {
             return result + ' ' + LZ(H) + ':' + m + ' ' + a;
         }
     }, {
-        key: "clearEvents",
+        key: 'clearEvents',
         value: function clearEvents() {
             this.eventsRoot.innerHTML = "";
         }
     }, {
-        key: "clear",
+        key: 'clear',
         value: function clear() {
             var modificatorList = this.widgetRoot.getElementsByClassName('modificator');
             while (modificatorList.length) {
@@ -602,7 +661,7 @@ var TicketmasterMapWidget = function () {
             this.clearEvents();
         }
     }, {
-        key: "update",
+        key: 'update',
         value: function update() {
             var _this4 = this;
 
@@ -613,12 +672,12 @@ var TicketmasterMapWidget = function () {
 
             this.config = this.widgetRoot.attributes;
 
-            this.widgetRoot.style.height = this.widgetHeight + "px";
-            this.widgetRoot.style.width = this.config.width + "px";
-            this.eventsRootContainer.style.height = this.widgetContentHeight + "px";
-            this.eventsRootContainer.style.width = this.config.width + "px";
-            this.eventsRootContainer.style.borderRadius = this.config.borderradius + "px";
-            this.eventsRootContainer.style.borderWidth = this.borderSize + "px";
+            this.widgetRoot.style.height = this.widgetHeight + 'px';
+            this.widgetRoot.style.width = this.config.width + 'px';
+            this.eventsRootContainer.style.height = this.widgetContentHeight + 'px';
+            this.eventsRootContainer.style.width = this.config.width + 'px';
+            this.eventsRootContainer.style.borderRadius = this.config.borderradius + 'px';
+            this.eventsRootContainer.style.borderWidth = this.borderSize + 'px';
 
             this.eventsRootContainer.classList.remove("border");
             if (this.config.hasOwnProperty("border")) {
@@ -634,7 +693,7 @@ var TicketmasterMapWidget = function () {
             this.useGeolocation();
         }
     }, {
-        key: "needToUpdate",
+        key: 'needToUpdate',
         value: function needToUpdate(newTheme, oldTheme) {
             var forCheck = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -645,7 +704,7 @@ var TicketmasterMapWidget = function () {
             }).indexOf(false) > -1;
         }
     }, {
-        key: "loadConfig",
+        key: 'loadConfig',
         value: function loadConfig(NamedNodeMap) {
             var config = {};
             Object.keys(NamedNodeMap).map(function (value) {
@@ -656,20 +715,20 @@ var TicketmasterMapWidget = function () {
             return config;
         }
     }, {
-        key: "styleLoadingHandler",
+        key: 'styleLoadingHandler',
         value: function styleLoadingHandler() {
             if (this && this.readyState == XMLHttpRequest.DONE) {
                 if (this.status == 200) {
                     var style = document.createElement("style");
                     style.setAttribute("type", "text/css");
-                    style.setAttribute("id", "widget-theme-" + this.widget.config.theme);
+                    style.setAttribute("id", 'widget-theme-' + this.widget.config.theme);
                     style.textContent = this.responseText;
                     document.getElementsByTagName("head")[0].appendChild(style);
                 }
             }
         }
     }, {
-        key: "groupEventsByName",
+        key: 'groupEventsByName',
         value: function groupEventsByName() {
             var groups = {};
             this.events.map(function (event) {
@@ -683,12 +742,12 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "resetReduceParamsOrder",
+        key: 'resetReduceParamsOrder',
         value: function resetReduceParamsOrder() {
             this.reduceParamsOrder = 0;
         }
     }, {
-        key: "reduceParamsAndReloadEvents",
+        key: 'reduceParamsAndReloadEvents',
         value: function reduceParamsAndReloadEvents() {
             var eventReqAttrs = {},
                 reduceParamsList = [['classificationName'], ['city'], ['countryCode'], ['source'], ['startDateTime', 'endDateTime', 'country'], ['radius'], ['postalCode', 'latlong'], ['attractionId'], ['promoterId'],
@@ -720,7 +779,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "setMarkers",
+        key: 'setMarkers',
         value: function setMarkers(map, markers) {
 
             var infowindow = new google.maps.InfoWindow({
@@ -767,7 +826,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "eventsLoadingHandler",
+        key: 'eventsLoadingHandler',
         value: function eventsLoadingHandler() {
             var widget = this.widget;
             var markers = [];
@@ -817,9 +876,9 @@ var TicketmasterMapWidget = function () {
 
                                 var buyBtn = '';
                                 if (widget.isUniverseUrl(widget.events[e].url) != false) {
-                                    buyBtn = "\n                              <a class=\"buybtn\" href=\"" + widget.events[e].url + "\" onclick=\"" + analyticsEventHandlers.buyBtnClick + "\" target=\"_blank\">\n                                BUY NOW\n                              </a>\n                            ";
+                                    buyBtn = '\n                              <a class="buybtn" href="' + widget.events[e].url + '" onclick="' + analyticsEventHandlers.buyBtnClick + '" target="_blank">\n                                BUY NOW\n                              </a>\n                            ';
                                 }
-                                var eventMarkup = "\n                            <div class=\"infowindow\" style=\"width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;\">\n                              <a class=\"an\" href=\"" + widget.events[e].url + "\" onclick=\"" + analyticsEventHandlers.eventNameClick + "\" target=\"_blank\">\n                                <span class=\"img\" style=\"background:url('" + widget.events[e].img + "') center center no-repeat\"></span>\n                                <span class=\"name\">" + widget.events[e].name + "</span>\n                              </a>\n                              " + buyBtn + "\n                              <div class=\"dateplace\"><span class=\"date\">" + date + "</span><span class=\"place\">" + (place + address) + "</span></div>\n                            </div>\n                          ";
+                                var eventMarkup = '\n                            <div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;">\n                              <a class="an" href="' + widget.events[e].url + '" onclick="' + analyticsEventHandlers.eventNameClick + '" target="_blank">\n                                <span class="img" style="background:url(\'' + widget.events[e].img + '\') center center no-repeat"></span>\n                                <span class="name">' + widget.events[e].name + '</span>\n                              </a>\n                              ' + buyBtn + '\n                              <div class="dateplace"><span class="date">' + date + '</span><span class="place">' + (place + address) + '</span></div>\n                            </div>\n                          ';
 
                                 markers[e] = [widget.events[e].name, widget.events[e].location.lat, widget.events[e].location.lng, e, eventMarkup];
                                 latlngbounds.extend(new google.maps.LatLng(widget.events[e].location.lat, widget.events[e].location.lng));
@@ -844,7 +903,7 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "getImageForEvent",
+        key: 'getImageForEvent',
         value: function getImageForEvent(images) {
             var imgWidth = void 0;
             var idx = void 0;
@@ -858,7 +917,7 @@ var TicketmasterMapWidget = function () {
             return idx === undefined ? '' : images[idx].url;
         }
     }, {
-        key: "parseEvents",
+        key: 'parseEvents',
         value: function parseEvents(eventsSet) {
             if (!eventsSet._embedded) {
                 if (typeof $widgetModalNoCode !== "undefined") {
@@ -928,14 +987,14 @@ var TicketmasterMapWidget = function () {
             return tmpEventSet;
         }
     }, {
-        key: "makeRequest",
+        key: 'makeRequest',
         value: function makeRequest(handler) {
             var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.apiUrl;
             var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
             var method = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "GET";
 
             attrs = Object.keys(attrs).map(function (key) {
-                return key + "=" + attrs[key];
+                return key + '=' + attrs[key];
             }).join("&");
 
             url = [url, attrs].join("?");
@@ -950,7 +1009,7 @@ var TicketmasterMapWidget = function () {
             this.xmlHTTP.send();
         }
     }, {
-        key: "initPretendedLink",
+        key: 'initPretendedLink',
         value: function initPretendedLink(el, url, isBlank) {
             if (el && url) {
                 el.setAttribute('data-url', url);
@@ -973,7 +1032,7 @@ var TicketmasterMapWidget = function () {
             return el;
         }
     }, {
-        key: "addBuyButton",
+        key: 'addBuyButton',
         value: function addBuyButton(domNode, url) {
             if (this.isListView) {
                 var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url) || this.isTMPluginInitialized && this.isAllowedTMEvent(url);
@@ -992,9 +1051,9 @@ var TicketmasterMapWidget = function () {
             }
         }
     }, {
-        key: "makeImageUrl",
+        key: 'makeImageUrl',
         value: function makeImageUrl(id) {
-            return "https://app.ticketmaster.com/discovery-widgets/v2/events/" + id + "/images.json";
+            return 'https://app.ticketmaster.com/discovery-widgets/v2/events/' + id + '/images.json';
         }
 
         /*
@@ -1002,22 +1061,22 @@ var TicketmasterMapWidget = function () {
          */
 
     }, {
-        key: "decConfig",
+        key: 'decConfig',
         value: function decConfig(config) {
             return JSON.parse(window.atob(config));
         }
     }, {
-        key: "encConfig",
+        key: 'encConfig',
         value: function encConfig(config) {
             return window.btoa(config);
         }
     }, {
-        key: "toShortISOString",
+        key: 'toShortISOString',
         value: function toShortISOString(dateObj) {
             return dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1 < 10 ? "0" + (dateObj.getMonth() + 1) : dateObj.getMonth() + 1) + "-" + (dateObj.getDate() < 10 ? "0" + dateObj.getDate() : dateObj.getDate()) + "T" + (dateObj.getHours() < 10 ? "0" + dateObj.getHours() : dateObj.getHours()) + ":" + (dateObj.getMinutes() < 10 ? "0" + dateObj.getMinutes() : dateObj.getMinutes()) + ":" + (dateObj.getSeconds() < 10 ? "0" + dateObj.getSeconds() : dateObj.getSeconds()) + "Z";
         }
     }, {
-        key: "getDateFromPeriod",
+        key: 'getDateFromPeriod',
         value: function getDateFromPeriod(period) {
 
             var period = period.toLowerCase(),
@@ -1061,18 +1120,6 @@ var widgetsMap = [];
         widgetsMap.push(new TicketmasterMapWidget(widgetContainers[i]));
     }
 })();
-
-(function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments);
-    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-ga('create', 'UA-78315612-1', 'auto');
-ga('send', 'pageview');
-
-ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
-ga('tmOpenPlatform.send', 'event', 'MapWidget', 'load');
 
 if (true) {
     module.exports = { TicketmasterMapWidget: TicketmasterMapWidget, widgetsMap: widgetsMap };
