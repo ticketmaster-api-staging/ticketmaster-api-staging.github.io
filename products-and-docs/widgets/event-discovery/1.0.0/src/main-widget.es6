@@ -1,3 +1,7 @@
+import widgetAnalytics from '../../../helpers/widgets-analytics';
+
+widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
+
 class TicketmasterEventDiscoveryWidget {
 
   set config(attrs) { this.widgetConfig = this.loadConfig(attrs); }
@@ -247,6 +251,8 @@ class TicketmasterEventDiscoveryWidget {
         if (this.isListView || this.isListViewThumbnails) this.addScroll();
 
         if (this.isFullWidth) { this.initFullWidth(); }
+
+        widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
     }
   }
 
@@ -1564,17 +1570,6 @@ let widgetsEventDiscovery = [];
   }
 
 })();
-
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-78315612-1', 'auto');
-ga('send', 'pageview');
-
-ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
-ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'load');
 
 if(typeof module !== "undefined") {
   module.exports = { widgetsEventDiscovery, TicketmasterEventDiscoveryWidget };

@@ -64,11 +64,60 @@ var widgetsLib =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const TM_TRACKER_ID = 'UA-78315612-1';
+
+const DEVPORT_TRACKER_ID = 'UA-114077619-1';
+const DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
+
+const EVENT_CATEGORY = {
+  MAP_WIDGET: 'MapWidget',
+  CALENDAR_WIDGET: 'CalendarWidget',
+  COUNTDOWN_WIDGET: 'CountdownWidget',
+  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget',
+};
+
+const EVENT_NAME = {
+  RENDERED: 'rendered',
+  LOAD: 'load',
+};
+
+const sendEvent = (widgetCategory, widgetEvent) => {
+  ga('send', 'event', widgetCategory, widgetEvent);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
+};
+
+const initialize = (widgetName) => {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', TM_TRACKER_ID, 'auto');
+  ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
+
+  ga('send', 'pageview');
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  EVENT_CATEGORY,
+  EVENT_NAME,
+  initialize,
+  sendEvent,
+});
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,7 +125,15 @@ var widgetsLib =
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _widgetsAnalytics = __webpack_require__(0);
+
+var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+_widgetsAnalytics2.default.initialize(_widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
 
 var TicketmasterEventDiscoveryWidget = function () {
   _createClass(TicketmasterEventDiscoveryWidget, [{
@@ -188,7 +245,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4912";
+      return '' + "1.0.-4750";
     }
   }, {
     key: 'geocodeUrl',
@@ -382,6 +439,8 @@ var TicketmasterEventDiscoveryWidget = function () {
       if (this.isFullWidth) {
         this.initFullWidth();
       }
+
+      _widgetsAnalytics2.default.sendEvent(_widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, _widgetsAnalytics2.default.EVENT_NAME.RENDERED);
     }
   }
 
@@ -1779,18 +1838,6 @@ var widgetsEventDiscovery = [];
     widgetsEventDiscovery.push(new TicketmasterEventDiscoveryWidget(widgetContainers[i]));
   }
 })();
-
-(function (i, s, o, g, r, a, m) {
-  i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
-    (i[r].q = i[r].q || []).push(arguments);
-  }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
-})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-ga('create', 'UA-78315612-1', 'auto');
-ga('send', 'pageview');
-
-ga('create', 'UA-114077619-1', 'auto', 'tmOpenPlatform');
-ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'load');
 
 if (true) {
   module.exports = { widgetsEventDiscovery: widgetsEventDiscovery, TicketmasterEventDiscoveryWidget: TicketmasterEventDiscoveryWidget };
