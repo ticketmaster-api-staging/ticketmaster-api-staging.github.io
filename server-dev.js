@@ -1,4 +1,4 @@
-var https = require('https'),
+let https = require('https'),
 	http = require('http'),
 	path = require('path'),
 	express = require('express'),
