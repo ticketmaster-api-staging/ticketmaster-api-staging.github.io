@@ -1,4 +1,52 @@
 import widgetAnalytics from '../../../helpers/widgets-analytics';
+import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
+
+const ELEMENTS_STYLED_BY_ATTRIBUTES = {
+  [ATTRIBUTE_NAMES.TITLE_COLOR]: [{
+    selector: '.event-name',
+    stylePropName: 'color',
+  }],
+  [ATTRIBUTE_NAMES.TITLE_HOVER_COLOR]: [{
+    selector: '.event-name:hover',
+    stylePropName: 'color',
+  }],
+  [ATTRIBUTE_NAMES.ARROW_COLOR]: [
+    {
+      selector: '.events_control-right',
+      stylePropName: 'border-color',
+      getValue: (value) => `transparent transparent transparent ${value}`,
+    },
+    {
+      selector: '.events_control-left',
+      stylePropName: 'border-color',
+      getValue: (value) => `transparent ${value} transparent transparent `,
+    },
+  ],
+  [ATTRIBUTE_NAMES.ARROW_HOVER_COLOR]: [
+    {
+      selector: '.events_control-right:hover',
+      stylePropName: 'border-color',
+      getValue: (value) => `transparent transparent transparent ${value}`,
+    },
+    {
+      selector: '.events_control-left:hover',
+      stylePropName: 'border-color',
+      getValue: (value) => `transparent ${value} transparent transparent `,
+    },
+  ],
+  [ATTRIBUTE_NAMES.EVENT_DATE_COLOR]: [{
+    selector: '.event-date',
+    stylePropName: 'color',
+  }],
+  [ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR]: [{
+    selector: '.event-address',
+    stylePropName: 'color',
+  }],
+  [ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR]: [{
+    selector: '.events-counter',
+    stylePropName: 'color',
+  }],
+};
 
 widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
 
@@ -179,10 +227,17 @@ class TicketmasterEventDiscoveryWidget {
   return attrs;
   }
 
+  setUniqueWidgetId() {
+    if (!this.widgetRoot.getAttribute(ATTRIBUTE_NAMES.ID)) {
+      this.widgetRoot.setAttribute(ATTRIBUTE_NAMES.ID, `id_${Math.random().toString(36).substring(7)}`);
+    }
+  }
+
   constructor(root) {
     if(!root) return;
     this.widgetRoot = root;
     if (this.widgetRoot.querySelector('.events-root-container') === null) {
+        this.setUniqueWidgetId();
         this.eventsRootContainer = document.createElement("div");
         this.eventsRootContainer.classList.add("events-root-container");
         this.widgetRoot.appendChild(this.eventsRootContainer);
@@ -253,83 +308,120 @@ class TicketmasterEventDiscoveryWidget {
         if (this.isFullWidth) { this.initFullWidth(); }
 
         widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
+
+        this.loadCustomStyle();
     }
   }
 
-  getCoordinates(cb){
-    let widget = this;
+  setRuleForStyleSheet(styleSheet, selector, rule) {
+    const widgetId = this.widgetRoot.getAttribute(ATTRIBUTE_NAMES.ID);
 
-    function parseGoogleGeocodeResponse(){
-      if (this && this.readyState === XMLHttpRequest.DONE ) {
-        let latlong = '',
-          results = null,
-          countryShortName = '';
-        if(this.status === 200) {
-          let response = JSON.parse(this.responseText);
-          if (response.status === 'OK' && response.results.length) {
-            // Filtering only white list countries
-            results = response.results.filter((item) => {
-              return widget.countriesWhiteList.filter((elem) => {
-                  return elem === item.address_components[item.address_components.length - 1].long_name;
-                }).length > 0;
-            });
+    styleSheet.addRule(`div[w-id=${widgetId}] ${selector}`, rule);
+    styleSheet.insertRule(`div[w-id=${widgetId}] ${selector} { ${rule} }`);
+  }
 
-            if (results.length) {
-              // sorting results by country name
-              results.sort((f, g) => {
-                let a = f.address_components[f.address_components.length - 1].long_name;
-                let b = g.address_components[g.address_components.length - 1].long_name;
-                if (a > b) {
-                  return 1;
-                }
-                if (a < b) {
-                  return -1;
-                }
-                return 0;
-              });
+  getStyleSheetNode() {
+    let sheet;
+    if (this.widgetRoot.getElementsByTagName('style')[0] === undefined) {
+      let cusStyle = document.createElement('style');
+      this.widgetRoot.appendChild(cusStyle);
+      sheet = cusStyle.sheet;
+    } else {
+      sheet = this.widgetRoot.getElementsByTagName('style')[0].sheet;
+    }
+    return sheet;
+  }
 
-              // Use first item if multiple results was found in one country or in different
-              let geometry = results[0].geometry;
-              countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
-
-              // If multiple results without country try to find USA as prefer value
-              if (!widget.config.country) {
-                for (let i in results) {
-                  let result = results[i];
-                  if (result.address_components) {
-                    let country = result.address_components[result.address_components.length - 1];
-                    if (country) {
-                      if (country.short_name === 'US') {
-                        countryShortName = 'US';
-                        geometry = result.geometry;
-                      }
-                    }
-                  }
-                }
-              }
-
-              if (geometry) {
-                if (geometry.location) {
-                  latlong = `${geometry.location.lat},${geometry.location.lng}`;
-                }
-              }
-            } else {
-              results = null;
-            }
-          }
-        }
-        // Used in builder
-        if(widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
-        widget.config.latlong = latlong;
-        cb(widget.config.latlong);
+  loadCustomStyle() {
+    CUSTOM_THEME_ATTRIBUTES.forEach((themeAttribute) => {
+      const attributeValue = this.widgetRoot.getAttribute(themeAttribute);
+      if (attributeValue) {
+        ELEMENTS_STYLED_BY_ATTRIBUTES[themeAttribute].forEach((element) => {
+          const value = element.getValue ? element.getValue(attributeValue) : attributeValue;
+          this.setRuleForStyleSheet(
+            this.getStyleSheetNode(),
+            element.selector,
+            `${element.stylePropName}: ${value}`
+          );
+        });
       }
+    });
+  }
+
+    parseGoogleGeocodeResponse(cb) {
+        let widget = this;
+        if (this && this.readyState === XMLHttpRequest.DONE ) {
+            let latlong = '',
+                results = null,
+                countryShortName = '';
+            if(this.status === 200) {
+                let response = JSON.parse(this.responseText);
+                if (response.status === 'OK' && response.results.length) {
+                    // Filtering only white list countries
+                    results = response.results.filter((item) => {
+                        return widget.countriesWhiteList.filter((elem) => {
+                            return elem === item.address_components[item.address_components.length - 1].long_name;
+                        }).length > 0;
+                    });
+
+                    if (results.length) {
+                        // sorting results by country name
+                        results.sort((f, g) => {
+                            let a = f.address_components[f.address_components.length - 1].long_name;
+                            let b = g.address_components[g.address_components.length - 1].long_name;
+                            if (a > b) {
+                                return 1;
+                            }
+                            if (a < b) {
+                                return -1;
+                            }
+                            return 0;
+                        });
+
+                        // Use first item if multiple results was found in one country or in different
+                        let geometry = results[0].geometry;
+                        countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
+
+                        // If multiple results without country try to find USA as prefer value
+                        if (!widget.config.country) {
+                            for (let i in results) {
+                                let result = results[i];
+                                if (result.address_components) {
+                                    let country = result.address_components[result.address_components.length - 1];
+                                    if (country) {
+                                        if (country.short_name === 'US') {
+                                            countryShortName = 'US';
+                                            geometry = result.geometry;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (geometry) {
+                            if (geometry.location) {
+                                latlong = `${geometry.location.lat},${geometry.location.lng}`;
+                            }
+                        }
+                    } else {
+                        results = null;
+                    }
+                }
+            }
+            // Used in builder
+            if(widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
+            widget.config.latlong = latlong;
+            cb(widget.config.latlong);
+        }
     }
 
-    if(this.isConfigAttrExistAndNotEmpty('postalcode')){
+  getCoordinates(cb) {
+    let widget = this;
+    if(this.isConfigAttrExistAndNotEmpty('postalcode')) {
       let args = {language: 'en', components: `postal_code:${widget.config.postalcode}`};
       if(widget.config.googleapikey) args.key = widget.config.googleapikey;
       if(this.config.country) args.components += `|country:${this.config.country}`;
-      this.makeRequest( parseGoogleGeocodeResponse, this.geocodeUrl, args);
+      this.makeRequest(this.parseGoogleGeocodeResponse.bind(widget, cb), this.geocodeUrl, args);
     }else{
       // Used in builder
       if(widget.onLoadCoordinate) widget.onLoadCoordinate(null);
@@ -564,8 +656,7 @@ class TicketmasterEventDiscoveryWidget {
     this.eventsRootContainer.appendChild(ticketLogo);
   }
 
-  listViewModificator(){
-  }
+  listViewModificator() {}
 
   hideSliderControls(){
     this.prevEventX.classList.add(this.controlHiddenClass);
@@ -992,6 +1083,7 @@ class TicketmasterEventDiscoveryWidget {
       }
     }
 
+    this.loadCustomStyle();
   }
 
   needToUpdate(newTheme, oldTheme, forCheck = []){
@@ -1382,8 +1474,12 @@ class TicketmasterEventDiscoveryWidget {
     }
   }
 
-  addScroll() {
+  addSimpleScrollBar() {
     (function(n,t){function u(n){n.hasOwnProperty("data-simple-scrollbar")||Object.defineProperty(n,"data-simple-scrollbar",new SimpleScrollbar(n))}function e(n,i){function f(n){var t=n.pageY-u;u=n.pageY;r(function(){i.el.scrollTop+=t/i.scrollRatio})}function e(){n.classList.remove("ss-grabbed");t.body.classList.remove("ss-grabbed");t.removeEventListener("mousemove",f);t.removeEventListener("mouseup",e)}var u;n.addEventListener("mousedown",function(i){return u=i.pageY,n.classList.add("ss-grabbed"),t.body.classList.add("ss-grabbed"),t.addEventListener("mousemove",f),t.addEventListener("mouseup",e),!1})}function i(n){for(this.target=n,this.bar='<div class="ss-scroll">',this.wrapper=t.createElement("div"),this.wrapper.setAttribute("class","ss-wrapper"),this.el=t.createElement("div"),this.el.setAttribute("class","ss-content"),this.wrapper.appendChild(this.el);this.target.firstChild;)this.el.appendChild(this.target.firstChild);this.target.appendChild(this.wrapper);this.target.insertAdjacentHTML("beforeend",this.bar);this.bar=this.target.lastChild;e(this.bar,this);this.moveBar();this.el.addEventListener("scroll",this.moveBar.bind(this));this.el.addEventListener("mouseenter",this.moveBar.bind(this));this.target.classList.add("ss-container")}function f(){for(var i=t.querySelectorAll("*[ss-container]"),n=0;n<i.length;n++)u(i[n])}var r=n.requestAnimationFrame||n.setImmediate||function(n){return setTimeout(n,0)};i.prototype={moveBar:function(){var t=this.el.scrollHeight,i=this.el.clientHeight,n=this;this.scrollRatio=i/t;r(function(){n.bar.style.cssText="height:"+i/t*100+"%; top:"+n.el.scrollTop/t*100+"%;right:-"+(n.target.clientWidth-n.bar.clientWidth)+"px;"})}};t.addEventListener("DOMContentLoaded",f);i.initEl=u;i.initAll=f;n.SimpleScrollbar=i})(window,document)
+  }
+
+  addScroll() {
+    this.addSimpleScrollBar();
     // var scrollRoot = document.getElementsByClassName("ss")[0];
     var scrollRoot = document.querySelector('.ss');
     SimpleScrollbar.initEl(scrollRoot);
@@ -1572,6 +1668,6 @@ let widgetsEventDiscovery = [];
 })();
 
 if(typeof module !== "undefined") {
-  module.exports = { widgetsEventDiscovery, TicketmasterEventDiscoveryWidget };
+  module.exports = {widgetsEventDiscovery, TicketmasterEventDiscoveryWidget};
 }
 

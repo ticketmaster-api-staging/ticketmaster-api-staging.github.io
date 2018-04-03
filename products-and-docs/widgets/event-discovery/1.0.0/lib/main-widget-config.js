@@ -63,15 +63,52 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const ATTRIBUTE_NAMES = {
+  ID: 'w-id',
+  WIDGET_TYPE: 'w-type',
+  DEFAULT_VALUE: 'data-default-value',
+
+  TITLE_COLOR: 'w-titleColor',
+  TITLE_HOVER_COLOR: 'w-titleHoverColor',
+  ARROW_COLOR: 'w-arrowColor',
+  ARROW_HOVER_COLOR: 'w-arrowHoverColor',
+  EVENT_DATE_COLOR: 'w-dateColor',
+  EVENT_DESCRIPTION_COLOR: 'w-descriptionColor',
+  EVENTS_COUNTER_COLOR: 'w-counterColor',
+};
+/* harmony export (immutable) */ __webpack_exports__["ATTRIBUTE_NAMES"] = ATTRIBUTE_NAMES;
+
+
+const CUSTOM_THEME_ATTRIBUTES = [
+  ATTRIBUTE_NAMES.TITLE_COLOR,
+  ATTRIBUTE_NAMES.TITLE_HOVER_COLOR,
+  ATTRIBUTE_NAMES.ARROW_COLOR,
+  ATTRIBUTE_NAMES.ARROW_HOVER_COLOR,
+  ATTRIBUTE_NAMES.EVENT_DATE_COLOR,
+  ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR,
+  ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR,
+];
+/* harmony export (immutable) */ __webpack_exports__["CUSTOM_THEME_ATTRIBUTES"] = CUSTOM_THEME_ATTRIBUTES;
+
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var _attributeNames = __webpack_require__(0);
 
 (function () {
 
@@ -138,21 +175,10 @@
   },
       isPostalCodeChanged = false;
 
-  /*
-  var $widthController = $('#w-width').slider({
-        tooltip: 'always',
-        handle: 'square'
-      }),
-       $borderRadiusController = $('#w-borderradius').slider({
-        tooltip: 'always',
-        handle: 'square'
-      }),
-      */
-  var $colorSchemeSelector = $('.widget__color_scheme_control');
+  var $darkSchemeSelector = $('.widget__dark-theme-selector');
+  var $customColorSchemeSelector = $('.widget__color_scheme_custom');
 
-  $('#js_styling_nav_tab').on('shown.bs.tab', function (e) {
-    // $widthController.slider('relayout');
-    /* $borderRadiusController.slider('relayout'); */
+  $('#js_styling_nav_tab').on('shown.bs.tab', function () {
     windowScroll(); //recalculate widget container position
   });
 
@@ -273,6 +299,51 @@
     }
   };
 
+  function handleCustomColorSchemeClick(event) {
+    if (event.target.name === 'w-colorscheme') {
+      if (event.target.value === 'custom') {
+        $customColorSchemeSelector.show();
+      } else {
+        $customColorSchemeSelector.hide();
+        clearCustomStyles();
+        resetCustomColorInputs();
+      }
+    }
+  }
+
+  function resetCustomColorInputs() {
+    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (custom) {
+      var $customColorInput = $('#' + custom);
+      $customColorInput.minicolors('value', $customColorInput.attr(_attributeNames.ATTRIBUTE_NAMES.DEFAULT_VALUE));
+    });
+  }
+
+  function handleCustomFieldClick(event) {
+    var widgetNode = document.querySelector('div[w-type="event-discovery"]');
+    var _event$target = event.target,
+        targetName = _event$target.name,
+        targetValue = _event$target.value;
+
+    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
+      if (targetName === themeAttribute) {
+        widgetNode.setAttribute(themeAttribute, targetValue);
+      }
+    });
+  }
+
+  function clearCustomStyles() {
+    var widgetNode = document.querySelector('div[w-type="event-discovery"]');
+
+    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (customAttribute) {
+      return widgetNode.removeAttribute(customAttribute);
+    });
+
+    var customSheet = document.querySelector('div[w-type="event-discovery"]').getElementsByTagName('style')[0];
+    if (customSheet != undefined) {
+      customSheet.parentNode.removeChild(customSheet);
+    }
+  };
+
   var changeState = function changeState(event) {
     if (!event.target.name || event.target.name === "w-googleapikey") return;
 
@@ -281,30 +352,9 @@
         targetName = event.target.name,
         $tabButtons = $('.js-tab-buttons');
 
-    if (targetName === "w-tm-api-key") {}
-
     if (targetName === "w-postalcodeapi") {
       widgetNode.setAttribute('w-country', '');
       isPostalCodeChanged = true;
-
-      /*
-       var numInputClass = document.getElementById('w-radius');
-       var incArrow = event.target.parentNode.nextElementSibling.querySelector('div').querySelector('.arrow__inc');
-       var decArrow = event.target.parentNode.nextElementSibling.querySelector('div').querySelector('.arrow__dec');
-        if (targetValue == '') {
-       numInputClass.setAttribute('disabled', 'disabled');
-       numInputClass.value = '';
-       incArrow.classList.add('disabled');
-       decArrow.classList.add('disabled');
-       }
-       else {
-       numInputClass.removeAttribute('disabled');
-       numInputClass.value = '25';
-       incArrow.classList.remove('disabled');
-       decArrow.classList.remove('disabled');
-       widgetNode.setAttribute('w-radius', '25');
-       }
-       */
     }
 
     if (targetName === "w-latlong") {
@@ -328,11 +378,14 @@
       }
     }
 
+    handleCustomColorSchemeClick(event);
+    handleCustomFieldClick(event);
+
     if (targetName === "w-theme") {
       if (targetValue === 'simple') {
-        $colorSchemeSelector.hide();
+        $darkSchemeSelector.hide();
       } else {
-        $colorSchemeSelector.show();
+        $darkSchemeSelector.show();
       }
 
       if (widgetNode.getAttribute('w-layout') === 'horizontal') {
@@ -362,14 +415,6 @@
         widgetNode.setAttribute('w-borderradius', 4);
         $containerWidget.css({ width: 'auto' });
         $(".widget-container", $containerWidget).css({ width: 'auto' });
-
-        /*
-        $widthController.slider({
-          setValue: sizeConfig.width,
-          max: sizeConfig.maxWidth,
-          min: sizeConfig.minWidth
-        }).slider('refresh');
-        */
       }
 
       widgetNode.setAttribute('w-width', sizeConfig.width);
@@ -406,14 +451,6 @@
           maxWidth: themeConfig.initSliderSize.maxWidth, //500
           minWidth: themeConfig.initSliderSize.minWidth // 350
         };
-        /*
-        $widthController.slider({
-          setValue: sizeConfig.width,
-          max: sizeConfig.maxWidth,
-          min: sizeConfig.minWidth
-        })
-            .slider('refresh');
-         */
       }
       widgetNode.setAttribute('w-width', _sizeConfig.width);
       widgetNode.setAttribute('w-height', _sizeConfig.height);
@@ -687,6 +724,8 @@
       widget.update();
     }
   });
+
+  $('.color-picker').minicolors();
 })();
 
 /***/ })

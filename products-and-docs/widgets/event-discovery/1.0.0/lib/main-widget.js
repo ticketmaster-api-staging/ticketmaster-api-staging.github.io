@@ -64,11 +64,46 @@ var widgetsLib =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const ATTRIBUTE_NAMES = {
+  ID: 'w-id',
+  WIDGET_TYPE: 'w-type',
+  DEFAULT_VALUE: 'data-default-value',
+
+  TITLE_COLOR: 'w-titleColor',
+  TITLE_HOVER_COLOR: 'w-titleHoverColor',
+  ARROW_COLOR: 'w-arrowColor',
+  ARROW_HOVER_COLOR: 'w-arrowHoverColor',
+  EVENT_DATE_COLOR: 'w-dateColor',
+  EVENT_DESCRIPTION_COLOR: 'w-descriptionColor',
+  EVENTS_COUNTER_COLOR: 'w-counterColor',
+};
+/* harmony export (immutable) */ __webpack_exports__["ATTRIBUTE_NAMES"] = ATTRIBUTE_NAMES;
+
+
+const CUSTOM_THEME_ATTRIBUTES = [
+  ATTRIBUTE_NAMES.TITLE_COLOR,
+  ATTRIBUTE_NAMES.TITLE_HOVER_COLOR,
+  ATTRIBUTE_NAMES.ARROW_COLOR,
+  ATTRIBUTE_NAMES.ARROW_HOVER_COLOR,
+  ATTRIBUTE_NAMES.EVENT_DATE_COLOR,
+  ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR,
+  ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR,
+];
+/* harmony export (immutable) */ __webpack_exports__["CUSTOM_THEME_ATTRIBUTES"] = CUSTOM_THEME_ATTRIBUTES;
+
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95,7 +130,7 @@ const sendEvent = (widgetCategory, widgetEvent) => {
   ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
 };
 
-const initialize = (widgetName) => {
+const initialize = (widgetCategory) => {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -105,7 +140,7 @@ const initialize = (widgetName) => {
   ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
 
   ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -117,7 +152,7 @@ const initialize = (widgetName) => {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -125,13 +160,60 @@ const initialize = (widgetName) => {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _widgetsAnalytics = __webpack_require__(0);
+var _ELEMENTS_STYLED_BY_A;
+
+var _widgetsAnalytics = __webpack_require__(1);
 
 var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
+
+var _attributeNames = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ELEMENTS_STYLED_BY_ATTRIBUTES = (_ELEMENTS_STYLED_BY_A = {}, _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.TITLE_COLOR, [{
+  selector: '.event-name',
+  stylePropName: 'color'
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.TITLE_HOVER_COLOR, [{
+  selector: '.event-name:hover',
+  stylePropName: 'color'
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.ARROW_COLOR, [{
+  selector: '.events_control-right',
+  stylePropName: 'border-color',
+  getValue: function getValue(value) {
+    return 'transparent transparent transparent ' + value;
+  }
+}, {
+  selector: '.events_control-left',
+  stylePropName: 'border-color',
+  getValue: function getValue(value) {
+    return 'transparent ' + value + ' transparent transparent ';
+  }
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.ARROW_HOVER_COLOR, [{
+  selector: '.events_control-right:hover',
+  stylePropName: 'border-color',
+  getValue: function getValue(value) {
+    return 'transparent transparent transparent ' + value;
+  }
+}, {
+  selector: '.events_control-left:hover',
+  stylePropName: 'border-color',
+  getValue: function getValue(value) {
+    return 'transparent ' + value + ' transparent transparent ';
+  }
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENT_DATE_COLOR, [{
+  selector: '.event-date',
+  stylePropName: 'color'
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR, [{
+  selector: '.event-address',
+  stylePropName: 'color'
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR, [{
+  selector: '.events-counter',
+  stylePropName: 'color'
+}]), _ELEMENTS_STYLED_BY_A);
 
 _widgetsAnalytics2.default.initialize(_widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
 
@@ -145,6 +227,13 @@ var TicketmasterEventDiscoveryWidget = function () {
         return false;
       }
       return true;
+    }
+  }, {
+    key: 'setUniqueWidgetId',
+    value: function setUniqueWidgetId() {
+      if (!this.widgetRoot.getAttribute(_attributeNames.ATTRIBUTE_NAMES.ID)) {
+        this.widgetRoot.setAttribute(_attributeNames.ATTRIBUTE_NAMES.ID, 'id_' + Math.random().toString(36).substring(7));
+      }
     }
   }, {
     key: 'config',
@@ -245,7 +334,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4750";
+      return '' + "1.0.-4860";
     }
   }, {
     key: 'geocodeUrl',
@@ -369,6 +458,7 @@ var TicketmasterEventDiscoveryWidget = function () {
     if (!root) return;
     this.widgetRoot = root;
     if (this.widgetRoot.querySelector('.events-root-container') === null) {
+      this.setUniqueWidgetId();
       this.eventsRootContainer = document.createElement("div");
       this.eventsRootContainer.classList.add("events-root-container");
       this.widgetRoot.appendChild(this.eventsRootContainer);
@@ -441,85 +531,124 @@ var TicketmasterEventDiscoveryWidget = function () {
       }
 
       _widgetsAnalytics2.default.sendEvent(_widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, _widgetsAnalytics2.default.EVENT_NAME.RENDERED);
+
+      this.loadCustomStyle();
     }
   }
 
   _createClass(TicketmasterEventDiscoveryWidget, [{
-    key: 'getCoordinates',
-    value: function getCoordinates(cb) {
-      var widget = this;
+    key: 'setRuleForStyleSheet',
+    value: function setRuleForStyleSheet(styleSheet, selector, rule) {
+      var widgetId = this.widgetRoot.getAttribute(_attributeNames.ATTRIBUTE_NAMES.ID);
 
-      function parseGoogleGeocodeResponse() {
-        if (this && this.readyState === XMLHttpRequest.DONE) {
-          var latlong = '',
-              results = null,
-              countryShortName = '';
-          if (this.status === 200) {
-            var response = JSON.parse(this.responseText);
-            if (response.status === 'OK' && response.results.length) {
-              // Filtering only white list countries
-              results = response.results.filter(function (item) {
-                return widget.countriesWhiteList.filter(function (elem) {
-                  return elem === item.address_components[item.address_components.length - 1].long_name;
-                }).length > 0;
+      styleSheet.addRule('div[w-id=' + widgetId + '] ' + selector, rule);
+      styleSheet.insertRule('div[w-id=' + widgetId + '] ' + selector + ' { ' + rule + ' }');
+    }
+  }, {
+    key: 'getStyleSheetNode',
+    value: function getStyleSheetNode() {
+      var sheet = void 0;
+      if (this.widgetRoot.getElementsByTagName('style')[0] === undefined) {
+        var cusStyle = document.createElement('style');
+        this.widgetRoot.appendChild(cusStyle);
+        sheet = cusStyle.sheet;
+      } else {
+        sheet = this.widgetRoot.getElementsByTagName('style')[0].sheet;
+      }
+      return sheet;
+    }
+  }, {
+    key: 'loadCustomStyle',
+    value: function loadCustomStyle() {
+      var _this2 = this;
+
+      _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
+        var attributeValue = _this2.widgetRoot.getAttribute(themeAttribute);
+        if (attributeValue) {
+          ELEMENTS_STYLED_BY_ATTRIBUTES[themeAttribute].forEach(function (element) {
+            var value = element.getValue ? element.getValue(attributeValue) : attributeValue;
+            _this2.setRuleForStyleSheet(_this2.getStyleSheetNode(), element.selector, element.stylePropName + ': ' + value);
+          });
+        }
+      });
+    }
+  }, {
+    key: 'parseGoogleGeocodeResponse',
+    value: function parseGoogleGeocodeResponse(cb) {
+      var widget = this;
+      if (this && this.readyState === XMLHttpRequest.DONE) {
+        var latlong = '',
+            results = null,
+            countryShortName = '';
+        if (this.status === 200) {
+          var response = JSON.parse(this.responseText);
+          if (response.status === 'OK' && response.results.length) {
+            // Filtering only white list countries
+            results = response.results.filter(function (item) {
+              return widget.countriesWhiteList.filter(function (elem) {
+                return elem === item.address_components[item.address_components.length - 1].long_name;
+              }).length > 0;
+            });
+
+            if (results.length) {
+              // sorting results by country name
+              results.sort(function (f, g) {
+                var a = f.address_components[f.address_components.length - 1].long_name;
+                var b = g.address_components[g.address_components.length - 1].long_name;
+                if (a > b) {
+                  return 1;
+                }
+                if (a < b) {
+                  return -1;
+                }
+                return 0;
               });
 
-              if (results.length) {
-                // sorting results by country name
-                results.sort(function (f, g) {
-                  var a = f.address_components[f.address_components.length - 1].long_name;
-                  var b = g.address_components[g.address_components.length - 1].long_name;
-                  if (a > b) {
-                    return 1;
-                  }
-                  if (a < b) {
-                    return -1;
-                  }
-                  return 0;
-                });
+              // Use first item if multiple results was found in one country or in different
+              var geometry = results[0].geometry;
+              countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
 
-                // Use first item if multiple results was found in one country or in different
-                var geometry = results[0].geometry;
-                countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
-
-                // If multiple results without country try to find USA as prefer value
-                if (!widget.config.country) {
-                  for (var i in results) {
-                    var result = results[i];
-                    if (result.address_components) {
-                      var country = result.address_components[result.address_components.length - 1];
-                      if (country) {
-                        if (country.short_name === 'US') {
-                          countryShortName = 'US';
-                          geometry = result.geometry;
-                        }
+              // If multiple results without country try to find USA as prefer value
+              if (!widget.config.country) {
+                for (var i in results) {
+                  var result = results[i];
+                  if (result.address_components) {
+                    var country = result.address_components[result.address_components.length - 1];
+                    if (country) {
+                      if (country.short_name === 'US') {
+                        countryShortName = 'US';
+                        geometry = result.geometry;
                       }
                     }
                   }
                 }
-
-                if (geometry) {
-                  if (geometry.location) {
-                    latlong = geometry.location.lat + ',' + geometry.location.lng;
-                  }
-                }
-              } else {
-                results = null;
               }
+
+              if (geometry) {
+                if (geometry.location) {
+                  latlong = geometry.location.lat + ',' + geometry.location.lng;
+                }
+              }
+            } else {
+              results = null;
             }
           }
-          // Used in builder
-          if (widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
-          widget.config.latlong = latlong;
-          cb(widget.config.latlong);
         }
+        // Used in builder
+        if (widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
+        widget.config.latlong = latlong;
+        cb(widget.config.latlong);
       }
-
+    }
+  }, {
+    key: 'getCoordinates',
+    value: function getCoordinates(cb) {
+      var widget = this;
       if (this.isConfigAttrExistAndNotEmpty('postalcode')) {
         var args = { language: 'en', components: 'postal_code:' + widget.config.postalcode };
         if (widget.config.googleapikey) args.key = widget.config.googleapikey;
         if (this.config.country) args.components += '|country:' + this.config.country;
-        this.makeRequest(parseGoogleGeocodeResponse, this.geocodeUrl, args);
+        this.makeRequest(this.parseGoogleGeocodeResponse.bind(widget, cb), this.geocodeUrl, args);
       } else {
         // Used in builder
         if (widget.onLoadCoordinate) widget.onLoadCoordinate(null);
@@ -531,7 +660,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'initBuyBtn',
     value: function initBuyBtn() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.buyBtn = document.createElement("a");
       this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
@@ -541,7 +670,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       this.buyBtn.href = '';
       this.buyBtn.addEventListener('click', function (e) {
         // e.preventDefault(); /*used in plugins for 'buy button'*/
-        _this2.stopAutoSlideX();
+        _this3.stopAutoSlideX();
         ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
         ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
       });
@@ -656,7 +785,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'initMessage',
     value: function initMessage() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.messageDialog = document.createElement('div');
       this.messageDialog.classList.add("event-message");
@@ -666,7 +795,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       var messageClose = document.createElement('div');
       messageClose.classList.add("event-message__btn");
       messageClose.addEventListener("click", function () {
-        _this3.hideMessage();
+        _this4.hideMessage();
       });
 
       this.messageDialog.appendChild(this.messageContent);
@@ -688,11 +817,11 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'hideMessageWithDelay',
     value: function hideMessageWithDelay(delay) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.messageTimeout) clearTimeout(this.messageTimeout); // Clear timeout if this method was called before
       this.messageTimeout = setTimeout(function () {
-        _this4.hideMessage();
+        _this5.hideMessage();
       }, delay);
     }
   }, {
@@ -851,11 +980,11 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'setSlideManually',
     value: function setSlideManually(slideIndex, isDirectionX) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.stopAutoSlideX();
       this.sliderTimeout = setTimeout(function () {
-        _this5.runAutoSlideX();
+        _this6.runAutoSlideX();
       }, this.sliderRestartDelay);
       if (isDirectionX) this.goToSlideX(slideIndex);else this.goToSlideY(slideIndex);
     }
@@ -886,13 +1015,13 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'runAutoSlideX',
     value: function runAutoSlideX() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this.slideCountX > 1) {
         this.sliderInterval = setInterval(function () {
           var slideIndex = 0;
-          if (_this6.slideCountX - 1 > _this6.currentSlideX) slideIndex = _this6.currentSlideX + 1;
-          _this6.goToSlideX(slideIndex);
+          if (_this7.slideCountX - 1 > _this7.currentSlideX) slideIndex = _this7.currentSlideX + 1;
+          _this7.goToSlideX(slideIndex);
         }, this.sliderDelay);
       }
     }
@@ -905,7 +1034,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'initSliderControls',
     value: function initSliderControls() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.currentSlideX = 0;
       this.currentSlideY = 0;
@@ -961,8 +1090,8 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       var transitionEvent = whichTransitionEvent();
       transitionEvent && this.eventsRoot.addEventListener(transitionEvent, function (e) {
-        if (_this7.eventsRoot !== e.target) return;
-        var eventGroup = _this7.eventsRoot.getElementsByClassName("event-group");
+        if (_this8.eventsRoot !== e.target) return;
+        var eventGroup = _this8.eventsRoot.getElementsByClassName("event-group");
         // Reset all groups. We don't know what event group was visible before.
         for (var _i5 = 0; eventGroup.length > _i5; _i5++) {
           eventGroup[_i5].style.marginTop = 0;
@@ -971,19 +1100,19 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       // Arrows
       this.prevEventX.addEventListener("click", function () {
-        _this7.prevSlideX();
+        _this8.prevSlideX();
       });
 
       this.nextEventX.addEventListener("click", function () {
-        _this7.nextSlideX();
+        _this8.nextSlideX();
       });
 
       this.prevEventY.addEventListener("click", function () {
-        _this7.prevSlideY();
+        _this8.prevSlideY();
       });
 
       this.nextEventY.addEventListener("click", function () {
-        _this7.nextSlideY();
+        _this8.nextSlideY();
       });
 
       // Tough device swipes
@@ -1016,16 +1145,16 @@ var TicketmasterEventDiscoveryWidget = function () {
       }
 
       this.eventsRootContainer.addEventListener('touchstart', function (e) {
-        if (_this7.config.theme !== "listview" && _this7.config.theme !== "listviewthumbnails") {
+        if (_this8.config.theme !== "listview" && _this8.config.theme !== "listviewthumbnails") {
           if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault();
         }
-        handleTouchStart.call(_this7, e);
+        handleTouchStart.call(_this8, e);
       }, false);
       this.eventsRootContainer.addEventListener('touchmove', function (e) {
-        if (_this7.config.theme !== "listview" && _this7.config.theme !== "listviewthumbnails") {
+        if (_this8.config.theme !== "listview" && _this8.config.theme !== "listviewthumbnails") {
           if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault();
         }
-        handleTouchMove.call(_this7, e);
+        handleTouchMove.call(_this8, e);
       }, false);
     }
   }, {
@@ -1167,7 +1296,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'update',
     value: function update() {
-      var _this8 = this;
+      var _this9 = this;
 
       var oldTheme = this.config.constructor();
       for (var attr in this.config) {
@@ -1201,7 +1330,7 @@ var TicketmasterEventDiscoveryWidget = function () {
         }
 
         this.getCoordinates(function () {
-          _this8.makeRequest(_this8.eventsLoadingHandler, _this8.apiUrl, _this8.eventReqAttrs);
+          _this9.makeRequest(_this9.eventsLoadingHandler, _this9.apiUrl, _this9.eventReqAttrs);
         });
 
         if (this.isListView || this.isListViewThumbnails) this.addScroll();
@@ -1220,6 +1349,8 @@ var TicketmasterEventDiscoveryWidget = function () {
           this.goToSlideY(0);
         }
       }
+
+      this.loadCustomStyle();
     }
   }, {
     key: 'needToUpdate',
@@ -1380,7 +1511,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'publishEventsGroup',
     value: function publishEventsGroup(group, index) {
-      var _this9 = this;
+      var _this10 = this;
 
       var groupNodeWrapper = document.createElement("li");
       groupNodeWrapper.classList.add("event-wrapper");
@@ -1394,7 +1525,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       groupNode.classList.add("event-group-" + index);
 
       group.map(function (event) {
-        _this9.publishEvent(event, groupNode);
+        _this10.publishEvent(event, groupNode);
       });
 
       groupNodeWrapper.appendChild(groupNode);
@@ -1619,8 +1750,8 @@ var TicketmasterEventDiscoveryWidget = function () {
       }
     }
   }, {
-    key: 'addScroll',
-    value: function addScroll() {
+    key: 'addSimpleScrollBar',
+    value: function addSimpleScrollBar() {
       (function (n, t) {
         function u(n) {
           n.hasOwnProperty("data-simple-scrollbar") || Object.defineProperty(n, "data-simple-scrollbar", new SimpleScrollbar(n));
@@ -1652,6 +1783,11 @@ var TicketmasterEventDiscoveryWidget = function () {
             });
           } };t.addEventListener("DOMContentLoaded", f);i.initEl = u;i.initAll = f;n.SimpleScrollbar = i;
       })(window, document);
+    }
+  }, {
+    key: 'addScroll',
+    value: function addScroll() {
+      this.addSimpleScrollBar();
       // var scrollRoot = document.getElementsByClassName("ss")[0];
       var scrollRoot = document.querySelector('.ss');
       SimpleScrollbar.initEl(scrollRoot);

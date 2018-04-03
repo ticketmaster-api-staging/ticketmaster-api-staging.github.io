@@ -302,6 +302,10 @@ input[type=radio   ]:not(old) + label{
   display      : inline-block;
   margin-left  : -2em;
   line-height  : 1.5em;
+
+  &.display-none {
+    display: none;
+  }
 }
 
 input[type=radio   ]:not(old) + label > span{
@@ -585,6 +589,10 @@ input[type=range]:focus::-ms-fill-upper {
 
 .clearfix {
   clear: both;
+}
+
+.display-none {
+  display: none;
 }
 
 @media (max-width: 1199px) {

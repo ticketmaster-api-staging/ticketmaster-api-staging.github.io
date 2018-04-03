@@ -24,6 +24,7 @@
     "start-watch": "jekyll serve --watch --incremental --force_polling --limit_posts 1",
     "webpack": "npm run build-swagger-api && webpack -w",
     "test": "bnr swaggerMerge:test && node spec/jest.js --env=jsdom",
+		"jest": "jest --env=jsdom --watch",
     "build-swagger-api": "bnr swaggerMerge:MultipleTestAPI && bnr swaggerMerge:CommerceAPI && bnr swaggerMerge:CommerceAPI:internal"
   },
   "betterScripts": {

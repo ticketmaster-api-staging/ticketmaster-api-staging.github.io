@@ -690,3 +690,12 @@ input[type="checkbox"]:checked+label:after {
 	top: 7px;
 }
 
+.widget {
+  &__color_scheme_custom {
+    .color-picker {
+      position: relative;
+      z-index: 0;
+    }
+  }
+}
+
