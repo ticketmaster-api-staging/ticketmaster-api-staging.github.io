@@ -1,4 +1,5 @@
-import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
+import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES, ATTRIBUTE_VALUES, AVAILABLE_CUSTOM_FIELDS_FOR_THEME} from './attribute-names';
+import difference from 'lodash/difference';
 
 (function(){
 
@@ -63,8 +64,11 @@ import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
       },
       isPostalCodeChanged = false;
 
-      let $darkSchemeSelector = $('.widget__dark-theme-selector');
-      let $customColorSchemeSelector = $('.widget__color_scheme_custom');
+  const $darkSchemeSelector = $('.widget__dark-theme-selector');
+  const $customColorSchemeSelector = $('.widget__color_scheme_custom');
+  const widgetNode = document.querySelector('div[w-type="event-discovery"]');
+
+  let selectedColorTheme = ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
 
   $('#js_styling_nav_tab').on('shown.bs.tab', function () {
     windowScroll(); //recalculate widget container position
@@ -219,14 +223,47 @@ import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
 
   function clearCustomStyles() {
     const widgetNode = document.querySelector('div[w-type="event-discovery"]');
+    const customSheet = widgetNode.getElementsByTagName('style')[0];
 
     CUSTOM_THEME_ATTRIBUTES.forEach((customAttribute) => widgetNode.removeAttribute(customAttribute));
 
-    let customSheet = document.querySelector('div[w-type="event-discovery"]').getElementsByTagName('style')[0];
-    if (customSheet != undefined) {
+    if (customSheet !== undefined) {
       customSheet.parentNode.removeChild(customSheet);
     }
-  };
+  }
+
+  function handleThemeClick({target: {name: targetName, value: newTheme}}) {
+    if(targetName === ATTRIBUTE_NAMES.WIDGET_THEME) {
+      if(newTheme === ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE) {
+        $darkSchemeSelector.hide();
+      }else{
+        $darkSchemeSelector.show();
+      }
+
+      if(widgetNode.getAttribute(ATTRIBUTE_NAMES.WIDGET_LAYOUT) === ATTRIBUTE_VALUES.WIDGET_LAYOUT.HORIZONTAL) {
+        widgetNode.setAttribute(ATTRIBUTE_NAMES.WIDGET_HEIGHT, getHeightByTheme(newTheme));
+      }
+      widgetNode.setAttribute(ATTRIBUTE_NAMES.WIDGET_BORDER, getBorderByTheme(newTheme));
+
+      updateCustomColorFields(selectedColorTheme, newTheme);
+      selectedColorTheme = newTheme;
+    }
+  }
+
+  function updateCustomColorFields(oldTheme, newTheme) {
+    const currentCustomFieldsForTheme = AVAILABLE_CUSTOM_FIELDS_FOR_THEME[oldTheme];
+    const newCustomFieldsForTheme = AVAILABLE_CUSTOM_FIELDS_FOR_THEME[newTheme];
+    const fieldsToRemove = difference(currentCustomFieldsForTheme, newCustomFieldsForTheme);
+    const fieldsToAdd = difference(newCustomFieldsForTheme, currentCustomFieldsForTheme);
+
+    fieldsToRemove.forEach((field) => {
+      $(`#${field}-container`).hide();
+      widgetNode.removeAttribute(field);
+    });
+    fieldsToAdd.forEach((field) => {
+      $(`#${field}-container`).show();
+    });
+  }
 
   var changeState = function(event){
     if(!event.target.name || event.target.name === "w-googleapikey") return;
@@ -264,19 +301,9 @@ import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
 
     handleCustomColorSchemeClick(event);
     handleCustomFieldClick(event);
+    handleThemeClick(event);
 
-    if(targetName === "w-theme"){
-      if(targetValue === 'simple'){
-        $darkSchemeSelector.hide();
-      }else{
-        $darkSchemeSelector.show();
-      }
 
-      if(widgetNode.getAttribute('w-layout') === 'horizontal'){
-        widgetNode.setAttribute('w-height', getHeightByTheme(targetValue));
-      }
-      widgetNode.setAttribute('w-border', getBorderByTheme(targetValue));
-    }
 
     if(targetName === "w-layout"){
       let sizeConfig = themeConfig.initSliderSize;

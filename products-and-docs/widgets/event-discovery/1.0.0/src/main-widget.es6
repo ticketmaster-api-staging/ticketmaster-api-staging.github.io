@@ -46,6 +46,14 @@ const ELEMENTS_STYLED_BY_ATTRIBUTES = {
     selector: '.events-counter',
     stylePropName: 'color',
   }],
+  [ATTRIBUTE_NAMES.BORDER_COLOR]: [{
+    selector: '.events-root-container',
+    stylePropName: 'border-color',
+  }],
+  [ATTRIBUTE_NAMES.BACKGROUND_COLOR]: [{
+    selector: '.events-root-container',
+    stylePropName: 'background',
+  }],
 };
 
 widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
