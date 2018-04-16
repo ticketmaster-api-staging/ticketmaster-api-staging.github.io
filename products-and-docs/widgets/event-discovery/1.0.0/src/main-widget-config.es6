@@ -1,3 +1,6 @@
+import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES, ATTRIBUTE_VALUES, AVAILABLE_CUSTOM_FIELDS_FOR_THEME} from './attribute-names';
+import difference from 'lodash/difference';
+
 (function(){
 
   const DEFAULT_API_KEY = apiKeyService.checkApiKeyCookie() || apiKeyService.getApiWidgetsKey();
@@ -61,22 +64,13 @@
       },
       isPostalCodeChanged = false;
 
-  /*
-  var $widthController = $('#w-width').slider({
-        tooltip: 'always',
-        handle: 'square'
-      }),
+  const $darkSchemeSelector = $('.widget__dark-theme-selector');
+  const $customColorSchemeSelector = $('.widget__color_scheme_custom');
+  const widgetNode = document.querySelector('div[w-type="event-discovery"]');
 
-      $borderRadiusController = $('#w-borderradius').slider({
-        tooltip: 'always',
-        handle: 'square'
-      }),
-      */
-      var $colorSchemeSelector = $('.widget__color_scheme_control');
+  let selectedColorTheme = ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
 
-  $('#js_styling_nav_tab').on('shown.bs.tab', function (e) {
-    // $widthController.slider('relayout');
-    /* $borderRadiusController.slider('relayout'); */
+  $('#js_styling_nav_tab').on('shown.bs.tab', function () {
     windowScroll(); //recalculate widget container position
   });
 
@@ -198,6 +192,78 @@
     }
   };
 
+  function handleCustomColorSchemeClick(event) {
+    if (event.target.name === 'w-colorscheme') {
+      if (event.target.value === 'custom') {
+        $customColorSchemeSelector.show();
+      } else {
+        $customColorSchemeSelector.hide();
+        clearCustomStyles();
+        resetCustomColorInputs();
+      }
+    }
+  }
+
+  function resetCustomColorInputs() {
+    CUSTOM_THEME_ATTRIBUTES.forEach((custom) => {
+      const $customColorInput = $(`#${custom}`);
+      $customColorInput.minicolors('value', $customColorInput.attr(ATTRIBUTE_NAMES.DEFAULT_VALUE));
+    });
+  }
+
+  function handleCustomFieldClick(event) {
+    const widgetNode = document.querySelector('div[w-type="event-discovery"]');
+    const {target: {name: targetName, value: targetValue}} = event;
+    CUSTOM_THEME_ATTRIBUTES.forEach((themeAttribute) => {
+      if (targetName === themeAttribute) {
+        widgetNode.setAttribute(themeAttribute, targetValue);
+      }
+    });
+  }
+
+  function clearCustomStyles() {
+    const widgetNode = document.querySelector('div[w-type="event-discovery"]');
+    const customSheet = widgetNode.getElementsByTagName('style')[0];
+
+    CUSTOM_THEME_ATTRIBUTES.forEach((customAttribute) => widgetNode.removeAttribute(customAttribute));
+
+    if (customSheet !== undefined) {
+      customSheet.parentNode.removeChild(customSheet);
+    }
+  }
+
+  function handleThemeClick({target: {name: targetName, value: newTheme}}) {
+    if(targetName === ATTRIBUTE_NAMES.WIDGET_THEME) {
+      if(newTheme === ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE) {
+        $darkSchemeSelector.hide();
+      }else{
+        $darkSchemeSelector.show();
+      }
+
+      if(widgetNode.getAttribute(ATTRIBUTE_NAMES.WIDGET_LAYOUT) === ATTRIBUTE_VALUES.WIDGET_LAYOUT.HORIZONTAL) {
+        widgetNode.setAttribute(ATTRIBUTE_NAMES.WIDGET_HEIGHT, getHeightByTheme(newTheme));
+      }
+      widgetNode.setAttribute(ATTRIBUTE_NAMES.WIDGET_BORDER, getBorderByTheme(newTheme));
+
+      updateCustomColorFields(selectedColorTheme, newTheme);
+      selectedColorTheme = newTheme;
+    }
+  }
+
+  function updateCustomColorFields(oldTheme, newTheme) {
+    const currentCustomFieldsForTheme = AVAILABLE_CUSTOM_FIELDS_FOR_THEME[oldTheme];
+    const newCustomFieldsForTheme = AVAILABLE_CUSTOM_FIELDS_FOR_THEME[newTheme];
+    const fieldsToRemove = difference(currentCustomFieldsForTheme, newCustomFieldsForTheme);
+    const fieldsToAdd = difference(newCustomFieldsForTheme, currentCustomFieldsForTheme);
+
+    fieldsToRemove.forEach((field) => {
+      $(`#${field}-container`).hide();
+      widgetNode.removeAttribute(field);
+    });
+    fieldsToAdd.forEach((field) => {
+      $(`#${field}-container`).show();
+    });
+  }
 
   var changeState = function(event){
     if(!event.target.name || event.target.name === "w-googleapikey") return;
@@ -207,31 +273,9 @@
         targetName = event.target.name,
         $tabButtons = $('.js-tab-buttons');
 
-    if(targetName === "w-tm-api-key") {    }
-
     if(targetName === "w-postalcodeapi"){
       widgetNode.setAttribute('w-country', '');
       isPostalCodeChanged = true;
-
-      /*
-       var numInputClass = document.getElementById('w-radius');
-       var incArrow = event.target.parentNode.nextElementSibling.querySelector('div').querySelector('.arrow__inc');
-       var decArrow = event.target.parentNode.nextElementSibling.querySelector('div').querySelector('.arrow__dec');
-
-       if (targetValue == '') {
-       numInputClass.setAttribute('disabled', 'disabled');
-       numInputClass.value = '';
-       incArrow.classList.add('disabled');
-       decArrow.classList.add('disabled');
-       }
-       else {
-       numInputClass.removeAttribute('disabled');
-       numInputClass.value = '25';
-       incArrow.classList.remove('disabled');
-       decArrow.classList.remove('disabled');
-       widgetNode.setAttribute('w-radius', '25');
-       }
-       */
     }
 
     if(targetName === "w-latlong"){
@@ -255,18 +299,11 @@
         }
     }
 
-    if(targetName === "w-theme"){
-      if(targetValue === 'simple'){
-        $colorSchemeSelector.hide();
-      }else{
-        $colorSchemeSelector.show();
-      }
+    handleCustomColorSchemeClick(event);
+    handleCustomFieldClick(event);
+    handleThemeClick(event);
 
-      if(widgetNode.getAttribute('w-layout') === 'horizontal'){
-        widgetNode.setAttribute('w-height', getHeightByTheme(targetValue));
-      }
-      widgetNode.setAttribute('w-border', getBorderByTheme(targetValue));
-    }
+
 
     if(targetName === "w-layout"){
       let sizeConfig = themeConfig.initSliderSize;
@@ -290,13 +327,6 @@
         $containerWidget.css({ width: 'auto' });
         $(".widget-container", $containerWidget).css({ width: 'auto' });
 
-        /*
-        $widthController.slider({
-          setValue: sizeConfig.width,
-          max: sizeConfig.maxWidth,
-          min: sizeConfig.minWidth
-        }).slider('refresh');
-        */
       }
             
       widgetNode.setAttribute('w-width', sizeConfig.width);
@@ -333,14 +363,7 @@
           maxWidth: themeConfig.initSliderSize.maxWidth,  //500
           minWidth: themeConfig.initSliderSize.minWidth // 350
         };
-        /*
-        $widthController.slider({
-          setValue: sizeConfig.width,
-          max: sizeConfig.maxWidth,
-          min: sizeConfig.minWidth
-        })
-            .slider('refresh');
-         */
+
       }
       widgetNode.setAttribute('w-width', sizeConfig.width);
       widgetNode.setAttribute('w-height', sizeConfig.height);
@@ -615,5 +638,7 @@
             widget.update();
         }
     });
+
+    $('.color-picker').minicolors();
 
 })();

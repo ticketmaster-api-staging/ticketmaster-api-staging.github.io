@@ -1,946 +1,1334 @@
-var $ = require('jquery');
+jest.mock('products-and-docs/widgets/helpers/widgets-analytics.js');
+
+let $ = require('jquery');
 window.$ = window.jQuery = $;
 
-describe("EDWWidget", () => {
-	let widget,
-		module,
-		hideMessageDelay;
-	var setFixture = () => {
-		document.body.innerHTML =
-			'<head></head><div w-type="event-discovery" w-tmapikey="y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1" w-googleapikey="AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA" w-keyword="" w-theme="ListView" w-colorscheme="light" w-width="350" w-height="600" w-size="25" w-border="0" w-borderradius="4" w-postalcode="" w-radius="" w-period="week" w-layout="vertical" w-attractionid="" w-promoterid="" w-venueid="" w-affiliateid="" w-segmentid="" w-proportion="custom" w-titlelink="off" w-countrycode="US" w-source="" w-latlong=","><div class="event-logo centered-logo"></div><div class="event-date centered-logo"></div></div>';
-	};
+import {TicketmasterEventDiscoveryWidget} from 'products-and-docs/widgets/event-discovery/1.0.0/src/main-widget.es6';
+
+describe('EDWWidget', () => {
+  let widget;
+  const documentCreateElementDefault = document.createElement;
+  const documentCreateTextNodeDefault = document.createTextNode;
+  let setFixture = () => {
+    document.body.innerHTML =
+      '<head></head><div w-type="event-discovery" w-tmapikey="y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1" w-googleapikey="AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA" w-keyword="" w-theme="ListView" w-colorscheme="light" w-width="350" w-height="600" w-size="25" w-border="0" w-borderradius="4" w-postalcode="" w-radius="" w-period="week" w-layout="vertical" w-attractionid="" w-promoterid="" w-venueid="" w-affiliateid="" w-segmentid="" w-proportion="custom" w-titlelink="off" w-countrycode="US" w-source="" w-latlong=","><div class="event-logo centered-logo"></div><div class="event-date centered-logo"></div></div>';
+  };
+
 	beforeAll(() => {
-		window.__VERSION__ = 'mockedVersion';
-		setFixture();
-		module = require('products-and-docs/widgets/event-discovery/1.0.0/src/main-widget.es6');
-		widget = new module.TicketmasterEventDiscoveryWidget(document.querySelector('div[w-type="event-discovery"]'));
+    window.__VERSION__ = 'mockedVersion';
+    window.ga = jest.fn();
 	});
 
-	beforeEach(function() {
-		spyOn(widget, 'clear');
-		spyOn(widget, 'hideMessage');
-		spyOn(widget, 'showMessage');
-		spyOn(widget, 'publishEvent');
+	beforeEach(() => {
+    setFixture();
+    widget = new TicketmasterEventDiscoveryWidget(document.querySelector('div[w-type="event-discovery"]'));
+    widget.getStyleSheetNode = jest.fn().mockReturnValue({
+      addRule: jest.fn(),
+      insertRule: jest.fn(),
+    });
 	});
 
-	it('widget should be BeDefined', () => {
-		expect(widget).toBeDefined();
-	});
+  describe('getters and setters', () => {
+    it('#events should be empty array when widget.events._embedded is falsy', () => {
+      widget.getStyleSheetNode = jest.fn().mockReturnValue({
+        addRule: jest.fn(),
+        insertRule: jest.fn(),
+      });
+      widget.events = {};
+      expect(widget.events).toEqual([]);
+    });
 
-	it('widget #themeUrl should be BeDefined', function(){
-		expect(widget.themeUrl).toBe('https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/');
-		Object.defineProperty(window.location, 'host', {
-			writable: true,
-			value: 'developer.ticketmaster.com'
-		});
-		expect(widget.themeUrl).toBe('https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/');
-	});
+    it('#isListView should be true', () => {
+      widget.widgetConfig = {
+        theme: 'listview',
+      };
+      expect(widget.isListView).toBeTruthy();
+    });
 
-	it('widget #portalUrl should be Defined', function(){
-		expect(widget.portalUrl).toBe('https://developer.ticketmaster.com/');
-		Object.defineProperty(window.location, 'host', {
-			writable: true,
-			value: 'developer.ticketmaster.com'
-		});
-		expect(widget.portalUrl).toBe('https://developer.ticketmaster.com/');
-	});
+    it('#isListViewThumbnails should be true', () => {
+      widget.widgetConfig = {
+        theme: 'listviewthumbnails',
+      };
+      expect(widget.isListViewThumbnails).toBeTruthy();
+    });
 
-	it('#events should be Defined', () => {
-		widget.events;
-		expect(widget.events).toBeUndefined();
-	});
+    it('#isFullWidth should be true', () => {
+      widget.widgetConfig = {
+        layout: 'fullwidth',
+      };
+      expect(widget.isFullWidth).toBeTruthy();
+    });
 
-	it('#isPosterTheme should be Defined', () => {
-		widget.widgetConfig = {
-			layout: 'simple'
-		}
-		expect(widget.isPosterTheme).toBeTruthy();
-	});
+    it('#isPosterTheme should be true', () => {
+      widget.widgetConfig = {
+        layout: 'simple',
+      };
+      expect(widget.isPosterTheme).toBeTruthy();
+    });
 
-	it('#widgetContentHeight should be Defined', () => {
-		widget.widgetConfig = {
-			height: 300,
-			theme:'listview'
-		}
-		widget.widgetContentHeight;
-		expect(widget.widgetContentHeight).toBe(300);
-	});
+    it('#isBarcodeWidget should be true', () => {
+      widget.widgetConfig = {
+        theme: 'oldschool',
+      };
+      expect(widget.isBarcodeWidget).toBeTruthy();
+      widget.widgetConfig = {
+        theme: 'newschool',
+      };
+      expect(widget.isBarcodeWidget).toBeTruthy();
+    });
 
-	it('#isBarcodeWidget should be Defined', () => {
-		widget.widgetConfig = {
-			theme:'oldschool'
-		}
-		expect(widget.isBarcodeWidget).toBeTruthy();
-		widget.widgetConfig = {
-			theme:'newschool'
-		}
-		expect(widget.isBarcodeWidget).toBeTruthy();
-	});
+    it('#isSimpleProportionM should be true', () => {
+      widget.widgetConfig = {
+        proportion: 'm',
+      };
+      expect(widget.isSimpleProportionM).toBeTruthy();
+    });
 
-	it('#borderSize should be Defined', () => {
-		widget.widgetConfig = {
-			border: 1
-		}
-		expect(widget.borderSize).toBeTruthy();
-	});
+    it('#borderSize should be 1', () => {
+      widget.widgetConfig = {
+        border: 1,
+      };
+      expect(widget.borderSize).toBe(1);
+    });
 
-	it('#eventUrl should be https://www.ticketmaster.com/event/', function(){
-		widget.eventUrl;
-		expect(widget.eventUrl).toBe('https://www.ticketmaster.com/event/');
-	});
+    it('#widgetHeight should be 100', () => {
+      widget.widgetConfig = {
+        height: 100,
+      };
+      expect(widget.widgetHeight).toBe(100);
+    });
 
-	it('#geocodeUrl should be https://maps.googleapis.com/maps/api/geocode/json', function(){
-		widget.geocodeUrl;
-		expect(widget.geocodeUrl).toBe('https://maps.googleapis.com/maps/api/geocode/json');
-	});
+    it('#widgetContentHeight should be 300', () => {
+      widget.widgetConfig = {
+        height: 300,
+        theme: 'listview',
+      };
+      expect(widget.widgetContentHeight).toBe(300);
+    });
 
-	it('#updateExceptions should be "width", "height", "border", "borderradius", "colorscheme", "layout", "affiliateid", "propotion", "googleapikey"', function(){
-		widget.updateExceptions;
-		expect(widget.updateExceptions).toEqual(["width", "height", "border", "borderradius", "colorscheme", "layout", "affiliateid", "propotion", "googleapikey"]);
-	});
+    it('#eventUrl should be https://www.ticketmaster.com/event/', () => {
+      expect(widget.eventUrl).toBe('https://www.ticketmaster.com/event/');
+    });
 
-	it('#sliderDelay should be 500', function(){
-		expect(widget.sliderDelay).toBe(5000);
-	});
+    it('#apiUrl should be https://app.ticketmaster.com/discovery-widgets/v2/events.json', () => {
+      expect(widget.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events.json');
+    });
 
-	it('#sliderRestartDelay should be 500', function(){
-		expect(widget.sliderRestartDelay).toBe(5000);
-	});
+    it('#themeUrl should be Defined', () => {
+      expect(widget.themeUrl).toBe('https://ticketmaster-api-staging.github.io/products-and-docs/widgets/event-discovery/1.0.0/theme/');
+      Object.defineProperty(window.location, 'host', {
+        writable: true,
+        value: 'developer.ticketmaster.com',
+      });
+      expect(widget.themeUrl).toBe('https://developer.ticketmaster.com/products-and-docs/widgets/event-discovery/1.0.0/theme/');
+    });
 
-	it('#hideMessageDelay should be 500', function(){
-		expect(widget.hideMessageDelay).toBe(5000);
-	});
+    it('#portalUrl should be Defined', () => {
+      Object.defineProperty(window.location, 'host', {
+        writable: true,
+        value: 'https://ticketmaster-api-staging.github.io/',
+      });
+      expect(widget.portalUrl).toBe('https://ticketmaster-api-staging.github.io/');
+      Object.defineProperty(window.location, 'host', {
+        writable: true,
+        value: 'developer.ticketmaster.com',
+      });
+      expect(widget.portalUrl).toBe('https://developer.ticketmaster.com/');
+    });
 
-	it('widget #tmWidgetWhiteList should be BeDefined', function(){
-		expect(widget.tmWidgetWhiteList).toBeDefined();
-	});
+    it('#geocodeUrl should be https://maps.googleapis.com/maps/api/geocode/json', () => {
+      expect(widget.geocodeUrl).toBe('https://maps.googleapis.com/maps/api/geocode/json');
+    });
 
-	it('#countriesWhiteList should equal ["Australia", "Austria", "Belgium", "Canada", "Denmark", "Finland", "France", "Germany", "Ireland", "Mexico", "Netherlands", "New Zealand", "Norway", "Spain", "Sweden", "Turkey", "UAE", "United Kingdom", "United States"]', function(){
-		expect(widget.countriesWhiteList).toEqual(["Australia", "Austria", "Belgium", "Canada", "Denmark", "Finland", "France", "Germany", "Ireland", "Mexico", "Netherlands", "New Zealand", "Norway", "Spain", "Sweden", "Turkey", "UAE", "United Kingdom", "United States"]);
-	});
+    it('#updateExceptions should be array and contain elem width', () => {
+      expect(widget.updateExceptions).toContain('width');
+    });
 
-	it('#eventReqAttrs should be BeDefined', function(){
+    it('#sliderDelay should be 5000', () => {
+      expect(widget.sliderDelay).toBe(5000);
+    });
+
+    it('#sliderRestartDelay should be 5000', () => {
+      expect(widget.sliderRestartDelay).toBe(5000);
+    });
+
+    it('#hideMessageDelay should be 5000', () => {
+      expect(widget.hideMessageDelay).toBe(5000);
+    });
+
+    it('#tmWidgetWhiteList should contain 2200504BAD4C848F in array', () => {
+      expect(widget.tmWidgetWhiteList).toContain('2200504BAD4C848F');
+    });
+
+    it('widget #countriesWhiteList should be array and contain France', () => {
+      expect(widget.countriesWhiteList).toContain('France');
+    });
+  });
+
+  describe('DOM elements', () => {
+    const appendChildMock = jest.fn();
+    const createTextNodeMock = jest.fn();
+    const addMock = jest.fn();
+    const addEventListenerMock = jest.fn();
+    const eventsRootAppendChildMock = jest.fn();
+    const widgetRootAppendChildMock = jest.fn();
+    const setAttributeMock = jest.fn();
+
+    afterEach(() => {
+      document.createElement = documentCreateElementDefault;
+      document.createTextNode = documentCreateTextNodeDefault;
+    });
+
+    beforeEach(() => {
+      appendChildMock.mockReset();
+      createTextNodeMock.mockReset();
+      addMock.mockReset();
+      addEventListenerMock.mockReset();
+      eventsRootAppendChildMock.mockReset();
+      widgetRootAppendChildMock.mockReset();
+      setAttributeMock.mockReset();
+
+      widget.eventsRootContainer.appendChild = eventsRootAppendChildMock;
+      widget.widgetRoot.appendChild = widgetRootAppendChildMock;
+
+      document.createElement = jest.fn(() => {
+        return {
+          appendChild: appendChildMock,
+          createTextNode: createTextNodeMock,
+          classList: {
+            add: addMock,
+          },
+          addEventListener: addEventListenerMock,
+          setAttribute: setAttributeMock,
+        };
+      });
+      document.createTextNode = jest.fn(() => {
+        return {
+          appendChild: appendChildMock,
+          createTextNode: createTextNodeMock,
+          classList: {
+            add: addMock,
+          },
+          addEventListener: addEventListenerMock,
+        };
+      });
+    });
+
+    it('#initBuyBtn should create element', () => {
+      widget.initBuyBtn();
+      expect(appendChildMock).toHaveBeenCalled();
+      expect(addMock).toHaveBeenCalledTimes(2);
+      expect(addMock).toHaveBeenCalledWith('event-buy-btn');
+      expect(addMock).toHaveBeenCalledWith('main-btn');
+      expect(widget.buyBtn.target).toBe('_blank');
+      expect(widget.buyBtn.href).toBe('');
+    });
+
+    it('#oldSchoolModificator should create element with classList "modificator", "general-admission"', () => {
+      widget.oldSchoolModificator();
+      expect(addMock).toHaveBeenCalledWith('general-admission', 'modificator');
+      expect(appendChildMock).toHaveBeenCalledTimes(2);
+      expect(eventsRootAppendChildMock).toHaveBeenCalled();
+    });
+
+    it('#newSchoolModificator should create element with classList "modificator", "ticket-logo"', () => {
+      Object.defineProperty(window.location, 'host', {
+        writable: true,
+        value: 'developer.ticketmaster/.com',
+      });
+      widget.newSchoolModificator();
+      expect(addMock).toHaveBeenCalledWith('ticket-logo', 'modificator');
+      expect(setAttributeMock).toHaveBeenCalledTimes(8);
+      expect(setAttributeMock).toHaveBeenCalledWith('src', 'https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/ticketmaster-logo-white.svg');
+      expect(setAttributeMock).toHaveBeenCalledWith('height', '11');
+    });
+
+    /* TODO part */
+    it('#addBuyButton should be defined', () => {
+      widget.config.theme = 'listview';
+      widget.isUniversePluginInitialized = true;
+      widget.addBuyButton(widget.eventsRootContainer, 'ticketmaster.com');
+      expect(appendChildMock).toHaveBeenCalled();
+      expect(addMock).toHaveBeenCalledWith('event-buy-btn');
+      expect(widget.buyBtn.target).toBe('_blank');
+      expect(widget.buyBtn.href).toBe('');
+
+      document.querySelector('.event-buy-btn').click();
+      expect(ga).toHaveBeenCalledWith('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      expect(ga).toHaveBeenCalledWith('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+      expect(eventsRootAppendChildMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#isConfigAttrExistAndNotEmpty', () => {
+    it('#isConfigAttrExistAndNotEmpty should be true for widget.config.id', () => {
+      widget.config.id = 'someID';
+      expect(widget.isConfigAttrExistAndNotEmpty('id')).toBe(true);
+    });
+
+    it('#isConfigAttrExistAndNotEmpty should be false for widget.config.id', () => {
+      widget.config.id = '';
+      expect(widget.isConfigAttrExistAndNotEmpty('id')).toBe(false);
+    });
+  });
+
+	it('#eventReqAttrs should retrun object', () => {
 		widget.eventsRootContainer = document.querySelector('.events-root-container');
-		expect(widget.eventReqAttrs).toBeDefined();
 		widget.widgetConfig = {
+      tmapikey: 'test',
 			latlong: '34567.87,4589745',
 			postalcode: 90015,
-			tmapikey: 'test',
-			height: 350
-		}
-		expect(widget.isConfigAttrExistAndNotEmpty('height')).toBe(true);
-		expect(widget.eventReqAttrs).toBeDefined();
-		widget.widgetConfig = {
-			tmapikey: '',
+			height: 350,
+      theme: 'simple',
 		};
-		expect(widget.eventReqAttrs).toBeDefined();
-		widget.widgetRoot.setAttribute("w-latlong", null);
-		widget.eventReqAttrs;
+		expect(widget.isConfigAttrExistAndNotEmpty('tmapikey')).toBe(true);
+    expect(widget.isConfigAttrExistAndNotEmpty('venueid')).toBe(false);
+    expect(widget.eventReqAttrs).toEqual({'apikey': 'test'});
 	});
 
-	it('#getCoordinates should be Defined', () => {
-		let cb = function() {return true};
-		widget.widgetConfig = {
-			postalcode : '90015',
-			latlong: ''
-		};
-		expect(typeof(widget.getCoordinates(cb))).toBeDefined();
-		widget.onLoadCoordinate = function() {return true}
-		widget.getCoordinates(cb);
-		expect(typeof(widget.getCoordinates(cb))).toBeDefined();
-		var responseTxt = '{"results" : [{"address_components" : [{"long_name" : "90015", "short_name" : "90015", "types" : [ "postal_code" ]}, {"long_name" : "Los Angeles", "short_name" : "Los Angeles", "types" : [ "locality", "political" ]}, {"long_name" : "Los Angeles County", "short_name" : "Los Angeles County", "types" : [ "administrative_area_level_2", "political" ]}, {"long_name" : "California", "short_name" : "CA", "types" : [ "administrative_area_level_1", "political" ]}, {"long_name" : "United States", "short_name" : "US", "types" : [ "country", "political" ]}], "formatted_address" : "Los Angeles, CA 90015, USA", "geometry" : {"bounds" : {"northeast" : {"lat" : 34.053104, "lng" : -118.2492601}, "southwest" : {"lat" : 34.02588, "lng" : -118.282846}}, "location" : {"lat" : 34.0390107, "lng" : -118.2672801}, "location_type" : "APPROXIMATE", "viewport" : {"northeast" : {"lat" : 34.053104, "lng" : -118.2492601}, "southwest" : {"lat" : 34.02588, "lng" : -118.282846}}}, "place_id" : "ChIJl_m-TMbHwoARF4Uisg4Acpw", "types" : [ "postal_code" ]}],"status" : "OK"}';
-		widget.getCoordinates.bind({
-			countriesWhiteList: ['Australia', 'Austria', 'Belgium', 'Canada', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Spain', 'Sweden', 'Turkey', 'UAE', 'United Kingdom', 'United States'],
-			makeRequest:function(callback){
-				callback.bind({
-					status:200,
-					latlong: '34.0390107, -118.2672801',
-					readyState:XMLHttpRequest.DONE,
-					responseText:responseTxt,
-					googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-					country: 'UK',
-				})()
-			},
-			config: {
-				postalcode: '90015',
-				googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-				country: 'UK',
-			},
-			widget:{
-				config:{
-					theme:'simple',
-					latlong: '34.0390107, -118.2672801',
-					postalcode: '90015',
-					googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-					country: 'UK',
-				},
-				latlong: '34.0390107, -118.2672801',
-				googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-				country: 'UK',
-			},
-			latlong: '34.0390107, -118.2672801',
-			googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-			country: 'UK',
-			isConfigAttrExistAndNotEmpty:function(){return true},
-			readyState:XMLHttpRequest.DONE,
-			responseText:responseTxt,
-			responceStatus:'OK',
-			postalcode: '90015',
-		})(function(){});
-		widget.getCoordinates.bind({
-			countriesWhiteList: ['Australia', 'Austria', 'Belgium', 'Canada', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Spain', 'Sweden', 'Turkey', 'UAE', 'United Kingdom', 'United States'],
-			makeRequest:function(callback){
-				callback.bind({
-					status:200,
-					latlong: '34.0390107, -118.2672801',
-					readyState:XMLHttpRequest.DONE,
-					responseText:responseTxt,
-					googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-				})()
-			},
-			config: {
-				postalcode: '90015',
-				googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-			},
-			widget:{
-				config:{
-					theme:'simple',
-					latlong: '34.0390107, -118.2672801',
-					postalcode: '90015',
-					googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-				},
-				latlong: '34.0390107, -118.2672801',
-				googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-			},
-			latlong: '34.0390107, -118.2672801',
-			googleapikey: 'kjhbg*&TB9ybKJjbhPJH',
-			isConfigAttrExistAndNotEmpty:function(){return true},
-			readyState:XMLHttpRequest.DONE,
-			responseText:responseTxt,
-			responceStatus:'OK',
-			postalcode: '90015',
-		})(function(){});
+  describe('#parseGoogleGeocodeResponse', () => {
+    const responseTextMock = {
+      results: [
+        {address_components: [{long_name: 'Denmark', short_name: 'DK'}, {long_name: 'Finland', short_name: 'FI'}]},
+      ],
+      status: 'OK',
+    };
+    const updateTransitionMock = jest.fn();
+    const onLoadCoordinateMock = jest.fn();
+    const cbMock = jest.fn();
+    beforeEach(() => {
+      updateTransitionMock.mockReset();
+      onLoadCoordinateMock.mockReset();
+      cbMock.mockReset();
+    });
+    const widgetMock = {
+      readyState: XMLHttpRequest.DONE,
+      status: 200,
+      onLoadCoordinate: onLoadCoordinateMock,
+      config: {},
+      responseText: JSON.stringify(responseTextMock),
+      countriesWhiteList: ['Australia', 'Denmark', 'Finland'],
+    };
+
+    it('#parseGoogleGeocodeResponse should', () => {
+      const res = [{'address_components': [{'long_name': 'Denmark', 'short_name': 'DK'}, {'long_name': 'Finland', 'short_name': 'FI'}]}];
+      widget.parseGoogleGeocodeResponse.call(widgetMock, cbMock);
+      expect(onLoadCoordinateMock).toHaveBeenCalledTimes(1);
+      expect(onLoadCoordinateMock).toHaveBeenCalledWith(res, 'FI');
+      expect(cbMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should resend request if response do not have 200 status', () => {
+      const additionalMockParams = {
+        ...widgetMock,
+        status: 400,
+      };
+      widget.parseGoogleGeocodeResponse.call(additionalMockParams, cbMock);
+      expect(onLoadCoordinateMock).toHaveBeenCalledTimes(1);
+      expect(onLoadCoordinateMock).toHaveBeenCalledWith(null, '');
+      expect(cbMock).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('#getCoordinates', () => {
+    const cbMock = jest.fn();
+    const makeRequestMock = jest.fn();
+    const parseGoogleGeocodeResponseMock = jest.fn();
+    const onLoadCoordinateMock = jest.fn(() => true);
+    beforeEach(() => {
+      makeRequestMock.mockReset();
+      onLoadCoordinateMock.mockReset();
+      parseGoogleGeocodeResponseMock.mockReset();
+    });
+
+    const widgetMock = {
+      isConfigAttrExistAndNotEmpty: function() {return true;},
+      makeRequest: makeRequestMock,
+      onLoadCoordinate: onLoadCoordinateMock,
+      parseGoogleGeocodeResponse: parseGoogleGeocodeResponseMock,
+      geocodeUrl: 'url',
+      config: {
+        googleapikey: 1234,
+        country: 'Denmark',
+      },
+    };
+
+    it('makeRequest function should be called', () => {
+      widget.getCoordinates.call(widgetMock, widgetMock.cb);
+      expect(makeRequestMock).toHaveBeenCalledTimes(1);
+      expect(makeRequestMock.mock.calls[0][1]).toEqual('url');
+      expect(makeRequestMock.mock.calls[0][2]).toEqual({'components': 'postal_code:undefined|country:Denmark', 'key': 1234, 'language': 'en'});
+    });
+
+    it('onLoadCoordinate and cb functions should be called', () => {
+      const additionalMockParams = {
+        ...widgetMock,
+        isConfigAttrExistAndNotEmpty: function() {return false;},
+      };
+      widget.getCoordinates.call(additionalMockParams, cbMock);
+      expect(onLoadCoordinateMock).toHaveBeenCalledTimes(1);
+      expect(onLoadCoordinateMock).toHaveBeenCalledWith(null);
+      expect(cbMock).toHaveBeenCalledTimes(1);
+      expect(cbMock).toHaveBeenCalledWith('');
+    });
+  });
+
+  describe('#updateTransition', () => {
+    it('if param url is not empty #updateTransition should add class .right-logo and delete class .centered-logo', () => {
+      let elem = widget.eventsRootContainer.querySelector('.event-logo.centered-logo');
+      widget.updateTransition('www.ticketmaster.com');
+      expect(elem.classList).toContain('right-logo');
+      expect(elem.classList).not.toContain('centered-logo');
+    });
+
+    it('if param url is not empty #updateTransition should delete class .centered-logo', () => {
+      let elem = widget.eventsRootContainer.querySelectorAll('.event-date.centered-logo');
+      widget.updateTransition('www.ticketmaster.com', true);
+      expect(elem.length).toBe(0);
+    });
+
+    it('if param url is empty #updateTransition should delete class .centered-logo', () => {
+      let elem = widget.eventsRootContainer.querySelectorAll('.event-date');
+      widget.updateTransition('', true);
+      expect(elem.length).toBe(0);
+    });
+  });
+
+  describe('#setBuyBtnUrl method', () => {
+    const updateTransitionMock = jest.fn();
+    beforeEach(() => {
+      updateTransitionMock.mockReset();
+    });
+    const widgetMock = {
+      buyBtn: {},
+      eventsGroups: [[{
+        url: 'https://www.universe.com',
+      }]],
+      currentSlideX: 0,
+      currentSlideY: 0,
+      isUniversePluginInitialized: true,
+      isUniverseUrl: function() {return true;},
+      updateTransition: updateTransitionMock,
+      config: {
+        theme: 'oldschool',
+        proportion: 'm',
+      },
+    };
+
+    it('should call #updateTransition with two params', () => {
+      widget.setBuyBtnUrl.call(widgetMock);
+      expect(updateTransitionMock.mock.calls.length).toBe(1);
+      expect(updateTransitionMock.mock.calls[0][0]).toEqual('https://www.universe.com');
+      expect(updateTransitionMock.mock.calls[0][1]).toEqual(true);
+      expect(widgetMock.buyBtn.href).toEqual('https://www.universe.com');
+    });
+
+    it('should call #updateTransition with one params', () => {
+      const additionalMockParams = {
+        config: {
+          theme: 'simple',
+        },
+      };
+      widget.setBuyBtnUrl.call({...widgetMock, ...additionalMockParams});
+      expect(updateTransitionMock.mock.calls.length).toBe(1);
+      expect(updateTransitionMock.mock.calls[0][0]).toEqual('https://www.universe.com');
+      expect(widgetMock.buyBtn.href).toEqual('https://www.universe.com');
+    });
 	});
 
-	it('#updateTransition should be BeDefined', function(){
-		widget.updateTransition('www.ticketmaster.com', true);
-		widget.updateTransition('www.ticketmaster.com', false);
-		var centeredLogo = document.createElement('div');
-		centeredLogo.classList.add('event-date');
-		centeredLogo.classList.add('centered-logo');
-		widget.eventsRootContainer.appendChild(centeredLogo);
-		widget.updateTransition('www.ticketmaster.com', false);
-		expect(widget.updateTransition).toBeDefined();
-		widget.updateTransition('','');
-		widget.updateTransition('',true);
-	});
+  describe('#isUniverseUrl', () => {
+    it('#isUniverseUrl should be universe.com', () => {
+      expect(widget.isUniverseUrl('universe.com')[0]).toBe('universe.com');
+    });
+    it('#isUniverseUrl should be uniiverse.com', () => {
+      expect(widget.isUniverseUrl('uniiverse.com')[0]).toBe('uniiverse.com');
+    });
+    it('#isUniverseUrl should be ticketmaster.com', () => {
+      expect(widget.isUniverseUrl('ticketmaster.com')[0]).toBe('ticketmaster.com');
+    });
+  });
 
-	it('#setBuyBtnUrl should be defined', () => {
-		widget.eventsRootContainer = document.querySelector('.events-root-container');
-		widget.initBuyBtn();
-		widget.event = '{"id":"Z1lMVSyiJynZ177dJa","url":"https://qapurchasetest.nbp.frontgatetickets.com/event/lwln7sy8bni2h448","name":"No Longer on Sale for Web","date":{"day":"2014-03-31","time":"19:15:00"},"address":{"line1":"1711 S. Congress","line2":"2nd Floor","name":"FGS - Selenium (With enough text for 2nd"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_3_2.jpg"}';
-		widget.eventsGroups = [];
-		widget.currentSlideX = 0;
-		widget.currentSlideY = 0;
-		widget.eventsGroups[0] = [JSON.parse('{"id":"Z1lMVSyiJynZ177dJa","url":"https://ticketmaster.com/event/lwln7sy8bni2h448","name":"No Longer on Sale for Web","date":{"day":"2014-03-31","time":"19:15:00"},"address":{"line1":"1711 S. Congress","line2":"2nd Floor","name":"FGS - Selenium (With enough text for 2nd"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_3_2.jpg"}')];
-		widget.widgetConfig = {
-			buyBtn: function() {return true}
-		}
-		widget.setBuyBtnUrl();
-		widget.buyBtn = function() {return true}
-		widget.isUniversePluginInitialized = function() {return true}
-		widget.isUniverseUrl('universe.com');
-		widget.isAllowedTMEvent('http://ticketmaster.com/event/test');
-		widget.isTMPluginInitialized = true;
-		widget.widgetConfig = {
-			theme: 'oldschool',
-			proportion: 'm'
-		}
-		widget.setBuyBtnUrl();
-		expect(typeof(widget.setBuyBtnUrl)).toBe('function');
-		widget.buyBtn = function() {return false}
-		widget.setBuyBtnUrl();
-	});
+  it('#isAllowedTMEvent should be false', () => {
+    expect(widget.isAllowedTMEvent('livenation.com')).toBe(false);
+  });
 
-	it('#isUniverseUrl should be Defined', () => {
-		expect(widget.isUniverseUrl('universe.com')[0]).toBe('universe.com');
-		expect(widget.isUniverseUrl('uniiverse.com')[0]).toBe('uniiverse.com');
-		expect(widget.isUniverseUrl('ticketmaster.com')[0]).toBe('ticketmaster.com');
-	});
+  it('#embedUniversePlugin should create elem', () => {
+    widget.embedUniversePlugin();
+    let elem = document.getElementById('id_universe_widget');
+    expect(elem.src).toBe('https://www.universe.com/embed.js');
+  });
 
-	it('#initBuyBtn should be defined', () => {
-		document.querySelector('.event-buy-btn').click();
-		expect(typeof(widget.initBuyBtn)).toBe('function');
-	});
+  it('#initMessage should create elem messageDialog', () => {
+    widget.initMessage();
+    document.querySelector('.event-message__btn').click();
+    expect(widget.messageDialog.classList).toContain('event-message');
+    expect(widget.messageContent.classList).toContain('event-message__content');
+  });
 
-	it('#addBuyButton should be defined', () => {
-		widget.config.theme = 'listview';
-		spyOn(widget,"isUniverseUrl").and.returnValue(true);
-		spyOn(widget,"isAllowedTMEvent").and.returnValue(true);
-		let _urlValid = undefined;
-		widget.addBuyButton(document.querySelector('.events-root-container'), 'www.ticketmaster.com');
-		expect(typeof(widget.addBuyButton)).toBe('function');
-		widget.config.theme = 'listviewthumbnails';
-		widget.isUniverseUrl('universe.com');
-		widget.addBuyButton(document.querySelector('.events-root-container'), 'www.ticketmaster.com');
-		expect(typeof(widget.addBuyButton)).toBe('function');
-		widget.config.theme = 'oldschool';
-		widget.addBuyButton(document.querySelector('.events-root-container'), 'www.ticketmaster.com');
-	});
+  it('#showMessage should add new classes', () => {
+    const addMock = jest.fn();
+    const removeMock = jest.fn();
+    beforeEach(() => {
+      addMock.mockReset();
+      removeMock.mockReset();
+    });
+    const widgetMock = {
+      hideMessageWithoutDelay: {},
+      messageContent: {},
+      messageDialog: {
+        classList: {
+          add: addMock,
+          remove: removeMock,
+        },
+      },
+      messageTimeout: true,
+    };
+    widget.showMessage.call(widgetMock, 'message', true, 'className');
+    expect(addMock).toHaveBeenCalledTimes(1);
+    expect(addMock).toHaveBeenCalledWith('event-message-visible');
+  });
 
-	it('#embedUniversePlugin should be defined', () => {
-		expect(typeof(widget.embedUniversePlugin)).toBe('function');
-	});
-
-	it('#isAllowedTMEvent should be defined', () => {
-		widget.isAllowedTMEvent('livenation.com');
-		expect(widget.isAllowedTMEvent('livenation.com')).toBeFalsy();
-		widget.isAllowedTMEvent('ticketmaster.com');
-		expect(widget.isAllowedTMEvent('livenation.com')).toBeFalsy();
-	});
-
-	it('#initMessage should be defined', () => {
-		document.querySelector('.event-message__btn').click();
-		expect(typeof(widget.initMessage)).toBe('function');
-	});
-
-	it('#showMessage should be defined', () => {
-		let hideMessageWithoutDelay = function() {return true};
-		widget.massageDialog = widget.eventsRoot;
-		widget.messageTimeout = function() {return true};
-		widget.showMessage('Test message', hideMessageWithoutDelay);
-		expect(typeof(widget.showMessage)).toBe('function');
-	});
-
-	it('#hideMessageWithDelay should be defined', () => {
+  /* TODO part*/
+	it('#hideMessageWithDelay should define messageTimeout', () => {
+    jest.useFakeTimers();
+    widget.messageTimeout = 1;
 		widget.hideMessageWithDelay(500);
-		expect(typeof(widget.hideMessageWithDelay)).toBe('function');
-		widget.messageTimeout = function() {return false};
-		widget.hideMessageWithDelay(500);
-		expect(typeof(widget.hideMessageWithDelay)).toBe('function');
+		expect(clearTimeout).toHaveBeenCalledWith(1);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
 	});
 
-	it('#clearEvents should be defined', () => {
-		widget.clearEvents;
-		expect(typeof(widget.clearEvents)).toBe('function');
-	});
+  it('#hideMessage should clearTimeout and remove class event-message-visible', () => {
+    jest.useFakeTimers();
+    widget.showMessage('message');
+    expect(widget.messageDialog.classList).toContain('event-message-visible');
+    widget.messageTimeout = 1;
+    widget.hideMessage();
+    expect(clearTimeout).toHaveBeenCalledWith(1);
+    expect(widget.messageDialog.classList).not.toContain('event-message-visible');
+  });
 
-	it('#hideMessage should be defined', () => {
-		widget.hideMessage();
-		expect(typeof(widget.hideMessage)).toBe('function');
-		widget.messageTimeout = function() {return true};
-		widget.hideMessage();
-		expect(typeof(widget.hideMessage)).toBe('function');
-	});
-
+  /* TODO */
 	it('#AdditionalElements should be defined', () => {
 		widget.AdditionalElements();
 		expect(typeof(widget.AdditionalElements)).toBe('function');
 		widget.AdditionalElements = {
-			toolTipHandler: function(e) {}
-		}
-		var e = new $.Event('click');
+			toolTipHandler: function(e) {},
+		};
+		let e = new $.Event('click');
 		widget.AdditionalElements.toolTipHandler(e);
-	});
-
-	it('#oldSchoolModificator should be defined', () => {
-		widget.oldSchoolModificator();
-		expect(typeof(widget.oldSchoolModificator)).toBe('function');
-	});
-
-	it('#newSchoolModificator should be defined', () => {
-		widget.newSchoolModificator();
-		expect(typeof(widget.newSchoolModificator)).toBe('function');
 	});
 
 	it('#listViewModificator should be defined', () => {
 		widget.listViewModificator();
-		expect(typeof(widget.listViewModificator)).toBe('function');
+		expect(widget.listViewModificator).toBeDefined();
 	});
 
-	it('#initSliderControls should be defined', () => {
-		widget.initSliderControls();
-		$(widget.eventsRootContainer).trigger('touchstart');
-		expect(typeof(widget.initSliderControls)).toBe('function');
+  it('#hideSliderControls should add class events_control-hidden', () => {
+    widget.hideSliderControls();
+    expect(widget.prevEventX.classList).toContain('events_control-hidden');
+    expect(widget.nextEventX.classList).toContain('events_control-hidden');
+    expect(widget.prevEventY.classList).toContain('events_control-hidden');
+    expect(widget.nextEventY.classList).toContain('events_control-hidden');
+  });
 
-	});
+  describe('#toggleControlsVisibility method', () => {
+    beforeEach(() => {
+      widget.eventsGroups = [];
+    });
+    it('if slideCountX > 1 && currentSlideX == 0 && eventsGroups.length == true #toggleControlsVisibility should delete class and add new', () => {
+      widget.slideCountX = 2;
+      widget.currentSlideX = 0;
+      widget.currentSlideY = 0;
+      widget.eventsGroups = [];
+      widget.eventsGroups[0] = 'elem1';
+      widget.eventsGroups[1] = 'elem2';
 
-	it('#hideSliderControls should be defined', () => {
-		widget.hideSliderControls();
-		expect(typeof(widget.hideSliderControls)).toBe('function');
-	});
+      widget.toggleControlsVisibility();
+      expect(widget.prevEventY.classList).toContain('events_control-hidden');
+      expect(widget.nextEventY.classList).not.toContain('events_control-hidden');
+      expect(widget.prevEventX.classList).toContain('events_control-hidden');
+      expect(widget.nextEventX.classList).not.toContain('events_control-hidden');
+    });
 
-	it('#toggleControlsVisibility should be defined', () => {
-		widget.eventsGroups = [];
-		widget.eventsGroups[0] = JSON.parse('[{"id":"vv1k0Zf0C6G7Dsmj","url":"http://www.ticketmaster.com/event/0900524387EF1B9C","name":"Bryan Adams","date":{"day":"2017-05-20","time":"18:00:00"},"address":{"line1":"2700 N. Vermont Ave","name":"Greek Theatre"},"location":{"lat":34.11948811,"lng":-118.29629093},"img":"https://s1.ticketm.net/dam/a/6b4/91e51635-4d17-42cb-9495-6f6702a546b4_288631_RECOMENDATION_16_9.jpg"},{"id":"vvG1iZfGxi-dEf","url":"http://www.ticketmaster.com/event/0B0050C8AC8439D4","name":"The Bodyguard (Touring)","date":{"day":"2017-05-17","time":"20:00:00"},"address":{"line1":"6233 Hollywood Blvd.","name":"Hollywood Pantages Theatre"},"location":{"lat":34.10200961,"lng":-118.32586552},"img":"https://s1.ticketm.net/dam/a/fd9/e1435468-e4f2-4c23-b7b8-61728c267fd9_241751_RECOMENDATION_16_9.jpg"}]');
-		widget.eventsGroups[1] = widget.eventsGroups[0];
-		widget.eventsGroups[2] = widget.eventsGroups[0];
-		widget.eventsGroups[3] = widget.eventsGroups[0];
-		widget.eventsGroups[4] = widget.eventsGroups[0];
-		widget.eventsGroups[5] = widget.eventsGroups[0];
-		widget.eventsGroups[6] = widget.eventsGroups[0];
-		widget.eventsGroups[7] = JSON.parse('[{}]');
-		widget.toggleControlsVisibility();
-		expect(typeof(widget.toggleControlsVisibility)).toBe('function');
-		widget.slideCountX = 6;
-		widget.currentSlideX = 5;
-		widget.toggleControlsVisibility();
-		expect(typeof(widget.toggleControlsVisibility)).toBe('function');
-		widget.currentSlideX = 7;
-		widget.toggleControlsVisibility();
-		widget.currentSlideY = 1;
-		widget.currentSlideX = 5;
-		widget.toggleControlsVisibility();
-	});
+    it('if slideCountX > 1 && currentSlideX === 1 && eventsGroups.length == true #toggleControlsVisibility should delete class and add new', () => {
+      widget.slideCountX = 2;
+      widget.currentSlideX = 1;
+      widget.currentSlideY = 1;
+      widget.eventsGroups = [];
+      widget.eventsGroups[0] = 'elem1';
+      widget.eventsGroups[1] = [1, 2];
+      widget.toggleControlsVisibility();
+      expect(widget.nextEventX.classList).toContain('events_control-hidden');
+      expect(widget.prevEventX.classList).not.toContain('events_control-hidden');
+      expect(widget.prevEventY.classList).not.toContain('events_control-hidden');
+      expect(widget.nextEventY.classList).toContain('events_control-hidden');
+    });
 
-	it('#prevSlideX should be defined', () => {
-		widget.currentSlideX = 5;
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10'
-			}
-		}
-		widget.prevSlideX();
-		expect(typeof(widget.prevSlideX)).toBe('function');
-	});
+    it('if slideCountX < 1 && eventsGroups.length == true #toggleControlsVisibility should add classes', () => {
+      widget.slideCountX = 0;
+      widget.currentSlideX = 1;
+      widget.toggleControlsVisibility();
+      expect(widget.nextEventX.classList).toContain('events_control-hidden');
+      expect(widget.prevEventX.classList).toContain('events_control-hidden');
+      expect(widget.prevEventY.classList).toContain('events_control-hidden');
+      expect(widget.nextEventY.classList).toContain('events_control-hidden');
+    });
 
-	it('#nextSlideX should be defined', () => {
-		widget.slideCountX = 7;
-		widget.currentSlideX = 5;
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10'
-			}
-		}
-		widget.nextSlideX();
-		expect(typeof(widget.nextSlideX)).toBe('function');
-		widget.slideCountX = 5;
-		widget.currentSlideX = 5;
-		widget.nextSlideX();
-	});
+    it('if eventsGroups.length == true #toggleControlsVisibility should add classes', () => {
+      widget.currentSlideX = 1;
+      widget.eventsGroups = [];
+      widget.eventsGroups[0] = 'elem1';
+      widget.eventsGroups[1] = '1';
+      widget.toggleControlsVisibility();
+      expect(widget.prevEventY.classList).toContain('events_control-hidden');
+      expect(widget.nextEventY.classList).toContain('events_control-hidden');
+    });
+  });
 
-	it('#prevSlideY should be defined', () => {
-		widget.eventGroup = '[{"id":"vv1k0Zf0C6G7Dsmj","url":"http://www.ticketmaster.com/event/0900524387EF1B9C","name":"Bryan Adams","date":{"day":"2017-05-20","time":"18:00:00"},"address":{"line1":"2700 N. Vermont Ave","name":"Greek Theatre"},"location":{"lat":34.11948811,"lng":-118.29629093},"img":"https://s1.ticketm.net/dam/a/6b4/91e51635-4d17-42cb-9495-6f6702a546b4_288631_RECOMENDATION_16_9.jpg"},{"id":"vvG1iZfGxi-dEf","url":"http://www.ticketmaster.com/event/0B0050C8AC8439D4","name":"The Bodyguard (Touring)","date":{"day":"2017-05-17","time":"20:00:00"},"address":{"line1":"6233 Hollywood Blvd.","name":"Hollywood Pantages Theatre"},"location":{"lat":34.10200961,"lng":-118.32586552},"img":"https://s1.ticketm.net/dam/a/fd9/e1435468-e4f2-4c23-b7b8-61728c267fd9_241751_RECOMENDATION_16_9.jpg"}]';
-		widget.currentSlideY = 5;
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10',
-				marginTop: '10'
-			},
-			getElementsByClassName: function(){return [{style:{marginTop:'10'}}, "two", "three"]},
-		}
-		widget.currentSlideX = 5;
-		widget.prevSlideY();
-		expect(typeof(widget.prevSlideY)).toBe('function');
-		widget.currentSlideY = 0;
-		widget.prevSlideY();
-	});
+  describe('slides block', () => {
+    const setSlideManuallyMock = jest.fn();
+    beforeEach(() => {
+      setSlideManuallyMock.mockReset();
+    });
 
-	it('#nextSlideY should be defined', () => {
-		widget.currentSlideX = 7;
-		widget.currentSlideY = 5;
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10'
-			},
-			getElementsByClassName: function(){}
-		}
-		widget.nextSlideY();
-		expect(typeof(widget.nextSlideY)).toBe('function');
-	});
+    it('#prevSlideX should call setSlideManually if currentSlideX > 0', () => {
+      const widgetMock = {
+        currentSlideX: 5,
+        setSlideManually: setSlideManuallyMock,
+      };
+      widget.prevSlideX.call(widgetMock);
+      expect(setSlideManuallyMock).toHaveBeenCalledWith(4, true);
+    });
 
-	it('#goToSlideX should be defined', () => {
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10'
-			},
-			getElementsByClassName: function(){}
-		};
-		widget.currentSlideX = 1;
-		widget.goToSlideX(1);
-		expect(typeof(widget.goToSlideX)).toBe('function');
-		widget.currentSlideX = 2;
-		widget.goToSlideX(1);
-	});
+    it('#nextSlideX should should call setSlideManually if slideCountX > currentSlideX', () => {
+      const widgetMock = {
+        currentSlideX: 2,
+        slideCountX: 5,
+        setSlideManually: setSlideManuallyMock,
+      };
+      widget.nextSlideX.call(widgetMock);
+      expect(setSlideManuallyMock).toHaveBeenCalledWith(3, true);
+    });
 
-	it('#goToSlideY should be defined', () => {
-		widget.eventGroup = '[{"id":"vv1k0Zf0C6G7Dsmj","url":"http://www.ticketmaster.com/event/0900524387EF1B9C","name":"Bryan Adams","date":{"day":"2017-05-20","time":"18:00:00"},"address":{"line1":"2700 N. Vermont Ave","name":"Greek Theatre"},"location":{"lat":34.11948811,"lng":-118.29629093},"img":"https://s1.ticketm.net/dam/a/6b4/91e51635-4d17-42cb-9495-6f6702a546b4_288631_RECOMENDATION_16_9.jpg"},{"id":"vvG1iZfGxi-dEf","url":"http://www.ticketmaster.com/event/0B0050C8AC8439D4","name":"The Bodyguard (Touring)","date":{"day":"2017-05-17","time":"20:00:00"},"address":{"line1":"6233 Hollywood Blvd.","name":"Hollywood Pantages Theatre"},"location":{"lat":34.10200961,"lng":-118.32586552},"img":"https://s1.ticketm.net/dam/a/fd9/e1435468-e4f2-4c23-b7b8-61728c267fd9_241751_RECOMENDATION_16_9.jpg"}]';
-		widget.eventsRoot = {
-			style: {
-				marginLeft: '10'
-			},
-			getElementsByClassName: function(){}
-		};
-		widget.currentSlideY = 1;
-		widget.goToSlideY(1);
-		expect(typeof(widget.goToSlideY)).toBe('function');
-	});
+    it('#prevSlideY should call setSlideManually if currentSlideY > 0', () => {
+      const widgetMock = {
+        currentSlideY: 2,
+        setSlideManually: setSlideManuallyMock,
+      };
+      widget.prevSlideY.call(widgetMock);
+      expect(setSlideManuallyMock).toHaveBeenCalledWith(1, false);
+    });
 
-	it('#runAutoSlideX should be defined', () => {
-		widget.slideCountX = 5;
-		widget.currentSlideX = 1;
-		widget.goToSlideX(5);
-		widget.runAutoSlideX();
-		expect(typeof(widget.runAutoSlideX)).toBe('function');
-		widget.slideCountX = 1;
-		widget.sliderInterval = function() {return true};
-		widget.runAutoSlideX();
-	});
+    it('#nextSlideY should call setSlideManually if ([1, 2, 3].length -1) > currentSlideX', () => {
+      const widgetMock = {
+        currentSlideY: 1,
+        currentSlideX: 0,
+        eventsGroups: [[1, 2, 3]],
+        setSlideManually: setSlideManuallyMock,
+      };
+      widget.nextSlideY.call(widgetMock);
+      expect(setSlideManuallyMock).toHaveBeenCalledWith(2, false);
+    });
+  });
 
-	it('#stopAutoSlideX should be defined', () => {
-		widget.sliderInterval = true;
+  describe('#setSlideManually', () => {
+    it('#setSlideManually should call goToSlideX, stopAutoSlideX, runAutoSlideX', () => {
+      jest.useFakeTimers();
+
+      widget.stopAutoSlideX = jest.fn();
+      widget.runAutoSlideX = jest.fn();
+      widget.goToSlideX = jest.fn();
+      widget.goToSlideY = jest.fn();
+
+      widget.setSlideManually('index', 1);
+
+      expect(widget.stopAutoSlideX).toHaveBeenCalled();
+      expect(setTimeout).toHaveBeenCalled();
+      expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 5000);
+      expect(widget.goToSlideX).toHaveBeenCalledWith('index');
+
+      jest.runOnlyPendingTimers();
+      expect(widget.runAutoSlideX).toHaveBeenCalled();
+    });
+
+    it('#setSlideManually should call goToSlideY, stopAutoSlideX, runAutoSlideX', () => {
+      jest.useFakeTimers();
+
+      widget.stopAutoSlideX = jest.fn();
+      widget.runAutoSlideX = jest.fn();
+      widget.goToSlideX = jest.fn();
+      widget.goToSlideY = jest.fn();
+
+      widget.setSlideManually('index', 0);
+
+      expect(widget.stopAutoSlideX).toHaveBeenCalled();
+      expect(setTimeout).toHaveBeenCalled();
+      expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 5000);
+      expect(widget.goToSlideY).toHaveBeenCalledWith('index');
+
+      jest.runOnlyPendingTimers();
+      expect(widget.runAutoSlideX).toHaveBeenCalled();
+    });
+  });
+
+  describe('#goToSlideX', () => {
+    it('setBuyBtnUrl function should not be called', () => {
+      const setBuyBtnUrlMock = jest.fn();
+      const widgetMock = {
+        currentSlideX: 1,
+        setBuyBtnUrl: setBuyBtnUrlMock,
+      };
+      widget.goToSlideX.call(widgetMock, 1);
+      expect(setBuyBtnUrlMock).not.toHaveBeenCalled();
+    });
+
+    it('setBuyBtnUrl function should be called', () => {
+      const setBuyBtnUrlMock = jest.fn();
+      const toggleControlsVisibilityMock = jest.fn();
+      const setEventsCounterMock = jest.fn();
+      const widgetMock = {
+        currentSlideX: 1,
+        setBuyBtnUrl: setBuyBtnUrlMock,
+        toggleControlsVisibility: toggleControlsVisibilityMock,
+        setEventsCounter: setEventsCounterMock,
+        eventsRoot: {
+          style: {
+            marginLeft: '10',
+          },
+        },
+      };
+      widget.goToSlideX.call(widgetMock, 2);
+      expect(setBuyBtnUrlMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#goToSlideY', () => {
+    it('setBuyBtnUrl function should not be called', () => {
+      const setBuyBtnUrlMock = jest.fn();
+      const toggleControlsVisibilityMock = jest.fn();
+      const setEventsCounterMock = jest.fn();
+      const widgetMock = {
+        currentSlideY: 1,
+        currentSlideX: 1,
+        widgetContentHeight: 2,
+        borderSize: 3,
+        setBuyBtnUrl: setBuyBtnUrlMock,
+        toggleControlsVisibility: toggleControlsVisibilityMock,
+        setEventsCounter: setEventsCounterMock,
+        eventsRoot: {
+          style: {
+            marginLeft: '10',
+          },
+          getElementsByClassName: () => [{style: {marginTop: 1}}, {}],
+        },
+      };
+      widget.goToSlideY.call(widgetMock, 2);
+      expect(setBuyBtnUrlMock).toHaveBeenCalled();
+    });
+
+    it('setBuyBtnUrl function should not be called', () => {
+      const setBuyBtnUrlMock = jest.fn();
+      const widgetMock = {
+        currentSlideY: 1,
+        setBuyBtnUrl: setBuyBtnUrlMock,
+      };
+      widget.goToSlideY.call(widgetMock, 1);
+      expect(setBuyBtnUrlMock).not.toHaveBeenCalled();
+    });
+  });
+
+  it('#runAutoSlideX should call goToSlideX(2)', () => {
+    jest.useFakeTimers();
+
+    widget.slideCountX = 3;
+    widget.currentSlideX = 1;
+    widget.goToSlideX = jest.fn();
+
+    widget.runAutoSlideX();
+    expect(setInterval).toHaveBeenCalled();
+    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 5000);
+
+    jest.runOnlyPendingTimers();
+    expect(widget.goToSlideX).toBeCalledWith(2);
+  });
+
+	it('#stopAutoSlideX should clearTimeout, clearInterval', () => {
+    jest.useFakeTimers();
+		widget.sliderTimeout = 10;
+    widget.sliderInterval = 20;
+
 		widget.stopAutoSlideX();
-		expect(typeof(widget.stopAutoSlideX)).toBe('function');
+    expect(clearTimeout).toHaveBeenCalledWith(10);
+    expect(clearInterval).toHaveBeenCalledWith(20);
 	});
 
-	it('#setSlideManually should be defined', () => {
-		widget.setSlideManually(1,true);
-		expect(typeof(widget.setSlideManually)).toBe('function');
-	});
+  /* TODO */
+  it('#initSliderControls should be defined', () => {
+    widget.initSliderControls();
+    $(widget.eventsRootContainer).trigger('touchstart');
+    expect(typeof(widget.initSliderControls)).toBe('function');
+  });
 
-	it('#initSlider should be defined', () => {
-		widget.initSlider();
-		widget.sliderInterval = undefined;
-		widget.listenerResize = [];
-		widget.initSlider();
-		expect(typeof(widget.initSlider)).toBe('function');
-		widget.sliderTimeout = undefined;
+  describe('#initSlider', () => {
+    const runAutoSlideXMock = jest.fn();
+    const goToSlideXMock = jest.fn();
+    const stopAutoSlideXMock = jest.fn();
+    const goToSlideYMock = jest.fn();
+
+    beforeEach(() => {
+      runAutoSlideXMock.mockReset();
+      goToSlideXMock.mockReset();
+      stopAutoSlideXMock.mockReset();
+      goToSlideYMock.mockReset();
+    });
+
+    const widgetMock = {
+      sliderInterval: () => true,
+      sliderTimeout: () => true,
+      eventsGroups: [1, 2, 3, 4],
+      runAutoSlideX: runAutoSlideXMock,
+      stopAutoSlideX: stopAutoSlideXMock,
+      goToSlideX: goToSlideXMock,
+      goToSlideY: goToSlideYMock,
+      isFullWidth: true,
+      listenerResize: [],
+      toggleControlsVisibility: () => true,
+      setBuyBtnUrl: () => true,
+      widgetRoot: {
+        offsetWidth: 20,
+        querySelectorAll: function() {},
+      },
+      eventsRoot: {
+        style: {
+          marginLeft: '10',
+        },
+      },
+    };
+
+    /* TODO */
+    it('runAutoSlideXMock function should not be called', () => {
+      widget.initSlider.call(widgetMock);
+      expect(runAutoSlideXMock.mock.calls.length).toBe(1);
+      expect(widgetMock.listenerResize.length).toBe(1);
+      widgetMock.listenerResize[0]();
+     // expect(goToSlideXMock.mock.calls.length).toBe(1);
+      // widget.setSlideManually.call(widgetMock, 1, 1);
+      // expect(goToSlideXMock.mock.calls.length).toBe(1);
+    });
+
+    it('runAutoSlideXMock function should not be called', () => {
+      const additionalMockParams = {
+        ...widgetMock,
+        isFullWidth: false,
+        listenerResize: [function() {}, 2, 3],
+      };
+      widget.initSlider.call(additionalMockParams);
+      expect(runAutoSlideXMock).toHaveBeenCalled();
+      expect(additionalMockParams.listenerResize.length).toBe(2);
+    });
+  });
+
+	it('#initFullWidth should define eventsRootContainer height', () => {
 		widget.widgetConfig = {
-			layout: 'fullwidth'
-		};
-		widget.listenerResize = [];
-		$(window).trigger('resize');
-		widget.initSlider();
-		expect(typeof(widget.initSlider)).toBe('function');
-		widget.prevEventX.click();
-	});
-
-	it('#initFullWidth should be defined', () => {
-		widget.widgetConfig = {
-			layout: 'fullwidth'
+			layout: 'fullwidth',
 		};
 		widget.initFullWidth();
-		expect(typeof(widget.initFullWidth)).toBe('function');
+		expect(widget.eventsRootContainer.style.height).toBe('550px');
 	});
 
-	it('#publishEventsGroup should be defined', () => {
-		var group = {
-			map: function(){}
-		};
-		widget.eventsRoot = {
-			appendChild: function() {}
-		};
-		widget.publishEventsGroup(group, 1);
-		expect(typeof(widget.publishEventsGroup)).toBe('function');
-	});
+  describe('#formatDate', () => {
+    it('#formatDate should return empty string', () => {
+      let noneResult = widget.formatDate('date');
+      expect(noneResult).toBe('');
+    });
 
-	describe('Widget #eventsLoadingHandler', () => {
-		const groupEventsByNameMock = jest.fn();
-		const publishEventMock = jest.fn();
-		const initSliderMock = jest.fn();
-		const publishEventsGroupMock = jest.fn();
-		const setEventsCounterMock = jest.fn();
-		const	resetReduceParamsOrderMock = jest.fn();
-		const hideMessageMock = jest.fn();
-		const hideMessageWithDelayMock = jest.fn();
-		const reduceParamsAndReloadEventsMock = jest.fn();
-		const getAttributeMock = jest.fn();
+    it('#formatDate should return date without time', () => {
+      let noneTimeResult = widget.formatDate({day: '2017-03-17'});
+      expect(noneTimeResult).toEqual('Fri, Mar 17, 2017');
+    });
 
-		const verifyCalls = (func, res) => {
-			expect(func.mock.calls.length).toBe(res);
-		};
+    it('#formatDate should return formatted date with PM', () => {
+      let mockDate = {
+        dateTime: '2017-03-18T00:30:00Z',
+        day: '2017-03-17',
+        time: '20:30:00',
+      };
+      let okResult = widget.formatDate(mockDate);
+      expect(okResult).toEqual('Fri, Mar 17, 2017 08:30 PM');
+    });
 
-		const verifyCallsWithArgs = (func, callNum, argNum, res) => {
-			expect(func.mock.calls[callNum][argNum]).toEqual(res);
-		}
+    it('#formatDate should return formatted date with AM', () => {
+      let mockDate = {
+        dateTime: '2017-03-18T00:30:00Z',
+        day: '2017-03-17',
+        time: '00:30:00',
+      };
+      let okResult = widget.formatDate(mockDate);
+      expect(okResult).toEqual('Fri, Mar 17, 2017 12:30 AM');
+    });
+  });
 
-		beforeEach(() => {
-			groupEventsByNameMock.mockReset();
-			publishEventMock.mockReset();
-			initSliderMock.mockReset();
-			publishEventsGroupMock.mockReset();
-			setEventsCounterMock.mockReset();
-			resetReduceParamsOrderMock.mockReset();
-			hideMessageMock.mockReset();
-		});
+  it('#clearEvents should clear innerHTML', () => {
+    widget.clearEvents();
+    expect(widget.eventsRoot.innerHTML).toBe('');
+  });
 
-		const responseTxt = [{
-			name: '1',
-		},
-			{
-				name: '2',
-			},
-			{
-				name: '1',
-			},
-			{
-				name: '3',
-			}];
-		const sortedByName = [
-			[
-				{name: '1'}, {name: '1'},
-			],
-			[
-				{name: '2'},
-			],
-			[
-				{name: '3'},
-			],
-		];
-		const widgetMock = {
-			readyState: XMLHttpRequest.DONE,
-			status: 200,
-			responseText: JSON.stringify(responseTxt),
-			widget: {
-				groupEventsByName: groupEventsByNameMock,
-				publishEvent: publishEventMock,
-				publishEventsGroup: publishEventsGroupMock,
-				hideMessageDelay: 500,
-				hideMessageWithDelay: hideMessageWithDelayMock,
-				hideMessage: hideMessageMock,
-				eventsGroups: sortedByName,
-				initSlider: initSliderMock,
-				setEventsCounter: setEventsCounterMock,
-				resetReduceParamsOrder: resetReduceParamsOrderMock,
-				reduceParamsAndReloadEvents: reduceParamsAndReloadEventsMock,
-				hideMessageWithoutDelay: function() {},
-				clearEvents: function() {},
-			},
-		};
+  /* TODO */
+  it('#clear should call clearEvents', () => {
+    $(widget.widgetRoot).append('<div class="modificator"></div><div class="modificator"></div><div class="modificator"></div>');
+    $(document.body).append('<div class="widget-container--discovery"><div class="listview-after"></div></div>');
+    widget.clearEvents = jest.fn();
+    widget.config = {
+      theme: 'listview',
+    };
+    widget.clear();
+    expect(widget.clearEvents ).toHaveBeenCalled();
+  });
 
-		it('should group events by name and publish them if there are no sorting param', () => {
-			const additionalMockParams = {
-				widget: {
-					...widgetMock.widget,
-					widgetRoot: {
-						getAttribute: getAttributeMock.mockReturnValue(false),
-					},
-				},
-			};
-			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+  /* TODO */
+  it('#update should be defined', () => {
+    spyOn(widget, 'clear');
+    widget.eventsRootContainer = document.querySelector('.events-root-container');
+    widget.eventsRoot = document.querySelector('.events-root-container');
+    widget.themeModificators = {
+      hasOwnProperty: () => {},
+    };
+    widget.update();
+    expect(typeof(widget.update)).toBe('function');
+    widget.config = {
+      border: '2',
+    };
+    widget.widgetConfig = {
+      theme: '',
+    };
+    widget.update();
+    expect(typeof(widget.update)).toBe('function');
+  });
 
-			verifyCalls(groupEventsByNameMock, 1);
-			verifyCalls(publishEventMock, 2);
-			verifyCalls(publishEventsGroupMock, 1);
-			verifyCalls(initSliderMock, 1);
-			verifyCalls(setEventsCounterMock, 1);
-			verifyCalls(resetReduceParamsOrderMock, 1);
-			verifyCalls(hideMessageMock, 1);
+  /* TODO */
+  it('#styleLoadingHandler should add style tag to head tag', () => {
+    const setAttributeMock = jest.fn();
+    const createElementMock = jest.fn(() => ({setAttribute: setAttributeMock}));
+    const responseTextMock = '<link id="widget-theme-listview" rel="stylesheet" href="/products-and-docs/widgets/event-discovery/1.0.0/theme/listview.css">';
+    const widgetMock = {
+      widget: {
+        config: {
+          theme: 'simple',
+        },
+      },
+      readyState: XMLHttpRequest.DONE,
+      status: 200,
+      responseText: responseTextMock,
+      document: {
+        createElement: createElementMock,
+      },
+    };
+    widget.styleLoadingHandler.call(widgetMock);
+    expect(createElementMock.mock.calls.length).toBe(0);
+  });
 
-			verifyCallsWithArgs(publishEventsGroupMock, 0, 0, [{"name":"1"}, {"name":"1"}]);
-			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"2"});
-			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"3"});
+  it('#groupEventsByName should define eventsGroups', () => {
+    const widgetMock = {
+      events: [{'name': 'mockName'}, {'name': 'mockName'}],
+    };
+    widget.groupEventsByName.call(widgetMock);
+    expect(widgetMock.eventsGroups).toEqual([[{'name': 'mockName'}, {'name': 'mockName'}]]);
+  });
 
-			expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
-		});
+  it('#initEventCounter should create element with class events-counter', () => {
+    widget.widgetRoot = {
+      appendChild: () => true,
+    };
+    widget.initEventCounter();
+    expect(widget.eventsCounter.classList).toContain('events-counter');
+  });
 
-		it('should group events by name and publish them if sorting params set to group by name value', () => {
-			const additionalMockParams = {
-				widget: {
-					...widgetMock.widget,
-					widgetRoot: {
-						getAttribute: getAttributeMock.mockReturnValue('groupByName'),
-					},
-				},
-			};
-			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+  describe('#setEventsCounter', () => {
+    const updateTransitionMock = jest.fn();
+    beforeEach(() => {
+      updateTransitionMock.mockReset();
+    });
+    const widgetMock = {
+      eventsGroups: [1, 2, 3],
+      currentSlideX: 1,
+      currentSlideY: 1,
+      eventsCounter: {},
+    };
 
-			verifyCalls(groupEventsByNameMock, 1);
-			verifyCalls(publishEventMock, 2);
-			verifyCalls(publishEventsGroupMock, 1);
-			verifyCalls(initSliderMock, 1);
-			verifyCalls(setEventsCounterMock, 1);
-			verifyCalls(resetReduceParamsOrderMock, 1);
-			verifyCalls(hideMessageMock, 1);
+    it('if eventsGroups.length > 1 text should be "2 of 3 events"', () => {
+      widget.setEventsCounter.call(widgetMock);
+      expect(widgetMock.eventsCounter.innerHTML).toBe('2 of 3 events');
+    });
 
-			verifyCallsWithArgs(publishEventsGroupMock, 0, 0, [{"name":"1"}, {"name":"1"}]);
-			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"2"});
-			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"3"});
+    it('if eventsGroups.length == 1 text should be "1 event"', () => {
+      const additionalMockParams = {
+        ...widgetMock,
+        eventsGroups: [1],
+      };
+      widget.setEventsCounter.call(additionalMockParams);
+      expect(widgetMock.eventsCounter.innerHTML).toBe('1 event');
+    });
+  });
 
-			expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
-		});
+  it('#resetReduceParamsOrder should set 0 to this.reduceParamsOrder', () => {
+    widget.resetReduceParamsOrder();
+    expect(widget.reduceParamsOrder).toBe(0);
+  });
 
-		it('just publish events if sorting param is set to ascending value', () => {
-			const additionalMockParams = {
-				widget: {
-					...widgetMock.widget,
-					hideMessageWithoutDelay: false,
-					widgetRoot: {
-						getAttribute: getAttributeMock.mockReturnValue('dateAscending'),
-					},
-				},
-			};
-			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+  describe('#reduceParamsAndReloadEvents method', () => {
+    const showMessageMock = jest.fn();
+    const makeRequestMock = jest.fn();
+    beforeEach(() => {
+      showMessageMock.mockReset();
+      makeRequestMock.mockReset();
+    });
+    const widgetMock = {
+      showMessage: showMessageMock,
+      eventReqAttrs: [1, 2, 3],
+      reduceParamsOrder: 0,
+      makeRequest: makeRequestMock,
+      hideSliderControls: function() {},
+      stopAutoSlideX: function() {},
+    };
+    it('makeRequest should be called', () => {
+      widget.reduceParamsAndReloadEvents.call(widgetMock);
+      expect(showMessageMock.mock.calls.length).toBe(1);
+      expect(showMessageMock.mock.calls[0][0]).toEqual('No results were found.<br/>Here other options for you.');
+      expect(makeRequestMock.mock.calls.length).toBe(1);
+    });
 
-			verifyCalls(publishEventMock, 4);
-			verifyCalls(initSliderMock, 1);
-			verifyCalls(setEventsCounterMock, 1);
-			verifyCalls(resetReduceParamsOrderMock, 1);
-			verifyCalls(hideMessageWithDelayMock, 1);
+    it('showMessage should be called with two args', () => {
+      const additionalMockParams = {
+        ...widgetMock,
+        reduceParamsOrder: 20,
+      };
+      widget.reduceParamsAndReloadEvents.call(additionalMockParams);
+      expect(showMessageMock.mock.calls.length).toBe(1);
+      expect(showMessageMock.mock.calls[0][0]).toEqual('No results were found.');
+      expect(showMessageMock.mock.calls[0][1]).toEqual(true);
+    });
+  });
 
-			verifyCallsWithArgs(publishEventMock, 0, 0, {"name":"1"});
-			verifyCallsWithArgs(publishEventMock, 1, 0, {"name":"2"});
-			verifyCallsWithArgs(publishEventMock, 2, 0, {"name":"1"});
-			verifyCallsWithArgs(publishEventMock, 3, 0, {"name":"3"});
-			verifyCallsWithArgs(hideMessageWithDelayMock, 0, 0, 500);
-		});
+  describe('#eventsLoadingHandler', () => {
+    const groupEventsByNameMock = jest.fn();
+    const publishEventMock = jest.fn();
+    const initSliderMock = jest.fn();
+    const publishEventsGroupMock = jest.fn();
+    const setEventsCounterMock = jest.fn();
+    const	resetReduceParamsOrderMock = jest.fn();
+    const hideMessageMock = jest.fn();
+    const hideMessageWithDelayMock = jest.fn();
+    const reduceParamsAndReloadEventsMock = jest.fn();
+    const getAttributeMock = jest.fn();
 
-		it('should resend request if response do not have 200 status', () => {
-			const additionalMockParams = {
-				...widgetMock,
-				status: 400,
-			};
-			widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
+    beforeEach(() => {
+      groupEventsByNameMock.mockReset();
+      publishEventMock.mockReset();
+      initSliderMock.mockReset();
+      publishEventsGroupMock.mockReset();
+      setEventsCounterMock.mockReset();
+      resetReduceParamsOrderMock.mockReset();
+      hideMessageMock.mockReset();
+    });
 
-			verifyCalls(reduceParamsAndReloadEventsMock, 1);
-			expect(reduceParamsAndReloadEventsMock.mock.instances[0]).toBe(additionalMockParams.widget);
-		});
-	});
+    const responseTxt = [{name: '1'}, {name: '2'}, {name: '1'}, {name: '3'}];
+    const sortedByName = [[{name: '1'}, {name: '1'}], [{name: '2'}], [{name: '3'}]];
+    const widgetMock = {
+      readyState: XMLHttpRequest.DONE,
+      status: 200,
+      responseText: JSON.stringify(responseTxt),
+      widget: {
+        groupEventsByName: groupEventsByNameMock,
+        publishEvent: publishEventMock,
+        publishEventsGroup: publishEventsGroupMock,
+        hideMessageDelay: 500,
+        hideMessageWithDelay: hideMessageWithDelayMock,
+        hideMessage: hideMessageMock,
+        eventsGroups: sortedByName,
+        initSlider: initSliderMock,
+        setEventsCounter: setEventsCounterMock,
+        resetReduceParamsOrder: resetReduceParamsOrderMock,
+        reduceParamsAndReloadEvents: reduceParamsAndReloadEventsMock,
+        hideMessageWithoutDelay: function() {},
+        clearEvents: function() {},
+      },
+    };
 
-	it('#addScroll should be defined', () => {
-		widget.addScroll();
-		expect(typeof(widget.addScroll)).toBe('function');
-	});
+    it('should group events by name and publish them if there are no sorting param', () => {
+      const additionalMockParams = {
+        widget: {
+          ...widgetMock.widget,
+          widgetRoot: {
+            getAttribute: getAttributeMock.mockReturnValue(false),
+          },
+        },
+      };
+      widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
 
-	it('#initPretendedLink should be defined', () => {
-		widget.initPretendedLink(widget.widgetRoot, 'http://ticketmaster.com');
-		$(widget.widgetRoot).trigger('click');
-		expect(typeof(widget.initPretendedLink)).toBe('function');
-		widget.initPretendedLink(widget.widgetRoot, false);
-		$(widget.widgetRoot).trigger('touchstart');
-	});
+      expect(groupEventsByNameMock).toHaveBeenCalled();
+      expect(publishEventMock).toHaveBeenCalledTimes(2);
+      expect(publishEventsGroupMock).toHaveBeenCalled();
+      expect(initSliderMock).toHaveBeenCalled();
+      expect(setEventsCounterMock).toHaveBeenCalled();
+      expect(resetReduceParamsOrderMock).toHaveBeenCalled();
+      expect(hideMessageMock).toHaveBeenCalled();
+      expect(publishEventsGroupMock).toHaveBeenCalledWith([{'name': '1'}, {'name': '1'}], 0);
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '2'});
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '3'});
+      expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
+    });
 
-	it('#createBackgroundImage should be defined', () => {
-		widget.createBackgroundImage(widget.widgetRoot, 'http://ticketmaster.com');
-		expect(typeof(widget.createBackgroundImage)).toBe('function');
-		widget.widgetConfig = {
-			theme: 'listviewthumbnails'
-		}
-		widget.createBackgroundImage(widget.widgetRoot, 'http://ticketmaster.com');
-		widget.createBackgroundImage(widget.widgetRoot, false);
-	});
+    it('should group events by name and publish them if sorting params set to group by name value', () => {
+      const additionalMockParams = {
+        widget: {
+          ...widgetMock.widget,
+          widgetRoot: {
+            getAttribute: getAttributeMock.mockReturnValue('groupByName'),
+          },
+        },
+      };
+      widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
 
-	it('#addBarcode should be defined', () => {
-		widget.widgetConfig ={
-			theme: 'oldschool'
-		}
-		widget.addBarcode(widget.widgetRoot, 'http://ticketmaster.com');
-		expect(typeof(widget.addBarcode)).toBe('function');
-		widget.widgetConfig ={
-			theme: undefined
-		}
-		widget.addBarcode(widget.widgetRoot, 'http://ticketmaster.com');
-		expect(typeof(widget.addBarcode)).toBe('function');
-	});
+      expect(groupEventsByNameMock).toHaveBeenCalled();
+      expect(publishEventMock).toHaveBeenCalledTimes(2);
+      expect(publishEventsGroupMock).toHaveBeenCalled();
+      expect(initSliderMock).toHaveBeenCalled();
+      expect(setEventsCounterMock).toHaveBeenCalled();
+      expect(resetReduceParamsOrderMock).toHaveBeenCalled();
+      expect(hideMessageMock).toHaveBeenCalled();
+      expect(publishEventsGroupMock).toHaveBeenCalledWith([{'name': '1'}, {'name': '1'}], 0);
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '2'});
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '3'});
+      expect(groupEventsByNameMock.mock.instances[0]).toBe(additionalMockParams.widget);
+    });
 
-	it('#groupEventsByName should be defined', () => {
-		widget.events = '[{"id":"Z1lMVSyiJynZ177dJa","url":"https://qapurchasetest.nbp.frontgatetickets.com/event/lwln7sy8bni2h448","name":"No Longer on Sale for Web","date":{"day":"2014-03-31","time":"19:15:00"},"address":{"line1":"1711 S. Congress","line2":"2nd Floor","name":"FGS - Selenium (With enough text for 2nd"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_3_2.jpg"},{"id":"vv1AdZAa4GkdE0_X3","url":"http://www.ticketmaster.com/event/03005255E7919F92","name":"FIAF Presents - Wine Tour de France - 4 Tasting Class Package","date":{"day":"2017-03-20","time":"19:00:00"},"address":{"line1":"22 East 60th St","line2":"8th Floor (Between Park & Madison Aves)","name":"Le Skyroom at FIAF"},"img":"https://s1.ticketm.net/dam/c/7e6/22f24b33-e33a-4ee1-87ba-9c3aece497e6_105841_TABLET_LANDSCAPE_3_2.jpg"},{"id":"vvG1HZf0T55fH1","url":"http://www.ticketmaster.com/event/0F00524FCB2D4F0A","name":"DMX & Zeds Dead Two Show Combo","date":{"day":"2017-03-31","time":"20:00:00"},"address":{"line1":"555 W 5th Avenue","name":"William a Egan Civic and Convention Center"},"img":"https://s1.ticketm.net/dam/a/835/16ceaa41-585f-4bc5-b376-a56d2e9a3835_298451_TABLET_LANDSCAPE_3_2.jpg"}]';
-		widget.groupEventsByName();
-		expect(typeof(widget.groupEventsByName)).toBe('function');
-	});
+    it('just publish events if sorting param is set to ascending value', () => {
+      const additionalMockParams = {
+        widget: {
+          ...widgetMock.widget,
+          hideMessageWithoutDelay: false,
+          widgetRoot: {
+            getAttribute: getAttributeMock.mockReturnValue('dateAscending'),
+          },
+        },
+      };
+      widget.eventsLoadingHandler.call({...widgetMock, ...additionalMockParams});
 
-	it('#setEventsCounter should be defined', () => {
-		widget.eventsCounter = {};
-		widget.setEventsCounter();
-		expect(typeof(widget.setEventsCounter)).toBe('function');
-		widget.eventsGroups = '[[{"id":"Z1lMVSyiJynZ177dJa","url":"https://qapurchasetest.nbp.frontgatetickets.com/event/lwln7sy8bni2h448","name":"No Longer on Sale for Web","date":{"day":"2014-03-31","time":"19:15:00"},"address":{"line1":"1711 S. Congress","line2":"2nd Floor","name":"FGS - Selenium (With enough text for 2nd"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_3_2.jpg"}],[{"id":"vv1AdZAa4GkdE0_X3","url":"http://www.ticketmaster.com/event/03005255E7919F92","name":"FIAF Presents - Wine Tour de France - 4 Tasting Class Package","date":{"day":"2017-03-20","time":"19:00:00"},"address":{"line1":"22 East 60th St","line2":"8th Floor (Between Park & Madison Aves)","name":"Le Skyroom at FIAF"},"img":"https://s1.ticketm.net/dam/c/7e6/22f24b33-e33a-4ee1-87ba-9c3aece497e6_105841_TABLET_LANDSCAPE_3_2.jpg"}],[{"id":"vvG1HZf0T55fH1","url":"http://www.ticketmaster.com/event/0F00524FCB2D4F0A","name":"DMX & Zeds Dead Two Show Combo","date":{"day":"2017-03-31","time":"20:00:00"},"address":{"line1":"555 W 5th Avenue","name":"William a Egan Civic and Convention Center"},"img":"https://s1.ticketm.net/dam/a/835/16ceaa41-585f-4bc5-b376-a56d2e9a3835_298451_TABLET_LANDSCAPE_16_9.jpg"}]]';
-		widget.setEventsCounter();
-		expect(typeof(widget.setEventsCounter)).toBe('function');
-		widget.eventsGroups = {length: 0};
-		widget.setEventsCounter();
-		expect(typeof(widget.setEventsCounter)).toBe('function');
-	});
+      expect(publishEventMock).toHaveBeenCalledTimes(4);
+      expect(initSliderMock).toHaveBeenCalled();
+      expect(setEventsCounterMock).toHaveBeenCalled();
+      expect(resetReduceParamsOrderMock).toHaveBeenCalled();
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '3'});
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '1'});
+      expect(publishEventMock).toHaveBeenCalledWith({'name': '2'});
+    });
+  });
 
-	it('#resetReduceParamsOrder should be defined', () => {
-		widget.resetReduceParamsOrder();
-		expect(typeof(widget.resetReduceParamsOrder)).toBe('function');
-	});
+  describe('#publishEventsGroup', () => {
+  const group = {
+    map: (fn) => {fn();},
+  };
 
-	it('#makeImageUrl should be defined', () => {
-		widget.makeImageUrl('test');
+    it('#publishEventsGroup should create elem and add style when config.layout != fullwidth', () => {
+      widget.publishEvent = jest.fn();
+      widget.publishEventsGroup(group, 1);
+      let elem = document.querySelector('.event-wrapper.event-group-wrapper');
+      expect(elem.style.width).toBe('350px');
+      expect(elem.style.height).toBe('561px');
+      expect(widget.publishEvent).toHaveBeenCalled();
+    });
+
+    it('#publishEventsGroup should create elem and add style when config.layout == fullwidth', () => {
+      widget.publishEvent = jest.fn();
+      widget.config.layout = 'fullwidth';
+      widget.publishEventsGroup(group, 1);
+      let elem = document.querySelector('.event-wrapper.event-group-wrapper');
+      expect(elem.style.width).toBe('0px');
+      expect(elem.style.height).toBe('600px');
+      expect(widget.publishEvent).toHaveBeenCalled();
+    });
+  });
+
+  it('#publishEvent should add new DOMElement', () => {
+    const appendChildMock = jest.fn();
+    const createDOMItemMock = jest.fn();
+    const widgetMock = {
+      eventsRoot: {
+        appendChild: appendChildMock,
+      },
+      createDOMItem: createDOMItemMock,
+    };
+    widget.publishEvent.call(widgetMock, 'mockEvent');
+    expect(appendChildMock).toHaveBeenCalled();
+    expect(createDOMItemMock).toHaveBeenCalled();
+    expect(createDOMItemMock).toHaveBeenCalledWith('mockEvent');
+  });
+
+  it('#getEventByID should return {"id": 1}', () => {
+    const widgetMock = {
+      events: [{id: 1}, {id: 2}],
+    };
+    expect(widget.getEventByID.call(widgetMock, 1)).toEqual({'id': 1});
+  });
+
+  describe('#getImageForEvent', () => {
+    const images = [
+      {width: '100', height: '200', url: 'img-01.bmp'},
+      {width: '400', height: '300', url: 'img-02.bmp'},
+      {width: '10', height: '50', url: 'img-03.bmp'},
+      {width: '10', height: '10', url: 'img-04.bmp'},
+    ];
+    it('#getImageForEvent should return the first img', () => {
+      widget.config.width = '100';
+      widget.config.height = '200';
+      expect(widget.getImageForEvent(images)).toBe('img-01.bmp');
+    });
+
+    it('#getImageForEvent should return the second smallest img', () => {
+      widget.config.width = '100%';
+      expect(widget.getImageForEvent(images, true, true)).toBe('img-01.bmp');
+    });
+  });
+
+  describe('#parseEvents', () => {
+    it('#parseEvents should return currentEvent', () => {
+      widget.config.theme = 'listviewthumbnails';
+      widget.config.layout = 'fullwidth';
+      const eventsSet = {
+        _embedded: {
+          events: {
+            key: {
+              id: 'idMock',
+              url: 'urlMock',
+              name: 'nameMock',
+              dates: {
+                start: {
+                  localDate: '23.09.83',
+                  localTime: '12:00',
+                  dateTime: '11:00',
+                },
+                end: {
+                  localDate: '23.09.99',
+                  localTime: '19:00',
+                  dateTime: '18:00',
+                },
+              },
+              images: [
+                {width: '100', height: '200', url: 'img-01.bmp'},
+                {width: '400', height: '300', url: 'img-02.bmp'},
+                {width: '50', height: '50', url: 'img-03.bmp'},
+                {width: '10', height: '10', url: 'img-04.bmp'},
+              ],
+              _embedded: {
+                venues: [{
+                  address: {},
+                  name: 'addressName',
+                }],
+              },
+            },
+          },
+        },
+      };
+      const generatedObj = [{
+        address: {
+          name: 'addressName',
+        },
+        date: {
+          'day': '23.09.83',
+          'time': '12:00',
+        },
+        id: 'idMock',
+        img: 'img-02.bmp',
+        name: 'nameMock',
+        url: 'urlMock',
+      }];
+      expect(widget.parseEvents(eventsSet)).toEqual(generatedObj);
+    });
+
+    it('#parseEvent should return empty Array', () => {
+      const eventSet = {};
+      expect(widget.parseEvents(eventSet)).toEqual([]);
+    });
+  });
+
+  it('#initPretendedLink should add addEventListener to widget.widgetRoot', () => {
+    const setAttributeMock = jest.fn();
+    const getAttributeMock = jest.fn();
+    widget.widgetRoot.setAttribute = setAttributeMock;
+    widget.widgetRoot.getAttribute = getAttributeMock;
+    const res = widget.initPretendedLink(widget.widgetRoot, 'http://ticketmaster.com');
+    expect(res).toEqual(widget.widgetRoot);
+    expect(setAttributeMock).toHaveBeenCalledWith('data-url', 'http://ticketmaster.com');
+
+    $(widget.widgetRoot).trigger('click');
+    expect(getAttributeMock).toHaveBeenCalledWith('data-url');
+  });
+
+  describe('#createBackgroundImage', () => {
+    it('#createBackgroundImage should create elem with class bg-cover', () => {
+      widget.createBackgroundImage(widget.widgetRoot, 'http://ticketmaster.com');
+      const elem = widget.widgetRoot.querySelector('.bg-cover');
+      expect(elem.style.backgroundImage).toEqual('url(http://ticketmaster.com)');
+    });
+    it('#createBackgroundImage should create elem with class bg-cover-thumbnails', () => {
+      widget.config.theme = 'listviewthumbnails';
+      widget.createBackgroundImage(widget.widgetRoot, 'http://ticketmaster.com');
+      const elem = widget.widgetRoot.querySelector('.bg-cover-thumbnails');
+      expect(elem.style.backgroundImage).toEqual('url(http://ticketmaster.com)');
+    });
+
+    it('#createBackgroundImage should create elem with class bg-cover-default', () => {
+      widget.config.theme = 'listviewthumbnails';
+      widget.createBackgroundImage(widget.widgetRoot, false);
+      const elem = widget.widgetRoot.querySelector('.bg-cover-default');
+      expect(elem.style.backgroundImage).toEqual('');
+    });
+  });
+
+  it('#addBarcode should create elem with class barcode', () => {
+    let elem = widget.widgetRoot.querySelector('.barcode');
+    expect(elem).toBe(null);
+
+    widget.config.theme = 'oldschool';
+    widget.addBarcode(widget.widgetRoot, 'http://ticketmaster.com');
+    elem = widget.widgetRoot.querySelector('.barcode');
+    expect(elem.getAttribute('target')).toBe('_blank');
+    expect(elem.getAttribute('href')).toBe('http://ticketmaster.com');
+  });
+
+  /* TODO */
+  it('#addSimpleScrollBar', () => {
+    expect(window.hasOwnProperty('data-simple-scrollbar')).toBe(false);
+    widget.addSimpleScrollBar();
+  });
+
+  it('#addScroll should call addSimpleScrollBar', () => {
+    widget.addSimpleScrollBar = jest.fn();
+    window.SimpleScrollbar = {
+      initEl: jest.fn(),
+    };
+    widget.addScroll();
+    expect(widget.addSimpleScrollBar).toHaveBeenCalled();
+    expect(SimpleScrollbar.initEl).toHaveBeenCalled();
+  });
+
+	it('#makeImageUrl should be https://app.ticketmaster.com/discovery-widgets/v2/events/test/images.json', () => {
 		expect(widget.makeImageUrl('test')).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events/test/images.json');
 	});
 
-	it('#reduceParamsAndReloadEvents should be defined', () => {
-		widget.reduceParamsOrder = 0;
-		widget.reduceParamsAndReloadEvents();
-		expect(typeof(widget.reduceParamsAndReloadEvents)).toBe('function');
-		widget.reduceParamsList = [];
-		widget.reduceParamsAndReloadEvents();
-		expect(typeof(widget.reduceParamsAndReloadEvents)).toBe('function');
-	});
-
-	it('#styleLoadingHandler should be defined', () => {
-		widget.styleLoadingHandler.bind({widget:{config:{theme:'simple'}},readyState:XMLHttpRequest.DONE, status:200, responseText:'<link id="widget-theme-listview" rel="stylesheet" href="/products-and-docs/widgets/event-discovery/1.0.0/theme/listview.css">'})();
-		expect(typeof(widget.styleLoadingHandler)).toBe('function');
-	});
-
-	it('#formatDate should return result', function(){
-		let noneResult = widget.formatDate('date');
-		expect(noneResult).toBe('');
-
-		let noneTimeResult = widget.formatDate({day : "2017-03-17"});
-		expect(noneTimeResult).toEqual("Fri, Mar 17, 2017");
-
-		let mockDate = {
-			dateTime : "2017-03-18T00:30:00Z",
-			day : "2017-03-17",
-			time : "20:30:00"
-		};
-		let okResult = widget.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 08:30 PM");
-		mockDate = {
-			dateTime : "2017-03-18T00:00:00Z",
-			day : "2017-03-17",
-			time : "00:00:00"
-		};
-		okResult = widget.formatDate(mockDate);
-		expect(okResult).toEqual("Fri, Mar 17, 2017 12:00 AM");
-	});
-
-	it('#update should be defined', () => {
-		widget.eventsRootContainer = document.querySelector('.events-root-container');
-		widget.eventsRoot = document.querySelector('.events-root-container');
-		widget.themeModificators = {
-			hasOwnProperty: function() {}
-		}
-		widget.update();
-		expect(typeof(widget.update)).toBe('function');
-		widget.config = {
-			border: '2'
-		}
-		widget.widgetConfig = {
-			theme: ''
-		};
-		widget.update();
-		expect(typeof(widget.update)).toBe('function');
-	});
-
-	it('#parseEvent should return currentEvent', () => {
-		var eventSet = {
-			id:'porky',
-			url:'pie',
-			name: 'Tanok na maydani Kongo',
-			address:{name:''},
-			images : [
-				{ width : '100', height :'200', url:"img-01.bmp"},
-				{ width : '400', height :'300', url:"img-02.bmp"},
-				{ width : '50', height :'50', url:"img-03.bmp"},
-				{ width : '10', height :'10', url:"img-04.bmp"}
-			],
-			dates : {
-				start : {
-					localDate: '23.09.83',
-					localTime: '12:00',
-					dateTime: '11:00'
-				},
-				end : {
-					localDate: '23.09.99',
-					localTime: '19:00',
-					dateTime: '18:00'
-				}
-			},
-			_embedded: {
-				venues: [
-					{
-						name: 'one address'
-					}
-				]
-			}
-		};
-		var currentEvent = widget.parseEvents(eventSet);
-		var generatedObj = {
-			address: {"name": "one address"},
-			date: {"dateTime": "11:00", "dateTimeEnd": "18:00", "day": "23.09.83", "dayEnd": "23.09.99", "time": "12:00", "timeEnd": "19:00"},
-			id: "porky",
-			img: "img-03.bmp",
-			name: "Tanok na maydani Kongo",
-			url: "pie"
-		};
-		// expect(currentEvent).toEqual(generatedObj);
-
-
-		var generatedObjNoVenueName = {
-			id: 'porky',
-			url: 'pie',
-			name: 'Tanok na maydani Kongo',
-			date: { day: '23.09.83', time: '12:00', dateTime: '11:00', dayEnd: '23.09.99', timeEnd: '19:00', dateTimeEnd: '18:00' },
-			address: 'one address',
-			img: 'img-03.bmp'
-		};
-
-		eventSet._embedded.venues[0]={ address: 'one address' };
-		let $widgetModalNoCode = undefined;
-		widget.parseEvents(eventSet);
-		let currentEventNoVenueName = widget.parseEvents(eventSet);
-		// expect(currentEventNoVenueName).toEqual(generatedObjNoVenueName);
-
-	});
-
+	/* TODO */
+  it('#createDOMItem should be defined', () => {
+    widget.config = {
+      theme: 'listview',
+    };
+    let evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","name":"2017/2018 Subscription","date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
+    widget.createDOMItem(evt, widget.widgetRoot);
+    expect(typeof(widget.createDOMItem)).toBe('function');
+    document.querySelector('[w-type="event-discovery"]').removeAttribute('w-titlelink');
+    evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","name":"2017/2018 Subscription","address":{"name":"Avenue 5", "line1":"one" ,"line2": "two"},"categories":["music", "games"],"date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
+    widget.createDOMItem(evt, widget.widgetRoot);
+    evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","address":"","name":"2017/2018 Subscription","date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
+    widget.createDOMItem(evt, widget.widgetRoot);
+  });
 });
 
-describe("EDWWidgetWithoutSpyOn", () => {
-	let widget,
-		module,
-		hideMessageDelay;
-	var setFixture = () => {
-		document.body.innerHTML =
-			'<head></head><div w-type="event-discovery" w-tmapikey="y61xDc5xqUSIOz4ISjgCe5E9Lh0hfUH1" w-googleapikey="AIzaSyBQrJ5ECXDaXVlICIdUBOe8impKIGHDzdA" w-keyword="" w-theme="ListView" w-colorscheme="light" w-width="350" w-height="600" w-size="25" w-border="0" w-borderradius="4" w-postalcode="" w-radius="" w-period="week" w-layout="vertical" w-attractionid="" w-promoterid="" w-venueid="" w-affiliateid="" w-segmentid="" w-proportion="custom" w-titlelink="off" w-countrycode="US" w-source="" w-latlong=","><div class="event-logo centered-logo"></div><div class="event-date centered-logo"></div></div>';
-	};
-	beforeAll(() => {
-		window.__VERSION__ = 'mockedVersion';
-		setFixture();
-		module = require('products-and-docs/widgets/event-discovery/1.0.0/src/main-widget.es6');
-		widget = new module.TicketmasterEventDiscoveryWidget();
-		widget = new module.TicketmasterEventDiscoveryWidget(document.querySelector('div[w-type="event-discovery"]'));
-	});
-
-	beforeEach(function() {
-		spyOn(widget, 'isListView');
-	});
-
-	it('#clear should be defined', () => {
-		$(widget.widgetRoot).append('<div class="modificator"></div><div class="modificator"></div><div class="modificator"></div>');
-		$(document.body).append('<div class="widget-container--discovery"><div class="listview-after"></div></div>');
-		widget.clear();
-		expect(typeof(widget.clear)).toBe('function');
-		widget.widgetConfig = {
-			theme: 'listview'
-		};
-		widget.clear();
-	});
-
-	it('#hideMessage should be defined', () => {
-		widget.hideMessage();
-		expect(typeof(widget.hideMessage)).toBe('function');
-		widget.messageTimeout = function() {return true};
-		widget.hideMessage();
-		expect(typeof(widget.hideMessage)).toBe('function');
-	});
-
-	it('#showMessage should be defined', () => {
-		let hideMessageWithoutDelay = function() {return true};
-		widget.massageDialog = widget.eventsRoot;
-		widget.messageTimeout = function() {return true};
-		widget.showMessage('Test message', hideMessageWithoutDelay);
-		expect(typeof(widget.showMessage)).toBe('function');
-	});
-
-	it('#publishEvent should be defined', () => {
-		let evt = JSON.parse('[[{"id":"Z1lMVSyiJynZ177dJa","url":"https://qapurchasetest.nbp.frontgatetickets.com/event/lwln7sy8bni2h448","name":"No Longer on Sale for Web","date":{"day":"2014-03-31","time":"19:15:00"},"address":{"line1":"1711 S. Congress","line2":"2nd Floor","name":"FGS - Selenium (With enough text for 2nd"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_3_2.jpg"}],[{"id":"vv1AdZAa4GkdE0_X3","url":"http://www.ticketmaster.com/event/03005255E7919F92","name":"FIAF Presents - Wine Tour de France - 4 Tasting Class Package","date":{"day":"2017-03-20","time":"19:00:00"},"address":{"line1":"22 East 60th St","line2":"8th Floor (Between Park & Madison Aves)","name":"Le Skyroom at FIAF"},"img":"https://s1.ticketm.net/dam/c/7e6/22f24b33-e33a-4ee1-87ba-9c3aece497e6_105841_TABLET_LANDSCAPE_3_2.jpg"}],[{"id":"vvG1HZf0T55fH1","url":"http://www.ticketmaster.com/event/0F00524FCB2D4F0A","name":"DMX & Zeds Dead Two Show Combo","date":{"day":"2017-03-31","time":"20:00:00"},"address":{"line1":"555 W 5th Avenue","name":"William a Egan Civic and Convention Center"},"img":"https://s1.ticketm.net/dam/a/835/16ceaa41-585f-4bc5-b376-a56d2e9a3835_298451_TABLET_LANDSCAPE_16_9.jpg"}]]');
-		widget.publishEvent(evt, widget.widgetRoot);
-		expect(typeof(widget.publishEvent)).toBe('function');
-	});
-
-	it('#createDOMItem should be defined', () => {
-		let evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","name":"2017/2018 Subscription","date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
-		widget.createDOMItem(evt, widget.widgetRoot);
-		expect(typeof(widget.createDOMItem)).toBe('function');
-		document.querySelector('[w-type="event-discovery"]').removeAttribute('w-titlelink');
-		evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","name":"2017/2018 Subscription","address":{"name":"Avenue 5", "line1":"one" ,"line2": "two"},"categories":["music", "games"],"date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
-		widget.createDOMItem(evt, widget.widgetRoot);
-		evt = JSON.parse('{"id":"LvZ184X-QKyIveZvudILo","url":"https://www.universe.com/events/2017-2018-subscription-tickets-F39HZP?ref=ticketmaster","address":"","name":"2017/2018 Subscription","date":{"day":"2016-09-25","time":"18:15:00"},"img":"https://s1.ticketm.net/dam/c/8cf/a6653880-7899-4f67-8067-1f95f4d158cf_124761_TABLET_LANDSCAPE_16_9.jpg"}');
-		widget.createDOMItem(evt, widget.widgetRoot);
-	});
-
-});
