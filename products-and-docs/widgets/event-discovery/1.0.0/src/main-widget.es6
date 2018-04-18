@@ -356,72 +356,74 @@ class TicketmasterEventDiscoveryWidget {
     });
   }
 
-    parseGoogleGeocodeResponse(cb) {
-        let widget = this;
+  getParseGoogleGeocodeResponse(cb) {
+      let widget = this;
+      return function() {
         if (this && this.readyState === XMLHttpRequest.DONE ) {
-            let latlong = '',
-                results = null,
-                countryShortName = '';
-            if(this.status === 200) {
-                let response = JSON.parse(this.responseText);
-                if (response.status === 'OK' && response.results.length) {
-                    // Filtering only white list countries
-                    results = response.results.filter((item) => {
-                        return widget.countriesWhiteList.filter((elem) => {
-                            return elem === item.address_components[item.address_components.length - 1].long_name;
-                        }).length > 0;
-                    });
+          let latlong = '',
+            results = null,
+            countryShortName = '';
+          if(this.status === 200) {
+            let response = JSON.parse(this.responseText);
+            if (response.status === 'OK' && response.results.length) {
+              // Filtering only white list countries
+              results = response.results.filter((item) => {
+                return widget.countriesWhiteList.filter((elem) => {
+                  return elem === item.address_components[item.address_components.length - 1].long_name;
+                }).length > 0;
+              });
 
-                    if (results.length) {
-                        // sorting results by country name
-                        results.sort((f, g) => {
-                            let a = f.address_components[f.address_components.length - 1].long_name;
-                            let b = g.address_components[g.address_components.length - 1].long_name;
-                            if (a > b) {
-                                return 1;
-                            }
-                            if (a < b) {
-                                return -1;
-                            }
-                            return 0;
-                        });
+              if (results.length) {
+                // sorting results by country name
+                results.sort((f, g) => {
+                  let a = f.address_components[f.address_components.length - 1].long_name;
+                  let b = g.address_components[g.address_components.length - 1].long_name;
+                  if (a > b) {
+                    return 1;
+                  }
+                  if (a < b) {
+                    return -1;
+                  }
+                  return 0;
+                });
 
-                        // Use first item if multiple results was found in one country or in different
-                        let geometry = results[0].geometry;
-                        countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
+                // Use first item if multiple results was found in one country or in different
+                let geometry = results[0].geometry;
+                countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
 
-                        // If multiple results without country try to find USA as prefer value
-                        if (!widget.config.country) {
-                            for (let i in results) {
-                                let result = results[i];
-                                if (result.address_components) {
-                                    let country = result.address_components[result.address_components.length - 1];
-                                    if (country) {
-                                        if (country.short_name === 'US') {
-                                            countryShortName = 'US';
-                                            geometry = result.geometry;
-                                        }
-                                    }
-                                }
-                            }
+                // If multiple results without country try to find USA as prefer value
+                if (!widget.config.country) {
+                  for (let i in results) {
+                    let result = results[i];
+                    if (result.address_components) {
+                      let country = result.address_components[result.address_components.length - 1];
+                      if (country) {
+                        if (country.short_name === 'US') {
+                          countryShortName = 'US';
+                          geometry = result.geometry;
                         }
-
-                        if (geometry) {
-                            if (geometry.location) {
-                                latlong = `${geometry.location.lat},${geometry.location.lng}`;
-                            }
-                        }
-                    } else {
-                        results = null;
+                      }
                     }
+                  }
                 }
+
+                if (geometry) {
+                  if (geometry.location) {
+                    latlong = `${geometry.location.lat},${geometry.location.lng}`;
+                  }
+                }
+              } else {
+                results = null;
+              }
             }
-            // Used in builder
-            if(widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
-            widget.config.latlong = latlong;
-            cb(widget.config.latlong);
+          }
+          // Used in builder
+          if(widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
+          widget.config.latlong = latlong;
+          cb(widget.config.latlong);
         }
-    }
+      };
+  }
 
   getCoordinates(cb) {
     let widget = this;
@@ -429,7 +431,7 @@ class TicketmasterEventDiscoveryWidget {
       let args = {language: 'en', components: `postal_code:${widget.config.postalcode}`};
       if(widget.config.googleapikey) args.key = widget.config.googleapikey;
       if(this.config.country) args.components += `|country:${this.config.country}`;
-      this.makeRequest(this.parseGoogleGeocodeResponse.bind(widget, cb), this.geocodeUrl, args);
+      this.makeRequest(this.getParseGoogleGeocodeResponse(cb), this.geocodeUrl, args);
     }else{
       // Used in builder
       if(widget.onLoadCoordinate) widget.onLoadCoordinate(null);
