@@ -296,12 +296,22 @@ describe('EDWWidget', () => {
     const updateTransitionMock = jest.fn();
     const onLoadCoordinateMock = jest.fn();
     const cbMock = jest.fn();
+    let onLoadCoordinate;
+    beforeAll(() => {
+      onLoadCoordinate = widget.onLoadCoordinate;
+    });
+
+    afterAll(() => {
+      widget.onLoadCoordinate = onLoadCoordinate;
+    });
+
     beforeEach(() => {
       updateTransitionMock.mockReset();
       onLoadCoordinateMock.mockReset();
       cbMock.mockReset();
     });
-    const widgetMock = {
+
+    const responseMock = {
       readyState: XMLHttpRequest.DONE,
       status: 200,
       onLoadCoordinate: onLoadCoordinateMock,
@@ -309,43 +319,24 @@ describe('EDWWidget', () => {
       responseText: JSON.stringify(responseTextMock),
       countriesWhiteList: ['Australia', 'Denmark', 'Finland'],
     };
-
-    it('#parseGoogleGeocodeResponse should', () => {
-      const res = [{'address_components': [{'long_name': 'Denmark', 'short_name': 'DK'}, {'long_name': 'Finland', 'short_name': 'FI'}]}];
-      widget.parseGoogleGeocodeResponse.call(widgetMock, cbMock);
-      expect(onLoadCoordinateMock).toHaveBeenCalledTimes(1);
-      expect(onLoadCoordinateMock).toHaveBeenCalledWith(res, 'FI');
-      expect(cbMock).toHaveBeenCalledTimes(1);
-    });
-
-    it('should resend request if response do not have 200 status', () => {
-      const additionalMockParams = {
-        ...widgetMock,
-        status: 400,
-      };
-      widget.parseGoogleGeocodeResponse.call(additionalMockParams, cbMock);
-      expect(onLoadCoordinateMock).toHaveBeenCalledTimes(1);
-      expect(onLoadCoordinateMock).toHaveBeenCalledWith(null, '');
-      expect(cbMock).toHaveBeenCalledTimes(1);
-    });
   });
 
   describe('#getCoordinates', () => {
     const cbMock = jest.fn();
     const makeRequestMock = jest.fn();
-    const parseGoogleGeocodeResponseMock = jest.fn();
+    const getParseGoogleGeocodeResponseMock = jest.fn();
     const onLoadCoordinateMock = jest.fn(() => true);
     beforeEach(() => {
       makeRequestMock.mockReset();
       onLoadCoordinateMock.mockReset();
-      parseGoogleGeocodeResponseMock.mockReset();
+      getParseGoogleGeocodeResponseMock.mockReset();
     });
 
     const widgetMock = {
       isConfigAttrExistAndNotEmpty: function() {return true;},
       makeRequest: makeRequestMock,
       onLoadCoordinate: onLoadCoordinateMock,
-      parseGoogleGeocodeResponse: parseGoogleGeocodeResponseMock,
+      getParseGoogleGeocodeResponse: getParseGoogleGeocodeResponseMock,
       geocodeUrl: 'url',
       config: {
         googleapikey: 1234,

@@ -598,7 +598,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4850";
+      return '' + "1.0.-4849";
     }
   }, {
     key: 'geocodeUrl',
@@ -837,72 +837,74 @@ var TicketmasterEventDiscoveryWidget = function () {
       });
     }
   }, {
-    key: 'parseGoogleGeocodeResponse',
-    value: function parseGoogleGeocodeResponse(cb) {
+    key: 'getParseGoogleGeocodeResponse',
+    value: function getParseGoogleGeocodeResponse(cb) {
       var widget = this;
-      if (this && this.readyState === XMLHttpRequest.DONE) {
-        var latlong = '',
-            results = null,
-            countryShortName = '';
-        if (this.status === 200) {
-          var response = JSON.parse(this.responseText);
-          if (response.status === 'OK' && response.results.length) {
-            // Filtering only white list countries
-            results = response.results.filter(function (item) {
-              return widget.countriesWhiteList.filter(function (elem) {
-                return elem === item.address_components[item.address_components.length - 1].long_name;
-              }).length > 0;
-            });
-
-            if (results.length) {
-              // sorting results by country name
-              results.sort(function (f, g) {
-                var a = f.address_components[f.address_components.length - 1].long_name;
-                var b = g.address_components[g.address_components.length - 1].long_name;
-                if (a > b) {
-                  return 1;
-                }
-                if (a < b) {
-                  return -1;
-                }
-                return 0;
+      return function () {
+        if (this && this.readyState === XMLHttpRequest.DONE) {
+          var latlong = '',
+              results = null,
+              countryShortName = '';
+          if (this.status === 200) {
+            var response = JSON.parse(this.responseText);
+            if (response.status === 'OK' && response.results.length) {
+              // Filtering only white list countries
+              results = response.results.filter(function (item) {
+                return widget.countriesWhiteList.filter(function (elem) {
+                  return elem === item.address_components[item.address_components.length - 1].long_name;
+                }).length > 0;
               });
 
-              // Use first item if multiple results was found in one country or in different
-              var geometry = results[0].geometry;
-              countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
+              if (results.length) {
+                // sorting results by country name
+                results.sort(function (f, g) {
+                  var a = f.address_components[f.address_components.length - 1].long_name;
+                  var b = g.address_components[g.address_components.length - 1].long_name;
+                  if (a > b) {
+                    return 1;
+                  }
+                  if (a < b) {
+                    return -1;
+                  }
+                  return 0;
+                });
 
-              // If multiple results without country try to find USA as prefer value
-              if (!widget.config.country) {
-                for (var i in results) {
-                  var result = results[i];
-                  if (result.address_components) {
-                    var country = result.address_components[result.address_components.length - 1];
-                    if (country) {
-                      if (country.short_name === 'US') {
-                        countryShortName = 'US';
-                        geometry = result.geometry;
+                // Use first item if multiple results was found in one country or in different
+                var geometry = results[0].geometry;
+                countryShortName = results[0].address_components[results[0].address_components.length - 1].short_name;
+
+                // If multiple results without country try to find USA as prefer value
+                if (!widget.config.country) {
+                  for (var i in results) {
+                    var result = results[i];
+                    if (result.address_components) {
+                      var country = result.address_components[result.address_components.length - 1];
+                      if (country) {
+                        if (country.short_name === 'US') {
+                          countryShortName = 'US';
+                          geometry = result.geometry;
+                        }
                       }
                     }
                   }
                 }
-              }
 
-              if (geometry) {
-                if (geometry.location) {
-                  latlong = geometry.location.lat + ',' + geometry.location.lng;
+                if (geometry) {
+                  if (geometry.location) {
+                    latlong = geometry.location.lat + ',' + geometry.location.lng;
+                  }
                 }
+              } else {
+                results = null;
               }
-            } else {
-              results = null;
             }
           }
+          // Used in builder
+          if (widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
+          widget.config.latlong = latlong;
+          cb(widget.config.latlong);
         }
-        // Used in builder
-        if (widget.onLoadCoordinate) widget.onLoadCoordinate(results, countryShortName);
-        widget.config.latlong = latlong;
-        cb(widget.config.latlong);
-      }
+      };
     }
   }, {
     key: 'getCoordinates',
@@ -912,7 +914,7 @@ var TicketmasterEventDiscoveryWidget = function () {
         var args = { language: 'en', components: 'postal_code:' + widget.config.postalcode };
         if (widget.config.googleapikey) args.key = widget.config.googleapikey;
         if (this.config.country) args.components += '|country:' + this.config.country;
-        this.makeRequest(this.parseGoogleGeocodeResponse.bind(widget, cb), this.geocodeUrl, args);
+        this.makeRequest(this.getParseGoogleGeocodeResponse(cb), this.geocodeUrl, args);
       } else {
         // Used in builder
         if (widget.onLoadCoordinate) widget.onLoadCoordinate(null);
