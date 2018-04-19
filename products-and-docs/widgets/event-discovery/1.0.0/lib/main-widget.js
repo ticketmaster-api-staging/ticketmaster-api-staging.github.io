@@ -598,7 +598,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4849";
+      return '' + "1.0.-4841";
     }
   }, {
     key: 'geocodeUrl',
@@ -1411,15 +1411,9 @@ var TicketmasterEventDiscoveryWidget = function () {
       }
 
       this.eventsRootContainer.addEventListener('touchstart', function (e) {
-        if (_this8.config.theme !== "listview" && _this8.config.theme !== "listviewthumbnails") {
-          if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault();
-        }
         handleTouchStart.call(_this8, e);
       }, false);
       this.eventsRootContainer.addEventListener('touchmove', function (e) {
-        if (_this8.config.theme !== "listview" && _this8.config.theme !== "listviewthumbnails") {
-          if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault();
-        }
         handleTouchMove.call(_this8, e);
       }, false);
     }
@@ -1941,11 +1935,13 @@ var TicketmasterEventDiscoveryWidget = function () {
             win.focus();
           }
         });
-        el.addEventListener('touchstart', function () {
+        el.addEventListener('touchend', function () {
           var url = this.getAttribute('data-url');
           if (url) {
             var win = window.open(url, isBlank ? '_blank' : '_self');
-            win.focus();
+            if (win) {
+              win.focus();
+            }
           }
         });
       }
