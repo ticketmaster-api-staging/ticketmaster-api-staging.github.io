@@ -598,7 +598,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4841";
+      return '' + "1.0.-4837";
     }
   }, {
     key: 'geocodeUrl',
@@ -933,6 +933,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       this.buyBtn.classList.add("event-buy-btn");
       this.buyBtn.classList.add("main-btn");
       this.buyBtn.target = '_blank';
+      this.buyBtn.setAttribute('data-enable-widget', '');
       this.buyBtn.href = '';
       this.buyBtn.addEventListener('click', function (e) {
         // e.preventDefault(); /*used in plugins for 'buy button'*/

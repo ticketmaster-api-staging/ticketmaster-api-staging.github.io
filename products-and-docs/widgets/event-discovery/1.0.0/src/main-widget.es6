@@ -447,6 +447,7 @@ class TicketmasterEventDiscoveryWidget {
     this.buyBtn.classList.add("event-buy-btn");
     this.buyBtn.classList.add("main-btn");
     this.buyBtn.target = '_blank';
+    this.buyBtn.setAttribute('data-enable-widget', '');
     this.buyBtn.href = '';
     this.buyBtn.addEventListener('click', (e)=> {
       // e.preventDefault(); /*used in plugins for 'buy button'*/
