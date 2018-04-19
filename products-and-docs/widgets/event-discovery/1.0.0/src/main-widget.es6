@@ -896,11 +896,9 @@ class TicketmasterEventDiscoveryWidget {
     }
 
     this.eventsRootContainer.addEventListener('touchstart', (e)=> {
-      if(this.config.theme !== "listview" && this.config.theme !=="listviewthumbnails") { if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault(); }
       handleTouchStart.call(this, e);
     }, false);
     this.eventsRootContainer.addEventListener('touchmove', (e)=> {
-      if(this.config.theme !== "listview" && this.config.theme !=="listviewthumbnails") { if (e.target.className != 'event-logo' && e.target.className != 'event-question' && e.target.className != 'event-buy-btn main-btn') e.preventDefault(); }
       handleTouchMove.call(this, e);
     }, false);
   }
@@ -1412,11 +1410,13 @@ class TicketmasterEventDiscoveryWidget {
           win.focus();
         }
       });
-      el.addEventListener('touchstart', function(){
+      el.addEventListener('touchend', function(){
         let url = this.getAttribute('data-url');
-        if(url){
+        if(url) {
           let win = window.open(url, (isBlank ? '_blank' : '_self'));
-          win.focus();
+          if (win) {
+            win.focus();
+          }
         }
       });
     }
