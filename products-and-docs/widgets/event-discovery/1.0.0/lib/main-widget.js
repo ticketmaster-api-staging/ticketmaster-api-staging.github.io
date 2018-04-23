@@ -598,7 +598,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4837";
+      return '' + "1.0.-4833";
     }
   }, {
     key: 'geocodeUrl',
@@ -2005,7 +2005,7 @@ var TicketmasterEventDiscoveryWidget = function () {
         buyBtn.target = '_blank';
         buyBtn.href = url;
         buyBtn.addEventListener('click', function (e) {
-          e.preventDefault();
+          // e.preventDefault();
           ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
           ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
         });
