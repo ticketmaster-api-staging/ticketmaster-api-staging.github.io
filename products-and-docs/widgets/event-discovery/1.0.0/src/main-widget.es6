@@ -1477,7 +1477,7 @@ class TicketmasterEventDiscoveryWidget {
       buyBtn.target = '_blank';
       buyBtn.href = url;
       buyBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
         ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
       });
