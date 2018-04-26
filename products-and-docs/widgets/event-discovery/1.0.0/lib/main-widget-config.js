@@ -547,6 +547,9 @@ const ATTRIBUTE_NAMES = {
   WIDGET_LAYOUT: 'w-layout',
   WIDGET_HEIGHT: 'w-height',
   WIDGET_BORDER: 'w-border',
+  WIDGET_EVENTS_PERIOD: 'w-period',
+  WIDGET_EVENTS_DATE_FROM: 'w-startdatetime',
+  WIDGET_EVENTS_DATE_TO: 'w-enddatetime',
 
   TITLE_COLOR: 'w-titleColor',
   TITLE_HOVER_COLOR: 'w-titleHoverColor',
@@ -571,6 +574,9 @@ const ATTRIBUTE_VALUES = {
   },
   WIDGET_LAYOUT: {
     HORIZONTAL: 'horizontal',
+  },
+  WIDGET_EVENTS_PERIOD: {
+    CUSTOM: 'custom',
   },
 };
 /* harmony export (immutable) */ __webpack_exports__["ATTRIBUTE_VALUES"] = ATTRIBUTE_VALUES;
@@ -685,6 +691,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var $darkSchemeSelector = $('.widget__dark-theme-selector');
   var $customColorSchemeSelector = $('.widget__color_scheme_custom');
   var widgetNode = document.querySelector('div[w-type="event-discovery"]');
+  var $customDatesWrapper = $('.custom-dates-wrapper');
 
   var selectedColorTheme = _attributeNames.ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
 
@@ -891,6 +898,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     });
   }
 
+  function handlePeriodClick(_ref2) {
+    var _ref2$target = _ref2.target,
+        targetName = _ref2$target.name,
+        newDatePeriod = _ref2$target.value;
+
+    if (targetName === _attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_PERIOD) {
+      if (newDatePeriod === _attributeNames.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+        $customDatesWrapper.show();
+      } else {
+        $customDatesWrapper.hide();
+        [_attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_FROM, _attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_TO].forEach(function (attr) {
+          widgetNode.removeAttribute(attr);
+          $('#' + attr).val('');
+        });
+      }
+    }
+  }
+
   var changeState = function changeState(event) {
     if (!event.target.name || event.target.name === "w-googleapikey") return;
 
@@ -928,6 +953,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     handleCustomColorSchemeClick(event);
     handleCustomFieldClick(event);
     handleThemeClick(event);
+    handlePeriodClick(event);
 
     if (targetName === "w-layout") {
       var sizeConfig = themeConfig.initSliderSize;
@@ -1261,6 +1287,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   });
 
   $('.color-picker').minicolors();
+  $('.dt-ico').each(function (idx, iconElement) {
+    iconElement.addEventListener('click', function () {
+      NewCssCal($(iconElement).attr('data-input-id'), 'yyyyMMdd', 'dropdown');
+    });
+  });
 })();
 
 /***/ }),

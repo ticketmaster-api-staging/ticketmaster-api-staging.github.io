@@ -67,6 +67,7 @@ import difference from 'lodash/difference';
   const $darkSchemeSelector = $('.widget__dark-theme-selector');
   const $customColorSchemeSelector = $('.widget__color_scheme_custom');
   const widgetNode = document.querySelector('div[w-type="event-discovery"]');
+  const $customDatesWrapper = $('.custom-dates-wrapper');
 
   let selectedColorTheme = ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
 
@@ -265,6 +266,21 @@ import difference from 'lodash/difference';
     });
   }
 
+  function handlePeriodClick({target: {name: targetName, value: newDatePeriod}}) {
+    if(targetName === ATTRIBUTE_NAMES.WIDGET_EVENTS_PERIOD) {
+      if (newDatePeriod === ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+        $customDatesWrapper.show();
+      } else {
+        $customDatesWrapper.hide();
+        [ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_FROM, ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_TO]
+          .forEach((attr) => {
+            widgetNode.removeAttribute(attr);
+            $(`#${attr}`).val('');
+          });
+      }
+    }
+  }
+
   var changeState = function(event){
     if(!event.target.name || event.target.name === "w-googleapikey") return;
 
@@ -302,8 +318,7 @@ import difference from 'lodash/difference';
     handleCustomColorSchemeClick(event);
     handleCustomFieldClick(event);
     handleThemeClick(event);
-
-
+    handlePeriodClick(event);
 
     if(targetName === "w-layout"){
       let sizeConfig = themeConfig.initSliderSize;
@@ -640,5 +655,9 @@ import difference from 'lodash/difference';
     });
 
     $('.color-picker').minicolors();
-
+    $('.dt-ico').each((idx, iconElement) => {
+      iconElement.addEventListener('click', () => {
+        NewCssCal($(iconElement).attr('data-input-id'), 'yyyyMMdd', 'dropdown');
+      });
+    });
 })();

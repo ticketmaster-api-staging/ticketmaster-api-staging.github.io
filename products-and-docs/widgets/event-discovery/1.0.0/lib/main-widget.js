@@ -305,6 +305,9 @@ const ATTRIBUTE_NAMES = {
   WIDGET_LAYOUT: 'w-layout',
   WIDGET_HEIGHT: 'w-height',
   WIDGET_BORDER: 'w-border',
+  WIDGET_EVENTS_PERIOD: 'w-period',
+  WIDGET_EVENTS_DATE_FROM: 'w-startdatetime',
+  WIDGET_EVENTS_DATE_TO: 'w-enddatetime',
 
   TITLE_COLOR: 'w-titleColor',
   TITLE_HOVER_COLOR: 'w-titleHoverColor',
@@ -329,6 +332,9 @@ const ATTRIBUTE_VALUES = {
   },
   WIDGET_LAYOUT: {
     HORIZONTAL: 'horizontal',
+  },
+  WIDGET_EVENTS_PERIOD: {
+    CUSTOM: 'custom',
   },
 };
 /* harmony export (immutable) */ __webpack_exports__["ATTRIBUTE_VALUES"] = ATTRIBUTE_VALUES;
@@ -598,7 +604,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4833";
+      return '' + "1.0.-4817";
     }
   }, {
     key: 'geocodeUrl',
@@ -692,10 +698,17 @@ var TicketmasterEventDiscoveryWidget = function () {
         attrs.latlong = this.config.latlong.replace(/\s+/g, '');
       }
 
-      if (this.isConfigAttrExistAndNotEmpty("period")) {
-        var period = this.getDateFromPeriod(this.config.period);
-        attrs.startDateTime = period[0];
-        attrs.endDateTime = period[1];
+      if (this.isConfigAttrExistAndNotEmpty('period')) {
+        var _getDateFromPeriod = this.getDateFromPeriod(this.config.period.toLowerCase()),
+            firstDay = _getDateFromPeriod.firstDay,
+            lastDay = _getDateFromPeriod.lastDay;
+
+        if (firstDay) {
+          attrs.startDateTime = firstDay;
+        }
+        if (lastDay) {
+          attrs.endDateTime = lastDay;
+        }
       }
 
       if (this.widgetRoot.getAttribute("w-latlong") != null) {
@@ -2187,43 +2200,24 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'getDateFromPeriod',
     value: function getDateFromPeriod(period) {
+      var firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+      var lastDay = void 0;
 
-      var period = period.toLowerCase(),
-          firstDay,
-          lastDay;
-
-      if (period == "year") {
-        // firstDay = new Date( new Date(new Date()).toISOString() );
-        // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-        // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
-        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+      if (period === 'year') {
         lastDay = new Date(new Date().valueOf() + 24 * 365 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
-      } else if (period == "month") {
-        // firstDay = new Date( new Date(new Date()).toISOString() );
-        // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-        // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
-        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+      } else if (period === _attributeNames.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+        firstDay = this.config.startdatetime && this.config.startdatetime + 'T00:00:00Z';
+        lastDay = this.config.enddatetime && this.config.enddatetime + 'T23:59:59Z';
+      } else if (period === 'month') {
         lastDay = new Date(new Date().valueOf() + 24 * 31 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
-      } else if (period == "week") {
-        // firstDay = new Date( new Date(new Date()).toISOString() );
-        // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-        // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
-        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+      } else if (period === 'week') {
         lastDay = new Date(new Date().valueOf() + 24 * 7 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       } else {
-        // firstDay = new Date( new Date(new Date()).toISOString() );
-        // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-        // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-        // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
-        firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
         lastDay = new Date(new Date().valueOf() + 24 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
       }
 
       // return [this.toShortISOString(firstDay), this.toShortISOString(lastDay)];
-      return [firstDay, lastDay];
+      return { firstDay: firstDay, lastDay: lastDay };
     }
   }]);
 
