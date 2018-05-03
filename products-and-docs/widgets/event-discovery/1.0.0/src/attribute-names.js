@@ -8,6 +8,9 @@ export const ATTRIBUTE_NAMES = {
   WIDGET_LAYOUT: 'w-layout',
   WIDGET_HEIGHT: 'w-height',
   WIDGET_BORDER: 'w-border',
+  WIDGET_EVENTS_PERIOD: 'w-period',
+  WIDGET_EVENTS_DATE_FROM: 'w-startdatetime',
+  WIDGET_EVENTS_DATE_TO: 'w-enddatetime',
 
   TITLE_COLOR: 'w-titleColor',
   TITLE_HOVER_COLOR: 'w-titleHoverColor',
@@ -30,6 +33,9 @@ export const ATTRIBUTE_VALUES = {
   },
   WIDGET_LAYOUT: {
     HORIZONTAL: 'horizontal',
+  },
+  WIDGET_EVENTS_PERIOD: {
+    CUSTOM: 'custom',
   },
 };
 

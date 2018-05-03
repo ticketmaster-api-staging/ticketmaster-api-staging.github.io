@@ -1,5 +1,5 @@
 import widgetAnalytics from '../../../helpers/widgets-analytics';
-import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
+import {ATTRIBUTE_NAMES, ATTRIBUTE_VALUES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
 
 const ELEMENTS_STYLED_BY_ATTRIBUTES = {
   [ATTRIBUTE_NAMES.TITLE_COLOR]: [{
@@ -214,10 +214,14 @@ class TicketmasterEventDiscoveryWidget {
         attrs.latlong = this.config.latlong.replace(/\s+/g, '');
     }
 
-    if(this.isConfigAttrExistAndNotEmpty("period")){
-      let period = this.getDateFromPeriod(this.config.period);
-      attrs.startDateTime = period[0];
-      attrs.endDateTime = period[1];
+    if(this.isConfigAttrExistAndNotEmpty('period')) {
+      const {firstDay, lastDay} = this.getDateFromPeriod(this.config.period.toLowerCase());
+      if (firstDay) {
+        attrs.startDateTime = firstDay;
+      }
+      if (lastDay) {
+        attrs.endDateTime = lastDay;
+      }
     }
 
     if (this.widgetRoot.getAttribute("w-latlong") != null) {
@@ -1627,45 +1631,26 @@ class TicketmasterEventDiscoveryWidget {
       "Z";
   }
 
-  getDateFromPeriod(period){
+  getDateFromPeriod(period) {
+    let firstDay = new Date().toISOString().slice(0, 11) + '00:00:00Z';
+    let lastDay;
 
-    var period = period.toLowerCase(),
-      firstDay, lastDay;
-
-    if(period == "year" ) {
-      // firstDay = new Date( new Date(new Date()).toISOString() );
-      // lastDay = new Date( new Date(new Date().valueOf()+24*365*60*60*1000).toISOString() );
-      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      // lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,19) + 'Z';
-      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
-      lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
+    if(period === 'year') {
+      lastDay = new Date(new Date().valueOf()+24*365*60*60*1000).toISOString().slice(0, 11) + '00:00:00Z';
+    } else if(period === ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+      firstDay = this.config.startdatetime && this.config.startdatetime + 'T00:00:00Z';
+      lastDay = this.config.enddatetime && this.config.enddatetime + 'T23:59:59Z';
+    } else if(period === 'month') {
+      lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0, 11) + '00:00:00Z';
     }
-    else if(period == "month") {
-      // firstDay = new Date( new Date(new Date()).toISOString() );
-      // lastDay = new Date( new Date(new Date().valueOf()+24*31*60*60*1000).toISOString() );
-      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      // lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,19) + 'Z';
-      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
-      lastDay = new Date(new Date().valueOf()+24*31*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
-    }
-    else if(period == "week") {
-      // firstDay = new Date( new Date(new Date()).toISOString() );
-      // lastDay = new Date( new Date(new Date().valueOf()+24*7*60*60*1000).toISOString() );
-      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      // lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,19) + 'Z';
-      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
-      lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
+    else if(period === 'week') {
+      lastDay = new Date(new Date().valueOf()+24*7*60*60*1000).toISOString().slice(0, 11) + '00:00:00Z';
     } else {
-      // firstDay = new Date( new Date(new Date()).toISOString() );
-      // lastDay = new Date( new Date(new Date().valueOf()+24*60*60*1000).toISOString() );
-      // firstDay = new Date().toISOString().slice(0,19) + 'Z';
-      // lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,19) + 'Z';
-      firstDay = new Date().toISOString().slice(0,11) + '00:00:00Z';
-      lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0,11) + '00:00:00Z';
+      lastDay = new Date(new Date().valueOf()+24*60*60*1000).toISOString().slice(0, 11) + '00:00:00Z';
     }
 
     // return [this.toShortISOString(firstDay), this.toShortISOString(lastDay)];
-    return [firstDay, lastDay];
+    return {firstDay, lastDay};
   }
 
 }
