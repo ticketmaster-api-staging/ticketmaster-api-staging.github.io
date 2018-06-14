@@ -232,7 +232,6 @@ class TicketmasterMapWidget {
             });
             /*plugins for 'buy button'*/
             this.embedUniversePlugin();
-            this.embedTMPlugin();
             this.initBuyBtn();
             this.initMessage();
 
@@ -288,25 +287,6 @@ class TicketmasterMapWidget {
 
     isUniverseUrl(url){
         return (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
-    }
-
-    isAllowedTMEvent(url){
-        for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++);
-        let id = (null !== n ? n[2] : void 0);
-        return (this.tmWidgetWhiteList.indexOf(id) > -1);
-    }
-
-    embedTMPlugin(){
-        let id = 'id_tm_widget';
-        if( !document.getElementById(id) ) {
-            let script = document.createElement('script');
-            script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('charset', 'UTF-8');
-            script.setAttribute('id', id);
-            (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-        }
-        this.isTMPluginInitialized = true;
     }
 
     embedUniversePlugin(){
@@ -878,7 +858,7 @@ class TicketmasterMapWidget {
 
     addBuyButton(domNode, url) {
         if (this.isListView) {
-            let _urlValid = ( this.isUniversePluginInitialized && this.isUniverseUrl(url) ) || ( this.isTMPluginInitialized && this.isAllowedTMEvent(url) );
+            let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
             if(!_urlValid) url = '';
             let buyBtn = document.createElement("a");
             buyBtn.appendChild(document.createTextNode('BUY NOW'));

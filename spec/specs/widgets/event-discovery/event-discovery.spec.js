@@ -439,10 +439,6 @@ describe('EDWWidget', () => {
     });
   });
 
-  it('#isAllowedTMEvent should be false', () => {
-    expect(widget.isAllowedTMEvent('livenation.com')).toBe(false);
-  });
-
   it('#embedUniversePlugin should create elem', () => {
     widget.embedUniversePlugin();
     let elem = document.getElementById('id_universe_widget');
