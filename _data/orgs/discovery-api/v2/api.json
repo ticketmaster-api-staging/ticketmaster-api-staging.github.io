@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "The Ticketmaster Discovery API allows you to search for events, attractions, or venues.",
+    "description" : "The Ticketmaster Discovery API allows you to search for events,\n                                    attractions, or venues.",
     "version" : "v2",
     "title" : "Discovery API",
     "contact" : {
@@ -47,6 +47,70 @@
           "default" : "",
           "x-example" : ""
         }, {
+          "name" : "includeFamily",
+          "in" : "query",
+          "description" : "Filter by classification that are family-friendly",
+          "required" : false,
+          "type" : "string",
+          "default" : "yes",
+          "pattern" : "^\\s*|yes|no|only$",
+          "enum" : [ "yes", " no", " only" ],
+          "x-example" : ""
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
+          "x-example" : ""
+        }, {
+          "name" : "segmentId",
+          "in" : "query",
+          "description" : "Filter attractions by segmentId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "genreId",
+          "in" : "query",
+          "description" : "Filter attractions by genreId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "subGenreId",
+          "in" : "query",
+          "description" : "Filter attractions by subGenreId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "typeId",
+          "in" : "query",
+          "description" : "Filter attractions by typeId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "subTypeId",
+          "in" : "query",
+          "description" : "Filter attractions by subTypeId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
           "name" : "keyword",
           "in" : "query",
           "description" : "Keyword to search on",
@@ -65,7 +129,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -82,13 +146,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -129,6 +194,15 @@
           "pattern" : "^\\s*|yes|no",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -173,6 +247,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -199,6 +282,15 @@
           "pattern" : "^name,asc|name,desc$",
           "x-example" : ""
         }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
+          "x-example" : ""
+        }, {
           "name" : "keyword",
           "in" : "query",
           "description" : "Keyword to search on",
@@ -217,7 +309,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -234,13 +326,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -281,6 +374,15 @@
           "pattern" : "^\\s*|yes|no",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -325,6 +427,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -366,6 +477,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -407,12 +527,21 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/Level"
+              "$ref" : "#/definitions/SubGenre"
             }
           }
         }
@@ -448,6 +577,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -467,16 +605,25 @@
         "parameters" : [ {
           "name" : "sort",
           "in" : "query",
-          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onsaleStartDate,asc', 'id,asc'",
+          "description" : "Sorting order of the search result. Allowable values : 'name,asc', 'name,desc', 'date,asc', 'date,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'name,date,asc', 'name,date,desc', 'date,name,asc', 'date,name,desc','onSaleStartDate,asc', 'id,asc', 'venueName,asc', 'venueName,desc'",
           "required" : false,
           "type" : "string",
           "default" : "relevance,desc",
-          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)$",
+          "pattern" : "^((name|date|relevance|name,date|date,name),(asc|desc))|(distance,asc)|(onSaleStartDate,asc)|(id,asc)|((venueName),(asc|desc))$",
+          "x-example" : ""
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
           "x-example" : ""
         }, {
           "name" : "startDateTime",
           "in" : "query",
-          "description" : "Filter events with a start date after this date",
+          "description" : "Filter with a start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -484,7 +631,7 @@
         }, {
           "name" : "endDateTime",
           "in" : "query",
-          "description" : "Filter events with a start date before this date",
+          "description" : "Filter with a start date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -492,7 +639,7 @@
         }, {
           "name" : "onsaleStartDateTime",
           "in" : "query",
-          "description" : "Filter events with onsale start date after this date",
+          "description" : "Filter with onsale start date after this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -500,7 +647,7 @@
         }, {
           "name" : "onsaleOnStartDate",
           "in" : "query",
-          "description" : "Filter events with onsale start date on this date",
+          "description" : "Filter with onsale start date on this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -508,7 +655,7 @@
         }, {
           "name" : "onsaleOnAfterStartDate",
           "in" : "query",
-          "description" : "Filter events with onsale range within this date",
+          "description" : "Filter with onsale range within this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -516,7 +663,7 @@
         }, {
           "name" : "onsaleEndDateTime",
           "in" : "query",
-          "description" : "Filter events with onsale end date before this date",
+          "description" : "Filter with onsale end date before this date",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -524,7 +671,7 @@
         }, {
           "name" : "city",
           "in" : "query",
-          "description" : "Filter events by city",
+          "description" : "Filter by city",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -532,7 +679,7 @@
         }, {
           "name" : "countryCode",
           "in" : "query",
-          "description" : "Filter events by country code",
+          "description" : "Filter by country code",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -540,7 +687,7 @@
         }, {
           "name" : "stateCode",
           "in" : "query",
-          "description" : "Filter events by state code",
+          "description" : "Filter by state code",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -548,7 +695,7 @@
         }, {
           "name" : "postalCode",
           "in" : "query",
-          "description" : "Filter events by postal code / zipcode",
+          "description" : "Filter by postal code / zipcode",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -556,7 +703,7 @@
         }, {
           "name" : "venueId",
           "in" : "query",
-          "description" : "Filter events by venue id",
+          "description" : "Filter by venue id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -564,7 +711,7 @@
         }, {
           "name" : "attractionId",
           "in" : "query",
-          "description" : "Filter events by attraction id",
+          "description" : "Filter by attraction id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -572,15 +719,16 @@
         }, {
           "name" : "segmentId",
           "in" : "query",
-          "description" : "Filter events by segment id",
+          "description" : "Filter by segment id",
           "required" : false,
-          "type" : "string",
+          "type" : "array",
+          "collectionFormat" : "multi",
           "default" : "",
           "x-example" : ""
         }, {
           "name" : "segmentName",
           "in" : "query",
-          "description" : "Filter events by segment name",
+          "description" : "Filter by segment name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -588,25 +736,35 @@
         }, {
           "name" : "classificationName",
           "in" : "query",
-          "description" : "Filter events by classification name: name of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter by classification name: name of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationName>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
-          "x-example" : ""
+          "x-example" : "Music,-Country"
         }, {
           "name" : "classificationId",
           "in" : "query",
-          "description" : "Filter events by classification id: id of any segment, genre, sub-genre, type, sub-type",
+          "description" : "Filter by classification id: id of any segment, genre, sub-genre, type, sub-type. Negative filtering is supported by using the following format '-<classificationId>'. Be aware that negative filters may cause decreased performance.",
           "required" : false,
           "type" : "array",
           "collectionFormat" : "multi",
           "default" : "",
+          "x-example" : "KZFzniwnSyZfZ7v7nJ,-KZazBEonSMnZfZ7vAvE"
+        }, {
+          "name" : "includeFamily",
+          "in" : "query",
+          "description" : "Filter by classification that are family-friendly",
+          "required" : false,
+          "type" : "string",
+          "default" : "yes",
+          "pattern" : "^\\s*|yes|no|only$",
+          "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
           "name" : "marketId",
           "in" : "query",
-          "description" : "Filter events by market id",
+          "description" : "Filter by market id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -615,7 +773,7 @@
         }, {
           "name" : "promoterId",
           "in" : "query",
-          "description" : "Filter events by promoter id",
+          "description" : "Filter by promoter id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -624,7 +782,7 @@
         }, {
           "name" : "dmaId",
           "in" : "query",
-          "description" : "Filter events by dma id",
+          "description" : "Filter by dma id",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -633,7 +791,7 @@
         }, {
           "name" : "includeTBA",
           "in" : "query",
-          "description" : "True, to include events with date to be announce (TBA)",
+          "description" : "yes, to include with date to be announce (TBA)",
           "required" : false,
           "type" : "string",
           "default" : "no if date parameter sent, yes otherwise",
@@ -643,7 +801,7 @@
         }, {
           "name" : "includeTBD",
           "in" : "query",
-          "description" : "True, to include event with a date to be defined (TBD)",
+          "description" : "yes, to include with a date to be defined (TBD)",
           "required" : false,
           "type" : "string",
           "default" : "no if date parameter sent, yes otherwise",
@@ -653,9 +811,45 @@
         }, {
           "name" : "clientVisibility",
           "in" : "query",
-          "description" : "Filter events by clientName",
+          "description" : "Filter by clientName",
           "required" : false,
           "type" : "string",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "genreId",
+          "in" : "query",
+          "description" : "Filter by genreId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "subGenreId",
+          "in" : "query",
+          "description" : "Filter by subGenreId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "typeId",
+          "in" : "query",
+          "description" : "Filter by typeId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : ""
+        }, {
+          "name" : "subTypeId",
+          "in" : "query",
+          "description" : "Filter by subTypeId",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
           "default" : "",
           "x-example" : ""
         }, {
@@ -714,7 +908,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -731,13 +925,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -778,6 +973,15 @@
           "pattern" : "^\\s*|yes|no",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -822,6 +1026,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -863,6 +1076,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -892,7 +1114,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -987,7 +1209,8 @@
           "in" : "query",
           "description" : "Filter suggestions by segment id",
           "required" : false,
-          "type" : "string",
+          "type" : "array",
+          "collectionFormat" : "multi",
           "default" : "",
           "x-example" : ""
         }, {
@@ -999,6 +1222,25 @@
           "default" : "",
           "pattern" : "^\\s*$|^-?(90(\\.0+)?|[0-8]?[0-9](\\.\\d+)?),-?(180(\\.0+)?|(1[0-7][0-9]|\\d{1,2})(\\.\\d+)?)$|^[a-zA-Z0-9]{1,9}$",
           "x-example" : "dr5rh"
+        }, {
+          "name" : "resource",
+          "in" : "query",
+          "description" : "which resources to include in the suggest response, defaults to all resources",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "attraction,event,venue,product",
+          "x-example" : "attraction,event"
+        }, {
+          "name" : "preferredCountry",
+          "in" : "query",
+          "description" : "Popularity boost by country, default is us.",
+          "required" : false,
+          "type" : "string",
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
+          "x-example" : ""
         }, {
           "name" : "locale",
           "in" : "query",
@@ -1028,6 +1270,15 @@
           "pattern" : "^\\s*|yes|no",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -1052,6 +1303,15 @@
           "type" : "string",
           "default" : "relevance,desc",
           "pattern" : "^(name|relevance|distance),(asc|desc)$",
+          "x-example" : ""
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number",
+          "required" : false,
+          "type" : "string",
+          "default" : "0",
+          "minimum" : 0.0,
           "x-example" : ""
         }, {
           "name" : "stateCode",
@@ -1125,7 +1385,7 @@
         }, {
           "name" : "source",
           "in" : "query",
-          "description" : "Filter entities by its source name",
+          "description" : "Filter entities by its primary source name OR publishing source name",
           "required" : false,
           "type" : "string",
           "default" : "",
@@ -1142,13 +1402,14 @@
           "enum" : [ "yes", " no", " only" ],
           "x-example" : ""
         }, {
-          "name" : "page",
+          "name" : "preferredCountry",
           "in" : "query",
-          "description" : "Page number",
+          "description" : "Popularity boost by country, default is us.",
           "required" : false,
           "type" : "string",
-          "default" : "0",
-          "minimum" : 0.0,
+          "default" : "us",
+          "pattern" : "^\\s*|us|ca",
+          "enum" : [ "us", " ca" ],
           "x-example" : ""
         }, {
           "name" : "size",
@@ -1189,6 +1450,15 @@
           "pattern" : "^\\s*|yes|no",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -1233,6 +1503,15 @@
           "pattern" : "^\\s*|yes|no$",
           "enum" : [ "yes", " no" ],
           "x-example" : ""
+        }, {
+          "name" : "domain",
+          "in" : "query",
+          "description" : "Filter entities based on domains they are available on",
+          "required" : false,
+          "type" : "array",
+          "collectionFormat" : "multi",
+          "default" : "",
+          "x-example" : "ticketmaster.pl, ticketmaster.co.uk"
         } ],
         "responses" : {
           "200" : {
@@ -1289,6 +1568,23 @@
       },
       "description" : "Additional information for people who experience disabilities"
     },
+    "Ada" : {
+      "type" : "object",
+      "properties" : {
+        "adaPhones" : {
+          "type" : "string"
+        },
+        "adaCustomCopy" : {
+          "type" : "string",
+          "position" : 1
+        },
+        "adaHours" : {
+          "type" : "string",
+          "position" : 2
+        }
+      },
+      "description" : "Venue ADA details"
+    },
     "Address" : {
       "type" : "object",
       "properties" : {
@@ -1322,7 +1618,7 @@
     },
     "Attraction" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
@@ -1392,6 +1688,27 @@
           "position" : 96,
           "description" : "Indicate if this is a test entity, by default test entities won't appear in discovery API",
           "default" : false
+        },
+        "aliases" : {
+          "type" : "array",
+          "example" : "[otr, otr 2]",
+          "position" : 98,
+          "description" : "List of aliases for entity",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "localizedAliases" : {
+          "type" : "object",
+          "example" : "en-us: [otr, otr 2]",
+          "position" : 99,
+          "description" : "List of localized aliases for entity",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
         },
         "upcomingEvents" : {
           "type" : "object",
@@ -1493,12 +1810,18 @@
         "type" : {
           "position" : 5,
           "description" : "A Type represents a kind or group of people. (Donation, Group, Individual, Merchandise, Event Style, etc)",
-          "$ref" : "#/definitions/Level"
+          "$ref" : "#/definitions/Type"
         },
         "subType" : {
           "position" : 6,
           "description" : "Secondary Type to further categorize an entity (Band, Choir, Chorus, etc)",
           "$ref" : "#/definitions/Level"
+        },
+        "family" : {
+          "type" : "boolean",
+          "position" : 7,
+          "description" : "True if this is a family classification",
+          "default" : false
         }
       },
       "description" : "Classification"
@@ -1577,6 +1900,16 @@
         },
         "id" : {
           "type" : "string"
+        }
+      }
+    },
+    "Default" : {
+      "type" : "object",
+      "properties" : {
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "default locale as determined by the publisher"
         }
       }
     },
@@ -1673,6 +2006,9 @@
     "EntityChanges" : {
       "type" : "object",
       "properties" : {
+        "correlationId" : {
+          "type" : "string"
+        },
         "newlyCreated" : {
           "type" : "boolean",
           "default" : false
@@ -1688,7 +2024,7 @@
     },
     "Event" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
@@ -1841,6 +2177,27 @@
           "position" : 96,
           "description" : "Indicate if this is a test entity, by default test entities won't appear in discovery API",
           "default" : false
+        },
+        "aliases" : {
+          "type" : "array",
+          "example" : "[otr, otr 2]",
+          "position" : 98,
+          "description" : "List of aliases for entity",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "localizedAliases" : {
+          "type" : "object",
+          "example" : "en-us: [otr, otr 2]",
+          "position" : 99,
+          "description" : "List of localized aliases for entity",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
         }
       },
       "description" : "Event"
@@ -1962,6 +2319,13 @@
     "Genre" : {
       "type" : "object",
       "properties" : {
+        "subGenres" : {
+          "type" : "array",
+          "description" : "List of Tertiary Genre linked to the Secondary Genre",
+          "items" : {
+            "$ref" : "#/definitions/SubGenre"
+          }
+        },
         "id" : {
           "type" : "string",
           "description" : "The ID of the classification's level"
@@ -1970,6 +2334,11 @@
           "type" : "string",
           "position" : 1,
           "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
         }
       },
       "description" : "Secondary Genre"
@@ -2079,15 +2448,17 @@
           "type" : "string",
           "position" : 1,
           "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
         }
       }
     },
     "LocalTime" : {
       "type" : "object",
       "properties" : {
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
-        },
         "millisOfSecond" : {
           "type" : "integer",
           "format" : "int32"
@@ -2107,6 +2478,9 @@
         "hourOfDay" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
         },
         "values" : {
           "type" : "array",
@@ -2422,6 +2796,10 @@
       "type" : "object",
       "description" : "The class defines the public visibility period on the Discovery/Publish API."
     },
+    "PublishingSource" : {
+      "type" : "object",
+      "description" : "PublishingSource"
+    },
     "Relationship" : {
       "type" : "object",
       "properties" : {
@@ -2466,6 +2844,13 @@
     "Segment" : {
       "type" : "object",
       "properties" : {
+        "genres" : {
+          "type" : "array",
+          "description" : "List of Genre linked to the Segment",
+          "items" : {
+            "$ref" : "#/definitions/Genre"
+          }
+        },
         "id" : {
           "type" : "string",
           "description" : "The ID of the classification's level"
@@ -2474,6 +2859,11 @@
           "type" : "string",
           "position" : 1,
           "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
         }
       },
       "description" : "Segment"
@@ -2556,6 +2946,46 @@
       },
       "description" : "State"
     },
+    "SubGenre" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ID of the classification's level"
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
+        }
+      },
+      "description" : "SubGenre"
+    },
+    "SubType" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ID of the classification's level"
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
+        }
+      },
+      "description" : "SubType"
+    },
     "TatExtension" : {
       "type" : "object",
       "description" : "The Attraction Tool (TAT) extension"
@@ -2599,9 +3029,56 @@
       },
       "description" : "Twitter data"
     },
+    "Type" : {
+      "type" : "object",
+      "properties" : {
+        "subTypes" : {
+          "type" : "array",
+          "description" : "List of Sub Types linked to the Type",
+          "items" : {
+            "$ref" : "#/definitions/SubType"
+          }
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The ID of the classification's level"
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "The Name of the classification's level"
+        },
+        "locale" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "Locale in which the content is returned"
+        }
+      },
+      "description" : "Type"
+    },
+    "Url" : {
+      "type" : "object",
+      "required" : [ "locales", "url" ],
+      "properties" : {
+        "locales" : {
+          "type" : "array",
+          "description" : "List of locales using this specific url",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/Locale"
+          }
+        },
+        "url" : {
+          "type" : "boolean",
+          "description" : "is URL the default one",
+          "default" : false
+        }
+      },
+      "description" : "Url"
+    },
     "Venue" : {
       "type" : "object",
-      "required" : [ "id", "type" ],
+      "required" : [ "id" ],
       "properties" : {
         "type" : {
           "type" : "string",
@@ -2752,6 +3229,27 @@
           "description" : "Indicate if this is a test entity, by default test entities won't appear in discovery API",
           "default" : false
         },
+        "aliases" : {
+          "type" : "array",
+          "example" : "[otr, otr 2]",
+          "position" : 98,
+          "description" : "List of aliases for entity",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "localizedAliases" : {
+          "type" : "object",
+          "example" : "en-us: [otr, otr 2]",
+          "position" : 99,
+          "description" : "List of localized aliases for entity",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
         "upcomingEvents" : {
           "type" : "object",
           "position" : 110,
@@ -2760,6 +3258,11 @@
             "type" : "integer",
             "format" : "int32"
           }
+        },
+        "ada" : {
+          "position" : 111,
+          "description" : "ADA information",
+          "$ref" : "#/definitions/Ada"
         }
       },
       "description" : "Venue"
