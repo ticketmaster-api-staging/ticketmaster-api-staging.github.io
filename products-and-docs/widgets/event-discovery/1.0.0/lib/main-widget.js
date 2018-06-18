@@ -604,7 +604,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4817";
+      return '' + "1.0.-4573";
     }
   }, {
     key: 'geocodeUrl',
@@ -791,7 +791,6 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       /*plugins for 'buy button'*/
       this.embedUniversePlugin();
-      this.embedTMPlugin();
 
       this.initBuyBtn();
 
@@ -1000,7 +999,7 @@ var TicketmasterEventDiscoveryWidget = function () {
             url = '';
         if (event) {
           if (event.url) {
-            if (this.isUniversePluginInitialized && this.isUniverseUrl(event.url) || this.isTMPluginInitialized && this.isAllowedTMEvent(event.url)) {
+            if (this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
               url = event.url;
             }
 
@@ -1018,32 +1017,6 @@ var TicketmasterEventDiscoveryWidget = function () {
     key: 'isUniverseUrl',
     value: function isUniverseUrl(url) {
       return !!url && (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
-    }
-  }, {
-    key: 'isAllowedTMEvent',
-    value: function isAllowedTMEvent(url) {
-      var id = 0;
-      if (url !== undefined) {
-        for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++) {}
-        id = null !== n ? n[2] : void 0;
-      } else {
-        var _id = 0;
-      }
-      return this.tmWidgetWhiteList.indexOf(id) > -1;
-    }
-  }, {
-    key: 'embedTMPlugin',
-    value: function embedTMPlugin() {
-      var id = 'id_tm_widget';
-      if (!document.getElementById(id)) {
-        var script = document.createElement('script');
-        script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-        script.setAttribute('type', 'text/javascript');
-        script.setAttribute('charset', 'UTF-8');
-        script.setAttribute('id', id);
-        (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-      }
-      this.isTMPluginInitialized = true;
     }
   }, {
     key: 'embedUniversePlugin',
@@ -2010,7 +1983,7 @@ var TicketmasterEventDiscoveryWidget = function () {
     key: 'addBuyButton',
     value: function addBuyButton(domNode, url) {
       if (this.isListView || this.isListViewThumbnails) {
-        var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url) || this.isTMPluginInitialized && this.isAllowedTMEvent(url);
+        var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
         if (!_urlValid) url = '';
         var buyBtn = document.createElement("a");
         buyBtn.appendChild(document.createTextNode('BUY NOW'));

@@ -203,7 +203,7 @@ const sendEvent = (widgetCategory, widgetEvent) => {
   ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
 };
 
-const initialize = (widgetName) => {
+const initialize = (widgetCategory) => {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -213,7 +213,7 @@ const initialize = (widgetName) => {
   ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
 
   ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -270,7 +270,7 @@ class TicketmasterCountdownWidget {
 
 	get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
 
-	get widgetVersion() { return `${"1.0.-4750"}`; }
+	get widgetVersion() { return `${"1.0.-4573"}`; }
 
 	get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
 
