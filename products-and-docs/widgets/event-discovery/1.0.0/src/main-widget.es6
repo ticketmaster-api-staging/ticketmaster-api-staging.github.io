@@ -305,7 +305,6 @@ class TicketmasterEventDiscoveryWidget {
 
       /*plugins for 'buy button'*/
         this.embedUniversePlugin();
-        this.embedTMPlugin();
 
         this.initBuyBtn();
 
@@ -502,7 +501,7 @@ class TicketmasterEventDiscoveryWidget {
           url = '';
       if(event){
         if(event.url){
-           if((this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) || (this.isTMPluginInitialized && this.isAllowedTMEvent(event.url))){
+           if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
              url = event.url;
            }
 
@@ -520,31 +519,6 @@ class TicketmasterEventDiscoveryWidget {
 
   isUniverseUrl(url){
     return !!url && (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
-  }
-
-  isAllowedTMEvent(url){
-    var id = 0;
-    if (url !== undefined) {
-        for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++);
-        id = (null !== n ? n[2] : void 0);
-    }
-    else {
-      let id = 0;
-    }
-    return (this.tmWidgetWhiteList.indexOf(id) > -1);
-  }
-
-  embedTMPlugin(){
-    let id = 'id_tm_widget';
-    if( !document.getElementById(id) ) {
-      let script = document.createElement('script');
-      script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-      script.setAttribute('type', 'text/javascript');
-      script.setAttribute('charset', 'UTF-8');
-      script.setAttribute('id', id);
-      (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-    }
-    this.isTMPluginInitialized = true;
   }
 
   embedUniversePlugin(){
@@ -1473,7 +1447,7 @@ class TicketmasterEventDiscoveryWidget {
 
   addBuyButton(domNode, url) {
     if (this.isListView || this.isListViewThumbnails ) {
-      let _urlValid = ( this.isUniversePluginInitialized && this.isUniverseUrl(url) ) || ( this.isTMPluginInitialized && this.isAllowedTMEvent(url) );
+      let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
       if(!_urlValid) url = '';
       let buyBtn = document.createElement("a");
       buyBtn.appendChild(document.createTextNode('BUY NOW'));

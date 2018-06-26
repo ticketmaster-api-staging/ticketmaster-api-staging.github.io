@@ -203,7 +203,7 @@ const sendEvent = (widgetCategory, widgetEvent) => {
   ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
 };
 
-const initialize = (widgetName) => {
+const initialize = (widgetCategory) => {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -213,7 +213,7 @@ const initialize = (widgetName) => {
   ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
 
   ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -270,7 +270,7 @@ class TicketmasterCountdownWidget {
 
 	get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
 
-	get widgetVersion() { return `${"1.0.-4750"}`; }
+	get widgetVersion() { return `${"1.0.-4573"}`; }
 
 	get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
 
@@ -350,7 +350,6 @@ class TicketmasterCountdownWidget {
 		}
 
 		this.embedUniversePlugin();
-		this.embedTMPlugin();
 
 		this.countDownWrapper.classList.add("events-count-down");
 
@@ -503,7 +502,7 @@ class TicketmasterCountdownWidget {
 				url = '';
 			if(event){
 				if(event.url){
-					if((this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) || (this.isTMPluginInitialized && this.isAllowedTMEvent(event.url))){
+					if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
 						url = event.url;
 					}
 					this.updateTransition(url);
@@ -515,25 +514,6 @@ class TicketmasterCountdownWidget {
 
 	isUniverseUrl(url){
 		return (url.match(/universe.com/g) || url.match(/uniiverse.com/g));
-	}
-
-	isAllowedTMEvent(url){
-		for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++);
-		let id = (null !== n ? n[2] : void 0);
-		return (this.tmWidgetWhiteList.indexOf(id) > -1);
-	}
-
-	embedTMPlugin(){
-		let id = 'id_tm_widget';
-		if( !document.getElementById(id) ) {
-			let script = document.createElement('script');
-			script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-			script.setAttribute('type', 'text/javascript');
-			script.setAttribute('charset', 'UTF-8');
-			script.setAttribute('id', id);
-			(document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-		}
-		this.isTMPluginInitialized = true;
 	}
 
 	embedUniversePlugin(){

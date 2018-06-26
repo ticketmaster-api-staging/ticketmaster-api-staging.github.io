@@ -95,7 +95,7 @@ const sendEvent = (widgetCategory, widgetEvent) => {
   ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
 };
 
-const initialize = (widgetName) => {
+const initialize = (widgetCategory) => {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -105,7 +105,7 @@ const initialize = (widgetName) => {
   ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
 
   ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetName, EVENT_NAME.LOAD);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -226,7 +226,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: 'widgetVersion',
         get: function get() {
-            return '' + "1.0.-4750";
+            return '' + "1.0.-4573";
         }
     }, {
         key: 'geocodeUrl',
@@ -391,7 +391,6 @@ var TicketmasterMapWidget = function () {
             });
             /*plugins for 'buy button'*/
             this.embedUniversePlugin();
-            this.embedTMPlugin();
             this.initBuyBtn();
             this.initMessage();
 
@@ -434,16 +433,7 @@ var TicketmasterMapWidget = function () {
         key: 'setBuyBtnUrl',
         value: function setBuyBtnUrl() {
             if (this.buyBtn) {
-                var event = '',
-                    url = '';
-                if (event) {
-                    if (event.url) {
-
-                        if (this.isUniversePluginInitialized && this.isUniverseUrl(event.url) || this.isTMPluginInitialized && this.isAllowedTMEvent(event.url)) {
-                            url = event.url;
-                        }
-                    }
-                }
+                var url = '';
                 this.buyBtn.href = url;
             }
         }
@@ -451,27 +441,6 @@ var TicketmasterMapWidget = function () {
         key: 'isUniverseUrl',
         value: function isUniverseUrl(url) {
             return url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g);
-        }
-    }, {
-        key: 'isAllowedTMEvent',
-        value: function isAllowedTMEvent(url) {
-            for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++) {}
-            var id = null !== n ? n[2] : void 0;
-            return this.tmWidgetWhiteList.indexOf(id) > -1;
-        }
-    }, {
-        key: 'embedTMPlugin',
-        value: function embedTMPlugin() {
-            var id = 'id_tm_widget';
-            if (!document.getElementById(id)) {
-                var script = document.createElement('script');
-                script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-                script.setAttribute('type', 'text/javascript');
-                script.setAttribute('charset', 'UTF-8');
-                script.setAttribute('id', id);
-                (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-            }
-            this.isTMPluginInitialized = true;
         }
     }, {
         key: 'embedUniversePlugin',
@@ -1035,7 +1004,7 @@ var TicketmasterMapWidget = function () {
         key: 'addBuyButton',
         value: function addBuyButton(domNode, url) {
             if (this.isListView) {
-                var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url) || this.isTMPluginInitialized && this.isAllowedTMEvent(url);
+                var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
                 if (!_urlValid) url = '';
                 var buyBtn = document.createElement("a");
                 buyBtn.appendChild(document.createTextNode('BUY NOW'));

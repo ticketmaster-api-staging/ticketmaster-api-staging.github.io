@@ -148,6 +148,33 @@ class SelectorControls {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -196,7 +223,7 @@ const initialize = (widgetName) => {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -383,33 +410,6 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
@@ -1432,7 +1432,7 @@ class TabsControls {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SelectorControls__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__ = __webpack_require__(2);
 
 
 
@@ -1715,7 +1715,6 @@ class TicketmasterCalendarWidget {
 
 		/*plugins for 'buy button'*/
 		this.embedUniversePlugin();
-		this.embedTMPlugin();
 
 		this.initBuyBtn();
 
@@ -1860,7 +1859,7 @@ class TicketmasterCalendarWidget {
 			if(event){
 				if(event.url){
 
-					if((this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) || (this.isTMPluginInitialized && this.isAllowedTMEvent(event.url))){
+					if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
 						url = event.url;
 						eLogo.classList.remove('centered-logo');
 						eLogo.classList.add('right-logo');
@@ -1878,25 +1877,6 @@ class TicketmasterCalendarWidget {
 
 	isUniverseUrl(url){
 		return (url.match(/universe.com/g) || url.match(/uniiverse.com/g));
-	}
-
-	isAllowedTMEvent(url){
-		for (var t = [/(?:ticketmaster\.com)\/(.*\/)?event\/([^\/?#]+)/, /(?:concerts\.livenation\.com)\/(.*\/)?event\/([^\/?#]+)/], n = null, r = 0; r < t.length && (n = url.match(t[r]), null === n); r++);
-		let id = (null !== n ? n[2] : void 0);
-		return (this.tmWidgetWhiteList.indexOf(id) > -1);
-	}
-
-	embedTMPlugin(){
-		let id = 'id_tm_widget';
-		if( !document.getElementById(id) ) {
-			let script = document.createElement('script');
-			script.setAttribute('src', this.portalUrl + 'scripts/vendors/tm.js');
-			script.setAttribute('type', 'text/javascript');
-			script.setAttribute('charset', 'UTF-8');
-			script.setAttribute('id', id);
-			(document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-		}
-		this.isTMPluginInitialized = true;
 	}
 
 	embedUniversePlugin(){
@@ -2824,7 +2804,7 @@ class TicketmasterCalendarWidget {
 
 	addBuyButton(domNode, url) {
 		if (this.isListView) {
-			let _urlValid = ( this.isUniversePluginInitialized && this.isUniverseUrl(url) ) || ( this.isTMPluginInitialized && this.isAllowedTMEvent(url) );
+			let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
 			if(!_urlValid) url = '';
 			let buyBtn = document.createElement("a");
 			buyBtn.appendChild(document.createTextNode('BUY NOW'));
@@ -4327,7 +4307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	}
 })());
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(3), __webpack_require__(13).setImmediate, __webpack_require__(15)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(1), __webpack_require__(13).setImmediate, __webpack_require__(15)(module)))
 
 /***/ }),
 /* 11 */
@@ -4362,7 +4342,7 @@ var _once = __webpack_require__(9);
 
 var _once2 = _interopRequireDefault(_once);
 
-var _widgetsAnalytics = __webpack_require__(1);
+var _widgetsAnalytics = __webpack_require__(2);
 
 var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
 
@@ -4586,21 +4566,24 @@ window.yearSchedulers = [];
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
+            (typeof self !== "undefined" && self) ||
+            window;
 var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
 exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
 };
 exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
 };
 exports.clearTimeout =
 exports.clearInterval = function(timeout) {
@@ -4615,7 +4598,7 @@ function Timeout(id, clearFn) {
 }
 Timeout.prototype.unref = Timeout.prototype.ref = function() {};
 Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
+  this._clearFn.call(scope, this._id);
 };
 
 // Does not start the time, just sets up the members needed.
@@ -4643,9 +4626,17 @@ exports._unrefActive = exports.active = function(item) {
 
 // setimmediate attaches itself to the global object
 __webpack_require__(12);
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
+// On some exotic environments, it's not clear which object `setimmediate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 14 */
