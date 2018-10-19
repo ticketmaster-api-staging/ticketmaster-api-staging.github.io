@@ -1,3 +1,5 @@
+import lodashGet from 'lodash/get';
+
 import CountdownClock from './CountdownClock';
 import widgetAnalytics from '../../../../helpers/widgets-analytics';
 
@@ -16,7 +18,7 @@ export default class TicketmasterCountdownWidget {
 	set eventId(id){ this.config.id = id;}
 	get eventId(){ return this.config.id;}
 
-	get apiUrl(){ return this.config.id ? `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.config.id}` : `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.eventId}`; }
+	get apiUrl(){ return 'https://app.ticketmaster.com/discovery-widgets/v2/events'; }
 
 	get themeUrl() {
 		return (window.location.host === 'developer.ticketmaster.com')
@@ -63,7 +65,11 @@ export default class TicketmasterCountdownWidget {
 				{
 					attr: 'tmapikey',
 					verboseName: 'apikey'
-				}
+				},
+        {
+          attr: 'id',
+          verboseName: 'id'
+        }
 			];
 
 		for(let i in params){
@@ -127,7 +133,10 @@ export default class TicketmasterCountdownWidget {
 
 		if (this.isFullWidth) { this.initFullWidth(); }
 
-    widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
+    widgetAnalytics.sendEvent({
+      eventCategory: widgetAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET,
+      eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+    });
 	}
 
 	getNormalizedDateValue(val){
@@ -539,7 +548,7 @@ export default class TicketmasterCountdownWidget {
 		widget.clearEvents(); // Additional clearing after each loading
 		if (this && this.readyState == XMLHttpRequest.DONE ) {
 			if(this.status == 200){
-				widget.event = JSON.parse(this.responseText);
+				widget.event = lodashGet(JSON.parse(this.responseText), '_embedded.events[0]');
 				if(widget.event){
 					widget.publishEvent(widget.event);
 					widget.hideMessage();

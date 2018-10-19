@@ -88,11 +88,17 @@ const EVENT_CATEGORY = {
 const EVENT_NAME = {
   RENDERED: 'rendered',
   LOAD: 'load',
+  BUY_BUTTON_CLICK: 'buyButtonClick',
+  EVENT_NAME_CLICK: 'eventNameClick',
 };
 
-const sendEvent = (widgetCategory, widgetEvent) => {
-  ga('send', 'event', widgetCategory, widgetEvent);
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
+const CUSTOM_DIMENSIONS = {
+  API_KEY: 'dimension1',
+};
+
+const sendEvent = (eventOptions) => {
+  ga('send', 'event', eventOptions);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', eventOptions);
 };
 
 const initialize = (widgetCategory) => {
@@ -111,6 +117,7 @@ const initialize = (widgetCategory) => {
 /* harmony default export */ __webpack_exports__["default"] = ({
   EVENT_CATEGORY,
   EVENT_NAME,
+  CUSTOM_DIMENSIONS,
   initialize,
   sendEvent,
 });
@@ -226,7 +233,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: 'widgetVersion',
         get: function get() {
-            return '' + "1.0.-4573";
+            return '' + "1.0.-3761";
         }
     }, {
         key: 'geocodeUrl',
@@ -394,7 +401,10 @@ var TicketmasterMapWidget = function () {
             this.initBuyBtn();
             this.initMessage();
 
-            _widgetsAnalytics2.default.sendEvent(_widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET, _widgetsAnalytics2.default.EVENT_NAME.RENDERED);
+            _widgetsAnalytics2.default.sendEvent({
+                eventCategory: _widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET,
+                eventAction: _widgetsAnalytics2.default.EVENT_NAME.RENDERED
+            });
         }
     }
 

@@ -85,15 +85,11 @@ describe('CDWidget', () => {
     });
 
     describe('#apiUrl', () => {
-      it('#apiUrl should be "https://app.ticketmaster.com/discovery-widgets/v2/events/1"', () => {
+      it('#apiUrl should be "https://app.ticketmaster.com/discovery-widgets/v2/events"', () => {
         widget.config.id = 1;
-        expect(widget.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events/1');
+        expect(widget.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events');
       });
 
-      it('#apiUrl should be "https://app.ticketmaster.com/discovery-widgets/v2/events/2"', () => {
-        widget.eventId = 2;
-        expect(widget.apiUrl).toBe('https://app.ticketmaster.com/discovery-widgets/v2/events/2');
-      });
     });
 
     describe('#themeUrl', () => {
@@ -645,15 +641,6 @@ describe('CDWidget', () => {
         setBuyBtnUrl: setBuyBtnUrlMock,
       },
     };
-
-    it('should call publishEvent and hideMessage', () => {
-      widget.eventsLoadingHandler.call(widgetMock);
-      expect(clearEventsMock).toHaveBeenCalledTimes(1);
-      expect(publishEventMock).toHaveBeenCalledTimes(1);
-      expect(hideMessageMock).toHaveBeenCalledTimes(1);
-      expect(setBuyBtnUrlMock).toHaveBeenCalledTimes(1);
-      expect(publishEventMock).toHaveBeenCalledWith([{name: '1'}, {name: '2'}]);
-    });
 
     it('should call onEventLoadError with status 400', () => {
       let additionalMockParams = {

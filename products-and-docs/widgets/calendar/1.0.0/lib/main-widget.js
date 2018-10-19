@@ -194,11 +194,17 @@ const EVENT_CATEGORY = {
 const EVENT_NAME = {
   RENDERED: 'rendered',
   LOAD: 'load',
+  BUY_BUTTON_CLICK: 'buyButtonClick',
+  EVENT_NAME_CLICK: 'eventNameClick',
 };
 
-const sendEvent = (widgetCategory, widgetEvent) => {
-  ga('send', 'event', widgetCategory, widgetEvent);
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
+const CUSTOM_DIMENSIONS = {
+  API_KEY: 'dimension1',
+};
+
+const sendEvent = (eventOptions) => {
+  ga('send', 'event', eventOptions);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', eventOptions);
 };
 
 const initialize = (widgetName) => {
@@ -217,6 +223,7 @@ const initialize = (widgetName) => {
 /* harmony default export */ __webpack_exports__["default"] = ({
   EVENT_CATEGORY,
   EVENT_NAME,
+  CUSTOM_DIMENSIONS,
   initialize,
   sendEvent,
 });
@@ -1722,7 +1729,10 @@ class TicketmasterCalendarWidget {
 
 		this.initSliderControls();
 
-    __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].sendEvent(__WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].EVENT_CATEGORY.CALENDAR_WIDGET, __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].EVENT_NAME.RENDERED);
+    __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].sendEvent({
+      eventCategory: __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].EVENT_CATEGORY.CALENDAR_WIDGET,
+      eventAction: __WEBPACK_IMPORTED_MODULE_1__helpers_widgets_analytics__["default"].EVENT_NAME.RENDERED,
+    });
 
 		/* if (!this.isListView) this.initEventCounter(); */
 	}
