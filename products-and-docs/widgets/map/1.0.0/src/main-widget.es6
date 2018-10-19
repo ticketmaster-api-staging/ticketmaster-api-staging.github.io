@@ -235,7 +235,10 @@ class TicketmasterMapWidget {
             this.initBuyBtn();
             this.initMessage();
 
-            widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
+            widgetAnalytics.sendEvent({
+              eventCategory: widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET,
+              eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+            });
         }
     }
 

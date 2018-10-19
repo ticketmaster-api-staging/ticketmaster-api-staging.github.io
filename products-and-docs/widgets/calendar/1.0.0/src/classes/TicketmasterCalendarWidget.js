@@ -287,7 +287,10 @@ export default class TicketmasterCalendarWidget {
 
 		this.initSliderControls();
 
-    widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.CALENDAR_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
+    widgetAnalytics.sendEvent({
+      eventCategory: widgetAnalytics.EVENT_CATEGORY.CALENDAR_WIDGET,
+      eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+    });
 
 		/* if (!this.isListView) this.initEventCounter(); */
 	}

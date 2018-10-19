@@ -254,8 +254,6 @@ describe('EDWWidget', () => {
       expect(widget.buyBtn.href).toBe('');
 
       document.querySelector('.event-buy-btn').click();
-      expect(ga).toHaveBeenCalledWith('send', 'event', 'DiscoveryClickBuyButton', 'click');
-      expect(ga).toHaveBeenCalledWith('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
       expect(eventsRootAppendChildMock).toHaveBeenCalled();
     });
   });

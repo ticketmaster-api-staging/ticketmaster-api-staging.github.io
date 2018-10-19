@@ -318,7 +318,15 @@ class TicketmasterEventDiscoveryWidget {
 
         if (this.isFullWidth) { this.initFullWidth(); }
 
-        widgetAnalytics.sendEvent(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, widgetAnalytics.EVENT_NAME.RENDERED);
+        this.defaultAnalyticsProperties = {
+          eventCategory: widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET,
+          [widgetAnalytics.CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
+        };
+
+        widgetAnalytics.sendEvent({
+          eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+          ...this.defaultAnalyticsProperties
+        });
 
         this.loadCustomStyle();
     }
@@ -452,11 +460,14 @@ class TicketmasterEventDiscoveryWidget {
     this.buyBtn.target = '_blank';
     this.buyBtn.setAttribute('data-enable-widget', '');
     this.buyBtn.href = '';
-    this.buyBtn.addEventListener('click', (e)=> {
+    this.buyBtn.addEventListener('click', (e) => {
       // e.preventDefault(); /*used in plugins for 'buy button'*/
       this.stopAutoSlideX();
       ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+      ga('tmOpenPlatform.send', 'event', {
+        eventAction: widgetAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
+        ...this.defaultAnalyticsProperties,
+      });
     });
     this.eventsRootContainer.appendChild(this.buyBtn);
   }
@@ -1433,10 +1444,13 @@ class TicketmasterEventDiscoveryWidget {
       barcodeBtn.classList.add("barcode");
       barcodeBtn.target = '_blank';
       barcodeBtn.href = url;
-      barcodeBtn.addEventListener('click', function(e) {
+      barcodeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ga('send', 'event', 'DiscoveryClickEventName', 'click');
-        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+        ga('tmOpenPlatform.send', 'event', {
+          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+          ...this.defaultAnalyticsProperties,
+        });
       });
       domNode.appendChild(barcodeBtn);
       let bottomBg = document.createElement("span");
@@ -1454,10 +1468,13 @@ class TicketmasterEventDiscoveryWidget {
       buyBtn.classList.add("event-buy-btn");
       buyBtn.target = '_blank';
       buyBtn.href = url;
-      buyBtn.addEventListener('click', function(e) {
+      buyBtn.addEventListener('click', (e) => {
         // e.preventDefault();
         ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+        ga('tmOpenPlatform.send', 'event', {
+          eventAction: widgetAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
+          ...this.defaultAnalyticsProperties,
+        });
       });
       domNode.appendChild(buyBtn);
     }
@@ -1492,10 +1509,13 @@ class TicketmasterEventDiscoveryWidget {
       name.classList.add("event-name");
       name.appendChild(nameContent);
       this.initPretendedLink(name, itemConfig.url, true);
-      name.addEventListener('click', function(e) {
+      name.addEventListener('click', (e) => {
         e.preventDefault();
         ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+        ga('tmOpenPlatform.send', 'event', {
+          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+          ...this.defaultAnalyticsProperties,
+        });
       });
       medWrapper.appendChild(name);
     }
@@ -1506,10 +1526,13 @@ class TicketmasterEventDiscoveryWidget {
       name.href = itemConfig.url;
       name.appendChild(nameContent);
       name.setAttribute('onclick', "");
-      name.addEventListener('click', function(e) {
+      name.addEventListener('click', (e) => {
         e.preventDefault();
         ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+        ga('tmOpenPlatform.send', 'event', {
+          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+          ...this.defaultAnalyticsProperties
+        });
       });
       medWrapper.appendChild(name);
     }

@@ -387,11 +387,17 @@ const EVENT_CATEGORY = {
 const EVENT_NAME = {
   RENDERED: 'rendered',
   LOAD: 'load',
+  BUY_BUTTON_CLICK: 'buyButtonClick',
+  EVENT_NAME_CLICK: 'eventNameClick',
 };
 
-const sendEvent = (widgetCategory, widgetEvent) => {
-  ga('send', 'event', widgetCategory, widgetEvent);
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, widgetEvent);
+const CUSTOM_DIMENSIONS = {
+  API_KEY: 'dimension1',
+};
+
+const sendEvent = (eventOptions) => {
+  ga('send', 'event', eventOptions);
+  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', eventOptions);
 };
 
 const initialize = (widgetCategory) => {
@@ -410,6 +416,7 @@ const initialize = (widgetCategory) => {
 /* harmony default export */ __webpack_exports__["default"] = ({
   EVENT_CATEGORY,
   EVENT_NAME,
+  CUSTOM_DIMENSIONS,
   initialize,
   sendEvent,
 });
@@ -421,6 +428,8 @@ const initialize = (widgetCategory) => {
 
 "use strict";
 
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -604,7 +613,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-3783";
+      return '' + "1.0.-3761";
     }
   }, {
     key: 'geocodeUrl',
@@ -806,7 +815,13 @@ var TicketmasterEventDiscoveryWidget = function () {
         this.initFullWidth();
       }
 
-      _widgetsAnalytics2.default.sendEvent(_widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET, _widgetsAnalytics2.default.EVENT_NAME.RENDERED);
+      this.defaultAnalyticsProperties = _defineProperty({
+        eventCategory: _widgetsAnalytics2.default.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET
+      }, _widgetsAnalytics2.default.CUSTOM_DIMENSIONS.API_KEY, this.eventReqAttrs.apikey);
+
+      _widgetsAnalytics2.default.sendEvent(_extends({
+        eventAction: _widgetsAnalytics2.default.EVENT_NAME.RENDERED
+      }, this.defaultAnalyticsProperties));
 
       this.loadCustomStyle();
     }
@@ -951,7 +966,9 @@ var TicketmasterEventDiscoveryWidget = function () {
         // e.preventDefault(); /*used in plugins for 'buy button'*/
         _this3.stopAutoSlideX();
         ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-        ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+        ga('tmOpenPlatform.send', 'event', _extends({
+          eventAction: _widgetsAnalytics2.default.EVENT_NAME.BUY_BUTTON_CLICK
+        }, _this3.defaultAnalyticsProperties));
       });
       this.eventsRootContainer.appendChild(this.buyBtn);
     }
@@ -1963,6 +1980,8 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'addBarcode',
     value: function addBarcode(domNode, url) {
+      var _this11 = this;
+
       if (this.isBarcodeWidget) {
         var barcodeBtn = document.createElement("a");
         barcodeBtn.classList.add("barcode");
@@ -1971,7 +1990,9 @@ var TicketmasterEventDiscoveryWidget = function () {
         barcodeBtn.addEventListener('click', function (e) {
           e.preventDefault();
           ga('send', 'event', 'DiscoveryClickEventName', 'click');
-          ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+          ga('tmOpenPlatform.send', 'event', _extends({
+            eventAction: _widgetsAnalytics2.default.EVENT_NAME.EVENT_NAME_CLICK
+          }, _this11.defaultAnalyticsProperties));
         });
         domNode.appendChild(barcodeBtn);
         var bottomBg = document.createElement("span");
@@ -1982,6 +2003,8 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'addBuyButton',
     value: function addBuyButton(domNode, url) {
+      var _this12 = this;
+
       if (this.isListView || this.isListViewThumbnails) {
         var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
         if (!_urlValid) url = '';
@@ -1993,7 +2016,9 @@ var TicketmasterEventDiscoveryWidget = function () {
         buyBtn.addEventListener('click', function (e) {
           // e.preventDefault();
           ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-          ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'buyButtonClick');
+          ga('tmOpenPlatform.send', 'event', _extends({
+            eventAction: _widgetsAnalytics2.default.EVENT_NAME.BUY_BUTTON_CLICK
+          }, _this12.defaultAnalyticsProperties));
         });
         domNode.appendChild(buyBtn);
       }
@@ -2044,6 +2069,8 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'createDOMItem',
     value: function createDOMItem(itemConfig) {
+      var _this13 = this;
+
       var medWrapper = document.createElement("div");
       medWrapper.classList.add("event-content-wraper");
 
@@ -2064,7 +2091,9 @@ var TicketmasterEventDiscoveryWidget = function () {
         name.addEventListener('click', function (e) {
           e.preventDefault();
           ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-          ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+          ga('tmOpenPlatform.send', 'event', _extends({
+            eventAction: _widgetsAnalytics2.default.EVENT_NAME.EVENT_NAME_CLICK
+          }, _this13.defaultAnalyticsProperties));
         });
         medWrapper.appendChild(name);
       } else {
@@ -2077,7 +2106,9 @@ var TicketmasterEventDiscoveryWidget = function () {
         _name.addEventListener('click', function (e) {
           e.preventDefault();
           ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-          ga('tmOpenPlatform.send', 'event', 'EventDiscoveryWidget', 'eventNameClick');
+          ga('tmOpenPlatform.send', 'event', _extends({
+            eventAction: _widgetsAnalytics2.default.EVENT_NAME.EVENT_NAME_CLICK
+          }, _this13.defaultAnalyticsProperties));
         });
         medWrapper.appendChild(_name);
       }
