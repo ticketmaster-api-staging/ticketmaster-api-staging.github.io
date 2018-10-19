@@ -1,5 +1,5 @@
 import widgetAnalytics from '../../../helpers/widgets-analytics';
-import {ATTRIBUTE_NAMES, ATTRIBUTE_VALUES, CUSTOM_THEME_ATTRIBUTES} from './attribute-names';
+import {ATTRIBUTE_NAMES, ATTRIBUTE_VALUES, CUSTOM_THEME_ATTRIBUTES} from './variables';
 
 const ELEMENTS_STYLED_BY_ATTRIBUTES = {
   [ATTRIBUTE_NAMES.TITLE_COLOR]: [{

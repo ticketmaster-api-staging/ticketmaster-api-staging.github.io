@@ -16,7 +16,7 @@ export default class TicketmasterCountdownWidget {
 	set eventId(id){ this.config.id = id;}
 	get eventId(){ return this.config.id;}
 
-	get apiUrl(){ return this.config.id ? `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.config.id}.json` : `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.eventId}.json`; }
+	get apiUrl(){ return this.config.id ? `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.config.id}` : `https://app.ticketmaster.com/discovery-widgets/v2/events/${this.eventId}`; }
 
 	get themeUrl() {
 		return (window.location.host === 'developer.ticketmaster.com')
@@ -240,7 +240,7 @@ export default class TicketmasterCountdownWidget {
 		this.buyBtn.addEventListener('click', (e) => {
 			e.preventDefault();
       ga('send', 'event', 'CountdownClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
+      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'buyButtonClick');
 		});
 		this.eventsRootContainer.appendChild(this.buyBtn);
 	}
@@ -765,7 +765,7 @@ export default class TicketmasterCountdownWidget {
 		name.addEventListener('click', function(e) {
       e.preventDefault();
       ga('send', 'event', 'CountDownClickeventName', 'click', itemConfig.url);
-      ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick', itemConfig.url);
+      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'eventNameClick', itemConfig.url);
     })
 		medWrapper.appendChild(name);
 
