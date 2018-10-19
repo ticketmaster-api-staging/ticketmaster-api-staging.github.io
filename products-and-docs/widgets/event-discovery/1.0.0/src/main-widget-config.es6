@@ -1,4 +1,4 @@
-import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES, ATTRIBUTE_VALUES, AVAILABLE_CUSTOM_FIELDS_FOR_THEME} from './attribute-names';
+import {ATTRIBUTE_NAMES, CUSTOM_THEME_ATTRIBUTES, ATTRIBUTE_VALUES, AVAILABLE_CUSTOM_FIELDS_FOR_THEME} from './variables';
 import difference from 'lodash/difference';
 
 (function(){

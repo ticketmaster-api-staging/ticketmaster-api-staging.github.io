@@ -476,8 +476,8 @@ export default class MonthScheduler {
 								}
 								table += '<span class="event">';
 								table += '<span class="event-holder">';
-								table += '<a href="' + url + '" target="_blank">';
-								if (img !=='' && img.length !== 0){
+                table += `<a href="${url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                if (img !=='' && img.length !== 0){
 									table += '<span class="img bg-cover-default" style="background: url(' + img + ') center center no-repeat"></span>'
 								}else{ table += '<span class="img bg-cover-default" ></span>';}
 								table += '<span class="name">' + name + '</span>';
@@ -714,7 +714,7 @@ export default class MonthScheduler {
 									}
 									table += '<span class="event">';
 									table += '<span class="event-holder">';
-									table += '<a href="' + url + '" target="_blank">';
+									table += `<a href="${url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
 									if (img !=='' && img.length !== 0){
 										table += '<span class="img bg-cover-default" style="background: url(' + img + ') center center no-repeat"></span>'
 									}else{ table += '<span class="img bg-cover-default" ></span>';}

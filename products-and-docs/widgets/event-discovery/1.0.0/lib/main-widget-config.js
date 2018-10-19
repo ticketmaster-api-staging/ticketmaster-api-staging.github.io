@@ -615,7 +615,7 @@ const AVAILABLE_CUSTOM_FIELDS_FOR_THEME = {
 "use strict";
 
 
-var _attributeNames = __webpack_require__(15);
+var _variables = __webpack_require__(15);
 
 var _difference = __webpack_require__(14);
 
@@ -693,7 +693,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var widgetNode = document.querySelector('div[w-type="event-discovery"]');
   var $customDatesWrapper = $('.custom-dates-wrapper');
 
-  var selectedColorTheme = _attributeNames.ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
+  var selectedColorTheme = _variables.ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE;
 
   $('#js_styling_nav_tab').on('shown.bs.tab', function () {
     windowScroll(); //recalculate widget container position
@@ -829,9 +829,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   function resetCustomColorInputs() {
-    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (custom) {
+    _variables.CUSTOM_THEME_ATTRIBUTES.forEach(function (custom) {
       var $customColorInput = $('#' + custom);
-      $customColorInput.minicolors('value', $customColorInput.attr(_attributeNames.ATTRIBUTE_NAMES.DEFAULT_VALUE));
+      $customColorInput.minicolors('value', $customColorInput.attr(_variables.ATTRIBUTE_NAMES.DEFAULT_VALUE));
     });
   }
 
@@ -841,7 +841,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         targetName = _event$target.name,
         targetValue = _event$target.value;
 
-    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
+    _variables.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
       if (targetName === themeAttribute) {
         widgetNode.setAttribute(themeAttribute, targetValue);
       }
@@ -852,7 +852,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var widgetNode = document.querySelector('div[w-type="event-discovery"]');
     var customSheet = widgetNode.getElementsByTagName('style')[0];
 
-    _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (customAttribute) {
+    _variables.CUSTOM_THEME_ATTRIBUTES.forEach(function (customAttribute) {
       return widgetNode.removeAttribute(customAttribute);
     });
 
@@ -866,17 +866,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         targetName = _ref$target.name,
         newTheme = _ref$target.value;
 
-    if (targetName === _attributeNames.ATTRIBUTE_NAMES.WIDGET_THEME) {
-      if (newTheme === _attributeNames.ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE) {
+    if (targetName === _variables.ATTRIBUTE_NAMES.WIDGET_THEME) {
+      if (newTheme === _variables.ATTRIBUTE_VALUES.WIDGET_THEME.SIMPLE) {
         $darkSchemeSelector.hide();
       } else {
         $darkSchemeSelector.show();
       }
 
-      if (widgetNode.getAttribute(_attributeNames.ATTRIBUTE_NAMES.WIDGET_LAYOUT) === _attributeNames.ATTRIBUTE_VALUES.WIDGET_LAYOUT.HORIZONTAL) {
-        widgetNode.setAttribute(_attributeNames.ATTRIBUTE_NAMES.WIDGET_HEIGHT, getHeightByTheme(newTheme));
+      if (widgetNode.getAttribute(_variables.ATTRIBUTE_NAMES.WIDGET_LAYOUT) === _variables.ATTRIBUTE_VALUES.WIDGET_LAYOUT.HORIZONTAL) {
+        widgetNode.setAttribute(_variables.ATTRIBUTE_NAMES.WIDGET_HEIGHT, getHeightByTheme(newTheme));
       }
-      widgetNode.setAttribute(_attributeNames.ATTRIBUTE_NAMES.WIDGET_BORDER, getBorderByTheme(newTheme));
+      widgetNode.setAttribute(_variables.ATTRIBUTE_NAMES.WIDGET_BORDER, getBorderByTheme(newTheme));
 
       updateCustomColorFields(selectedColorTheme, newTheme);
       selectedColorTheme = newTheme;
@@ -884,8 +884,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   function updateCustomColorFields(oldTheme, newTheme) {
-    var currentCustomFieldsForTheme = _attributeNames.AVAILABLE_CUSTOM_FIELDS_FOR_THEME[oldTheme];
-    var newCustomFieldsForTheme = _attributeNames.AVAILABLE_CUSTOM_FIELDS_FOR_THEME[newTheme];
+    var currentCustomFieldsForTheme = _variables.AVAILABLE_CUSTOM_FIELDS_FOR_THEME[oldTheme];
+    var newCustomFieldsForTheme = _variables.AVAILABLE_CUSTOM_FIELDS_FOR_THEME[newTheme];
     var fieldsToRemove = (0, _difference2.default)(currentCustomFieldsForTheme, newCustomFieldsForTheme);
     var fieldsToAdd = (0, _difference2.default)(newCustomFieldsForTheme, currentCustomFieldsForTheme);
 
@@ -903,12 +903,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         targetName = _ref2$target.name,
         newDatePeriod = _ref2$target.value;
 
-    if (targetName === _attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_PERIOD) {
-      if (newDatePeriod === _attributeNames.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+    if (targetName === _variables.ATTRIBUTE_NAMES.WIDGET_EVENTS_PERIOD) {
+      if (newDatePeriod === _variables.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
         $customDatesWrapper.show();
       } else {
         $customDatesWrapper.hide();
-        [_attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_FROM, _attributeNames.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_TO].forEach(function (attr) {
+        [_variables.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_FROM, _variables.ATTRIBUTE_NAMES.WIDGET_EVENTS_DATE_TO].forEach(function (attr) {
           widgetNode.removeAttribute(attr);
           $('#' + attr).val('');
         });

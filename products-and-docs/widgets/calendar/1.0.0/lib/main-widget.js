@@ -897,8 +897,8 @@ class MonthScheduler {
 								}
 								table += '<span class="event">';
 								table += '<span class="event-holder">';
-								table += '<a href="' + url + '" target="_blank">';
-								if (img !=='' && img.length !== 0){
+                table += `<a href="${url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                if (img !=='' && img.length !== 0){
 									table += '<span class="img bg-cover-default" style="background: url(' + img + ') center center no-repeat"></span>'
 								}else{ table += '<span class="img bg-cover-default" ></span>';}
 								table += '<span class="name">' + name + '</span>';
@@ -1135,7 +1135,7 @@ class MonthScheduler {
 									}
 									table += '<span class="event">';
 									table += '<span class="event-holder">';
-									table += '<a href="' + url + '" target="_blank">';
+									table += `<a href="${url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
 									if (img !=='' && img.length !== 0){
 										table += '<span class="img bg-cover-default" style="background: url(' + img + ') center center no-repeat"></span>'
 									}else{ table += '<span class="img bg-cover-default" ></span>';}
@@ -1843,9 +1843,12 @@ class TicketmasterCalendarWidget {
 		this.buyBtn.classList.add("main-btn");
 		this.buyBtn.target = '_blank';
 		this.buyBtn.href = '';
-		this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
 		this.buyBtn.addEventListener('click', (e)=> {
 			e.preventDefault(); /*used in plugins for 'buy button'*/
+
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
+
 			this.stopAutoSlideX();
 		});
 		this.eventsRootContainer.appendChild(this.buyBtn);
@@ -2811,7 +2814,11 @@ class TicketmasterCalendarWidget {
 			buyBtn.classList.add("event-buy-btn");
 			buyBtn.target = '_blank';
 			buyBtn.href = url;
-			buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+      buyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+        ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
+      });
 			domNode.appendChild(buyBtn);
 		}
 	}
@@ -2837,7 +2844,14 @@ class TicketmasterCalendarWidget {
 		name.classList.add("event-name");
 		name.appendChild(nameContent);
 		this.initPretendedLink(name, itemConfig.url, true);
-		name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
+		var self = this;
+    name.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      ga('send', 'event', `DiscoveryClickeventName_theme=${self.config.theme}_width=${self.config.width}_height=${self.config.height}_color_scheme=${self.config.colorscheme}`, 'click', `${itemConfig.url}`);
+      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');
+    });
+
 		/* name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');"); */
 		medWrapper.appendChild(name);
 
@@ -3459,8 +3473,8 @@ class WeekScheduler {
 									}
 									timeDiv += '<span class="event">';
 									timeDiv += '<span class="event-holder">';
-									timeDiv += '<a href="' + weekEvents[e].url + '" target="_blank">';
-									if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
+                  timeDiv += `<a href="${weekEvents[e].url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                  if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
 										timeDiv += '<span class="img bg-cover-default" style="background: url(' + weekEvents[e].img + ') center center no-repeat"></span>'
 									}else{ timeDiv += '<span class="img bg-cover-default" ></span>';}
 									timeDiv += '<span class="name">' + weekEvents[e].name + '</span>';
@@ -3704,8 +3718,8 @@ class WeekScheduler {
 										}
 										timeDiv += '<span class="event">';
 										timeDiv += '<span class="event-holder">';
-										timeDiv += '<a href="' + weekEvents[e].url + '" target="_blank">';
-										if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
+                    timeDiv += `<a href="${weekEvents[e].url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                    if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
 											timeDiv += '<span class="img bg-cover-default" style="background: url(' + weekEvents[e].img + ') center center no-repeat"></span>'
 										}else{ timeDiv += '<span class="img bg-cover-default" ></span>';}
 										timeDiv += '<span class="name">' + weekEvents[e].name + '</span>';

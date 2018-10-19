@@ -408,9 +408,12 @@ export default class TicketmasterCalendarWidget {
 		this.buyBtn.classList.add("main-btn");
 		this.buyBtn.target = '_blank';
 		this.buyBtn.href = '';
-		this.buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
 		this.buyBtn.addEventListener('click', (e)=> {
 			e.preventDefault(); /*used in plugins for 'buy button'*/
+
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
+
 			this.stopAutoSlideX();
 		});
 		this.eventsRootContainer.appendChild(this.buyBtn);
@@ -1376,7 +1379,11 @@ export default class TicketmasterCalendarWidget {
 			buyBtn.classList.add("event-buy-btn");
 			buyBtn.target = '_blank';
 			buyBtn.href = url;
-			buyBtn.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickBuyButton', 'click');");
+      buyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+        ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
+      });
 			domNode.appendChild(buyBtn);
 		}
 	}
@@ -1402,7 +1409,14 @@ export default class TicketmasterCalendarWidget {
 		name.classList.add("event-name");
 		name.appendChild(nameContent);
 		this.initPretendedLink(name, itemConfig.url, true);
-		name.setAttribute('onclick', `ga('send', 'event', 'DiscoveryClickeventName_theme=${this.config.theme}_width=${this.config.width}_height=${this.config.height}_color_scheme=${this.config.colorscheme}', 'click', '${itemConfig.url}');`);
+		var self = this;
+    name.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      ga('send', 'event', `DiscoveryClickeventName_theme=${self.config.theme}_width=${self.config.width}_height=${self.config.height}_color_scheme=${self.config.colorscheme}`, 'click', `${itemConfig.url}`);
+      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');
+    });
+
 		/* name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');"); */
 		medWrapper.appendChild(name);
 

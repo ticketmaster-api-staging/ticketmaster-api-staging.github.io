@@ -430,7 +430,7 @@ var _widgetsAnalytics = __webpack_require__(10);
 
 var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
 
-var _attributeNames = __webpack_require__(9);
+var _variables = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -438,13 +438,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ELEMENTS_STYLED_BY_ATTRIBUTES = (_ELEMENTS_STYLED_BY_A = {}, _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.TITLE_COLOR, [{
+var ELEMENTS_STYLED_BY_ATTRIBUTES = (_ELEMENTS_STYLED_BY_A = {}, _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.TITLE_COLOR, [{
   selector: '.event-name',
   stylePropName: 'color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.TITLE_HOVER_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.TITLE_HOVER_COLOR, [{
   selector: '.event-name:hover',
   stylePropName: 'color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.ARROW_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.ARROW_COLOR, [{
   selector: '.events_control-right',
   stylePropName: 'border-color',
   getValue: function getValue(value) {
@@ -456,7 +456,7 @@ var ELEMENTS_STYLED_BY_ATTRIBUTES = (_ELEMENTS_STYLED_BY_A = {}, _defineProperty
   getValue: function getValue(value) {
     return 'transparent ' + value + ' transparent transparent ';
   }
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.ARROW_HOVER_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.ARROW_HOVER_COLOR, [{
   selector: '.events_control-right:hover',
   stylePropName: 'border-color',
   getValue: function getValue(value) {
@@ -468,19 +468,19 @@ var ELEMENTS_STYLED_BY_ATTRIBUTES = (_ELEMENTS_STYLED_BY_A = {}, _defineProperty
   getValue: function getValue(value) {
     return 'transparent ' + value + ' transparent transparent ';
   }
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENT_DATE_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.EVENT_DATE_COLOR, [{
   selector: '.event-date',
   stylePropName: 'color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.EVENT_DESCRIPTION_COLOR, [{
   selector: '.event-address',
   stylePropName: 'color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.EVENTS_COUNTER_COLOR, [{
   selector: '.events-counter',
   stylePropName: 'color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.BORDER_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.BORDER_COLOR, [{
   selector: '.events-root-container',
   stylePropName: 'border-color'
-}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _attributeNames.ATTRIBUTE_NAMES.BACKGROUND_COLOR, [{
+}]), _defineProperty(_ELEMENTS_STYLED_BY_A, _variables.ATTRIBUTE_NAMES.BACKGROUND_COLOR, [{
   selector: '.events-root-container',
   stylePropName: 'background'
 }]), _ELEMENTS_STYLED_BY_A);
@@ -501,8 +501,8 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'setUniqueWidgetId',
     value: function setUniqueWidgetId() {
-      if (!this.widgetRoot.getAttribute(_attributeNames.ATTRIBUTE_NAMES.ID)) {
-        this.widgetRoot.setAttribute(_attributeNames.ATTRIBUTE_NAMES.ID, 'id_' + Math.random().toString(36).substring(7));
+      if (!this.widgetRoot.getAttribute(_variables.ATTRIBUTE_NAMES.ID)) {
+        this.widgetRoot.setAttribute(_variables.ATTRIBUTE_NAMES.ID, 'id_' + Math.random().toString(36).substring(7));
       }
     }
   }, {
@@ -604,7 +604,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-4573";
+      return '' + "1.0.-3783";
     }
   }, {
     key: 'geocodeUrl',
@@ -815,7 +815,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   _createClass(TicketmasterEventDiscoveryWidget, [{
     key: 'setRuleForStyleSheet',
     value: function setRuleForStyleSheet(styleSheet, selector, rule) {
-      var widgetId = this.widgetRoot.getAttribute(_attributeNames.ATTRIBUTE_NAMES.ID);
+      var widgetId = this.widgetRoot.getAttribute(_variables.ATTRIBUTE_NAMES.ID);
 
       styleSheet.addRule('div[w-id=' + widgetId + '] ' + selector, rule);
       styleSheet.insertRule('div[w-id=' + widgetId + '] ' + selector + ' { ' + rule + ' }');
@@ -838,7 +838,7 @@ var TicketmasterEventDiscoveryWidget = function () {
     value: function loadCustomStyle() {
       var _this2 = this;
 
-      _attributeNames.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
+      _variables.CUSTOM_THEME_ATTRIBUTES.forEach(function (themeAttribute) {
         var attributeValue = _this2.widgetRoot.getAttribute(themeAttribute);
         if (attributeValue) {
           ELEMENTS_STYLED_BY_ATTRIBUTES[themeAttribute].forEach(function (element) {
@@ -2178,7 +2178,7 @@ var TicketmasterEventDiscoveryWidget = function () {
 
       if (period === 'year') {
         lastDay = new Date(new Date().valueOf() + 24 * 365 * 60 * 60 * 1000).toISOString().slice(0, 11) + '00:00:00Z';
-      } else if (period === _attributeNames.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
+      } else if (period === _variables.ATTRIBUTE_VALUES.WIDGET_EVENTS_PERIOD.CUSTOM) {
         firstDay = this.config.startdatetime && this.config.startdatetime + 'T00:00:00Z';
         lastDay = this.config.enddatetime && this.config.enddatetime + 'T23:59:59Z';
       } else if (period === 'month') {

@@ -495,8 +495,8 @@ export default class WeekScheduler {
 									}
 									timeDiv += '<span class="event">';
 									timeDiv += '<span class="event-holder">';
-									timeDiv += '<a href="' + weekEvents[e].url + '" target="_blank">';
-									if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
+                  timeDiv += `<a href="${weekEvents[e].url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                  if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
 										timeDiv += '<span class="img bg-cover-default" style="background: url(' + weekEvents[e].img + ') center center no-repeat"></span>'
 									}else{ timeDiv += '<span class="img bg-cover-default" ></span>';}
 									timeDiv += '<span class="name">' + weekEvents[e].name + '</span>';
@@ -740,8 +740,8 @@ export default class WeekScheduler {
 										}
 										timeDiv += '<span class="event">';
 										timeDiv += '<span class="event-holder">';
-										timeDiv += '<a href="' + weekEvents[e].url + '" target="_blank">';
-										if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
+                    timeDiv += `<a href="${weekEvents[e].url}" target="_blank" onclick="ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');">`;
+                    if (weekEvents[e].img !=='' && weekEvents[e].img.length !== 0){
 											timeDiv += '<span class="img bg-cover-default" style="background: url(' + weekEvents[e].img + ') center center no-repeat"></span>'
 										}else{ timeDiv += '<span class="img bg-cover-default" ></span>';}
 										timeDiv += '<span class="name">' + weekEvents[e].name + '</span>';
