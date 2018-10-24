@@ -64,14 +64,17 @@ var widgetsLib =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 56);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var eq = __webpack_require__(50);
+"use strict";
+
+
+var eq = __webpack_require__(49);
 
 /**
  * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -93,12 +96,14 @@ function assocIndexOf(array, key) {
 
 module.exports = assocIndexOf;
 
-
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isKeyable = __webpack_require__(33);
+"use strict";
+
+
+var isKeyable = __webpack_require__(32);
 
 /**
  * Gets the data for `map`.
@@ -110,17 +115,17 @@ var isKeyable = __webpack_require__(33);
  */
 function getMapData(map, key) {
   var data = map.__data__;
-  return isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
+  return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
 }
 
 module.exports = getMapData;
 
-
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getNative = __webpack_require__(10);
 
@@ -129,37 +134,45 @@ var nativeCreate = getNative(Object, 'create');
 
 module.exports = nativeCreate;
 
-
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var root = __webpack_require__(4);
 
 /** Built-in value references. */
-var Symbol = root.Symbol;
+var _Symbol = root.Symbol;
 
-module.exports = Symbol;
-
+module.exports = _Symbol;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(24);
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var freeGlobal = __webpack_require__(23);
 
 /** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
 
 /** Used as a reference to the global object. */
 var root = freeGlobal || freeSelf || Function('return this')();
 
 module.exports = root;
 
-
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Checks if `value` is classified as an `Array` object.
@@ -188,13 +201,17 @@ var isArray = Array.isArray;
 
 module.exports = isArray;
 
-
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var baseGetTag = __webpack_require__(9),
-    isObjectLike = __webpack_require__(53);
+    isObjectLike = __webpack_require__(52);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -217,191 +234,238 @@ var symbolTag = '[object Symbol]';
  * // => false
  */
 function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+    return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
 }
 
 module.exports = isSymbol;
 
-
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class eventUrlCountdownClock {
-	set endTime(endTime) { this.config.endTime = endTime; }
-	get endTime(){ return this.config.endTime || new Date();}
 
-	set interval(interval) { return this.config.interval = interval; }
-	get interval(){ return this.config.interval || 1000;}
 
-	set onChange(fn) { return this.config.onChange = fn; }
-	get onChange(){ return this.config.onChange || ((time) => {})}
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-	constructor(config = {}) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var eventUrlCountdownClock = function () {
+	_createClass(eventUrlCountdownClock, [{
+		key: "endTime",
+		set: function set(endTime) {
+			this.config.endTime = endTime;
+		},
+		get: function get() {
+			return this.config.endTime || new Date();
+		}
+	}, {
+		key: "interval",
+		set: function set(interval) {
+			return this.config.interval = interval;
+		},
+		get: function get() {
+			return this.config.interval || 1000;
+		}
+	}, {
+		key: "onChange",
+		set: function set(fn) {
+			return this.config.onChange = fn;
+		},
+		get: function get() {
+			return this.config.onChange || function (time) {};
+		}
+	}]);
+
+	function eventUrlCountdownClock() {
+		var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+		_classCallCheck(this, eventUrlCountdownClock);
+
 		this.config = config;
 		this.updateClock();
-		if(this.config.endTime) this.initInterval();
+		if (this.config.endTime) this.initInterval();
 	}
 
-	initInterval(){
-		this.timeinterval = setInterval(this.updateClock.bind(this), this.interval);
-	}
-
-	update(endTime){
-		clearInterval(this.timeinterval);
-		this.endTime = endTime;
-		this.updateClock();
-		if(endTime) this.initInterval();
-	}
-
-	updateClock() {
-		let timeRemaining = this.getTimeRemaining();
-		this.onChange(timeRemaining);
-		if (timeRemaining.total <= 0) clearInterval(this.timeinterval);
-	}
-
-	/*
-  //Covert datetime by GMT offset
-  //If toUTC is true then return UTC time other wise return local time
-  convertLocalDateToUTCDate(date, toUTC) {
-    date = new Date(date);
-    //Local time converted to UTC
-    var localOffset = date.getTimezoneOffset() * 60000;
-    var localTime = date.getTime();
-    (toUTC)
-      ? date = localTime + localOffset
-      : date = localTime - localOffset;
-    date = new Date(date);
-    return date;
-  }
-  */
-
-	getTimeRemaining() {
-		let total = Date.parse(this.endTime) - Date.parse(new Date());
-		if(total <= 0) total = 0;
-		let seconds = Math.floor((total / 1000) % 60),
-			minutes = Math.floor((total / 1000 / 60) % 60),
-			hours = Math.floor((total / 3600000 /* (1000 * 60 * 60) */) % 24),
-			days = Math.floor(total / 86400000 /* (1000 * 60 * 60 * 24) */),
-			monthLeft = 0;
-		//years = 0;
-
-		let daysInMonth = function(year,month){
-			var D=new Date(year, month-1, 1, 12);
-			return parseInt((-Date.parse(D)+D.setMonth(D.getMonth()+1)+36e5)/864e5);
-		};
-
-		let today = new Date(),
-			curr_day = today.getUTCDate(),
-			curr_month = today.getUTCMonth(),
-			curr_year = today.getUTCFullYear(),
-			curr_days_in_month = daysInMonth(curr_year, curr_month);
-
-		if(days > curr_days_in_month){
-			let servYear = new Date(this.endTime).getUTCFullYear(),
-				servMonth = new Date(this.endTime).getUTCMonth(),
-				servDay = new Date(this.endTime).getUTCDate(),
-				serv_days_in_month = daysInMonth(servYear, servMonth);
-
-			monthLeft = Math.floor( days/daysInMonth(servYear,servMonth) );
-
-			days = Math.abs(servDay - curr_day);
-
-			/*if(monthLeft > 99){
-        years = servYear - curr_year;
-        monthLeft = monthLeft-1 - years*12;
-        //console.log( 'monthLeft ',monthLeft );
-      }*/
+	_createClass(eventUrlCountdownClock, [{
+		key: "initInterval",
+		value: function initInterval() {
+			this.timeinterval = setInterval(this.updateClock.bind(this), this.interval);
+		}
+	}, {
+		key: "update",
+		value: function update(endTime) {
+			clearInterval(this.timeinterval);
+			this.endTime = endTime;
+			this.updateClock();
+			if (endTime) this.initInterval();
+		}
+	}, {
+		key: "updateClock",
+		value: function updateClock() {
+			var timeRemaining = this.getTimeRemaining();
+			this.onChange(timeRemaining);
+			if (timeRemaining.total <= 0) clearInterval(this.timeinterval);
 		}
 
-		return {
-			total,
-			//years,
-			monthLeft,
-			days,
-			hours,
-			minutes,
-			seconds
-		};
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["default"] = eventUrlCountdownClock;
+		/*
+   //Covert datetime by GMT offset
+   //If toUTC is true then return UTC time other wise return local time
+   convertLocalDateToUTCDate(date, toUTC) {
+     date = new Date(date);
+     //Local time converted to UTC
+     var localOffset = date.getTimezoneOffset() * 60000;
+     var localTime = date.getTime();
+     (toUTC)
+       ? date = localTime + localOffset
+       : date = localTime - localOffset;
+     date = new Date(date);
+     return date;
+   }
+   */
 
+	}, {
+		key: "getTimeRemaining",
+		value: function getTimeRemaining() {
+			var total = Date.parse(this.endTime) - Date.parse(new Date());
+			if (total <= 0) total = 0;
+			var seconds = Math.floor(total / 1000 % 60),
+			    minutes = Math.floor(total / 1000 / 60 % 60),
+			    hours = Math.floor(total / 3600000 /* (1000 * 60 * 60) */ % 24),
+			    days = Math.floor(total / 86400000 /* (1000 * 60 * 60 * 24) */),
+			    monthLeft = 0;
+			//years = 0;
 
+			var daysInMonth = function daysInMonth(year, month) {
+				var D = new Date(year, month - 1, 1, 12);
+				return parseInt((-Date.parse(D) + D.setMonth(D.getMonth() + 1) + 36e5) / 864e5);
+			};
+
+			var today = new Date(),
+			    curr_day = today.getUTCDate(),
+			    curr_month = today.getUTCMonth(),
+			    curr_year = today.getUTCFullYear(),
+			    curr_days_in_month = daysInMonth(curr_year, curr_month);
+
+			if (days > curr_days_in_month) {
+				var servYear = new Date(this.endTime).getUTCFullYear(),
+				    servMonth = new Date(this.endTime).getUTCMonth(),
+				    servDay = new Date(this.endTime).getUTCDate(),
+				    serv_days_in_month = daysInMonth(servYear, servMonth);
+
+				monthLeft = Math.floor(days / daysInMonth(servYear, servMonth));
+
+				days = Math.abs(servDay - curr_day);
+
+				/*if(monthLeft > 99){
+         years = servYear - curr_year;
+         monthLeft = monthLeft-1 - years*12;
+         //console.log( 'monthLeft ',monthLeft );
+       }*/
+			}
+
+			return {
+				total: total,
+				//years,
+				monthLeft: monthLeft,
+				days: days,
+				hours: hours,
+				minutes: minutes,
+				seconds: seconds
+			};
+		}
+	}]);
+
+	return eventUrlCountdownClock;
+}();
+
+exports.default = eventUrlCountdownClock;
 
 /***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const TM_TRACKER_ID = 'UA-78315612-1';
 
-const DEVPORT_TRACKER_ID = 'UA-114077619-1';
-const DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
 
-const EVENT_CATEGORY = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var service = {
+  initialize: initialize,
+  sendEvent: sendEvent,
+  getStringEventHandler: getStringEventHandler
+};
+exports.default = service;
+var TM_TRACKER_ID = exports.TM_TRACKER_ID = 'UA-78315612-1';
+
+var DEVPORT_TRACKER_ID = exports.DEVPORT_TRACKER_ID = 'UA-114077619-1';
+var DEVPORT_TRACKER_ALIAS = exports.DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
+
+var EVENT_CATEGORY = exports.EVENT_CATEGORY = {
   MAP_WIDGET: 'MapWidget',
   CALENDAR_WIDGET: 'CalendarWidget',
   COUNTDOWN_WIDGET: 'CountdownWidget',
-  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget',
+  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget'
 };
 
-const EVENT_NAME = {
+var EVENT_NAME = exports.EVENT_NAME = {
   RENDERED: 'rendered',
   LOAD: 'load',
   BUY_BUTTON_CLICK: 'buyButtonClick',
-  EVENT_NAME_CLICK: 'eventNameClick',
+  EVENT_NAME_CLICK: 'eventNameClick'
 };
 
-const CUSTOM_DIMENSIONS = {
-  API_KEY: 'dimension1',
+var CUSTOM_DIMENSIONS = exports.CUSTOM_DIMENSIONS = {
+  API_KEY: 'dimension1'
 };
 
-const sendEvent = (eventOptions) => {
-  ga('send', 'event', eventOptions);
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', eventOptions);
+function sendEvent(eventOptions) {
+  ga(DEVPORT_TRACKER_ALIAS + '.send', 'event', eventOptions);
 };
 
-const initialize = (widgetCategory) => {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+function initialize(widgetCategory) {
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
   ga('create', TM_TRACKER_ID, 'auto');
   ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
 
   ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
+  service.sendEvent({
+    eventCategory: widgetCategory,
+    eventAction: EVENT_NAME.LOAD
+  });
 };
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  EVENT_CATEGORY,
-  EVENT_NAME,
-  CUSTOM_DIMENSIONS,
-  initialize,
-  sendEvent,
-});
-
+function getStringEventHandler(eventOptions) {
+  return 'ga(\'' + DEVPORT_TRACKER_ALIAS + '.send\', \'event\', ' + JSON.stringify(eventOptions).replace(/"/g, '\'') + ');';
+};
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(3),
-    getRawTag = __webpack_require__(25),
-    objectToString = __webpack_require__(46);
+"use strict";
+
+
+var _Symbol = __webpack_require__(3),
+    getRawTag = __webpack_require__(24),
+    objectToString = __webpack_require__(45);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
     undefinedTag = '[object Undefined]';
 
 /** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
 
 /**
  * The base implementation of `getTag` without fallbacks for buggy environments.
@@ -411,23 +475,23 @@ var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
  * @returns {string} Returns the `toStringTag`.
  */
 function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
+    if (value == null) {
+        return value === undefined ? undefinedTag : nullTag;
+    }
+    return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
 }
 
 module.exports = baseGetTag;
-
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsNative = __webpack_require__(20),
-    getValue = __webpack_require__(26);
+"use strict";
+
+
+var baseIsNative = __webpack_require__(19),
+    getValue = __webpack_require__(25);
 
 /**
  * Gets the native function at `key` of `object`.
@@ -444,10 +508,14 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Checks if `value` is the
@@ -475,107 +543,177 @@ module.exports = getNative;
  * // => false
  */
 function isObject(value) {
-  var type = typeof value;
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
   return value != null && (type == 'object' || type == 'function');
 }
 
 module.exports = isObject;
 
-
 /***/ }),
 /* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_get__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_get___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_get__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CountdownClock__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_widgets_analytics__ = __webpack_require__(8);
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = __webpack_require__(50);
+
+var _get2 = _interopRequireDefault(_get);
+
+var _CountdownClock = __webpack_require__(7);
+
+var _CountdownClock2 = _interopRequireDefault(_CountdownClock);
+
+var _widgetsAnalytics = __webpack_require__(8);
+
+var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
+
+var _universePlugin = __webpack_require__(57);
+
+var _universePlugin2 = _interopRequireDefault(_universePlugin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var TicketmasterCountdownWidget = function () {
+	_createClass(TicketmasterCountdownWidget, [{
+		key: 'isConfigAttrExistAndNotEmpty',
 
 
+		//get eventIdDefault(){ return '1Ad0ZfdGkMoCQHJ';}
 
-class TicketmasterCountdownWidget {
-
-	set config(attrs) { this.widgetConfig = this.loadConfig(attrs); }
-	get config() { return this.widgetConfig; }
-
-	set event(responce){ this.eventResponce = this.parseEvent(responce);}
-	get event(){ return this.eventResponce;}
-
-	get borderSize(){ return this.config.border || 0;}
-
-	get eventUrl(){ return "http://www.ticketmaster.com/event/"; }
-
-	set eventId(id){ this.config.id = id;}
-	get eventId(){ return this.config.id;}
-
-	get apiUrl(){ return 'https://app.ticketmaster.com/discovery-widgets/v2/events'; }
-
-	get themeUrl() {
-		return (window.location.host === 'developer.ticketmaster.com')
-			? `https://developer.ticketmaster.com/products-and-docs/widgets/countdown/1.0.0/theme/`
-			: `https://ticketmaster-api-staging.github.io/products-and-docs/widgets/countdown/1.0.0/theme/`;
-	}
-
-	get isFullWidth() { return this.config.proportion === 'fullwidth';}
-
-	get portalUrl(){
-		return (window.location.host === 'developer.ticketmaster.com')
-			? `https://developer.ticketmaster.com/`
-			: `https://ticketmaster-api-staging.github.io/`;
-	}
-
-	get logoUrl() { return "https://www.ticketmaster.com/"; }
-
-	get legalNoticeUrl() { return "http://developer.ticketmaster.com/support/terms-of-use/"; }
-
-	get widgetVersion() { return `${"1.0.-3761"}`; }
-
-	get questionUrl() { return "http://developer.ticketmaster.com/support/faq/"; }
-
-	get updateExceptions() { return ["width", "height", "border", "borderradius", "layout", "propotion", "seconds"]}
-
-	get hideMessageDelay(){ return 5000; }
-
-	get tmWidgetWhiteList(){ return ["2200504BAD4C848F", "00005044BDC83AE6", "1B005068DB60687F", "1B004F4DBEE45E47", "3A004F4ED7829D5E", "3A004F4ED1FC9B63", "1B004F4FF83289C5", "1B004F4FC0276888", "0E004F4F3B7DC543", "1D004F4F09C61861", "1600505AC9A972A1", "22004F4FD82795C6", "01005057AFF54574", "01005056FAD8793A", "3A004F4FB2453240", "22004F50D2149AC6", "01005059AD49507A", "01005062B4236D5D"]; }
-
-	//get eventIdDefault(){ return '1Ad0ZfdGkMoCQHJ';}
-
-	isConfigAttrExistAndNotEmpty(attr) {
-		if( !this.config.hasOwnProperty(attr) || this.config[attr] === "undefined"){
-			return false;
-		}else if( this.config[attr] === ""){
-			return false;
+		value: function isConfigAttrExistAndNotEmpty(attr) {
+			if (!this.config.hasOwnProperty(attr) || this.config[attr] === "undefined") {
+				return false;
+			} else if (this.config[attr] === "") {
+				return false;
+			}
+			return true;
 		}
-		return true;
-	}
-
-	get eventReqAttrs(){
-		let attrs = {},
-			params = [
-				{
-					attr: 'tmapikey',
-					verboseName: 'apikey'
-				},
-        {
-          attr: 'id',
-          verboseName: 'id'
-        }
-			];
-
-		for(let i in params){
-			let item = params[i];
-			if(this.isConfigAttrExistAndNotEmpty(item.attr))
-				attrs[item.verboseName] = this.config[item.attr];
+	}, {
+		key: 'config',
+		set: function set(attrs) {
+			this.widgetConfig = this.loadConfig(attrs);
+		},
+		get: function get() {
+			return this.widgetConfig;
 		}
+	}, {
+		key: 'event',
+		set: function set(responce) {
+			this.eventResponce = this.parseEvent(responce);
+		},
+		get: function get() {
+			return this.eventResponce;
+		}
+	}, {
+		key: 'borderSize',
+		get: function get() {
+			return this.config.border || 0;
+		}
+	}, {
+		key: 'eventUrl',
+		get: function get() {
+			return "http://www.ticketmaster.com/event/";
+		}
+	}, {
+		key: 'eventId',
+		set: function set(id) {
+			this.config.id = id;
+		},
+		get: function get() {
+			return this.config.id;
+		}
+	}, {
+		key: 'apiUrl',
+		get: function get() {
+			return 'https://app.ticketmaster.com/discovery-widgets/v2/events';
+		}
+	}, {
+		key: 'themeUrl',
+		get: function get() {
+			return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/products-and-docs/widgets/countdown/1.0.0/theme/' : 'https://ticketmaster-api-staging.github.io/products-and-docs/widgets/countdown/1.0.0/theme/';
+		}
+	}, {
+		key: 'isFullWidth',
+		get: function get() {
+			return this.config.proportion === 'fullwidth';
+		}
+	}, {
+		key: 'portalUrl',
+		get: function get() {
+			return window.location.host === 'developer.ticketmaster.com' ? 'https://developer.ticketmaster.com/' : 'https://ticketmaster-api-staging.github.io/';
+		}
+	}, {
+		key: 'logoUrl',
+		get: function get() {
+			return "https://www.ticketmaster.com/";
+		}
+	}, {
+		key: 'legalNoticeUrl',
+		get: function get() {
+			return "http://developer.ticketmaster.com/support/terms-of-use/";
+		}
+	}, {
+		key: 'widgetVersion',
+		get: function get() {
+			return '' + "1.0.-3759";
+		}
+	}, {
+		key: 'questionUrl',
+		get: function get() {
+			return "http://developer.ticketmaster.com/support/faq/";
+		}
+	}, {
+		key: 'updateExceptions',
+		get: function get() {
+			return ["width", "height", "border", "borderradius", "layout", "propotion", "seconds"];
+		}
+	}, {
+		key: 'hideMessageDelay',
+		get: function get() {
+			return 5000;
+		}
+	}, {
+		key: 'tmWidgetWhiteList',
+		get: function get() {
+			return ["2200504BAD4C848F", "00005044BDC83AE6", "1B005068DB60687F", "1B004F4DBEE45E47", "3A004F4ED7829D5E", "3A004F4ED1FC9B63", "1B004F4FF83289C5", "1B004F4FC0276888", "0E004F4F3B7DC543", "1D004F4F09C61861", "1600505AC9A972A1", "22004F4FD82795C6", "01005057AFF54574", "01005056FAD8793A", "3A004F4FB2453240", "22004F50D2149AC6", "01005059AD49507A", "01005062B4236D5D"];
+		}
+	}, {
+		key: 'eventReqAttrs',
+		get: function get() {
+			var attrs = {},
+			    params = [{
+				attr: 'tmapikey',
+				verboseName: 'apikey'
+			}, {
+				attr: 'id',
+				verboseName: 'id'
+			}];
 
-		return attrs;
-	}
+			for (var i in params) {
+				var item = params[i];
+				if (this.isConfigAttrExistAndNotEmpty(item.attr)) attrs[item.verboseName] = this.config[item.attr];
+			}
 
-	constructor(root) {
+			return attrs;
+		}
+	}]);
+
+	function TicketmasterCountdownWidget(root) {
+		_classCallCheck(this, TicketmasterCountdownWidget);
+
 		this.widgetRoot = root;
 
 		this.eventsRootContainer = document.createElement("div");
@@ -589,17 +727,17 @@ class TicketmasterCountdownWidget {
 		this.config = this.widgetRoot.attributes;
 		this.eventId = this.config.id;
 
-		if(this.config.theme !== null && !document.getElementById(`widget-theme-${this.config.theme}`)){
-			this.makeRequest( this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css" );
+		if (this.config.theme !== null && !document.getElementById('widget-theme-' + this.config.theme)) {
+			this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
 		}
 
-		this.widgetRoot.style.height = `${this.config.height}px`;
-		this.widgetRoot.style.width  = `${this.config.width}px`;
+		this.widgetRoot.style.height = this.config.height + 'px';
+		this.widgetRoot.style.width = this.config.width + 'px';
 
-		this.eventsRootContainer.style.height = `${this.config.height}px`;
-		this.eventsRootContainer.style.width  = `${this.config.width}px`;
-		this.eventsRootContainer.style.borderRadius = `${this.config.borderradius}px`;
-		this.eventsRootContainer.style.borderWidth = `${this.borderSize}px`;
+		this.eventsRootContainer.style.height = this.config.height + 'px';
+		this.eventsRootContainer.style.width = this.config.width + 'px';
+		this.eventsRootContainer.style.borderRadius = this.config.borderradius + 'px';
+		this.eventsRootContainer.style.borderWidth = this.borderSize + 'px';
 
 		this.initBuyBtn();
 
@@ -609,746 +747,747 @@ class TicketmasterCountdownWidget {
 
 		this.buildCountdown();
 
-		if(this.apiUrl){
-			this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
-		}else{
-			this.showMessage("Please enter event ID.", true, null );
+		if (this.apiUrl) {
+			this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+		} else {
+			this.showMessage("Please enter event ID.", true, null);
 		}
 
-		this.embedUniversePlugin();
+		_universePlugin2.default.embedUniversePlugin();
 
 		this.countDownWrapper.classList.add("events-count-down");
 
-		this.countdownClock = new __WEBPACK_IMPORTED_MODULE_1__CountdownClock__["default"]({
+		this.countdownClock = new _CountdownClock2.default({
 			onChange: this.onCountdownChange.bind(this)
 		});
 
 		this.toggleSecondsVisibility();
 
-		if (this.isFullWidth) { this.initFullWidth(); }
-
-    __WEBPACK_IMPORTED_MODULE_2__helpers_widgets_analytics__["default"].sendEvent({
-      eventCategory: __WEBPACK_IMPORTED_MODULE_2__helpers_widgets_analytics__["default"].EVENT_CATEGORY.COUNTDOWN_WIDGET,
-      eventAction: __WEBPACK_IMPORTED_MODULE_2__helpers_widgets_analytics__["default"].EVENT_NAME.RENDERED,
-    });
-	}
-
-	getNormalizedDateValue(val){
-		return (val < 0 || val > 9 ? "" : "0") + val
-	}
-
-	toggleSecondsVisibility(){
-		if(this.countDownMonth.innerHTML > 0){
-			this.countDownWrapper.classList.add("hide-seconds");
-			this.countDownWrapper.classList.remove("hide-days");
-			this.countDownWrapper.classList.remove("hide-month");//Removing a class that does not exist, does NOT throw an error
-		}else if(this.countDownDays.innerHTML <= 0){
-			this.countDownWrapper.classList.add("hide-month");
-			this.countDownWrapper.classList.add("hide-days");
-			this.countDownWrapper.classList.remove("hide-seconds");
-		}else {
-			this.countDownWrapper.classList.add("hide-month");
-			this.countDownWrapper.classList.remove("hide-days");
-			this.countDownWrapper.classList.remove("hide-seconds");
-		}
-	}
-
-	showStatusMessage(data){
-		let me = this;
-		if(this.event.date && this.event.date.dateTime){
-			chenHeaderEvent(this.event.date);
+		if (this.isFullWidth) {
+			this.initFullWidth();
 		}
 
-		function chenHeaderEvent(eventT){
-			let now = new Date(),
-				msecsNow = Date.parse(now),
-				eventDateStart = new Date(eventT.dateTime),
-				msecsStart = Date.parse(eventDateStart),
-				eventDateEnd = new Date(eventT.dateTimeEnd),
-				msecsEnd = Date.parse(eventDateEnd);
+		this.defaultAnalyticsProperties = _defineProperty({
+			eventCategory: _widgetsAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET
+		}, _widgetsAnalytics.CUSTOM_DIMENSIONS.API_KEY, this.eventReqAttrs.apikey);
 
-			if (msecsNow > msecsEnd || isNaN(msecsEnd)) {
-				me.showMessage(`This event has taken place`, false , "event-message-started");
-			} else if (msecsStart < msecsNow < msecsEnd) {
-				me.showMessage(`Event is in progress`, false , "event-message-started");
+		_widgetsAnalytics2.default.sendEvent(_extends({
+			eventAction: _widgetsAnalytics.EVENT_NAME.RENDERED
+		}, this.defaultAnalyticsProperties));
+	}
+
+	_createClass(TicketmasterCountdownWidget, [{
+		key: 'getNormalizedDateValue',
+		value: function getNormalizedDateValue(val) {
+			return (val < 0 || val > 9 ? "" : "0") + val;
+		}
+	}, {
+		key: 'toggleSecondsVisibility',
+		value: function toggleSecondsVisibility() {
+			if (this.countDownMonth.innerHTML > 0) {
+				this.countDownWrapper.classList.add("hide-seconds");
+				this.countDownWrapper.classList.remove("hide-days");
+				this.countDownWrapper.classList.remove("hide-month"); //Removing a class that does not exist, does NOT throw an error
+			} else if (this.countDownDays.innerHTML <= 0) {
+				this.countDownWrapper.classList.add("hide-month");
+				this.countDownWrapper.classList.add("hide-days");
+				this.countDownWrapper.classList.remove("hide-seconds");
+			} else {
+				this.countDownWrapper.classList.add("hide-month");
+				this.countDownWrapper.classList.remove("hide-days");
+				this.countDownWrapper.classList.remove("hide-seconds");
 			}
 		}
-	}
-
-	onCountdownChange(data){
-		let timeLeft = this.getNormalizedDateValue(data.total),
-			now = Date.parse( new Date() );
-
-		/*toggle CountDown-Box Visibility*/
-		if(timeLeft <= 0 || now < timeLeft){
-			this.countDownWrapper.classList.add("hide-countDownBox");
-			if(this.eventId && this.event){
-				this.showStatusMessage(data);
-				return false; //exit if event has taken place
+	}, {
+		key: 'showStatusMessage',
+		value: function showStatusMessage(data) {
+			var me = this;
+			if (this.event.date && this.event.date.dateTime) {
+				chenHeaderEvent(this.event.date);
 			}
-		}else this.countDownWrapper.classList.remove("hide-countDownBox");
 
-		if(data.monthLeft > 99){
-			this.showMessage(`This event starts in more than ${data.monthLeft} month, ${data.days} days, ${data.hours} hours`, false , "event-message-started");
-			this.countDownWrapper.classList.add("hide-countDownBox");
-			return false;
-		}
+			function chenHeaderEvent(eventT) {
+				var now = new Date(),
+				    msecsNow = Date.parse(now),
+				    eventDateStart = new Date(eventT.dateTime),
+				    msecsStart = Date.parse(eventDateStart),
+				    eventDateEnd = new Date(eventT.dateTimeEnd),
+				    msecsEnd = Date.parse(eventDateEnd);
 
-		this.countDownMonth.innerHTML = this.getNormalizedDateValue(data.monthLeft);
-		this.countDownDays.innerHTML = this.getNormalizedDateValue(data.days);
-		this.countDownHours.innerHTML = this.getNormalizedDateValue(data.hours);
-		this.countDownMinute.innerHTML = this.getNormalizedDateValue(data.minutes);
-		this.countDownSecond.innerHTML = this.getNormalizedDateValue(data.seconds);
-
-		this.toggleSecondsVisibility();
-
-	}
-
-	buildCountdown(){
-		this.countDownWrapper = document.createElement("div");
-		this.countDownWrapper.classList.add("events-count-down");
-		this.countDownMonth = document.createElement("span");
-		this.countDownDays = document.createElement("span");
-		this.countDownHours = document.createElement("span");
-		this.countDownMinute = document.createElement("span");
-		this.countDownSecond = document.createElement("span");
-
-		this.countDownMonth.innerHTML = '00';
-		this.countDownDays.innerHTML = '00';
-		this.countDownHours.innerHTML = '00';
-		this.countDownMinute.innerHTML = '00';
-		this.countDownSecond.innerHTML = '00';
-
-		this.countDownMonth.classList.add("events-count-down__month");
-		this.countDownDays.classList.add("events-count-down__day");
-		this.countDownHours.classList.add("events-count-down__hour");
-		this.countDownMinute.classList.add("events-count-down__minute");
-		this.countDownSecond.classList.add("events-count-down__second");
-
-		this.countDownWrapper.appendChild(this.countDownMonth);
-		this.countDownWrapper.appendChild(this.countDownDays);
-		this.countDownWrapper.appendChild(this.countDownHours);
-		this.countDownWrapper.appendChild(this.countDownMinute);
-		this.countDownWrapper.appendChild(this.countDownSecond);
-
-		this.eventsRootContainer.appendChild(this.countDownWrapper);
-	}
-
-	initBuyBtn(){
-		this.buyBtn = document.createElement("a");
-		this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
-		this.buyBtn.classList.add("event-buy-btn");
-		this.buyBtn.target = '_blank';
-		this.buyBtn.href = '';
-		this.buyBtn.addEventListener('click', (e) => {
-			e.preventDefault();
-      ga('send', 'event', 'CountdownClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'buyButtonClick');
-		});
-		this.eventsRootContainer.appendChild(this.buyBtn);
-	}
-
-	updateTransition(url) {
-		var el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
-		if(url !=='') {
-			if(el){
-				el.classList.add("right-logo");
-				el.classList.remove("centered-logo");
-			}else return;
-		}
-		else{
-			el = this.eventsRootContainer.querySelector(".event-logo.right-logo");
-			if(el){
-				el.classList.remove("right-logo");
-				el.classList.add("centered-logo");
-			}
-		}
-	}
-
-	setBuyBtnUrl(){
-		if(this.buyBtn){
-			let event = this.event,
-				url = '';
-			if(event){
-				if(event.url){
-					if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
-						url = event.url;
-					}
-					this.updateTransition(url);
+				if (msecsNow > msecsEnd || isNaN(msecsEnd)) {
+					me.showMessage('This event has taken place', false, "event-message-started");
+				} else if (msecsStart < msecsNow < msecsEnd) {
+					me.showMessage('Event is in progress', false, "event-message-started");
 				}
 			}
-			this.buyBtn.href = url;
 		}
-	}
+	}, {
+		key: 'onCountdownChange',
+		value: function onCountdownChange(data) {
+			var timeLeft = this.getNormalizedDateValue(data.total),
+			    now = Date.parse(new Date());
 
-	isUniverseUrl(url){
-		return (url.match(/universe.com/g) || url.match(/uniiverse.com/g));
-	}
+			/*toggle CountDown-Box Visibility*/
+			if (timeLeft <= 0 || now < timeLeft) {
+				this.countDownWrapper.classList.add("hide-countDownBox");
+				if (this.eventId && this.event) {
+					this.showStatusMessage(data);
+					return false; //exit if event has taken place
+				}
+			} else this.countDownWrapper.classList.remove("hide-countDownBox");
 
-	embedUniversePlugin(){
-		let id = 'id_universe_widget';
-		if( !document.getElementById(id) ){
-			let script = document.createElement('script');
-			script.setAttribute('src', 'https://www.universe.com/embed.js');
-			script.setAttribute('type', 'text/javascript');
-			script.setAttribute('charset', 'UTF-8');
-			script.setAttribute('id', id);
-			(document.head || document.getElementsByTagName('head')[0]).appendChild(script);
+			if (data.monthLeft > 99) {
+				this.showMessage('This event starts in more than ' + data.monthLeft + ' month, ' + data.days + ' days, ' + data.hours + ' hours', false, "event-message-started");
+				this.countDownWrapper.classList.add("hide-countDownBox");
+				return false;
+			}
+
+			this.countDownMonth.innerHTML = this.getNormalizedDateValue(data.monthLeft);
+			this.countDownDays.innerHTML = this.getNormalizedDateValue(data.days);
+			this.countDownHours.innerHTML = this.getNormalizedDateValue(data.hours);
+			this.countDownMinute.innerHTML = this.getNormalizedDateValue(data.minutes);
+			this.countDownSecond.innerHTML = this.getNormalizedDateValue(data.seconds);
+
+			this.toggleSecondsVisibility();
 		}
-		this.isUniversePluginInitialized = true;
-	}
+	}, {
+		key: 'buildCountdown',
+		value: function buildCountdown() {
+			this.countDownWrapper = document.createElement("div");
+			this.countDownWrapper.classList.add("events-count-down");
+			this.countDownMonth = document.createElement("span");
+			this.countDownDays = document.createElement("span");
+			this.countDownHours = document.createElement("span");
+			this.countDownMinute = document.createElement("span");
+			this.countDownSecond = document.createElement("span");
 
-	// Message
-	initMessage(){
-		this.messageDialog = document.createElement('div');
-		this.messageDialog.classList.add("event-message");
-		this.messageContent = document.createElement('div');
-		this.messageContent.classList.add("event-message__content");
+			this.countDownMonth.innerHTML = '00';
+			this.countDownDays.innerHTML = '00';
+			this.countDownHours.innerHTML = '00';
+			this.countDownMinute.innerHTML = '00';
+			this.countDownSecond.innerHTML = '00';
 
-		/*let messageClose = document.createElement('div');
-    messageClose.classList.add("event-message__btn");
-    messageClose.addEventListener("click", ()=> {
-      this.hideMessage();
-    });*/
+			this.countDownMonth.classList.add("events-count-down__month");
+			this.countDownDays.classList.add("events-count-down__day");
+			this.countDownHours.classList.add("events-count-down__hour");
+			this.countDownMinute.classList.add("events-count-down__minute");
+			this.countDownSecond.classList.add("events-count-down__second");
 
-		this.messageDialog.appendChild(this.messageContent);
-		/*this.messageDialog.appendChild(messageClose);*/
-		this.eventsRootContainer.appendChild(this.messageDialog);
-	}
+			this.countDownWrapper.appendChild(this.countDownMonth);
+			this.countDownWrapper.appendChild(this.countDownDays);
+			this.countDownWrapper.appendChild(this.countDownHours);
+			this.countDownWrapper.appendChild(this.countDownMinute);
+			this.countDownWrapper.appendChild(this.countDownSecond);
 
-	showMessage(message, hideMessageWithoutDelay , /*string togleClassName*/className ){
-		if(message.length){
-			this.hideMessageWithoutDelay = hideMessageWithoutDelay;
-			this.messageContent.innerHTML = message;
-			this.messageDialog.className = "";
+			this.eventsRootContainer.appendChild(this.countDownWrapper);
+		}
+	}, {
+		key: 'initBuyBtn',
+		value: function initBuyBtn() {
+			var _this = this;
+
+			this.buyBtn = document.createElement("a");
+			this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
+			this.buyBtn.classList.add("event-buy-btn");
+			this.buyBtn.target = '_blank';
+			this.buyBtn.href = '';
+			this.buyBtn.addEventListener('click', function (e) {
+				ga('send', 'event', 'CountdownClickBuyButton', 'click');
+				_widgetsAnalytics2.default.sendEvent(_extends({
+					eventAction: _widgetsAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
+					eventLabel: _this.buyBtn.href
+				}, _this.defaultAnalyticsProperties));
+			});
+			this.eventsRootContainer.appendChild(this.buyBtn);
+		}
+	}, {
+		key: 'setBuyBtnUrl',
+		value: function setBuyBtnUrl() {
+			if (this.buyBtn && this.event && this.event.url) {
+				this.buyBtn.href = this.event.url;
+			}
+		}
+
+		// Message
+
+	}, {
+		key: 'initMessage',
+		value: function initMessage() {
+			this.messageDialog = document.createElement('div');
 			this.messageDialog.classList.add("event-message");
-			this.messageDialog.classList.add("event-message-visible");
-			// this.messageDialog.classList.remove("event-message-started");
+			this.messageContent = document.createElement('div');
+			this.messageContent.classList.add("event-message__content");
+
+			/*let messageClose = document.createElement('div');
+     messageClose.classList.add("event-message__btn");
+     messageClose.addEventListener("click", ()=> {
+       this.hideMessage();
+     });*/
+
+			this.messageDialog.appendChild(this.messageContent);
+			/*this.messageDialog.appendChild(messageClose);*/
+			this.eventsRootContainer.appendChild(this.messageDialog);
 		}
-
-		if( className ){
-			this.messageDialog.classList.add(className);
-		}else {
-			this.messageDialog.classList.add("event-message-visible");
-			this.messageDialog.classList.remove(className);
-		}
-
-		className = null;
-
-	}
-
-	hideMessage(){
-		if(this.messageTimeout) clearTimeout(this.messageTimeout); // Clear timeout and hide message immediately.
-		this.messageDialog.classList.remove("event-message-visible");
-	}
-	// End message
-
-	AdditionalElements(){
-		var legalNoticeContent = document.createTextNode('Legal Notice'),
-			legalNotice = document.createElement("a");
-		legalNotice.appendChild(legalNoticeContent);
-		legalNotice.classList.add("legal-notice");
-		legalNotice.target = '_blank';
-		legalNotice.href = this.legalNoticeUrl;
-		this.widgetRoot.appendChild(legalNotice);
-
-		var logo = document.createElement('a');
-		logo.classList.add("event-logo","centered-logo");
-		logo.target = '_blank';
-		logo.href = this.logoUrl;
-		logo.innerHTML = 'Powered by ';
-
-		var logoBox = document.createElement('div');
-		logoBox.classList.add("event-logo-box");
-		logoBox.appendChild(logo);
-		this.eventsRootContainer.appendChild(logoBox);
-
-		let question = document.createElement('span'),
-			toolTip = document.createElement('div'),
-			tooltipHtml = `
-				<div class="tooltip-inner"> 
-					<a href="${this.questionUrl}" target = "_blank" >About widget</a>
-					<div class="place">version: <b>${this.widgetVersion}</b></div>
-				</div>`;
-		question.classList.add("event-question");
-		question.addEventListener('click', toolTipHandler);
-		toolTip.classList.add("tooltip-version");
-		toolTip.classList.add("left");
-		toolTip.innerHTML = tooltipHtml;
-		this.eventsRootContainer.appendChild(question);
-		this.eventsRootContainer.appendChild(toolTip);
-
-		function toolTipHandler(e) {
-			e.preventDefault();
-			e.target.nextSibling.classList.toggle('show-tip');
-		}
-	}
-
-	formatDate(date) {
-		var result = '';
-		if(!date.day) return result; // Day is required
-
-		var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-			DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
-			dayArray = date.day.split('-'),
-			d = parseInt(dayArray[2]),
-			M = parseInt(dayArray[1]);
-
-		// var E = new Date(date.day).getDay();
-		var E = new Date(+date.day.split('-')[0],(+date.day.split('-')[1])-1,+date.day.split('-')[2]).getDay();
-		result = DAY_NAMES[E] + ', ' + MONTH_NAMES[M - 1] + ' ' + d + ', ' + dayArray[0];
-
-		if(!date.time) return result;
-
-		var timeArray = date.time.split(':'),
-			H = parseInt(timeArray[0]),
-			m = timeArray[1],
-			a = "AM";
-
-		if (H > 11) a = "PM";
-		if (H === 0) {
-			H = 12;
-		} else if (H > 12) {
-			H = H - 12;
-		}
-
-		return result + ' ' + this.getNormalizedDateValue(H) + ':' + m + ' ' + a;
-	}
-
-	clearEvents(){
-		this.eventsRoot.innerHTML = "";
-	}
-
-	clear(){
-		var modificatorList = this.widgetRoot.getElementsByClassName('modificator');
-		while (modificatorList.length) {
-			let el = modificatorList[0],
-				parent = el.parentNode;
-			parent.removeChild(el);
-		}
-		this.clearEvents();
-	}
-
-	update(isFullWidthTheme) {
-
-		let oldTheme = this.config.constructor();
-		for (let attr in this.config) {
-			if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
-		}
-
-		this.config = this.widgetRoot.attributes;
-		this.widgetRoot.style.height = `${this.config.height}px`;
-		this.widgetRoot.style.width  = `${this.config.width}px`;
-		this.eventsRootContainer.style.height = `${this.config.height}px`;
-		this.eventsRootContainer.style.width  = `${this.config.width}px`;
-		this.eventsRootContainer.style.borderRadius = `${this.config.borderradius}px`;
-		this.eventsRootContainer.style.borderWidth = `${this.borderSize}px`;
-
-
-
-		if(this.needToUpdate(this.config, oldTheme, this.updateExceptions) || isFullWidthTheme){
-			this.clear();
-
-			if(this.config.theme !== null){
-				//set new styles
-				this.makeRequest( this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css" );
+	}, {
+		key: 'showMessage',
+		value: function showMessage(message, hideMessageWithoutDelay, /*string togleClassName*/className) {
+			if (message.length) {
+				this.hideMessageWithoutDelay = hideMessageWithoutDelay;
+				this.messageContent.innerHTML = message;
+				this.messageDialog.className = "";
+				this.messageDialog.classList.add("event-message");
+				this.messageDialog.classList.add("event-message-visible");
+				// this.messageDialog.classList.remove("event-message-started");
 			}
 
-			if(this.widgetConfig.theme !== 'simple_countdown') {
-				let heightStatic = '700px';
-				//draw inline style
-				//border
-				this.eventsRootContainer.style.borderRadius = `${this.config.borderradius}px`;
-				this.eventsRootContainer.style.borderWidth = `${this.borderSize}px`;
-
-				//set width
-				this.widgetRoot.style.width = `100%`;
-				this.widgetRoot.style.height = heightStatic;
-				this.widgetRoot.style.display = `block`;
-				this.eventsRootContainer.style.width  = `100%`;
-				this.eventsRootContainer.style.height = heightStatic;
-				this.widgetConfig.width = `100%`;
+			if (className) {
+				this.messageDialog.classList.add(className);
+			} else {
+				this.messageDialog.classList.add("event-message-visible");
+				this.messageDialog.classList.remove(className);
 			}
 
-			/*if( this.themeModificators.hasOwnProperty( this.widgetConfig.theme ) ) {
-        this.themeModificators[ this.widgetConfig.theme ]();
-      }*/
+			className = null;
+		}
+	}, {
+		key: 'hideMessage',
+		value: function hideMessage() {
+			if (this.messageTimeout) clearTimeout(this.messageTimeout); // Clear timeout and hide message immediately.
+			this.messageDialog.classList.remove("event-message-visible");
+		}
+		// End message
 
-			if(this.apiUrl && this.eventId){
-				this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
-			}else{
-				// this.showMessage("No results were found.", true);
-				this.showMessage("No events were found", true, 'cactus');
-				this.countdownClock.update(null);
+	}, {
+		key: 'AdditionalElements',
+		value: function AdditionalElements() {
+			var legalNoticeContent = document.createTextNode('Legal Notice'),
+			    legalNotice = document.createElement("a");
+			legalNotice.appendChild(legalNoticeContent);
+			legalNotice.classList.add("legal-notice");
+			legalNotice.target = '_blank';
+			legalNotice.href = this.legalNoticeUrl;
+			this.widgetRoot.appendChild(legalNotice);
+
+			var logo = document.createElement('a');
+			logo.classList.add("event-logo", "right-logo");
+			logo.target = '_blank';
+			logo.href = this.logoUrl;
+			logo.innerHTML = 'Powered by ';
+
+			var logoBox = document.createElement('div');
+			logoBox.classList.add("event-logo-box");
+			logoBox.appendChild(logo);
+			this.eventsRootContainer.appendChild(logoBox);
+
+			var question = document.createElement('span'),
+			    toolTip = document.createElement('div'),
+			    tooltipHtml = '\n\t\t\t\t<div class="tooltip-inner"> \n\t\t\t\t\t<a href="' + this.questionUrl + '" target = "_blank" >About widget</a>\n\t\t\t\t\t<div class="place">version: <b>' + this.widgetVersion + '</b></div>\n\t\t\t\t</div>';
+			question.classList.add("event-question");
+			question.addEventListener('click', toolTipHandler);
+			toolTip.classList.add("tooltip-version");
+			toolTip.classList.add("left");
+			toolTip.innerHTML = tooltipHtml;
+			this.eventsRootContainer.appendChild(question);
+			this.eventsRootContainer.appendChild(toolTip);
+
+			function toolTipHandler(e) {
+				e.preventDefault();
+				e.target.nextSibling.classList.toggle('show-tip');
 			}
-		}else{
-			let events = this.widgetRoot.getElementsByClassName("event-wrapper");
-			for(let i in events){
-				if(events.hasOwnProperty(i) && events[i].style !== undefined){
-					events[i].style.width = `${this.config.width - this.borderSize * 2}px`;
-					events[i].style.height = `${this.config.height - this.borderSize * 2}px`;
+		}
+	}, {
+		key: 'formatDate',
+		value: function formatDate(date) {
+			var result = '';
+			if (!date.day) return result; // Day is required
+
+			var MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			    DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			    dayArray = date.day.split('-'),
+			    d = parseInt(dayArray[2]),
+			    M = parseInt(dayArray[1]);
+
+			// var E = new Date(date.day).getDay();
+			var E = new Date(+date.day.split('-')[0], +date.day.split('-')[1] - 1, +date.day.split('-')[2]).getDay();
+			result = DAY_NAMES[E] + ', ' + MONTH_NAMES[M - 1] + ' ' + d + ', ' + dayArray[0];
+
+			if (!date.time) return result;
+
+			var timeArray = date.time.split(':'),
+			    H = parseInt(timeArray[0]),
+			    m = timeArray[1],
+			    a = "AM";
+
+			if (H > 11) a = "PM";
+			if (H === 0) {
+				H = 12;
+			} else if (H > 12) {
+				H = H - 12;
+			}
+
+			return result + ' ' + this.getNormalizedDateValue(H) + ':' + m + ' ' + a;
+		}
+	}, {
+		key: 'clearEvents',
+		value: function clearEvents() {
+			this.eventsRoot.innerHTML = "";
+		}
+	}, {
+		key: 'clear',
+		value: function clear() {
+			var modificatorList = this.widgetRoot.getElementsByClassName('modificator');
+			while (modificatorList.length) {
+				var el = modificatorList[0],
+				    parent = el.parentNode;
+				parent.removeChild(el);
+			}
+			this.clearEvents();
+		}
+	}, {
+		key: 'update',
+		value: function update(isFullWidthTheme) {
+
+			var oldTheme = this.config.constructor();
+			for (var attr in this.config) {
+				if (this.config.hasOwnProperty(attr)) oldTheme[attr] = this.config[attr];
+			}
+
+			this.config = this.widgetRoot.attributes;
+			this.widgetRoot.style.height = this.config.height + 'px';
+			this.widgetRoot.style.width = this.config.width + 'px';
+			this.eventsRootContainer.style.height = this.config.height + 'px';
+			this.eventsRootContainer.style.width = this.config.width + 'px';
+			this.eventsRootContainer.style.borderRadius = this.config.borderradius + 'px';
+			this.eventsRootContainer.style.borderWidth = this.borderSize + 'px';
+
+			if (this.needToUpdate(this.config, oldTheme, this.updateExceptions) || isFullWidthTheme) {
+				this.clear();
+
+				if (this.config.theme !== null) {
+					//set new styles
+					this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
 				}
-			}
-		}
 
-		if (this.isFullWidth) { this.initFullWidth(); }
-		//this.toggleSecondsVisibility();
-	}
+				if (this.widgetConfig.theme !== 'simple_countdown') {
+					var heightStatic = '700px';
+					//draw inline style
+					//border
+					this.eventsRootContainer.style.borderRadius = this.config.borderradius + 'px';
+					this.eventsRootContainer.style.borderWidth = this.borderSize + 'px';
 
-	needToUpdate(newTheme, oldTheme, forCheck = []){
-		return Object.keys(newTheme).map(function(key){
-			if(forCheck.indexOf(key) > -1) return true;
-			//console.warn([key, newTheme[key], oldTheme[key], newTheme[key] === oldTheme[key]])
-			return newTheme[key] === oldTheme[key] ;
-		}).indexOf(false) > -1
-	}
-
-	loadConfig(NamedNodeMap){
-		var config = {};
-		Object.keys(NamedNodeMap).map(function(value){
-			if( typeof(NamedNodeMap[value].name) !== "undefined" && NamedNodeMap[value].name.indexOf("w-") !== -1){
-				config[ NamedNodeMap[value].name.replace(/w-/g, "").replace(/-/g, "") ] = NamedNodeMap[value].value;
-			}
-		});
-		return config;
-	}
-
-	styleLoadingHandler(){
-		if (this && this.readyState == XMLHttpRequest.DONE ) {
-			if(this.status == 200){
-				var style = document.createElement("style");
-				style.setAttribute("type","text/css");
-				style.setAttribute("id",`widget-theme-${this.widget.config.theme}`);
-				style.textContent = this.responseText;
-				document.getElementsByTagName("head")[0].appendChild(style);
-			}
-			else {
-				console.info("theme wasn't loaded");
-			}
-		}
-	}
-
-	onEventLoadError(status,loadOnce){
-		this.event = false;
-		this.showMessage("No results were found.", true, null);
-		console.log(`There was an error status - ${status}`);
-		if(!loadOnce) {
-			this.changeDefaultId();
-		}
-	}
-
-	eventsLoadingHandler(){
-		let widget = this.widget;
-		widget.clearEvents(); // Additional clearing after each loading
-		if (this && this.readyState == XMLHttpRequest.DONE ) {
-			if(this.status == 200){
-				widget.event = __WEBPACK_IMPORTED_MODULE_0_lodash_get___default()(JSON.parse(this.responseText), '_embedded.events[0]');
-				if(widget.event){
-					widget.publishEvent(widget.event);
-					widget.hideMessage();
+					//set width
+					this.widgetRoot.style.width = '100%';
+					this.widgetRoot.style.height = heightStatic;
+					this.widgetRoot.style.display = 'block';
+					this.eventsRootContainer.style.width = '100%';
+					this.eventsRootContainer.style.height = heightStatic;
+					this.widgetConfig.width = '100%';
 				}
-			}
-			else if(this.status == 400) {
-				widget.onEventLoadError.call(widget, this.status);
-			}
-			else {
-				widget.onEventLoadError.call(widget, this.status);
-			}
-			// http://js2coffee.thomaskalka.de/ - widget.event?.date?.dateTime
-			let _ref, _ref2;
-			widget.countdownClock.update((_ref = widget.event) != null ? (_ref2 = _ref.date) != null ? _ref2.dateTime || _ref2.day : void 0 : void 0);
-		}
-		widget.setBuyBtnUrl();
-	}
 
-	publishEvent(event, parentNode){
-		parentNode = parentNode || this.eventsRoot;
-		let DOMElement = this.createDOMItem(event);
-		parentNode.appendChild(DOMElement);
-	}
+				/*if( this.themeModificators.hasOwnProperty( this.widgetConfig.theme ) ) {
+         this.themeModificators[ this.widgetConfig.theme ]();
+       }*/
 
-	getImageForEvent(images){
-		var width = this.config.width,
-			height = this.config.height;
-
-		if(width === '100%') { width = this.widgetRoot.offsetWidth }
-		images.sort(function(a,b) {
-			if (a.width < b.width)
-				return -1;
-			else if (a.width > b.width)
-				return 1;
-			else
-				return 0;
-		});
-
-		var myImg = "";
-		images.forEach(function(element){
-			if(element.width >= width && element.height >= height && !myImg){
-				myImg = element.url;
-			}
-		});
-		if(myImg === "") {
-			myImg = images[images.length-1].url;
-		}
-		return myImg;
-	}
-
-	parseEvent(eventSet){
-		if(!eventSet.id){
-			return false;
-		}
-
-		let currentEvent = {};
-
-		currentEvent.id = eventSet.id;
-		currentEvent.url = eventSet.url;
-		currentEvent.name = eventSet.name;
-
-		currentEvent.date = {
-			day: eventSet.dates.start.localDate,
-			time: eventSet.dates.start.localTime,
-			dateTime: eventSet.dates.start.dateTime
-		};
-
-		if(eventSet.dates.end){
-			(eventSet.dates.end.localDate) ? currentEvent.date.dayEnd = eventSet.dates.end.localDate : '';
-			(eventSet.dates.end.localTime) ? currentEvent.date.timeEnd = eventSet.dates.end.localTime : '';
-			(eventSet.dates.end.dateTime) ? currentEvent.date.dateTimeEnd = eventSet.dates.end.dateTime : '';
-		}
-
-		if(eventSet.hasOwnProperty('_embedded') && eventSet._embedded.hasOwnProperty('venues')){
-			let venue = eventSet._embedded.venues[0];
-			if(venue){
-				if(venue.address)
-					currentEvent.address = venue.address;
-
-				if(venue.name){
-					if(!currentEvent.address) currentEvent.address = {};
-					currentEvent.address.name = venue.name;
+				if (this.apiUrl && this.eventId) {
+					this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+				} else {
+					// this.showMessage("No results were found.", true);
+					this.showMessage("No events were found", true, 'cactus');
+					this.countdownClock.update(null);
 				}
-			}
-		}
-
-		currentEvent.img = this.getImageForEvent(eventSet.images);
-		return currentEvent;
-	}
-
-	changeDefaultId(){
-		Date.prototype.addDays = function(days) {
-			this.setDate(this.getDate() + parseInt(days));
-			return this;
-		};
-		let zipVegas='89109',
-			url=`https://app.ticketmaster.com/discovery-widgets/v2/events.json`,
-			newAttr = Object.assign({},this.eventReqAttrs),
-			d = new Date(0),
-			convertedNewStartDate;
-
-		d.setUTCSeconds(Math.round(new Date().addDays(30).getTime())/1000);
-		convertedNewStartDate = d.toJSON().slice(0,17)+'00Z';
-		if(d.toJSON().length <= 20) convertedNewStartDate = d.toJSON();
-		newAttr.startDateTime = convertedNewStartDate;
-		newAttr.zipcode = zipVegas;
-
-		this.makeRequest(this.changeDefaultIdHandler, url, newAttr );
-	}
-
-	changeDefaultIdHandler(){
-		function getValidId(events){
-			let id = '',
-				newStartDate = new Date().addDays(30);
-
-			for(let ii=0;ii<events.length;ii++){
-				if ( Math.round(new Date(events[ii].dates.start.dateTime).getTime()/1000) >= Math.round(new Date(newStartDate).getTime()/1000) ){
-					id = events[ii].id;
-					break;
-				}
-			}
-			return id;
-		}
-		function setEventId(){
-			return ()=> this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
-		}
-		let widget = this.widget;
-		let loadOnce = false;
-		widget.clearEvents(); // Additional clearing after each loading
-
-		if (this && this.readyState == XMLHttpRequest.DONE ) {
-			if(this.status == 200){
-				let eventsWrap = JSON.parse(this.responseText);
-				if(eventsWrap){
-					let events = eventsWrap['_embedded']['events'],
-						newId = getValidId(events);
-					widget.eventId = newId;
-					if(document.getElementById('w-id')){
-						document.getElementById('w-id').value = widget.eventId;
+			} else {
+				var events = this.widgetRoot.getElementsByClassName("event-wrapper");
+				for (var i in events) {
+					if (events.hasOwnProperty(i) && events[i].style !== undefined) {
+						events[i].style.width = this.config.width - this.borderSize * 2 + 'px';
+						events[i].style.height = this.config.height - this.borderSize * 2 + 'px';
 					}
-					setEventId.call(widget,newId)();
 				}
 			}
-			else if(this.status == 400) {
-				loadOnce = true;
-				widget.onEventLoadError.call(widget, this.status,loadOnce);
+
+			if (this.isFullWidth) {
+				this.initFullWidth();
 			}
-			else {
-				console.log('this error',this);
-				loadOnce = true;
-				widget.onEventLoadError.call(widget, this.status,loadOnce);
-			}
-			// http://js2coffee.thomaskalka.de/ - widget.event?.date?.dateTime
-			let _ref, _ref2;
-			widget.countdownClock.update((_ref = widget.event) != null ? (_ref2 = _ref.date) != null ? _ref2.dateTime || _ref2.day : void 0 : void 0);
+			//this.toggleSecondsVisibility();
 		}
-		widget.setBuyBtnUrl();
+	}, {
+		key: 'needToUpdate',
+		value: function needToUpdate(newTheme, oldTheme) {
+			var forCheck = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-	}
-
-	makeRequest(handler, url=this.apiUrl, attrs={}, method="GET"){
-		attrs = Object.keys(attrs).map(function(key){
-			return `${key}=${attrs[key]}`;
-		}).join("&");
-
-		url = [url,attrs].join("?");
-
-		this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-		if(method == "POST") {
-			this.xmlHTTP.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			return Object.keys(newTheme).map(function (key) {
+				if (forCheck.indexOf(key) > -1) return true;
+				//console.warn([key, newTheme[key], oldTheme[key], newTheme[key] === oldTheme[key]])
+				return newTheme[key] === oldTheme[key];
+			}).indexOf(false) > -1;
 		}
-		this.xmlHTTP.widget = this;
-		this.xmlHTTP.onreadystatechange = handler;
-		this.xmlHTTP.open(method, url, true);
-		this.xmlHTTP.send();
-	}
-
-	initPretendedLink(el, url, isBlank){
-		if(el && url){
-			el.setAttribute('data-url', url);
-			el.classList.add("event-pretended-link");
-			el.addEventListener('click', function(){
-				let url = this.getAttribute('data-url');
-				if(url){
-					let win = window.open(url, (isBlank ? '_blank' : '_self'));
-					win.focus();
+	}, {
+		key: 'loadConfig',
+		value: function loadConfig(NamedNodeMap) {
+			var config = {};
+			Object.keys(NamedNodeMap).map(function (value) {
+				if (typeof NamedNodeMap[value].name !== "undefined" && NamedNodeMap[value].name.indexOf("w-") !== -1) {
+					config[NamedNodeMap[value].name.replace(/w-/g, "").replace(/-/g, "")] = NamedNodeMap[value].value;
 				}
 			});
+			return config;
 		}
-		return el;
-	}
-
-	initFullWidth(){
-		let heightStatic = 700;
-		this.config.width = `100%`;
-		this.config.height = heightStatic;
-		this.widgetRoot.style.width = `100%`;
-		this.widgetRoot.style.height = heightStatic + 'px';
-		this.widgetRoot.style.display = `block`;
-		this.eventsRootContainer.style.width  = `100%`;
-		this.eventsRootContainer.style.height = `${this.widgetContentHeight}px`;
-	}
-
-	createDOMItem(itemConfig){
-		var medWrapper = document.createElement("div");
-		medWrapper.classList.add("event-content-wraper");
-
-		var event = document.createElement("li");
-		event.classList.add("event-wrapper");
-		event.style.height = `${this.config.height - this.borderSize * 2}px`;
-		event.style.width  = (!this.isFullWidth) ? `${this.config.width - this.borderSize * 2}px` : `100%`;
-
-		var image = document.createElement("span");
-		image.classList.add("bg-cover");
-		image.style.backgroundImage = `url('${itemConfig.img}')`;
-		event.appendChild(image);
-
-		var nameContent = document.createTextNode(itemConfig.name),
-			name = document.createElement("span");
-		name.classList.add("event-name");
-		name.appendChild(nameContent);
-		this.initPretendedLink(name, itemConfig.url, true);
-		name.addEventListener('click', function(e) {
-      e.preventDefault();
-      ga('send', 'event', 'CountDownClickeventName', 'click', itemConfig.url);
-      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'eventNameClick', itemConfig.url);
-    })
-		medWrapper.appendChild(name);
-
-		var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
-			dateTime = document.createElement("span");
-		dateTime.classList.add("event-date");
-		dateTime.appendChild(dateTimeContent);
-
-		var dateWraper = document.createElement("span");
-		dateWraper.classList.add("event-date-wraper");
-		dateWraper.appendChild(dateTime);
-		medWrapper.appendChild(dateWraper);
-
-		if(itemConfig.hasOwnProperty("address")){
-			var addressWrapper = document.createElement("span");
-			addressWrapper.classList.add("address-wrapper");
-
-			if( itemConfig.address.hasOwnProperty("name") ){
-				var addressNameText = document.createTextNode(itemConfig.address.name),
-					addressName =  document.createElement("span");
-				addressName.classList.add("event-address");
-				addressName.classList.add("event-address-name");
-				addressName.appendChild(addressNameText);
-				addressWrapper.appendChild(addressName);
+	}, {
+		key: 'styleLoadingHandler',
+		value: function styleLoadingHandler() {
+			if (this && this.readyState == XMLHttpRequest.DONE) {
+				if (this.status == 200) {
+					var style = document.createElement("style");
+					style.setAttribute("type", "text/css");
+					style.setAttribute("id", 'widget-theme-' + this.widget.config.theme);
+					style.textContent = this.responseText;
+					document.getElementsByTagName("head")[0].appendChild(style);
+				} else {
+					console.info("theme wasn't loaded");
+				}
 			}
-
-			if( itemConfig.address.hasOwnProperty("line1") ){
-				var addressOneText = document.createTextNode(itemConfig.address.line1),
-					addressOne =  document.createElement("span");
-				addressOne.classList.add("event-address");
-				addressOne.appendChild(addressOneText);
-				addressWrapper.appendChild(addressOne);
-			}
-
-			if( itemConfig.address.hasOwnProperty("line2") ){
-				var addressTwoText = document.createTextNode(itemConfig.address.line2),
-					addressTwo =  document.createElement("span");
-				addressTwo.classList.add("event-address");
-				addressTwo.appendChild(addressTwoText);
-				addressWrapper.appendChild(addressTwo);
-			}
-
-			medWrapper.appendChild(addressWrapper);
 		}
+	}, {
+		key: 'onEventLoadError',
+		value: function onEventLoadError(status, loadOnce) {
+			this.event = false;
+			this.showMessage("No results were found.", true, null);
+			console.log('There was an error status - ' + status);
+			if (!loadOnce) {
+				this.changeDefaultId();
+			}
+		}
+	}, {
+		key: 'eventsLoadingHandler',
+		value: function eventsLoadingHandler() {
+			var widget = this.widget;
+			widget.clearEvents(); // Additional clearing after each loading
+			if (this && this.readyState == XMLHttpRequest.DONE) {
+				if (this.status == 200) {
+					widget.event = (0, _get2.default)(JSON.parse(this.responseText), '_embedded.events[0]');
+					if (widget.event) {
+						widget.publishEvent(widget.event);
+						widget.hideMessage();
+					}
+				} else if (this.status == 400) {
+					widget.onEventLoadError.call(widget, this.status);
+				} else {
+					widget.onEventLoadError.call(widget, this.status);
+				}
+				// http://js2coffee.thomaskalka.de/ - widget.event?.date?.dateTime
+				var _ref = void 0,
+				    _ref2 = void 0;
+				widget.countdownClock.update((_ref = widget.event) != null ? (_ref2 = _ref.date) != null ? _ref2.dateTime || _ref2.day : void 0 : void 0);
+			}
+			widget.setBuyBtnUrl();
+		}
+	}, {
+		key: 'publishEvent',
+		value: function publishEvent(event, parentNode) {
+			parentNode = parentNode || this.eventsRoot;
+			var DOMElement = this.createDOMItem(event);
+			parentNode.appendChild(DOMElement);
+		}
+	}, {
+		key: 'getImageForEvent',
+		value: function getImageForEvent(images) {
+			var width = this.config.width,
+			    height = this.config.height;
 
-		if(itemConfig.hasOwnProperty("categories")) {
-			var categoriesWrapper = document.createElement("span");
-			categoriesWrapper.classList.add("category-wrapper");
-
-			itemConfig.categories.forEach(function (element) {
-				var categoryText = document.createTextNode(element),
-					category = document.createElement("span");
-				category.classList.add("event-category");
-				category.appendChild(categoryText);
-				categoriesWrapper.appendChild(category);
+			if (width === '100%') {
+				width = this.widgetRoot.offsetWidth;
+			}
+			images.sort(function (a, b) {
+				if (a.width < b.width) return -1;else if (a.width > b.width) return 1;else return 0;
 			});
-			medWrapper.appendChild(categoriesWrapper);
+
+			var myImg = "";
+			images.forEach(function (element) {
+				if (element.width >= width && element.height >= height && !myImg) {
+					myImg = element.url;
+				}
+			});
+			if (myImg === "") {
+				myImg = images[images.length - 1].url;
+			}
+			return myImg;
+		}
+	}, {
+		key: 'parseEvent',
+		value: function parseEvent(eventSet) {
+			if (!eventSet.id) {
+				return false;
+			}
+
+			var currentEvent = {};
+
+			currentEvent.id = eventSet.id;
+			currentEvent.url = eventSet.url;
+			currentEvent.name = eventSet.name;
+
+			currentEvent.date = {
+				day: eventSet.dates.start.localDate,
+				time: eventSet.dates.start.localTime,
+				dateTime: eventSet.dates.start.dateTime
+			};
+
+			if (eventSet.dates.end) {
+				eventSet.dates.end.localDate ? currentEvent.date.dayEnd = eventSet.dates.end.localDate : '';
+				eventSet.dates.end.localTime ? currentEvent.date.timeEnd = eventSet.dates.end.localTime : '';
+				eventSet.dates.end.dateTime ? currentEvent.date.dateTimeEnd = eventSet.dates.end.dateTime : '';
+			}
+
+			if (eventSet.hasOwnProperty('_embedded') && eventSet._embedded.hasOwnProperty('venues')) {
+				var venue = eventSet._embedded.venues[0];
+				if (venue) {
+					if (venue.address) currentEvent.address = venue.address;
+
+					if (venue.name) {
+						if (!currentEvent.address) currentEvent.address = {};
+						currentEvent.address.name = venue.name;
+					}
+				}
+			}
+
+			currentEvent.img = this.getImageForEvent(eventSet.images);
+			return currentEvent;
+		}
+	}, {
+		key: 'changeDefaultId',
+		value: function changeDefaultId() {
+			Date.prototype.addDays = function (days) {
+				this.setDate(this.getDate() + parseInt(days));
+				return this;
+			};
+			var zipVegas = '89109',
+			    url = 'https://app.ticketmaster.com/discovery-widgets/v2/events.json',
+			    newAttr = Object.assign({}, this.eventReqAttrs),
+			    d = new Date(0),
+			    convertedNewStartDate = void 0;
+
+			d.setUTCSeconds(Math.round(new Date().addDays(30).getTime()) / 1000);
+			convertedNewStartDate = d.toJSON().slice(0, 17) + '00Z';
+			if (d.toJSON().length <= 20) convertedNewStartDate = d.toJSON();
+			newAttr.startDateTime = convertedNewStartDate;
+			newAttr.zipcode = zipVegas;
+
+			this.makeRequest(this.changeDefaultIdHandler, url, newAttr);
+		}
+	}, {
+		key: 'changeDefaultIdHandler',
+		value: function changeDefaultIdHandler() {
+			function getValidId(events) {
+				var id = '',
+				    newStartDate = new Date().addDays(30);
+
+				for (var ii = 0; ii < events.length; ii++) {
+					if (Math.round(new Date(events[ii].dates.start.dateTime).getTime() / 1000) >= Math.round(new Date(newStartDate).getTime() / 1000)) {
+						id = events[ii].id;
+						break;
+					}
+				}
+				return id;
+			}
+			function setEventId() {
+				var _this2 = this;
+
+				return function () {
+					return _this2.makeRequest(_this2.eventsLoadingHandler, _this2.apiUrl, _this2.eventReqAttrs);
+				};
+			}
+			var widget = this.widget;
+			var loadOnce = false;
+			widget.clearEvents(); // Additional clearing after each loading
+
+			if (this && this.readyState == XMLHttpRequest.DONE) {
+				if (this.status == 200) {
+					var eventsWrap = JSON.parse(this.responseText);
+					if (eventsWrap) {
+						var events = eventsWrap['_embedded']['events'],
+						    newId = getValidId(events);
+						widget.eventId = newId;
+						if (document.getElementById('w-id')) {
+							document.getElementById('w-id').value = widget.eventId;
+						}
+						setEventId.call(widget, newId)();
+					}
+				} else if (this.status == 400) {
+					loadOnce = true;
+					widget.onEventLoadError.call(widget, this.status, loadOnce);
+				} else {
+					console.log('this error', this);
+					loadOnce = true;
+					widget.onEventLoadError.call(widget, this.status, loadOnce);
+				}
+				// http://js2coffee.thomaskalka.de/ - widget.event?.date?.dateTime
+				var _ref = void 0,
+				    _ref2 = void 0;
+				widget.countdownClock.update((_ref = widget.event) != null ? (_ref2 = _ref.date) != null ? _ref2.dateTime || _ref2.day : void 0 : void 0);
+			}
+			widget.setBuyBtnUrl();
+		}
+	}, {
+		key: 'makeRequest',
+		value: function makeRequest(handler) {
+			var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.apiUrl;
+			var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+			var method = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "GET";
+
+			attrs = Object.keys(attrs).map(function (key) {
+				return key + '=' + attrs[key];
+			}).join("&");
+
+			url = [url, attrs].join("?");
+
+			this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			if (method == "POST") {
+				this.xmlHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			}
+			this.xmlHTTP.widget = this;
+			this.xmlHTTP.onreadystatechange = handler;
+			this.xmlHTTP.open(method, url, true);
+			this.xmlHTTP.send();
+		}
+	}, {
+		key: 'initPretendedLink',
+		value: function initPretendedLink(el, url, isBlank) {
+			if (el && url) {
+				el.setAttribute('data-url', url);
+				el.classList.add("event-pretended-link");
+				el.addEventListener('click', function () {
+					var url = this.getAttribute('data-url');
+					if (url) {
+						var win = window.open(url, isBlank ? '_blank' : '_self');
+						win.focus();
+					}
+				});
+			}
+			return el;
+		}
+	}, {
+		key: 'initFullWidth',
+		value: function initFullWidth() {
+			var heightStatic = 700;
+			this.config.width = '100%';
+			this.config.height = heightStatic;
+			this.widgetRoot.style.width = '100%';
+			this.widgetRoot.style.height = heightStatic + 'px';
+			this.widgetRoot.style.display = 'block';
+			this.eventsRootContainer.style.width = '100%';
+			this.eventsRootContainer.style.height = this.widgetContentHeight + 'px';
+		}
+	}, {
+		key: 'createDOMItem',
+		value: function createDOMItem(itemConfig) {
+			var _this3 = this;
+
+			var medWrapper = document.createElement("div");
+			medWrapper.classList.add("event-content-wraper");
+
+			var event = document.createElement("li");
+			event.classList.add("event-wrapper");
+			event.style.height = this.config.height - this.borderSize * 2 + 'px';
+			event.style.width = !this.isFullWidth ? this.config.width - this.borderSize * 2 + 'px' : '100%';
+
+			var image = document.createElement("span");
+			image.classList.add("bg-cover");
+			image.style.backgroundImage = 'url(\'' + itemConfig.img + '\')';
+			event.appendChild(image);
+
+			var nameContent = document.createTextNode(itemConfig.name),
+			    name = document.createElement("span");
+			name.classList.add("event-name");
+			name.appendChild(nameContent);
+			this.initPretendedLink(name, itemConfig.url, true);
+			name.addEventListener('click', function (e) {
+				e.preventDefault();
+				ga('send', 'event', 'CountDownClickeventName', 'click', itemConfig.url);
+				_widgetsAnalytics2.default.sendEvent(_extends({
+					eventAction: _widgetsAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+					eventLabel: itemConfig.url
+				}, _this3.defaultAnalyticsProperties));
+			});
+			medWrapper.appendChild(name);
+
+			var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
+			    dateTime = document.createElement("span");
+			dateTime.classList.add("event-date");
+			dateTime.appendChild(dateTimeContent);
+
+			var dateWraper = document.createElement("span");
+			dateWraper.classList.add("event-date-wraper");
+			dateWraper.appendChild(dateTime);
+			medWrapper.appendChild(dateWraper);
+
+			if (itemConfig.hasOwnProperty("address")) {
+				var addressWrapper = document.createElement("span");
+				addressWrapper.classList.add("address-wrapper");
+
+				if (itemConfig.address.hasOwnProperty("name")) {
+					var addressNameText = document.createTextNode(itemConfig.address.name),
+					    addressName = document.createElement("span");
+					addressName.classList.add("event-address");
+					addressName.classList.add("event-address-name");
+					addressName.appendChild(addressNameText);
+					addressWrapper.appendChild(addressName);
+				}
+
+				if (itemConfig.address.hasOwnProperty("line1")) {
+					var addressOneText = document.createTextNode(itemConfig.address.line1),
+					    addressOne = document.createElement("span");
+					addressOne.classList.add("event-address");
+					addressOne.appendChild(addressOneText);
+					addressWrapper.appendChild(addressOne);
+				}
+
+				if (itemConfig.address.hasOwnProperty("line2")) {
+					var addressTwoText = document.createTextNode(itemConfig.address.line2),
+					    addressTwo = document.createElement("span");
+					addressTwo.classList.add("event-address");
+					addressTwo.appendChild(addressTwoText);
+					addressWrapper.appendChild(addressTwo);
+				}
+
+				medWrapper.appendChild(addressWrapper);
+			}
+
+			if (itemConfig.hasOwnProperty("categories")) {
+				var categoriesWrapper = document.createElement("span");
+				categoriesWrapper.classList.add("category-wrapper");
+
+				itemConfig.categories.forEach(function (element) {
+					var categoryText = document.createTextNode(element),
+					    category = document.createElement("span");
+					category.classList.add("event-category");
+					category.appendChild(categoryText);
+					categoriesWrapper.appendChild(category);
+				});
+				medWrapper.appendChild(categoriesWrapper);
+			}
+
+			event.appendChild(medWrapper);
+
+			return event;
 		}
 
-		event.appendChild(medWrapper);
-
-		return event;
-	}
-
-	/*
-   * Config block
+		/*
+    * Config block
+    */
+		/*
+   decConfig(config){
+     return JSON.parse(window.atob(config));
+   }
+   encConfig(config){
+     return window.btoa(config);
+   }
    */
-	/*
-  decConfig(config){
-    return JSON.parse(window.atob(config));
-  }
-  encConfig(config){
-    return window.btoa(config);
-  }
-  */
 
-}
-/* harmony export (immutable) */ __webpack_exports__["default"] = TicketmasterCountdownWidget;
+	}]);
 
+	return TicketmasterCountdownWidget;
+}();
 
+exports.default = TicketmasterCountdownWidget;
 
 /***/ }),
 /* 13 */
@@ -1357,43 +1496,11 @@ class TicketmasterCountdownWidget {
 "use strict";
 
 
-var _CountdownClock = __webpack_require__(7);
-
-var _CountdownClock2 = _interopRequireDefault(_CountdownClock);
-
-var _TicketmasterCountdownWidget = __webpack_require__(12);
-
-var _TicketmasterCountdownWidget2 = _interopRequireDefault(_TicketmasterCountdownWidget);
-
-var _widgetsAnalytics = __webpack_require__(8);
-
-var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_widgetsAnalytics2.default.initialize(_widgetsAnalytics2.default.EVENT_CATEGORY.COUNTDOWN_WIDGET);
-
-var widgetsCountdown = [];
-(function () {
-  var widgetContainers = document.querySelectorAll("div[w-type='countdown']");
-  for (var i = 0; i < widgetContainers.length; ++i) {
-    widgetsCountdown.push(new _TicketmasterCountdownWidget2.default(widgetContainers[i]));
-  }
-})();
-
-if (true) {
-  module.exports = { CountdownClock: _CountdownClock2.default, TicketmasterCountdownWidget: _TicketmasterCountdownWidget2.default, widgetsCountdown: widgetsCountdown };
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var hashClear = __webpack_require__(27),
-    hashDelete = __webpack_require__(28),
-    hashGet = __webpack_require__(29),
-    hashHas = __webpack_require__(30),
-    hashSet = __webpack_require__(31);
+var hashClear = __webpack_require__(26),
+    hashDelete = __webpack_require__(27),
+    hashGet = __webpack_require__(28),
+    hashHas = __webpack_require__(29),
+    hashSet = __webpack_require__(30);
 
 /**
  * Creates a hash object.
@@ -1403,14 +1510,14 @@ var hashClear = __webpack_require__(27),
  * @param {Array} [entries] The key-value pairs to cache.
  */
 function Hash(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
+    var index = -1,
+        length = entries == null ? 0 : entries.length;
 
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
+    this.clear();
+    while (++index < length) {
+        var entry = entries[index];
+        this.set(entry[0], entry[1]);
+    }
 }
 
 // Add methods to `Hash`.
@@ -1422,16 +1529,18 @@ Hash.prototype.set = hashSet;
 
 module.exports = Hash;
 
-
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listCacheClear = __webpack_require__(35),
-    listCacheDelete = __webpack_require__(36),
-    listCacheGet = __webpack_require__(37),
-    listCacheHas = __webpack_require__(38),
-    listCacheSet = __webpack_require__(39);
+"use strict";
+
+
+var listCacheClear = __webpack_require__(34),
+    listCacheDelete = __webpack_require__(35),
+    listCacheGet = __webpack_require__(36),
+    listCacheHas = __webpack_require__(37),
+    listCacheSet = __webpack_require__(38);
 
 /**
  * Creates an list cache object.
@@ -1441,14 +1550,14 @@ var listCacheClear = __webpack_require__(35),
  * @param {Array} [entries] The key-value pairs to cache.
  */
 function ListCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
+    var index = -1,
+        length = entries == null ? 0 : entries.length;
 
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
+    this.clear();
+    while (++index < length) {
+        var entry = entries[index];
+        this.set(entry[0], entry[1]);
+    }
 }
 
 // Add methods to `ListCache`.
@@ -1460,10 +1569,12 @@ ListCache.prototype.set = listCacheSet;
 
 module.exports = ListCache;
 
-
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getNative = __webpack_require__(10),
     root = __webpack_require__(4);
@@ -1473,16 +1584,18 @@ var Map = getNative(root, 'Map');
 
 module.exports = Map;
 
-
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mapCacheClear = __webpack_require__(40),
-    mapCacheDelete = __webpack_require__(41),
-    mapCacheGet = __webpack_require__(42),
-    mapCacheHas = __webpack_require__(43),
-    mapCacheSet = __webpack_require__(44);
+"use strict";
+
+
+var mapCacheClear = __webpack_require__(39),
+    mapCacheDelete = __webpack_require__(40),
+    mapCacheGet = __webpack_require__(41),
+    mapCacheHas = __webpack_require__(42),
+    mapCacheSet = __webpack_require__(43);
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -1492,14 +1605,14 @@ var mapCacheClear = __webpack_require__(40),
  * @param {Array} [entries] The key-value pairs to cache.
  */
 function MapCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
+    var index = -1,
+        length = entries == null ? 0 : entries.length;
 
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
+    this.clear();
+    while (++index < length) {
+        var entry = entries[index];
+        this.set(entry[0], entry[1]);
+    }
 }
 
 // Add methods to `MapCache`.
@@ -1511,10 +1624,12 @@ MapCache.prototype.set = mapCacheSet;
 
 module.exports = MapCache;
 
-
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
@@ -1538,13 +1653,15 @@ function arrayMap(array, iteratee) {
 
 module.exports = arrayMap;
 
-
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var castPath = __webpack_require__(22),
-    toKey = __webpack_require__(48);
+"use strict";
+
+
+var castPath = __webpack_require__(21),
+    toKey = __webpack_require__(47);
 
 /**
  * The base implementation of `_.get` without support for default values.
@@ -1563,20 +1680,22 @@ function baseGet(object, path) {
   while (object != null && index < length) {
     object = object[toKey(path[index++])];
   }
-  return (index && index == length) ? object : undefined;
+  return index && index == length ? object : undefined;
 }
 
 module.exports = baseGet;
 
-
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(52),
-    isMasked = __webpack_require__(34),
+"use strict";
+
+
+var isFunction = __webpack_require__(51),
+    isMasked = __webpack_require__(33),
     isObject = __webpack_require__(11),
-    toSource = __webpack_require__(49);
+    toSource = __webpack_require__(48);
 
 /**
  * Used to match `RegExp`
@@ -1598,10 +1717,7 @@ var funcToString = funcProto.toString;
 var hasOwnProperty = objectProto.hasOwnProperty;
 
 /** Used to detect if a method is native. */
-var reIsNative = RegExp('^' +
-  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-);
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
 
 /**
  * The base implementation of `_.isNative` without bad shim checks.
@@ -1621,13 +1737,15 @@ function baseIsNative(value) {
 
 module.exports = baseIsNative;
 
-
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(3),
-    arrayMap = __webpack_require__(18),
+"use strict";
+
+
+var _Symbol = __webpack_require__(3),
+    arrayMap = __webpack_require__(17),
     isArray = __webpack_require__(5),
     isSymbol = __webpack_require__(6);
 
@@ -1635,7 +1753,7 @@ var Symbol = __webpack_require__(3),
 var INFINITY = 1 / 0;
 
 /** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
+var symbolProto = _Symbol ? _Symbol.prototype : undefined,
     symbolToString = symbolProto ? symbolProto.toString : undefined;
 
 /**
@@ -1658,21 +1776,23 @@ function baseToString(value) {
   if (isSymbol(value)) {
     return symbolToString ? symbolToString.call(value) : '';
   }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+  var result = value + '';
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
 }
 
 module.exports = baseToString;
 
-
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var isArray = __webpack_require__(5),
-    isKey = __webpack_require__(32),
-    stringToPath = __webpack_require__(47),
-    toString = __webpack_require__(55);
+    isKey = __webpack_require__(31),
+    stringToPath = __webpack_require__(46),
+    toString = __webpack_require__(54);
 
 /**
  * Casts `value` to a path array if it's not one.
@@ -1691,10 +1811,12 @@ function castPath(value, object) {
 
 module.exports = castPath;
 
-
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var root = __webpack_require__(4);
 
@@ -1703,23 +1825,29 @@ var coreJsData = root['__core-js_shared__'];
 
 module.exports = coreJsData;
 
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+
+module.exports = freeGlobal;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(55)))
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+"use strict";
 
-module.exports = freeGlobal;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56)))
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(3);
+var _Symbol = __webpack_require__(3);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -1735,7 +1863,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
 var nativeObjectToString = objectProto.toString;
 
 /** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
 
 /**
  * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
@@ -1766,10 +1894,12 @@ function getRawTag(value) {
 
 module.exports = getRawTag;
 
-
 /***/ }),
-/* 26 */
-/***/ (function(module, exports) {
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Gets the value at `key` of `object`.
@@ -1785,10 +1915,12 @@ function getValue(object, key) {
 
 module.exports = getValue;
 
-
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var nativeCreate = __webpack_require__(2);
 
@@ -1806,10 +1938,12 @@ function hashClear() {
 
 module.exports = hashClear;
 
-
 /***/ }),
-/* 28 */
-/***/ (function(module, exports) {
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Removes `key` and its value from the hash.
@@ -1829,10 +1963,12 @@ function hashDelete(key) {
 
 module.exports = hashDelete;
 
-
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var nativeCreate = __webpack_require__(2);
 
@@ -1865,10 +2001,12 @@ function hashGet(key) {
 
 module.exports = hashGet;
 
-
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var nativeCreate = __webpack_require__(2);
 
@@ -1889,15 +2027,17 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  */
 function hashHas(key) {
   var data = this.__data__;
-  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
 }
 
 module.exports = hashHas;
 
-
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var nativeCreate = __webpack_require__(2);
 
@@ -1917,16 +2057,20 @@ var HASH_UNDEFINED = '__lodash_hash_undefined__';
 function hashSet(key, value) {
   var data = this.__data__;
   this.size += this.has(key) ? 0 : 1;
-  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
   return this;
 }
 
 module.exports = hashSet;
 
-
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var isArray = __webpack_require__(5),
     isSymbol = __webpack_require__(6);
@@ -1947,21 +2091,23 @@ function isKey(value, object) {
   if (isArray(value)) {
     return false;
   }
-  var type = typeof value;
-  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
-      value == null || isSymbol(value)) {
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+  if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || isSymbol(value)) {
     return true;
   }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
-    (object != null && value in Object(object));
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
 }
 
 module.exports = isKey;
 
-
 /***/ }),
-/* 33 */
-/***/ (function(module, exports) {
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Checks if `value` is suitable for use as unique object key.
@@ -1971,26 +2117,26 @@ module.exports = isKey;
  * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
  */
 function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
+  var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
 }
 
 module.exports = isKeyable;
 
-
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var coreJsData = __webpack_require__(23);
+"use strict";
+
+
+var coreJsData = __webpack_require__(22);
 
 /** Used to detect methods masquerading as native. */
-var maskSrcKey = (function() {
+var maskSrcKey = function () {
   var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-  return uid ? ('Symbol(src)_1.' + uid) : '';
-}());
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
 
 /**
  * Checks if `func` has its source masked.
@@ -2000,15 +2146,17 @@ var maskSrcKey = (function() {
  * @returns {boolean} Returns `true` if `func` is masked, else `false`.
  */
 function isMasked(func) {
-  return !!maskSrcKey && (maskSrcKey in func);
+  return !!maskSrcKey && maskSrcKey in func;
 }
 
 module.exports = isMasked;
 
-
 /***/ }),
-/* 35 */
-/***/ (function(module, exports) {
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Removes all key-value entries from the list cache.
@@ -2024,10 +2172,12 @@ function listCacheClear() {
 
 module.exports = listCacheClear;
 
-
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var assocIndexOf = __webpack_require__(0);
 
@@ -2065,10 +2215,12 @@ function listCacheDelete(key) {
 
 module.exports = listCacheDelete;
 
-
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var assocIndexOf = __webpack_require__(0);
 
@@ -2090,10 +2242,12 @@ function listCacheGet(key) {
 
 module.exports = listCacheGet;
 
-
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var assocIndexOf = __webpack_require__(0);
 
@@ -2112,10 +2266,12 @@ function listCacheHas(key) {
 
 module.exports = listCacheHas;
 
-
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var assocIndexOf = __webpack_require__(0);
 
@@ -2144,14 +2300,16 @@ function listCacheSet(key, value) {
 
 module.exports = listCacheSet;
 
-
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Hash = __webpack_require__(14),
-    ListCache = __webpack_require__(15),
-    Map = __webpack_require__(16);
+"use strict";
+
+
+var Hash = __webpack_require__(13),
+    ListCache = __webpack_require__(14),
+    Map = __webpack_require__(15);
 
 /**
  * Removes all key-value entries from the map.
@@ -2163,18 +2321,20 @@ var Hash = __webpack_require__(14),
 function mapCacheClear() {
   this.size = 0;
   this.__data__ = {
-    'hash': new Hash,
-    'map': new (Map || ListCache),
-    'string': new Hash
+    'hash': new Hash(),
+    'map': new (Map || ListCache)(),
+    'string': new Hash()
   };
 }
 
 module.exports = mapCacheClear;
 
-
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getMapData = __webpack_require__(1);
 
@@ -2195,10 +2355,12 @@ function mapCacheDelete(key) {
 
 module.exports = mapCacheDelete;
 
-
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getMapData = __webpack_require__(1);
 
@@ -2217,10 +2379,12 @@ function mapCacheGet(key) {
 
 module.exports = mapCacheGet;
 
-
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getMapData = __webpack_require__(1);
 
@@ -2239,10 +2403,12 @@ function mapCacheHas(key) {
 
 module.exports = mapCacheHas;
 
-
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var getMapData = __webpack_require__(1);
 
@@ -2267,12 +2433,14 @@ function mapCacheSet(key, value) {
 
 module.exports = mapCacheSet;
 
-
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var memoize = __webpack_require__(54);
+"use strict";
+
+
+var memoize = __webpack_require__(53);
 
 /** Used as the maximum memoize cache size. */
 var MAX_MEMOIZE_SIZE = 500;
@@ -2286,7 +2454,7 @@ var MAX_MEMOIZE_SIZE = 500;
  * @returns {Function} Returns the new memoized function.
  */
 function memoizeCapped(func) {
-  var result = memoize(func, function(key) {
+  var result = memoize(func, function (key) {
     if (cache.size === MAX_MEMOIZE_SIZE) {
       cache.clear();
     }
@@ -2299,10 +2467,12 @@ function memoizeCapped(func) {
 
 module.exports = memoizeCapped;
 
-
 /***/ }),
-/* 46 */
-/***/ (function(module, exports) {
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -2327,12 +2497,14 @@ function objectToString(value) {
 
 module.exports = objectToString;
 
-
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var memoizeCapped = __webpack_require__(45);
+"use strict";
+
+
+var memoizeCapped = __webpack_require__(44);
 
 /** Used to match property names within property paths. */
 var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
@@ -2347,23 +2519,25 @@ var reEscapeChar = /\\(\\)?/g;
  * @param {string} string The string to convert.
  * @returns {Array} Returns the property path array.
  */
-var stringToPath = memoizeCapped(function(string) {
+var stringToPath = memoizeCapped(function (string) {
   var result = [];
   if (string.charCodeAt(0) === 46 /* . */) {
-    result.push('');
-  }
-  string.replace(rePropName, function(match, number, quote, subString) {
-    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
+      result.push('');
+    }
+  string.replace(rePropName, function (match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : number || match);
   });
   return result;
 });
 
 module.exports = stringToPath;
 
-
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var isSymbol = __webpack_require__(6);
 
@@ -2381,16 +2555,18 @@ function toKey(value) {
   if (typeof value == 'string' || isSymbol(value)) {
     return value;
   }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+  var result = value + '';
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
 }
 
 module.exports = toKey;
 
-
 /***/ }),
-/* 49 */
-/***/ (function(module, exports) {
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /** Used for built-in method references. */
 var funcProto = Function.prototype;
@@ -2411,7 +2587,7 @@ function toSource(func) {
       return funcToString.call(func);
     } catch (e) {}
     try {
-      return (func + '');
+      return func + '';
     } catch (e) {}
   }
   return '';
@@ -2419,10 +2595,12 @@ function toSource(func) {
 
 module.exports = toSource;
 
-
 /***/ }),
-/* 50 */
-/***/ (function(module, exports) {
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Performs a
@@ -2457,17 +2635,19 @@ module.exports = toSource;
  * // => true
  */
 function eq(value, other) {
-  return value === other || (value !== value && other !== other);
+  return value === other || value !== value && other !== other;
 }
 
 module.exports = eq;
 
-
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGet = __webpack_require__(19);
+"use strict";
+
+
+var baseGet = __webpack_require__(18);
 
 /**
  * Gets the value at `path` of `object`. If the resolved value is
@@ -2501,10 +2681,12 @@ function get(object, path, defaultValue) {
 
 module.exports = get;
 
-
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var baseGetTag = __webpack_require__(9),
     isObject = __webpack_require__(11);
@@ -2533,21 +2715,25 @@ var asyncTag = '[object AsyncFunction]',
  * // => false
  */
 function isFunction(value) {
-  if (!isObject(value)) {
-    return false;
-  }
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+    if (!isObject(value)) {
+        return false;
+    }
+    // The use of `Object#toString` avoids issues with the `typeof` operator
+    // in Safari 9 which returns 'object' for typed arrays and other constructors.
+    var tag = baseGetTag(value);
+    return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
 }
 
 module.exports = isFunction;
 
-
 /***/ }),
-/* 53 */
-/***/ (function(module, exports) {
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -2574,17 +2760,19 @@ module.exports = isFunction;
  * // => false
  */
 function isObjectLike(value) {
-  return value != null && typeof value == 'object';
+  return value != null && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
 }
 
 module.exports = isObjectLike;
 
-
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MapCache = __webpack_require__(17);
+"use strict";
+
+
+var MapCache = __webpack_require__(16);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -2634,10 +2822,10 @@ var FUNC_ERROR_TEXT = 'Expected a function';
  * _.memoize.Cache = WeakMap;
  */
 function memoize(func, resolver) {
-  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
+  if (typeof func != 'function' || resolver != null && typeof resolver != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
-  var memoized = function() {
+  var memoized = function memoized() {
     var args = arguments,
         key = resolver ? resolver.apply(this, args) : args[0],
         cache = memoized.cache;
@@ -2649,7 +2837,7 @@ function memoize(func, resolver) {
     memoized.cache = cache.set(key, result) || cache;
     return result;
   };
-  memoized.cache = new (memoize.Cache || MapCache);
+  memoized.cache = new (memoize.Cache || MapCache)();
   return memoized;
 }
 
@@ -2658,12 +2846,14 @@ memoize.Cache = MapCache;
 
 module.exports = memoize;
 
-
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseToString = __webpack_require__(21);
+"use strict";
+
+
+var baseToString = __webpack_require__(20);
 
 /**
  * Converts `value` to a string. An empty string is returned for `null`
@@ -2692,25 +2882,28 @@ function toString(value) {
 
 module.exports = toString;
 
-
 /***/ }),
-/* 56 */
-/***/ (function(module, exports) {
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var g;
 
 // This works in non-strict mode
-g = (function() {
+g = function () {
 	return this;
-})();
+}();
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
 	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
+	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -2719,6 +2912,68 @@ try {
 
 module.exports = g;
 
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _CountdownClock = __webpack_require__(7);
+
+var _CountdownClock2 = _interopRequireDefault(_CountdownClock);
+
+var _TicketmasterCountdownWidget = __webpack_require__(12);
+
+var _TicketmasterCountdownWidget2 = _interopRequireDefault(_TicketmasterCountdownWidget);
+
+var _widgetsAnalytics = __webpack_require__(8);
+
+var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_widgetsAnalytics2.default.initialize(_widgetsAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET);
+
+var widgetsCountdown = [];
+(function () {
+  var widgetContainers = document.querySelectorAll("div[w-type='countdown']");
+  for (var i = 0; i < widgetContainers.length; ++i) {
+    widgetsCountdown.push(new _TicketmasterCountdownWidget2.default(widgetContainers[i]));
+  }
+})();
+
+if (true) {
+  module.exports = { CountdownClock: _CountdownClock2.default, TicketmasterCountdownWidget: _TicketmasterCountdownWidget2.default, widgetsCountdown: widgetsCountdown };
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var service = {
+  embedUniversePlugin: embedUniversePlugin
+};
+exports.default = service;
+
+
+function embedUniversePlugin() {
+  var id = 'id_universe_widget';
+  if (!document.getElementById(id)) {
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://www.universe.com/embed.js');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('charset', 'UTF-8');
+    script.setAttribute('id', id);
+    (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
+  }
+}
 
 /***/ })
 /******/ ]);

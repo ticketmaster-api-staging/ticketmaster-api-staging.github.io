@@ -64,64 +64,36 @@ var widgetsLib =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const TM_TRACKER_ID = 'UA-78315612-1';
 
-const DEVPORT_TRACKER_ID = 'UA-114077619-1';
-const DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
 
-const EVENT_CATEGORY = {
-  MAP_WIDGET: 'MapWidget',
-  CALENDAR_WIDGET: 'CalendarWidget',
-  COUNTDOWN_WIDGET: 'CountdownWidget',
-  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget',
-};
-
-const EVENT_NAME = {
-  RENDERED: 'rendered',
-  LOAD: 'load',
-  BUY_BUTTON_CLICK: 'buyButtonClick',
-  EVENT_NAME_CLICK: 'eventNameClick',
-};
-
-const CUSTOM_DIMENSIONS = {
-  API_KEY: 'dimension1',
-};
-
-const sendEvent = (eventOptions) => {
-  ga('send', 'event', eventOptions);
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', eventOptions);
-};
-
-const initialize = (widgetCategory) => {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', TM_TRACKER_ID, 'auto');
-  ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
-
-  ga('send', 'pageview');
-  ga(`${DEVPORT_TRACKER_ALIAS}.send`, 'event', widgetCategory, EVENT_NAME.LOAD);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  EVENT_CATEGORY,
-  EVENT_NAME,
-  CUSTOM_DIMENSIONS,
-  initialize,
-  sendEvent,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+var service = {
+  embedUniversePlugin: embedUniversePlugin
+};
+exports.default = service;
 
+
+function embedUniversePlugin() {
+  var id = 'id_universe_widget';
+  if (!document.getElementById(id)) {
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://www.universe.com/embed.js');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('charset', 'UTF-8');
+    script.setAttribute('id', id);
+    (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
+  }
+}
 
 /***/ }),
 /* 1 */
@@ -130,22 +102,89 @@ const initialize = (widgetCategory) => {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var service = {
+  initialize: initialize,
+  sendEvent: sendEvent,
+  getStringEventHandler: getStringEventHandler
+};
+exports.default = service;
+var TM_TRACKER_ID = exports.TM_TRACKER_ID = 'UA-78315612-1';
+
+var DEVPORT_TRACKER_ID = exports.DEVPORT_TRACKER_ID = 'UA-114077619-1';
+var DEVPORT_TRACKER_ALIAS = exports.DEVPORT_TRACKER_ALIAS = 'tmOpenPlatform';
+
+var EVENT_CATEGORY = exports.EVENT_CATEGORY = {
+  MAP_WIDGET: 'MapWidget',
+  CALENDAR_WIDGET: 'CalendarWidget',
+  COUNTDOWN_WIDGET: 'CountdownWidget',
+  EVENT_DISCOVERY_WIDGET: 'EventDiscoveryWidget'
+};
+
+var EVENT_NAME = exports.EVENT_NAME = {
+  RENDERED: 'rendered',
+  LOAD: 'load',
+  BUY_BUTTON_CLICK: 'buyButtonClick',
+  EVENT_NAME_CLICK: 'eventNameClick'
+};
+
+var CUSTOM_DIMENSIONS = exports.CUSTOM_DIMENSIONS = {
+  API_KEY: 'dimension1'
+};
+
+function sendEvent(eventOptions) {
+  ga(DEVPORT_TRACKER_ALIAS + '.send', 'event', eventOptions);
+};
+
+function initialize(widgetCategory) {
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', TM_TRACKER_ID, 'auto');
+  ga('create', DEVPORT_TRACKER_ID, 'auto', DEVPORT_TRACKER_ALIAS);
+
+  ga('send', 'pageview');
+  service.sendEvent({
+    eventCategory: widgetCategory,
+    eventAction: EVENT_NAME.LOAD
+  });
+};
+
+function getStringEventHandler(eventOptions) {
+  return 'ga(\'' + DEVPORT_TRACKER_ALIAS + '.send\', \'event\', ' + JSON.stringify(eventOptions).replace(/"/g, '\'') + ');';
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _widgetsAnalytics = __webpack_require__(0);
+var _widgetsAnalytics = __webpack_require__(1);
 
 var _widgetsAnalytics2 = _interopRequireDefault(_widgetsAnalytics);
 
+var _universePlugin = __webpack_require__(0);
+
+var _universePlugin2 = _interopRequireDefault(_universePlugin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var analyticsEventHandlers = {
-    buyBtnClick: 'ga(\'send\', \'event\', \'DiscoveryClickBuyButton\', \'click\'); ga(\'tmOpenPlatform.send\', \'event\', \'MapWidget\', \'buyButtonClick\');',
-    eventNameClick: 'ga(\'send\', \'event\', \'DiscoveryClickeventName\', \'click\'); ga(\'tmOpenPlatform.send\', \'event\', \'MapWidget\', \'eventNameClick\');'
-};
-
-_widgetsAnalytics2.default.initialize(_widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET);
+_widgetsAnalytics2.default.initialize(_widgetsAnalytics.EVENT_CATEGORY.MAP_WIDGET);
 
 var TicketmasterMapWidget = function () {
     _createClass(TicketmasterMapWidget, [{
@@ -233,7 +272,7 @@ var TicketmasterMapWidget = function () {
     }, {
         key: 'widgetVersion',
         get: function get() {
-            return '' + "1.0.-3761";
+            return '' + "1.0.-3759";
         }
     }, {
         key: 'geocodeUrl',
@@ -397,14 +436,16 @@ var TicketmasterMapWidget = function () {
                 _this.makeRequest(_this.eventsLoadingHandler, _this.apiUrl, _this.eventReqAttrs);
             });
             /*plugins for 'buy button'*/
-            this.embedUniversePlugin();
-            this.initBuyBtn();
+            _universePlugin2.default.embedUniversePlugin();
             this.initMessage();
 
-            _widgetsAnalytics2.default.sendEvent({
-                eventCategory: _widgetsAnalytics2.default.EVENT_CATEGORY.MAP_WIDGET,
-                eventAction: _widgetsAnalytics2.default.EVENT_NAME.RENDERED
-            });
+            this.defaultAnalyticsProperties = _defineProperty({
+                eventCategory: _widgetsAnalytics.EVENT_CATEGORY.MAP_WIDGET
+            }, _widgetsAnalytics.CUSTOM_DIMENSIONS.API_KEY, this.eventReqAttrs.apikey);
+
+            _widgetsAnalytics2.default.sendEvent(_extends({
+                eventAction: _widgetsAnalytics.EVENT_NAME.RENDERED
+            }, this.defaultAnalyticsProperties));
         }
     }
 
@@ -422,49 +463,6 @@ var TicketmasterMapWidget = function () {
                 // widget.config.countrycode = '';
                 cb(widget.config.latlong);
             }
-        }
-    }, {
-        key: 'initBuyBtn',
-        value: function initBuyBtn() {
-            this.buyBtn = document.createElement("a");
-            this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
-            this.buyBtn.classList.add("event-buy-btn");
-            this.buyBtn.classList.add("main-btn");
-            this.buyBtn.target = '_blank';
-            this.buyBtn.href = '';
-            this.buyBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-                ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
-            });
-            this.eventsRootContainer.appendChild(this.buyBtn);
-        }
-    }, {
-        key: 'setBuyBtnUrl',
-        value: function setBuyBtnUrl() {
-            if (this.buyBtn) {
-                var url = '';
-                this.buyBtn.href = url;
-            }
-        }
-    }, {
-        key: 'isUniverseUrl',
-        value: function isUniverseUrl(url) {
-            return url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g);
-        }
-    }, {
-        key: 'embedUniversePlugin',
-        value: function embedUniversePlugin() {
-            var id = 'id_universe_widget';
-            if (!document.getElementById(id)) {
-                var script = document.createElement('script');
-                script.setAttribute('src', 'https://www.universe.com/embed.js');
-                script.setAttribute('type', 'text/javascript');
-                script.setAttribute('charset', 'UTF-8');
-                script.setAttribute('id', id);
-                (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-            }
-            this.isUniversePluginInitialized = true;
         }
 
         // Message
@@ -854,10 +852,20 @@ var TicketmasterMapWidget = function () {
                                 }
 
                                 var buyBtn = '';
-                                if (widget.isUniverseUrl(widget.events[e].url) != false) {
-                                    buyBtn = '\n                              <a class="buybtn" href="' + widget.events[e].url + '" onclick="' + analyticsEventHandlers.buyBtnClick + '" target="_blank">\n                                BUY NOW\n                              </a>\n                            ';
-                                }
-                                var eventMarkup = '\n                            <div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;">\n                              <a class="an" href="' + widget.events[e].url + '" onclick="' + analyticsEventHandlers.eventNameClick + '" target="_blank">\n                                <span class="img" style="background:url(\'' + widget.events[e].img + '\') center center no-repeat"></span>\n                                <span class="name">' + widget.events[e].name + '</span>\n                              </a>\n                              ' + buyBtn + '\n                              <div class="dateplace"><span class="date">' + date + '</span><span class="place">' + (place + address) + '</span></div>\n                            </div>\n                          ';
+                                var devPortBuyButtonClick = _widgetsAnalytics2.default.getStringEventHandler(_extends({
+                                    eventAction: _widgetsAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
+                                    eventLabel: widget.events[e].url
+                                }, widget.defaultAnalyticsProperties));
+                                var buyButtonClickHandler = 'ga(\'send\', \'event\', \'DiscoveryClickBuyButton\', \'click\'); ' + devPortBuyButtonClick;
+
+                                buyBtn = '\n                              <a class="buybtn" href="' + widget.events[e].url + '" onclick="' + buyButtonClickHandler + '" target="_blank">\n                                BUY NOW\n                              </a>\n                            ';
+                                var devPortEventNameClick = _widgetsAnalytics2.default.getStringEventHandler(_extends({
+                                    eventAction: _widgetsAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+                                    eventLabel: widget.events[e].url
+                                }, widget.defaultAnalyticsProperties));
+                                var eventNameClickHandler = 'ga(\'send\', \'event\', \'DiscoveryClickeventName\', \'click\'); ' + devPortEventNameClick;
+
+                                var eventMarkup = '\n                              <div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;">\n                                <a class="an" href="' + widget.events[e].url + '" onclick="' + eventNameClickHandler + '" target="_blank">\n                                  <span class="img" style="background:url(\'' + widget.events[e].img + '\') center center no-repeat"></span>\n                                  <span class="name">' + widget.events[e].name + '</span>\n                                </a>\n                                ' + buyBtn + '\n                                <div class="dateplace"><span class="date">' + date + '</span><span class="place">' + (place + address) + '</span></div>\n                              </div>\n                            ';
 
                                 markers[e] = [widget.events[e].name, widget.events[e].location.lat, widget.events[e].location.lng, e, eventMarkup];
                                 latlngbounds.extend(new google.maps.LatLng(widget.events[e].location.lat, widget.events[e].location.lng));
@@ -1009,25 +1017,6 @@ var TicketmasterMapWidget = function () {
                 });
             }
             return el;
-        }
-    }, {
-        key: 'addBuyButton',
-        value: function addBuyButton(domNode, url) {
-            if (this.isListView) {
-                var _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
-                if (!_urlValid) url = '';
-                var buyBtn = document.createElement("a");
-                buyBtn.appendChild(document.createTextNode('BUY NOW'));
-                buyBtn.classList.add("event-buy-btn");
-                buyBtn.target = '_blank';
-                buyBtn.href = url;
-                buyBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-                    ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
-                });
-                domNode.appendChild(buyBtn);
-            }
         }
     }, {
         key: 'makeImageUrl',

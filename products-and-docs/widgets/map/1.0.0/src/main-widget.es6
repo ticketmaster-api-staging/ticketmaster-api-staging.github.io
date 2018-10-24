@@ -1,11 +1,11 @@
-import widgetAnalytics from '../../../helpers/widgets-analytics';
+import widgetAnalytics, {
+  EVENT_CATEGORY,
+  CUSTOM_DIMENSIONS,
+  EVENT_NAME,
+} from 'helpers/widgets-analytics';
+import universePlugin from 'helpers/universe-plugin';
 
-const analyticsEventHandlers = {
-  buyBtnClick: `ga('send', 'event', 'DiscoveryClickBuyButton', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');`,
-  eventNameClick: `ga('send', 'event', 'DiscoveryClickeventName', 'click'); ga('tmOpenPlatform.send', 'event', 'MapWidget', 'eventNameClick');`,
-};
-
-widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET);
+widgetAnalytics.initialize(EVENT_CATEGORY.MAP_WIDGET);
 
 class TicketmasterMapWidget {
 
@@ -231,13 +231,17 @@ class TicketmasterMapWidget {
                 this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
             });
             /*plugins for 'buy button'*/
-            this.embedUniversePlugin();
-            this.initBuyBtn();
+            universePlugin.embedUniversePlugin();
             this.initMessage();
 
+            this.defaultAnalyticsProperties = {
+              eventCategory: EVENT_CATEGORY.MAP_WIDGET,
+              [CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
+            };
+
             widgetAnalytics.sendEvent({
-              eventCategory: widgetAnalytics.EVENT_CATEGORY.MAP_WIDGET,
-              eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+              eventAction: EVENT_NAME.RENDERED,
+              ...this.defaultAnalyticsProperties,
             });
         }
     }
@@ -254,55 +258,6 @@ class TicketmasterMapWidget {
             // widget.config.countrycode = '';
             cb(widget.config.latlong);
         }
-    }
-
-    initBuyBtn(){
-        this.buyBtn = document.createElement("a");
-        this.buyBtn.appendChild(document.createTextNode('BUY NOW'));
-        this.buyBtn.classList.add("event-buy-btn");
-        this.buyBtn.classList.add("main-btn");
-        this.buyBtn.target = '_blank';
-        this.buyBtn.href = '';
-        this.buyBtn.addEventListener('click', (e)=> {
-          e.preventDefault();
-          ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-          ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
-        });
-        this.eventsRootContainer.appendChild(this.buyBtn);
-    }
-
-    setBuyBtnUrl(){
-        if(this.buyBtn){
-            let event = '',
-                url = '';
-            if(event){
-                if(event.url){
-
-                    if((this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) || (this.isTMPluginInitialized && this.isAllowedTMEvent(event.url))){
-                        url = event.url;
-                    }
-
-                }
-            }
-            this.buyBtn.href = url;
-        }
-    }
-
-    isUniverseUrl(url){
-        return (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
-    }
-
-    embedUniversePlugin(){
-        let id = 'id_universe_widget';
-        if( !document.getElementById(id) ){
-            let script = document.createElement('script');
-            script.setAttribute('src', 'https://www.universe.com/embed.js');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('charset', 'UTF-8');
-            script.setAttribute('id', id);
-            (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-        }
-        this.isUniversePluginInitialized = true;
     }
 
     // Message
@@ -682,24 +637,36 @@ class TicketmasterMapWidget {
                                 address = '';
                             }
 
-                          let buyBtn = '';
-                          if (widget.isUniverseUrl(widget.events[e].url) != false) {
+                            let buyBtn = '';
+                            const devPortBuyButtonClick = widgetAnalytics.getStringEventHandler({
+                              eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+                              eventLabel: widget.events[e].url,
+                              ...widget.defaultAnalyticsProperties,
+                            });
+                            const buyButtonClickHandler = `ga('send', 'event', 'DiscoveryClickBuyButton', 'click'); ${devPortBuyButtonClick}`;
+
                             buyBtn = `
-                              <a class="buybtn" href="${widget.events[e].url}" onclick="${analyticsEventHandlers.buyBtnClick}" target="_blank">
+                              <a class="buybtn" href="${widget.events[e].url}" onclick="${buyButtonClickHandler}" target="_blank">
                                 BUY NOW
                               </a>
                             `;
-                          }
-                          let eventMarkup = `
-                            <div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;">
-                              <a class="an" href="${widget.events[e].url}" onclick="${analyticsEventHandlers.eventNameClick}" target="_blank">
-                                <span class="img" style="background:url('${widget.events[e].img}') center center no-repeat"></span>
-                                <span class="name">${widget.events[e].name}</span>
-                              </a>
-                              ${buyBtn}
-                              <div class="dateplace"><span class="date">${date}</span><span class="place">${place + address}</span></div>
-                            </div>
-                          `;
+                            const devPortEventNameClick = widgetAnalytics.getStringEventHandler({
+                              eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+                              eventLabel: widget.events[e].url,
+                              ...widget.defaultAnalyticsProperties,
+                            });
+                            const eventNameClickHandler = `ga('send', 'event', 'DiscoveryClickeventName', 'click'); ${devPortEventNameClick}`;
+
+                            let eventMarkup = `
+                              <div class="infowindow" style="width:220px!important;padding-right:5px!important;line-height:normal;overflow:auto;">
+                                <a class="an" href="${widget.events[e].url}" onclick="${eventNameClickHandler}" target="_blank">
+                                  <span class="img" style="background:url('${widget.events[e].img}') center center no-repeat"></span>
+                                  <span class="name">${widget.events[e].name}</span>
+                                </a>
+                                ${buyBtn}
+                                <div class="dateplace"><span class="date">${date}</span><span class="place">${place + address}</span></div>
+                              </div>
+                            `;
 
                             markers[e] = [
                                 widget.events[e].name,
@@ -857,24 +824,6 @@ class TicketmasterMapWidget {
             });
         }
         return el;
-    }
-
-    addBuyButton(domNode, url) {
-        if (this.isListView) {
-            let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
-            if(!_urlValid) url = '';
-            let buyBtn = document.createElement("a");
-            buyBtn.appendChild(document.createTextNode('BUY NOW'));
-            buyBtn.classList.add("event-buy-btn");
-            buyBtn.target = '_blank';
-            buyBtn.href = url;
-            buyBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-              ga('tmOpenPlatform.send', 'event', 'MapWidget', 'buyButtonClick');
-            });
-            domNode.appendChild(buyBtn);
-        }
     }
 
     makeImageUrl(id){

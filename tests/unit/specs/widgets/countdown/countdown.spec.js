@@ -366,58 +366,18 @@ describe('CDWidget', () => {
     expect(appendChildMock).toHaveBeenCalledTimes(1);
   });
 
-  it('#updateTransition should manage class appear', () => {
-    widget.clearEvents = () => this.eventsRoot.innerHTML = '';
-    let elem = document.querySelector('.event-logo.centered-logo');
-    widget.updateTransition('url');
-    expect(elem.classList).toContain('event-logo');
-    widget.updateTransition('');
-    expect(elem.classList).toContain('centered-logo');
-    expect(widget.updateTransition(false)).toBe(undefined);
-  });
-
   describe('#setBuyBtnUrl', () => {
-    const updateTransitionMock = jest.fn();
-    beforeEach(() => {
-      updateTransitionMock.mockReset();
-    });
     const widgetMock = {
       buyBtn: {},
       event: {
         url: 'https://www.universe.com',
       },
-      isUniversePluginInitialized: true,
-      isUniverseUrl: function() {return true;},
-      updateTransition: updateTransitionMock,
     };
 
-    it('should call updateTransition with url', () => {
+    it('should set buy button url', () => {
       widget.setBuyBtnUrl.call(widgetMock);
-      expect(updateTransitionMock).toHaveBeenCalledTimes(1);
-      expect(updateTransitionMock).toHaveBeenCalledWith('https://www.universe.com');
       expect(widgetMock.buyBtn.href).toEqual('https://www.universe.com');
     });
-
-    it('this.buyBtn.href should be empty', () => {
-      const additionalMockParams = {
-        ...widgetMock,
-        event: {},
-      };
-      widget.setBuyBtnUrl.call(additionalMockParams);
-      expect(widgetMock.buyBtn.href).toEqual('');
-    });
-  });
-
-  it('#isUniverseUrl should match to regexp', () => {
-    expect(widget.isUniverseUrl('universe.com')[0]).toBe('universe.com');
-    expect(widget.isUniverseUrl('uniiverse.com')[0]).toBe('uniiverse.com');
-  });
-
-  it('#embedUniversePlugin should create elem', () => {
-    widget.embedUniversePlugin();
-    let elem = document.getElementById('id_universe_widget');
-    expect(elem.src).toBe('https://www.universe.com/embed.js');
-    expect(widget.isUniversePluginInitialized).toBe(true);
   });
 
   describe('#showMessage', () => {

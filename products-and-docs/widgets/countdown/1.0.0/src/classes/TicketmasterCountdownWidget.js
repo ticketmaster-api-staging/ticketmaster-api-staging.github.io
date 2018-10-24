@@ -1,7 +1,12 @@
 import lodashGet from 'lodash/get';
 
 import CountdownClock from './CountdownClock';
-import widgetAnalytics from '../../../../helpers/widgets-analytics';
+import widgetAnalytics, {
+  EVENT_CATEGORY,
+  CUSTOM_DIMENSIONS,
+  EVENT_NAME,
+} from 'helpers/widgets-analytics';
+import universePlugin from 'helpers/universe-plugin'
 
 export default class TicketmasterCountdownWidget {
 
@@ -121,7 +126,7 @@ export default class TicketmasterCountdownWidget {
 			this.showMessage("Please enter event ID.", true, null );
 		}
 
-		this.embedUniversePlugin();
+		universePlugin.embedUniversePlugin();
 
 		this.countDownWrapper.classList.add("events-count-down");
 
@@ -133,9 +138,14 @@ export default class TicketmasterCountdownWidget {
 
 		if (this.isFullWidth) { this.initFullWidth(); }
 
+    this.defaultAnalyticsProperties = {
+      eventCategory: EVENT_CATEGORY.COUNTDOWN_WIDGET,
+      [CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
+    };
+
     widgetAnalytics.sendEvent({
-      eventCategory: widgetAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET,
-      eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+      eventAction: EVENT_NAME.RENDERED,
+      ...this.defaultAnalyticsProperties,
     });
 	}
 
@@ -247,61 +257,20 @@ export default class TicketmasterCountdownWidget {
 		this.buyBtn.target = '_blank';
 		this.buyBtn.href = '';
 		this.buyBtn.addEventListener('click', (e) => {
-			e.preventDefault();
       ga('send', 'event', 'CountdownClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'buyButtonClick');
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+        eventLabel: this.buyBtn.href,
+        ...this.defaultAnalyticsProperties,
+      });
 		});
 		this.eventsRootContainer.appendChild(this.buyBtn);
 	}
 
-	updateTransition(url) {
-		var el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
-		if(url !=='') {
-			if(el){
-				el.classList.add("right-logo");
-				el.classList.remove("centered-logo");
-			}else return;
-		}
-		else{
-			el = this.eventsRootContainer.querySelector(".event-logo.right-logo");
-			if(el){
-				el.classList.remove("right-logo");
-				el.classList.add("centered-logo");
-			}
-		}
-	}
-
 	setBuyBtnUrl(){
-		if(this.buyBtn){
-			let event = this.event,
-				url = '';
-			if(event){
-				if(event.url){
-					if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
-						url = event.url;
-					}
-					this.updateTransition(url);
-				}
-			}
-			this.buyBtn.href = url;
+		if(this.buyBtn && this.event && this.event.url){
+      this.buyBtn.href = this.event.url;
 		}
-	}
-
-	isUniverseUrl(url){
-		return (url.match(/universe.com/g) || url.match(/uniiverse.com/g));
-	}
-
-	embedUniversePlugin(){
-		let id = 'id_universe_widget';
-		if( !document.getElementById(id) ){
-			let script = document.createElement('script');
-			script.setAttribute('src', 'https://www.universe.com/embed.js');
-			script.setAttribute('type', 'text/javascript');
-			script.setAttribute('charset', 'UTF-8');
-			script.setAttribute('id', id);
-			(document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-		}
-		this.isUniversePluginInitialized = true;
 	}
 
 	// Message
@@ -359,7 +328,7 @@ export default class TicketmasterCountdownWidget {
 		this.widgetRoot.appendChild(legalNotice);
 
 		var logo = document.createElement('a');
-		logo.classList.add("event-logo","centered-logo");
+		logo.classList.add("event-logo","right-logo");
 		logo.target = '_blank';
 		logo.href = this.logoUrl;
 		logo.innerHTML = 'Powered by ';
@@ -771,10 +740,14 @@ export default class TicketmasterCountdownWidget {
 		name.classList.add("event-name");
 		name.appendChild(nameContent);
 		this.initPretendedLink(name, itemConfig.url, true);
-		name.addEventListener('click', function(e) {
+		name.addEventListener('click', (e) => {
       e.preventDefault();
       ga('send', 'event', 'CountDownClickeventName', 'click', itemConfig.url);
-      ga('tmOpenPlatform.send', 'event', 'CountdownWidget', 'eventNameClick', itemConfig.url);
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+        eventLabel: itemConfig.url,
+        ...this.defaultAnalyticsProperties,
+      });
     })
 		medWrapper.appendChild(name);
 

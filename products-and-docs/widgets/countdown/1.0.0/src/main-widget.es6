@@ -1,9 +1,9 @@
 import CountdownClock from './classes/CountdownClock';
 import TicketmasterCountdownWidget from './classes/TicketmasterCountdownWidget';
 
-import widgetAnalytics from '../../../helpers/widgets-analytics';
+import widgetAnalytics, { EVENT_CATEGORY } from 'helpers/widgets-analytics';
 
-widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.COUNTDOWN_WIDGET);
+widgetAnalytics.initialize(EVENT_CATEGORY.COUNTDOWN_WIDGET);
 
 let widgetsCountdown = [];
 (function () {

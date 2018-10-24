@@ -32,7 +32,7 @@ var configWidget = (folderName)=> {
 			devtool: 'cheap-module-source-map',
 			module: {
 				loaders: [{
-					test: /\.es6$/,
+					test: /(\.es6|\.js)$/,
 					loader: 'babel-loader',
 					query: {
 						presets: [
@@ -59,7 +59,14 @@ var configWidget = (folderName)=> {
 					ENV: JSON.stringify("main-widget"),
 					__VERSION__: JSON.stringify(versionsMajor[folderName] + '.' +__versionString__)
 				})
-			]
+			],
+      resolve: {
+        modules: [
+          path.resolve(__dirname),
+          path.join(__dirname, 'node_modules/'),
+          path.join(__dirname, 'products-and-docs/widgets'),
+        ],
+      },
 		},
 		{
 			name: "main-widget-config",
@@ -70,7 +77,7 @@ var configWidget = (folderName)=> {
 			devtool: 'cheap-module-source-map',
 			module: {
 				loaders: [{
-					test: /\.es6$/,
+					test: /(\.es6|\.js)$/,
 					loader: 'babel-loader',
 					query: {
 						presets: [
@@ -82,6 +89,13 @@ var configWidget = (folderName)=> {
 					}
 				}]
 			},
+      resolve: {
+        modules: [
+          path.resolve(__dirname),
+          path.join(__dirname, 'node_modules/'),
+          path.join(__dirname, 'products-and-docs/widgets'),
+        ],
+      },
 		}
 	];
 };
