@@ -362,32 +362,7 @@ describe('EDWWidget', () => {
     });
   });
 
-  describe('#updateTransition', () => {
-    it('if param url is not empty #updateTransition should add class .right-logo and delete class .centered-logo', () => {
-      let elem = widget.eventsRootContainer.querySelector('.event-logo.centered-logo');
-      widget.updateTransition('www.ticketmaster.com');
-      expect(elem.classList).toContain('right-logo');
-      expect(elem.classList).not.toContain('centered-logo');
-    });
-
-    it('if param url is not empty #updateTransition should delete class .centered-logo', () => {
-      let elem = widget.eventsRootContainer.querySelectorAll('.event-date.centered-logo');
-      widget.updateTransition('www.ticketmaster.com', true);
-      expect(elem.length).toBe(0);
-    });
-
-    it('if param url is empty #updateTransition should delete class .centered-logo', () => {
-      let elem = widget.eventsRootContainer.querySelectorAll('.event-date');
-      widget.updateTransition('', true);
-      expect(elem.length).toBe(0);
-    });
-  });
-
   describe('#setBuyBtnUrl method', () => {
-    const updateTransitionMock = jest.fn();
-    beforeEach(() => {
-      updateTransitionMock.mockReset();
-    });
     const widgetMock = {
       buyBtn: {},
       eventsGroups: [[{
@@ -397,7 +372,6 @@ describe('EDWWidget', () => {
       currentSlideY: 0,
       isUniversePluginInitialized: true,
       isUniverseUrl: function() {return true;},
-      updateTransition: updateTransitionMock,
       config: {
         theme: 'oldschool',
         proportion: 'm',
@@ -406,9 +380,6 @@ describe('EDWWidget', () => {
 
     it('should call #updateTransition with two params', () => {
       widget.setBuyBtnUrl.call(widgetMock);
-      expect(updateTransitionMock.mock.calls.length).toBe(1);
-      expect(updateTransitionMock.mock.calls[0][0]).toEqual('https://www.universe.com');
-      expect(updateTransitionMock.mock.calls[0][1]).toEqual(true);
       expect(widgetMock.buyBtn.href).toEqual('https://www.universe.com');
     });
 
@@ -419,29 +390,9 @@ describe('EDWWidget', () => {
         },
       };
       widget.setBuyBtnUrl.call({...widgetMock, ...additionalMockParams});
-      expect(updateTransitionMock.mock.calls.length).toBe(1);
-      expect(updateTransitionMock.mock.calls[0][0]).toEqual('https://www.universe.com');
       expect(widgetMock.buyBtn.href).toEqual('https://www.universe.com');
     });
 	});
-
-  describe('#isUniverseUrl', () => {
-    it('#isUniverseUrl should be universe.com', () => {
-      expect(widget.isUniverseUrl('universe.com')[0]).toBe('universe.com');
-    });
-    it('#isUniverseUrl should be uniiverse.com', () => {
-      expect(widget.isUniverseUrl('uniiverse.com')[0]).toBe('uniiverse.com');
-    });
-    it('#isUniverseUrl should be ticketmaster.com', () => {
-      expect(widget.isUniverseUrl('ticketmaster.com')[0]).toBe('ticketmaster.com');
-    });
-  });
-
-  it('#embedUniversePlugin should create elem', () => {
-    widget.embedUniversePlugin();
-    let elem = document.getElementById('id_universe_widget');
-    expect(elem.src).toBe('https://www.universe.com/embed.js');
-  });
 
   it('#initMessage should create elem messageDialog', () => {
     widget.initMessage();

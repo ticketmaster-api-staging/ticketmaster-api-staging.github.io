@@ -1,5 +1,10 @@
 import SelectorControls from './SelectorControls';
-import widgetAnalytics from '../../../../helpers/widgets-analytics';
+import widgetAnalytics,  {
+  EVENT_CATEGORY,
+  CUSTOM_DIMENSIONS,
+  EVENT_NAME,
+} from 'helpers/widgets-analytics';
+import universePlugin from 'helpers/universe-plugin';
 
 export default class TicketmasterCalendarWidget {
 
@@ -279,7 +284,7 @@ export default class TicketmasterCalendarWidget {
 		});
 
 		/*plugins for 'buy button'*/
-		this.embedUniversePlugin();
+		universePlugin.embedUniversePlugin();
 
 		this.initBuyBtn();
 
@@ -287,9 +292,14 @@ export default class TicketmasterCalendarWidget {
 
 		this.initSliderControls();
 
+    this.defaultAnalyticsProperties = {
+      eventCategory: EVENT_CATEGORY.CALENDAR_WIDGET,
+      [CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
+    };
+
     widgetAnalytics.sendEvent({
-      eventCategory: widgetAnalytics.EVENT_CATEGORY.CALENDAR_WIDGET,
-      eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+      eventAction: EVENT_NAME.RENDERED,
+      ...this.defaultAnalyticsProperties,
     });
 
 		/* if (!this.isListView) this.initEventCounter(); */
@@ -411,11 +421,13 @@ export default class TicketmasterCalendarWidget {
 		this.buyBtn.classList.add("main-btn");
 		this.buyBtn.target = '_blank';
 		this.buyBtn.href = '';
-		this.buyBtn.addEventListener('click', (e)=> {
-			e.preventDefault(); /*used in plugins for 'buy button'*/
-
+		this.buyBtn.addEventListener('click', ()=> {
       ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+        eventLabel: this.buyBtn.href,
+        ...this.defaultAnalyticsProperties,
+      });
 
 			this.stopAutoSlideX();
 		});
@@ -423,44 +435,13 @@ export default class TicketmasterCalendarWidget {
 	}
 
 	setBuyBtnUrl(){
-		let eLogo = this.widgetRoot.querySelector('.tab').querySelector('.event-logo');
 		if(this.buyBtn){
-			let event = this.eventsGroups[this.currentSlideX][this.currentSlideY],
-				url = '';
-			if(event){
-				if(event.url){
+			let event = this.eventsGroups[this.currentSlideX][this.currentSlideY];
 
-					if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
-						url = event.url;
-						eLogo.classList.remove('centered-logo');
-						eLogo.classList.add('right-logo');
-					}
-					else {
-						eLogo.classList.remove('right-logo');
-						eLogo.classList.add('centered-logo');
-					}
-
-				}
-			}
-			this.buyBtn.href = url;
+			if(event && event.url){
+        this.buyBtn.href = event.url;
+      }
 		}
-	}
-
-	isUniverseUrl(url){
-		return (url.match(/universe.com/g) || url.match(/uniiverse.com/g));
-	}
-
-	embedUniversePlugin(){
-		let id = 'id_universe_widget';
-		if( !document.getElementById(id) ){
-			let script = document.createElement('script');
-			script.setAttribute('src', 'https://www.universe.com/embed.js');
-			script.setAttribute('type', 'text/javascript');
-			script.setAttribute('charset', 'UTF-8');
-			script.setAttribute('id', id);
-			(document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-		}
-		this.isUniversePluginInitialized = true;
 	}
 
 	initMessage(){
@@ -506,7 +487,6 @@ export default class TicketmasterCalendarWidget {
 	AdditionalElements(){
 		var logo = document.createElement('a');
 		logo.classList.add("event-logo");
-		logo.classList.add("centered-logo");
 		logo.target = '_blank';
 		logo.href = this.logoUrl;
 		logo.innerHTML = 'Powered by';
@@ -1374,21 +1354,20 @@ export default class TicketmasterCalendarWidget {
 	}
 
 	addBuyButton(domNode, url) {
-		if (this.isListView) {
-			let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
-			if(!_urlValid) url = '';
-			let buyBtn = document.createElement("a");
-			buyBtn.appendChild(document.createTextNode('BUY NOW'));
-			buyBtn.classList.add("event-buy-btn");
-			buyBtn.target = '_blank';
-			buyBtn.href = url;
-      buyBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-        ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'buyButtonClick');
-      });
-			domNode.appendChild(buyBtn);
-		}
+    let buyBtn = document.createElement("a");
+    buyBtn.appendChild(document.createTextNode('BUY NOW'));
+    buyBtn.classList.add("event-buy-btn");
+    buyBtn.target = '_blank';
+    buyBtn.href = url;
+    buyBtn.addEventListener('click', () => {
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+        eventLabel: buyBtn.href,
+        ...this.defaultAnalyticsProperties,
+      })
+    });
+    domNode.appendChild(buyBtn);
 	}
 
 	createDOMItem(itemConfig){
@@ -1413,17 +1392,21 @@ export default class TicketmasterCalendarWidget {
 		name.appendChild(nameContent);
 		this.initPretendedLink(name, itemConfig.url, true);
 		var self = this;
-    name.addEventListener('click', function(e) {
-      e.preventDefault();
-
+    name.addEventListener('click', (e) => {
       ga('send', 'event', `DiscoveryClickeventName_theme=${self.config.theme}_width=${self.config.width}_height=${self.config.height}_color_scheme=${self.config.colorscheme}`, 'click', `${itemConfig.url}`);
-      ga('tmOpenPlatform.send', 'event', 'CalendarWidget', 'eventNameClick');
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+        eventLabel: itemConfig.url,
+        ...this.defaultAnalyticsProperties,
+      });
     });
 
 		/* name.setAttribute('onclick', "ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');"); */
 		medWrapper.appendChild(name);
 
-		this.addBuyButton(medWrapper, itemConfig.url);
+		if (this.isListView) {
+		  this.addBuyButton(medWrapper, itemConfig.url);
+    }
 
 		var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
 			dateTime = document.createElement("span");

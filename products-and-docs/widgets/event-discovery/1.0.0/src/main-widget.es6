@@ -1,4 +1,9 @@
-import widgetAnalytics from '../../../helpers/widgets-analytics';
+import widgetAnalytics, {
+  EVENT_CATEGORY,
+  CUSTOM_DIMENSIONS,
+  EVENT_NAME,
+} from 'helpers/widgets-analytics';
+import universePlugin from 'helpers/universe-plugin';
 import {ATTRIBUTE_NAMES, ATTRIBUTE_VALUES, CUSTOM_THEME_ATTRIBUTES} from './variables';
 
 const ELEMENTS_STYLED_BY_ATTRIBUTES = {
@@ -56,7 +61,7 @@ const ELEMENTS_STYLED_BY_ATTRIBUTES = {
   }],
 };
 
-widgetAnalytics.initialize(widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
+widgetAnalytics.initialize(EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET);
 
 class TicketmasterEventDiscoveryWidget {
 
@@ -303,8 +308,7 @@ class TicketmasterEventDiscoveryWidget {
             this.themeModificators[this.widgetConfig.theme]();
         }
 
-      /*plugins for 'buy button'*/
-        this.embedUniversePlugin();
+        universePlugin.embedUniversePlugin();
 
         this.initBuyBtn();
 
@@ -319,12 +323,12 @@ class TicketmasterEventDiscoveryWidget {
         if (this.isFullWidth) { this.initFullWidth(); }
 
         this.defaultAnalyticsProperties = {
-          eventCategory: widgetAnalytics.EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET,
-          [widgetAnalytics.CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
+          eventCategory: EVENT_CATEGORY.EVENT_DISCOVERY_WIDGET,
+          [CUSTOM_DIMENSIONS.API_KEY]: this.eventReqAttrs.apikey,
         };
 
         widgetAnalytics.sendEvent({
-          eventAction: widgetAnalytics.EVENT_NAME.RENDERED,
+          eventAction: EVENT_NAME.RENDERED,
           ...this.defaultAnalyticsProperties
         });
 
@@ -461,88 +465,24 @@ class TicketmasterEventDiscoveryWidget {
     this.buyBtn.setAttribute('data-enable-widget', '');
     this.buyBtn.href = '';
     this.buyBtn.addEventListener('click', (e) => {
-      // e.preventDefault(); /*used in plugins for 'buy button'*/
       this.stopAutoSlideX();
       ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-      ga('tmOpenPlatform.send', 'event', {
-        eventAction: widgetAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+        eventLabel: this.buyBtn.href,
         ...this.defaultAnalyticsProperties,
       });
     });
     this.eventsRootContainer.appendChild(this.buyBtn);
   }
 
-  /**
-   * Set position center/right
-   *
-   * @param url
-   * @param isAddressCenter - if true : Set address position center/right for oldschool theme 300x250 (proportion :'m')
-   */
-  updateTransition(url , isAddressCenter) {
-    let el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");
-    (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date.centered-logo") : el = this.eventsRootContainer.querySelector(".event-logo.centered-logo");    
-    if(url !=='') {
-      if(el && !isAddressCenter){
-        el.classList.add("right-logo");
-        el.classList.remove("centered-logo");
-      }else if(el){
-        let i;
-        for (i = 0; i < el.length-1; i++) {
-          el[i].classList.remove("centered-logo");
-        }
-      }
-    }
-    else {
-      (isAddressCenter)? el = this.eventsRootContainer.querySelectorAll(".event-date"): el = this.eventsRootContainer.querySelector(".event-logo.right-logo");
-      if (el && !isAddressCenter) {
-        el.classList.remove("right-logo");
-        el.classList.add("centered-logo");
-      }else if(el){
-        let i;
-        for (i = 0; i < el.length-1; i++) {
-          el[i].classList.add("centered-logo");
-        }
-      }
-    }
-  }
-
   setBuyBtnUrl(){
     if(this.buyBtn){
-      let event = this.eventsGroups[this.currentSlideX][this.currentSlideY],
-          url = '';
-      if(event){
-        if(event.url){
-           if(this.isUniversePluginInitialized && this.isUniverseUrl(event.url)) {
-             url = event.url;
-           }
-
-          if(this.config.theme === 'oldschool' && this.config.proportion === 'm'){
-            this.updateTransition(url , true);
-          }else{
-            this.updateTransition(url);
-          }
-
-        }
+      const event = this.eventsGroups[this.currentSlideX][this.currentSlideY];
+      if(event && event.url){
+        this.buyBtn.href = event.url;
       }
-      this.buyBtn.href = url;
     }
-  }
-
-  isUniverseUrl(url){
-    return !!url && (url.match(/universe.com/g) || url.match(/uniiverse.com/g) || url.match(/ticketmaster.com/g));
-  }
-
-  embedUniversePlugin(){
-    let id = 'id_universe_widget';
-    if( !document.getElementById(id) ){
-      let script = document.createElement('script');
-      script.setAttribute('src', 'https://www.universe.com/embed.js');
-      script.setAttribute('type', 'text/javascript');
-      script.setAttribute('charset', 'UTF-8');
-      script.setAttribute('id', id);
-      (document.head || document.getElementsByTagName('head')[0]).appendChild(script);
-    }
-    this.isUniversePluginInitialized = true;
   }
 
   // Message
@@ -597,7 +537,7 @@ class TicketmasterEventDiscoveryWidget {
     this.widgetRoot.appendChild(legalNotice);
 
     var logo = document.createElement('a');
-    logo.classList.add("event-logo","centered-logo");
+    logo.classList.add("event-logo","right-logo");
     logo.target = '_blank';
     logo.href = this.logoUrl;
     logo.innerHTML = 'Powered by ';
@@ -1445,10 +1385,10 @@ class TicketmasterEventDiscoveryWidget {
       barcodeBtn.target = '_blank';
       barcodeBtn.href = url;
       barcodeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
         ga('send', 'event', 'DiscoveryClickEventName', 'click');
-        ga('tmOpenPlatform.send', 'event', {
-          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+        widgetAnalytics.sendEvent({
+          eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+          eventLabel: barcodeBtn.href,
           ...this.defaultAnalyticsProperties,
         });
       });
@@ -1460,24 +1400,20 @@ class TicketmasterEventDiscoveryWidget {
   }
 
   addBuyButton(domNode, url) {
-    if (this.isListView || this.isListViewThumbnails ) {
-      let _urlValid = this.isUniversePluginInitialized && this.isUniverseUrl(url);
-      if(!_urlValid) url = '';
-      let buyBtn = document.createElement("a");
-      buyBtn.appendChild(document.createTextNode('BUY NOW'));
-      buyBtn.classList.add("event-buy-btn");
-      buyBtn.target = '_blank';
-      buyBtn.href = url;
-      buyBtn.addEventListener('click', (e) => {
-        // e.preventDefault();
-        ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
-        ga('tmOpenPlatform.send', 'event', {
-          eventAction: widgetAnalytics.EVENT_NAME.BUY_BUTTON_CLICK,
-          ...this.defaultAnalyticsProperties,
-        });
+    let buyBtn = document.createElement("a");
+    buyBtn.appendChild(document.createTextNode('BUY NOW'));
+    buyBtn.classList.add("event-buy-btn");
+    buyBtn.target = '_blank';
+    buyBtn.href = url;
+    buyBtn.addEventListener('click', (e) => {
+      ga('send', 'event', 'DiscoveryClickBuyButton', 'click');
+      widgetAnalytics.sendEvent({
+        eventAction: EVENT_NAME.BUY_BUTTON_CLICK,
+        eventLabel: buyBtn.href,
+        ...this.defaultAnalyticsProperties,
       });
-      domNode.appendChild(buyBtn);
-    }
+    });
+    domNode.appendChild(buyBtn);
   }
 
   addSimpleScrollBar() {
@@ -1510,10 +1446,10 @@ class TicketmasterEventDiscoveryWidget {
       name.appendChild(nameContent);
       this.initPretendedLink(name, itemConfig.url, true);
       name.addEventListener('click', (e) => {
-        e.preventDefault();
-        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-        ga('tmOpenPlatform.send', 'event', {
-          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', itemConfig.url);
+        widgetAnalytics.sendEvent({
+          eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+          eventLabel: itemConfig.url,
           ...this.defaultAnalyticsProperties,
         });
       });
@@ -1527,10 +1463,10 @@ class TicketmasterEventDiscoveryWidget {
       name.appendChild(nameContent);
       name.setAttribute('onclick', "");
       name.addEventListener('click', (e) => {
-        e.preventDefault();
-        ga('send', 'event', 'DiscoveryClickeventName', 'click', '" + itemConfig.url + "');
-        ga('tmOpenPlatform.send', 'event', {
-          eventAction: widgetAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
+        ga('send', 'event', 'DiscoveryClickeventName', 'click', itemConfig.url);
+        widgetAnalytics.sendEvent({
+          eventAction: EVENT_NAME.EVENT_NAME_CLICK,
+          eventLabel: itemConfig.url,
           ...this.defaultAnalyticsProperties
         });
       });
@@ -1538,11 +1474,13 @@ class TicketmasterEventDiscoveryWidget {
     }
 
     this.addBarcode(event, itemConfig.url);
-    this.addBuyButton( (!this.isListViewThumbnails) ? medWrapper : wrapperImg, itemConfig.url ); //add 'BuyButton' to '.wrapper-thumbnails' if choose ListViewThumbnails
+    if (this.isListView || this.isListViewThumbnails ) {
+      this.addBuyButton((!this.isListViewThumbnails) ? medWrapper : wrapperImg, itemConfig.url );
+    }
 
     var dateTimeContent = document.createTextNode(this.formatDate(itemConfig.date)),
     dateTime = document.createElement("span");
-    dateTime.classList.add("event-date", "centered-logo");
+    dateTime.classList.add("event-date");
     dateTime.appendChild(dateTimeContent);
 
     var dateWraper = document.createElement("span");
