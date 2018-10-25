@@ -39,6 +39,9 @@ div[w-theme="newschool"] a:hover,
 div[w-theme="newschool"] a:focus,
 div[w-theme="newschool"] a:active{
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div[w-theme="newschool"] .event-pretended-link {

@@ -61,6 +61,9 @@ div[w-theme="fullwidth"] a:hover,
 div[w-theme="fullwidth"] a:focus,
 div[w-theme="fullwidth"] a:active {
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div[w-theme="fullwidth"] .event-pretended-link {

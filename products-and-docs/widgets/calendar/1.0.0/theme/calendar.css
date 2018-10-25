@@ -42,6 +42,9 @@ div[w-theme="calendar"] a:hover,
 div[w-theme="calendar"] a:focus,
 div[w-theme="calendar"] a:active{
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div[w-theme="calendar"] .event-pretended-link {

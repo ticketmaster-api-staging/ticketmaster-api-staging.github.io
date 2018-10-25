@@ -62,6 +62,10 @@ div[w-theme="listviewthumbnails"] a:hover,
 div[w-theme="listviewthumbnails"] a:focus,
 div[w-theme="listviewthumbnails"] a:active{
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+
 }
 
 div[w-theme="listviewthumbnails"] .event-pretended-link {
