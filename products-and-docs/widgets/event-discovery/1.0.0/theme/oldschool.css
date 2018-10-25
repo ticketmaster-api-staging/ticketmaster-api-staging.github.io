@@ -41,6 +41,9 @@ div[w-theme="oldschool"] a:hover,
 div[w-theme="oldschool"] a:focus,
 div[w-theme="oldschool"] a:active{
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div[w-theme="oldschool"] .event-pretended-link {

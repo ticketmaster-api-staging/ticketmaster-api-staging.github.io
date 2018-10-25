@@ -49,6 +49,9 @@ div[w-theme="simple_countdown"] a:hover,
 div[w-theme="simple_countdown"] a:focus,
 div[w-theme="simple_countdown"] a:active{
     text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div[w-theme="simple_countdown"] .event-pretended-link {
