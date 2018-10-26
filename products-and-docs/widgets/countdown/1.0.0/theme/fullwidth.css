@@ -425,7 +425,7 @@ div[w-theme="fullwidth"] .event-logo {
     width: 164px;
     height: 15px;
     font-size: 11px;
-    color: #768692;
+    color: black;
 }
 div[w-theme="fullwidth"] .event-logo.right-logo {
     -webkit-transition-duration: .5s;
@@ -459,7 +459,7 @@ div[w-theme="fullwidth"] .event-logo:after{
     -moz-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
     /* TODO: add https://developer.ticketmaster.com/*/
-    background: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-gray-logo.svg") no-repeat;
+    background: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-black-pearl-logo.svg") no-repeat;
     background-size: 100px;
 }
 

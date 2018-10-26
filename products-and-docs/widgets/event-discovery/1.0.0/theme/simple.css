@@ -411,7 +411,7 @@ div[w-theme="simple"] .event-logo {
     width: 160px;
     height: 18px;
     font-size: 11px;
-    color: #768692;
+    color: black;
 }
 
 div[w-theme="simple"] .event-logo.right-logo {
@@ -453,7 +453,7 @@ div[w-theme="simple"] .event-logo:before {
 
 div[w-theme="simple"] .event-logo:before {
     /* TODO: add https://developer.ticketmaster.com/*/
-    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-gray-logo.svg");
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-black-pearl-logo.svg");
     background-size: 98px;
 }
 
