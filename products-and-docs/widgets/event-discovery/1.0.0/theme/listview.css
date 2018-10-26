@@ -332,7 +332,7 @@ div[w-theme="listview"] .legal-notice {
 }
 
 div[w-theme="listview"][w-colorscheme="dark"] .legal-notice {
-    color: #768692;
+    color: black;
 }
 
 div[w-theme="listview"] .legal-notice:hover,
@@ -376,7 +376,7 @@ div[w-theme="listview"][w-colorscheme="dark"] .event-name:hover {
 }
 
 div[w-theme="listview"][w-colorscheme="dark"] .event-logo {
-    color: #768692;
+    color: black;
 }
 
 div[w-theme="listview"] .event-logo:before {
@@ -399,7 +399,7 @@ div[w-theme="listview"] .event-logo:before {
 }
 
 div[w-theme="listview"][w-colorscheme="dark"] .event-logo:before {
-    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-gray-logo.svg");
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-black-pearl-logo.svg");
 }
 
 /*group*/
