@@ -44,6 +44,11 @@ div[w-theme="newschool"] a:active{
     box-shadow: none !important;
 }
 
+div[w-theme="newschool"] li{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 div[w-theme="newschool"] .event-pretended-link {
     cursor: pointer;
     -webkit-transition: background 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;

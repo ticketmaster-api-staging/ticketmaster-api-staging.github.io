@@ -38,6 +38,11 @@ div[w-theme="simple"]{
     font-family: 'TMSans-Regular';
 }
 
+div[w-theme="simple"] li{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 div[w-theme="simple"] a,
 div[w-theme="simple"] a:hover,
 div[w-theme="simple"] a:focus,
