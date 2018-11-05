@@ -2448,7 +2448,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-3759";
+      return '' + "1.0.-3749";
     }
   }, {
     key: 'geocodeUrl',
@@ -2605,7 +2605,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       this.listenerResize = [];
 
       if (this.config.theme !== null && !document.getElementById('widget-theme-' + this.config.theme)) {
-        this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
+        this.addStylesheetForWidgetTheme();
       }
 
       this.eventsRootContainer.classList.remove("border");
@@ -3405,19 +3405,14 @@ var TicketmasterEventDiscoveryWidget = function () {
       return config;
     }
   }, {
-    key: 'styleLoadingHandler',
-    value: function styleLoadingHandler() {
-      if (this && this.readyState == XMLHttpRequest.DONE) {
-        if (this.status == 200) {
-          var style = document.createElement("style");
-          style.setAttribute("type", "text/css");
-          style.setAttribute("id", 'widget-theme-' + this.widget.config.theme);
-          style.textContent = this.responseText;
-          document.getElementsByTagName("head")[0].appendChild(style);
-        } else {
-          console.log("theme wasn't loaded");
-        }
-      }
+    key: 'addStylesheetForWidgetTheme',
+    value: function addStylesheetForWidgetTheme() {
+      var styleLinkElem = document.createElement('link');
+      styleLinkElem.setAttribute('rel', 'stylesheet');
+      styleLinkElem.setAttribute('type', 'text/css');
+      styleLinkElem.setAttribute('href', '' + this.themeUrl + this.config.theme + '.css');
+      styleLinkElem.setAttribute('id', 'widget-theme-' + this.config.theme);
+      document.getElementsByTagName('head')[0].appendChild(styleLinkElem);
     }
   }, {
     key: 'groupEventsByName',

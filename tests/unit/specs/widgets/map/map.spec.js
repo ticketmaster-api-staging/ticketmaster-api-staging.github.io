@@ -274,21 +274,18 @@ describe('MapWidget', () => {
     });
   });
 
-  it('#styleLoadingHandler should be true', () => {
+  it('#addStylesheetForWidgetTheme should add style link for the set widget theme', () => {
     const widgetMock = {
-      status: 200,
-      readyState: XMLHttpRequest.DONE,
-      widget: {
-        config: {
-          theme: 'mockTheme',
-        },
+      config: {
+        theme: 'mockTheme',
       },
-      responseText: 'responseTextMock',
+      themeUrl: 'http://widgetThemeUrl/',
     };
 
-    widget.styleLoadingHandler.call(widgetMock);
+    widget.addStylesheetForWidgetTheme.call(widgetMock);
+
     let elem = document.getElementById('widget-theme-mockTheme');
-    expect(elem.textContent).toBe('responseTextMock');
+    expect(elem).toBeDefined();
   });
 
   it('#groupEventsByName should define eventsGroups', () => {
