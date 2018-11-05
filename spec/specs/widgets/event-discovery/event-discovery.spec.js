@@ -841,26 +841,18 @@ describe('EDWWidget', () => {
     expect(typeof(widget.update)).toBe('function');
   });
 
-  /* TODO */
-  it('#styleLoadingHandler should add style tag to head tag', () => {
-    const setAttributeMock = jest.fn();
-    const createElementMock = jest.fn(() => ({setAttribute: setAttributeMock}));
-    const responseTextMock = '<link id="widget-theme-listview" rel="stylesheet" href="/products-and-docs/widgets/event-discovery/1.0.0/theme/listview.css">';
+  it('#addStylesheetForWidgetTheme should add style link for the set widget theme', () => {
     const widgetMock = {
-      widget: {
-        config: {
-          theme: 'simple',
-        },
+      config: {
+        theme: 'mockTheme',
       },
-      readyState: XMLHttpRequest.DONE,
-      status: 200,
-      responseText: responseTextMock,
-      document: {
-        createElement: createElementMock,
-      },
+      themeUrl: 'http://widgetThemeUrl/',
     };
-    widget.styleLoadingHandler.call(widgetMock);
-    expect(createElementMock.mock.calls.length).toBe(0);
+
+    widget.addStylesheetForWidgetTheme.call(widgetMock);
+
+    let elem = document.getElementById('widget-theme-mockTheme');
+    expect(elem).toBeDefined();
   });
 
   it('#groupEventsByName should define eventsGroups', () => {

@@ -1908,7 +1908,7 @@ var TicketmasterCalendarWidget = function () {
 		this.config = this.widgetRoot.attributes;
 
 		if (this.config.theme !== null && !document.getElementById('widget-theme-' + this.config.theme)) {
-			this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
+			this.addStylesheetForWidgetTheme();
 		}
 
 		this.eventsRootContainer.classList.remove("border");
@@ -2737,19 +2737,14 @@ var TicketmasterCalendarWidget = function () {
 			return config;
 		}
 	}, {
-		key: 'styleLoadingHandler',
-		value: function styleLoadingHandler() {
-			if (this && this.readyState == XMLHttpRequest.DONE) {
-				if (this.status == 200) {
-					var style = document.createElement("style");
-					style.setAttribute("type", "text/css");
-					style.setAttribute("id", 'widget-theme-' + this.widget.config.theme);
-					style.textContent = this.responseText;
-					document.getElementsByTagName("head")[0].appendChild(style);
-				} else {
-					console.log("theme wasn't loaded");
-				}
-			}
+		key: 'addStylesheetForWidgetTheme',
+		value: function addStylesheetForWidgetTheme() {
+			var styleLinkElem = document.createElement('link');
+			styleLinkElem.setAttribute('rel', 'stylesheet');
+			styleLinkElem.setAttribute('type', 'text/css');
+			styleLinkElem.setAttribute('href', '' + this.themeUrl + this.config.theme + '.css');
+			styleLinkElem.setAttribute('id', 'widget-theme-' + this.config.theme);
+			document.getElementsByTagName('head')[0].appendChild(styleLinkElem);
 		}
 	}, {
 		key: 'groupEventsByName',
@@ -7281,16 +7276,15 @@ module.exports = toNumber;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var scope = typeof global !== "undefined" && global || typeof self !== "undefined" && self || window;
 var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
 exports.setTimeout = function () {
-  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
 };
 exports.setInterval = function () {
-  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
 };
 exports.clearTimeout = exports.clearInterval = function (timeout) {
   if (timeout) {
@@ -7304,7 +7298,7 @@ function Timeout(id, clearFn) {
 }
 Timeout.prototype.unref = Timeout.prototype.ref = function () {};
 Timeout.prototype.close = function () {
-  this._clearFn.call(scope, this._id);
+  this._clearFn.call(window, this._id);
 };
 
 // Does not start the time, just sets up the members needed.
@@ -7331,11 +7325,11 @@ exports._unrefActive = exports.active = function (item) {
 
 // setimmediate attaches itself to the global object
 __webpack_require__(24);
-// On some exotic environments, it's not clear which object `setimmediate` was
+// On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
-exports.setImmediate = typeof self !== "undefined" && self.setImmediate || typeof global !== "undefined" && global.setImmediate || undefined && undefined.setImmediate;
-exports.clearImmediate = typeof self !== "undefined" && self.clearImmediate || typeof global !== "undefined" && global.clearImmediate || undefined && undefined.clearImmediate;
+exports.setImmediate = self && self.setImmediate || global && global.setImmediate || undefined && undefined.setImmediate;
+exports.clearImmediate = self && self.clearImmediate || global && global.clearImmediate || undefined && undefined.clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
