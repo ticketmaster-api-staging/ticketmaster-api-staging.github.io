@@ -6,7 +6,9 @@ import widgetAnalytics, {
   CUSTOM_DIMENSIONS,
   EVENT_NAME,
 } from 'helpers/widgets-analytics';
-import universePlugin from 'helpers/universe-plugin'
+import universePlugin from 'helpers/universe-plugin';
+
+const MAX_REPEATED_REQUESTS = 15;
 
 export default class TicketmasterCountdownWidget {
 
@@ -53,7 +55,7 @@ export default class TicketmasterCountdownWidget {
 
 	get tmWidgetWhiteList(){ return ["2200504BAD4C848F", "00005044BDC83AE6", "1B005068DB60687F", "1B004F4DBEE45E47", "3A004F4ED7829D5E", "3A004F4ED1FC9B63", "1B004F4FF83289C5", "1B004F4FC0276888", "0E004F4F3B7DC543", "1D004F4F09C61861", "1600505AC9A972A1", "22004F4FD82795C6", "01005057AFF54574", "01005056FAD8793A", "3A004F4FB2453240", "22004F50D2149AC6", "01005059AD49507A", "01005062B4236D5D"]; }
 
-	//get eventIdDefault(){ return '1Ad0ZfdGkMoCQHJ';}
+  repeatedRequestsCount = 0;
 
 	isConfigAttrExistAndNotEmpty(attr) {
 		if( !this.config.hasOwnProperty(attr) || this.config[attr] === "undefined"){
@@ -120,8 +122,8 @@ export default class TicketmasterCountdownWidget {
 
 		this.buildCountdown();
 
-		if(this.apiUrl){
-			this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
+		if(this.apiUrl && this.eventId){
+			this.makeRequest( this.eventsLoadingHandler, `${this.apiUrl}/${this.eventId}`, this.eventReqAttrs );
 		}else{
 			this.showMessage("Please enter event ID.", true, null );
 		}
@@ -498,12 +500,19 @@ export default class TicketmasterCountdownWidget {
   }
 
 	onEventLoadError(status,loadOnce){
-		this.event = false;
-		this.showMessage("No results were found.", true, null);
-		console.log(`There was an error status - ${status}`);
-		if(!loadOnce) {
-			this.changeDefaultId();
-		}
+	  if(this.repeatedRequestsCount <= MAX_REPEATED_REQUESTS) {
+      const REPEATED_REQUEST_DELAY = Math.round(Math.random()*1000+500);
+
+      setTimeout(() => {
+        this.makeRequest(this.eventsLoadingHandler, `${this.apiUrl}/${this.eventId}`, this.eventReqAttrs);
+      }, REPEATED_REQUEST_DELAY);
+
+      this.repeatedRequestsCount++;
+      console.log(`REPEATED REQUEST #${this.repeatedRequestsCount}`);
+    } else {
+      this.showMessage("No results were found.", true, null);
+    }
+
 	}
 
 	eventsLoadingHandler(){
@@ -643,7 +652,7 @@ export default class TicketmasterCountdownWidget {
 		widget.clearEvents(); // Additional clearing after each loading
 
 		if (this && this.readyState == XMLHttpRequest.DONE ) {
-			if(this.status == 200){
+			if(this.status == 200 && this.responseText != ''){
 				let eventsWrap = JSON.parse(this.responseText);
 				if(eventsWrap){
 					let events = eventsWrap['_embedded']['events'],
@@ -679,7 +688,7 @@ export default class TicketmasterCountdownWidget {
 			return `${key}=${paramsWithoutEventID[key]}`;
 		}).join("&");
 
-		const requestUrl = `${url}/${attrs.id}?${params}`;
+		const requestUrl = `${url}?${params}`;
 
 		this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 		if(method == "POST") {

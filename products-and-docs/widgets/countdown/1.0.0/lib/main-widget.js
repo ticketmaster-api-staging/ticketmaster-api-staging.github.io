@@ -1826,13 +1826,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var MAX_REPEATED_REQUESTS = 15;
+
 var TicketmasterCountdownWidget = function () {
 	_createClass(TicketmasterCountdownWidget, [{
 		key: 'isConfigAttrExistAndNotEmpty',
-
-
-		//get eventIdDefault(){ return '1Ad0ZfdGkMoCQHJ';}
-
 		value: function isConfigAttrExistAndNotEmpty(attr) {
 			if (!this.config.hasOwnProperty(attr) || this.config[attr] === "undefined") {
 				return false;
@@ -1908,7 +1906,7 @@ var TicketmasterCountdownWidget = function () {
 	}, {
 		key: 'widgetVersion',
 		get: function get() {
-			return '' + "1.0.-3743";
+			return '' + "1.0.-3739";
 		}
 	}, {
 		key: 'questionUrl',
@@ -1954,6 +1952,8 @@ var TicketmasterCountdownWidget = function () {
 	function TicketmasterCountdownWidget(root) {
 		_classCallCheck(this, TicketmasterCountdownWidget);
 
+		this.repeatedRequestsCount = 0;
+
 		this.widgetRoot = root;
 
 		this.eventsRootContainer = document.createElement("div");
@@ -1987,8 +1987,8 @@ var TicketmasterCountdownWidget = function () {
 
 		this.buildCountdown();
 
-		if (this.apiUrl) {
-			this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+		if (this.apiUrl && this.eventId) {
+			this.makeRequest(this.eventsLoadingHandler, this.apiUrl + '/' + this.eventId, this.eventReqAttrs);
 		} else {
 			this.showMessage("Please enter event ID.", true, null);
 		}
@@ -2385,11 +2385,19 @@ var TicketmasterCountdownWidget = function () {
 	}, {
 		key: 'onEventLoadError',
 		value: function onEventLoadError(status, loadOnce) {
-			this.event = false;
-			this.showMessage("No results were found.", true, null);
-			console.log('There was an error status - ' + status);
-			if (!loadOnce) {
-				this.changeDefaultId();
+			var _this2 = this;
+
+			if (this.repeatedRequestsCount <= MAX_REPEATED_REQUESTS) {
+				var REPEATED_REQUEST_DELAY = Math.round(Math.random() * 1000 + 500);
+
+				setTimeout(function () {
+					_this2.makeRequest(_this2.eventsLoadingHandler, _this2.apiUrl + '/' + _this2.eventId, _this2.eventReqAttrs);
+				}, REPEATED_REQUEST_DELAY);
+
+				this.repeatedRequestsCount++;
+				console.log('REPEATED REQUEST #' + this.repeatedRequestsCount);
+			} else {
+				this.showMessage("No results were found.", true, null);
 			}
 		}
 	}, {
@@ -2524,10 +2532,10 @@ var TicketmasterCountdownWidget = function () {
 				return id;
 			}
 			function setEventId() {
-				var _this2 = this;
+				var _this3 = this;
 
 				return function () {
-					return _this2.makeRequest(_this2.eventsLoadingHandler, _this2.apiUrl, _this2.eventReqAttrs);
+					return _this3.makeRequest(_this3.eventsLoadingHandler, _this3.apiUrl, _this3.eventReqAttrs);
 				};
 			}
 			var widget = this.widget;
@@ -2535,7 +2543,7 @@ var TicketmasterCountdownWidget = function () {
 			widget.clearEvents(); // Additional clearing after each loading
 
 			if (this && this.readyState == XMLHttpRequest.DONE) {
-				if (this.status == 200) {
+				if (this.status == 200 && this.responseText != '') {
 					var eventsWrap = JSON.parse(this.responseText);
 					if (eventsWrap) {
 						var events = eventsWrap['_embedded']['events'],
@@ -2574,7 +2582,7 @@ var TicketmasterCountdownWidget = function () {
 				return key + '=' + paramsWithoutEventID[key];
 			}).join("&");
 
-			var requestUrl = url + '/' + attrs.id + '?' + params;
+			var requestUrl = url + '?' + params;
 
 			this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			if (method == "POST") {
@@ -2616,7 +2624,7 @@ var TicketmasterCountdownWidget = function () {
 	}, {
 		key: 'createDOMItem',
 		value: function createDOMItem(itemConfig) {
-			var _this3 = this;
+			var _this4 = this;
 
 			var medWrapper = document.createElement("div");
 			medWrapper.classList.add("event-content-wraper");
@@ -2642,7 +2650,7 @@ var TicketmasterCountdownWidget = function () {
 				_widgetsAnalytics2.default.sendEvent(_extends({
 					eventAction: _widgetsAnalytics.EVENT_NAME.EVENT_NAME_CLICK,
 					eventLabel: itemConfig.url
-				}, _this3.defaultAnalyticsProperties));
+				}, _this4.defaultAnalyticsProperties));
 			});
 			medWrapper.appendChild(name);
 
