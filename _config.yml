@@ -56,3 +56,9 @@ sass:
 
 webserver_headers:
   "X-Frame-Options": "Deny"
+
+title: Ticketmaster-api.GitHub.io
+description: 
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
