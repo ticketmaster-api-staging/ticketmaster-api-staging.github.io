@@ -1,4 +1,4 @@
-import lodashGet from 'lodash/get';
+import lodashOmit from 'lodash/omit';
 
 import CountdownClock from './CountdownClock';
 import widgetAnalytics, {
@@ -511,7 +511,7 @@ export default class TicketmasterCountdownWidget {
 		widget.clearEvents(); // Additional clearing after each loading
 		if (this && this.readyState == XMLHttpRequest.DONE ) {
 			if(this.status == 200){
-				widget.event = lodashGet(JSON.parse(this.responseText), '_embedded.events[0]');
+				widget.event = JSON.parse(this.responseText);
 				if(widget.event){
 					widget.publishEvent(widget.event);
 					widget.hideMessage();
@@ -673,11 +673,13 @@ export default class TicketmasterCountdownWidget {
 	}
 
 	makeRequest(handler, url=this.apiUrl, attrs={}, method="GET"){
-		attrs = Object.keys(attrs).map(function(key){
-			return `${key}=${attrs[key]}`;
+	  //TODO: This method does too many things, and is not reusable. Refactor it in a way where it would not violate the single responsibility principle
+	  const paramsWithoutEventID = lodashOmit(attrs, 'id');
+		const params = Object.keys(paramsWithoutEventID).map(function(key){
+			return `${key}=${paramsWithoutEventID[key]}`;
 		}).join("&");
 
-		url = [url,attrs].join("?");
+		const requestUrl = `${url}/${attrs.id}?${params}`;
 
 		this.xmlHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 		if(method == "POST") {
@@ -685,7 +687,7 @@ export default class TicketmasterCountdownWidget {
 		}
 		this.xmlHTTP.widget = this;
 		this.xmlHTTP.onreadystatechange = handler;
-		this.xmlHTTP.open(method, url, true);
+		this.xmlHTTP.open(method, requestUrl, true);
 		this.xmlHTTP.send();
 	}
 
