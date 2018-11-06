@@ -499,7 +499,7 @@ export default class TicketmasterCountdownWidget {
     document.getElementsByTagName('head')[0].appendChild(styleLinkElem);
   }
 
-	onEventLoadError(status,loadOnce){
+	onEventLoadError(){
 	  if(this.repeatedRequestsCount <= MAX_REPEATED_REQUESTS) {
       const REPEATED_REQUEST_DELAY = Math.round(Math.random()*1000+500);
 
@@ -508,7 +508,6 @@ export default class TicketmasterCountdownWidget {
       }, REPEATED_REQUEST_DELAY);
 
       this.repeatedRequestsCount++;
-      console.log(`REPEATED REQUEST #${this.repeatedRequestsCount}`);
     } else {
       this.showMessage("No results were found.", true, null);
     }
