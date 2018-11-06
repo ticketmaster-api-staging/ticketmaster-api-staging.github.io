@@ -1906,7 +1906,7 @@ var TicketmasterCountdownWidget = function () {
 	}, {
 		key: 'widgetVersion',
 		get: function get() {
-			return '' + "1.0.-3739";
+			return '' + "1.0.-3738";
 		}
 	}, {
 		key: 'questionUrl',
@@ -2384,7 +2384,7 @@ var TicketmasterCountdownWidget = function () {
 		}
 	}, {
 		key: 'onEventLoadError',
-		value: function onEventLoadError(status, loadOnce) {
+		value: function onEventLoadError() {
 			var _this2 = this;
 
 			if (this.repeatedRequestsCount <= MAX_REPEATED_REQUESTS) {
@@ -2395,7 +2395,6 @@ var TicketmasterCountdownWidget = function () {
 				}, REPEATED_REQUEST_DELAY);
 
 				this.repeatedRequestsCount++;
-				console.log('REPEATED REQUEST #' + this.repeatedRequestsCount);
 			} else {
 				this.showMessage("No results were found.", true, null);
 			}

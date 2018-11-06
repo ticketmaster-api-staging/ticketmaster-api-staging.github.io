@@ -535,36 +535,6 @@ describe('CDWidget', () => {
     expect(elem).toBeDefined();
   });
 
-  describe('#onEventLoadError', () => {
-    const changeDefaultIdMock = jest.fn();
-    const showMessageMock = jest.fn();
-
-    beforeEach(() => {
-      changeDefaultIdMock.mockReset();
-      showMessageMock.mockReset();
-    });
-
-    const widgetMock = {
-      event: true,
-      changeDefaultId: changeDefaultIdMock,
-      showMessage: showMessageMock,
-    };
-
-    it('#onEventLoadError should call changeDefaultId', () => {
-      widget.onEventLoadError.call(widgetMock, '');
-      expect(widgetMock.event).toBe(false);
-      expect(showMessageMock).toHaveBeenCalledTimes(1);
-      expect(changeDefaultIdMock).toHaveBeenCalledTimes(1);
-    });
-
-    it('#onEventLoadError should not call changeDefaultId', () => {
-      widget.onEventLoadError.call(widgetMock, '', true);
-      expect(widgetMock.event).toBe(false);
-      expect(showMessageMock).toHaveBeenCalledTimes(1);
-      expect(changeDefaultIdMock).toHaveBeenCalledTimes(0);
-    });
-  });
-
   describe('#eventsLoadingHandler', () => {
     const clearEventsMock = jest.fn();
     const publishEventMock = jest.fn();
