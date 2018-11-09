@@ -426,10 +426,9 @@ export default class TicketmasterCountdownWidget {
 		if(this.needToUpdate(this.config, oldTheme, this.updateExceptions) || isFullWidthTheme){
 			this.clear();
 
-			if(this.config.theme !== null){
-				//set new styles
-				this.makeRequest( this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css" );
-			}
+      if(this.config.theme !== null && !document.getElementById(`widget-theme-${this.config.theme}`)){
+        this.addStylesheetForWidgetTheme();
+      }
 
 			if(this.widgetConfig.theme !== 'simple_countdown') {
 				let heightStatic = '700px';
@@ -452,7 +451,7 @@ export default class TicketmasterCountdownWidget {
       }*/
 
 			if(this.apiUrl && this.eventId){
-				this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
+				this.makeRequest( this.eventsLoadingHandler, `${this.apiUrl}/${this.eventId}`, this.eventReqAttrs );
 			}else{
 				// this.showMessage("No results were found.", true);
 				this.showMessage("No events were found", true, 'cactus');
