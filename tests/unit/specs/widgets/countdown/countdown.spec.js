@@ -488,8 +488,11 @@ describe('CDWidget', () => {
   });
 
   it('#update should set style and make request', () => {
+    const headElementInnerHTML = document.head.innerHTML;
+    document.head.innerHTML = '';
+
     widget.clear = jest.fn();
-    widget.makeRequest = jest.fn();
+    widget.addStylesheetForWidgetTheme = jest.fn();
     widget.showMessage = jest.fn();
     widget.initFullWidth = jest.fn();
     widget.update(true);
@@ -497,8 +500,10 @@ describe('CDWidget', () => {
     expect(widget.eventsRootContainer.style.height).toBe('700px');
     expect(widget.eventsRootContainer.style.borderWidth).toBe('0px');
     expect(widget.clear).toHaveBeenCalledTimes(1);
-    expect(widget.makeRequest).toHaveBeenCalledTimes(1);
+    expect(widget.addStylesheetForWidgetTheme).toHaveBeenCalledTimes(1);
     expect(widget.showMessage).toHaveBeenCalledTimes(1);
+
+    document.head.innerHTML = headElementInnerHTML;
   });
 
   describe('#needToUpdate', () => {

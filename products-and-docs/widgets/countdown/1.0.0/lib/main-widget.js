@@ -1906,7 +1906,7 @@ var TicketmasterCountdownWidget = function () {
 	}, {
 		key: 'widgetVersion',
 		get: function get() {
-			return '' + "1.0.-3738";
+			return '' + "1.0.-3729";
 		}
 	}, {
 		key: 'questionUrl',
@@ -2303,9 +2303,8 @@ var TicketmasterCountdownWidget = function () {
 			if (this.needToUpdate(this.config, oldTheme, this.updateExceptions) || isFullWidthTheme) {
 				this.clear();
 
-				if (this.config.theme !== null) {
-					//set new styles
-					this.makeRequest(this.styleLoadingHandler, this.themeUrl + this.config.theme + ".css");
+				if (this.config.theme !== null && !document.getElementById('widget-theme-' + this.config.theme)) {
+					this.addStylesheetForWidgetTheme();
 				}
 
 				if (this.widgetConfig.theme !== 'simple_countdown') {
@@ -2329,7 +2328,7 @@ var TicketmasterCountdownWidget = function () {
        }*/
 
 				if (this.apiUrl && this.eventId) {
-					this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+					this.makeRequest(this.eventsLoadingHandler, this.apiUrl + '/' + this.eventId, this.eventReqAttrs);
 				} else {
 					// this.showMessage("No results were found.", true);
 					this.showMessage("No events were found", true, 'cactus');
