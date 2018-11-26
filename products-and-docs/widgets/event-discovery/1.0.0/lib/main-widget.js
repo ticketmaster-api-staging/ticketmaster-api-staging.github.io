@@ -2448,7 +2448,7 @@ var TicketmasterEventDiscoveryWidget = function () {
   }, {
     key: 'widgetVersion',
     get: function get() {
-      return '' + "1.0.-3749";
+      return '' + "1.0.-3719";
     }
   }, {
     key: 'geocodeUrl',
@@ -2626,7 +2626,7 @@ var TicketmasterEventDiscoveryWidget = function () {
       this.AdditionalElements();
 
       this.getCoordinates(function () {
-        _this.makeRequest(_this.eventsLoadingHandler, _this.apiUrl, _this.eventReqAttrs);
+        _this.makeEventsRequest();
       });
 
       if (this.themeModificators.hasOwnProperty(this.widgetConfig.theme)) {
@@ -3361,7 +3361,7 @@ var TicketmasterEventDiscoveryWidget = function () {
         }
 
         this.getCoordinates(function () {
-          _this9.makeRequest(_this9.eventsLoadingHandler, _this9.apiUrl, _this9.eventReqAttrs);
+          _this9.makeEventsRequest();
         });
 
         if (this.isListView || this.isListViewThumbnails) this.addScroll();
@@ -3479,6 +3479,7 @@ var TicketmasterEventDiscoveryWidget = function () {
 
         if (this.reduceParamsOrder === 0) this.showMessage("No results were found.<br/>Here other options for you.");
         this.reduceParamsOrder++;
+        eventReqAttrs['locale'] = '*';
         this.makeRequest(this.eventsLoadingHandler, this.apiUrl, eventReqAttrs);
       } else {
         // We haven't any results
@@ -3533,6 +3534,14 @@ var TicketmasterEventDiscoveryWidget = function () {
           console.log('something else other than 200 was returned');
         }
       }
+    }
+  }, {
+    key: 'makeEventsRequest',
+    value: function makeEventsRequest() {
+      var requestParams = Object.assign(this.eventReqAttrs, {
+        locale: '*'
+      });
+      this.makeRequest(this.eventsLoadingHandler, this.apiUrl, requestParams);
     }
   }, {
     key: 'publishEventsGroup',
