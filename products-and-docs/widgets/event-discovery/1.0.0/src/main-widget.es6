@@ -301,7 +301,7 @@ class TicketmasterEventDiscoveryWidget {
         this.AdditionalElements();
 
         this.getCoordinates(() => {
-            this.makeRequest(this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs);
+            this.makeEventsRequest();
         });
 
         if (this.themeModificators.hasOwnProperty(this.widgetConfig.theme)) {
@@ -1001,7 +1001,7 @@ class TicketmasterEventDiscoveryWidget {
       }
 
       this.getCoordinates(() => {
-        this.makeRequest( this.eventsLoadingHandler, this.apiUrl, this.eventReqAttrs );
+        this.makeEventsRequest();
       });
 
       if(this.isListView || this.isListViewThumbnails ) this.addScroll();
@@ -1121,6 +1121,7 @@ class TicketmasterEventDiscoveryWidget {
 
       if(this.reduceParamsOrder === 0) this.showMessage("No results were found.<br/>Here other options for you.");
       this.reduceParamsOrder++;
+      eventReqAttrs['locale'] = '*';
       this.makeRequest( this.eventsLoadingHandler, this.apiUrl, eventReqAttrs );
     }else{
       // We haven't any results
@@ -1174,6 +1175,13 @@ class TicketmasterEventDiscoveryWidget {
         console.log('something else other than 200 was returned');
       }
     }
+  }
+
+  makeEventsRequest() {
+    const requestParams = Object.assign(this.eventReqAttrs, {
+      locale: '*',
+    });
+    this.makeRequest(this.eventsLoadingHandler, this.apiUrl, requestParams);
   }
 
   publishEventsGroup(group, index){
