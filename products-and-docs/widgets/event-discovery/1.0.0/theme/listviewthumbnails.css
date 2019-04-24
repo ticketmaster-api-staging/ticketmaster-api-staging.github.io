@@ -115,6 +115,7 @@ div[w-theme="listviewthumbnails"] .event-message__btn {
 }
 
 div[w-theme="listviewthumbnails"] .events-root-container{
+    height: 100%;
     overflow: hidden;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -282,6 +283,11 @@ div[w-theme="listviewthumbnails"] .event-name{
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+div[w-theme="listviewthumbnails"][w-showfulleventsnames="true"] .event-name.event-name {
+    -webkit-line-clamp: unset;
+    max-height: 1000px; 
 }
 
 div[w-theme="listviewthumbnails"] .event-date-wraper{
@@ -685,6 +691,12 @@ div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-date-wraper{
 	line-height: 32px;
 	color: #414141;
 	margin-bottom: 12px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  max-height: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .address-wrapper {
 	font-size: 16px;
@@ -702,8 +714,7 @@ div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .bg-cover-thumbnails {
 	width: 100%;
 }
 div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-buy-btn {
-	margin-left: 370px;
-	top: -30px;
+    width: 352px;
 	position: relative;
 }
 
@@ -712,6 +723,126 @@ div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .bg-cover-default {
 	/* TODO: update after release to  https://developer.ticketmaster.com/*/
 	background: rgba(183, 201, 211, 0.2) url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-logo-short-big.svg") no-repeat center center;
 	background-size: 82px;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"] .event-logo:before {
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb.png");
+  top: -4px;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"] .event-buy-btn {
+  background-color: #7e439a;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"] .event-logo,
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"] .legal-notice{
+  color: #7e439a;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"] .event-logo-box {
+  background-color: #f5f5f5;
+}
+
+div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .ss-content {
+  padding: 0;
+  padding-right: 6.5%;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"][w-layout="fullwidth"] .ss {
+  width: 98% !important;
+}
+
+div[w-theme="listviewthumbnails"][w-poweredBy="ticketweb"][w-layout="fullwidth"] .events-root {
+  margin-bottom: 40px;
+}
+
+.show-more_button {
+  width: 100%;
+  background-color: #2888b1;
+  color: white;
+  font-family: "TMSans-Bold";
+  position: relative;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 30px;
+}
+
+.show-more_button:hover, .show-more_button:active {
+  background-color: #1e779c;
+}
+
+.show-more_spinner {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+  background-position: center center;
+  background-size: cover;
+  margin-top: 1px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.show-more_spinner-circle-part {
+  stroke: #2888b1;
+}
+
+.show-more_spinner-arrow-part {
+  fill: #2888b1;
+}
+
+@media only screen and (max-width: 768px) {
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .wrapper-thumbnails {
+    display: block;
+    width: 100%;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-name {
+    width: 100%;
+    text-align: center;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-buy-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+    top: 285px;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-date-wraper {
+    text-align: center;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .address-wrapper {
+    text-align: center;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] .event-wrapper {
+    padding-bottom: 40px;
+  }
+
+  div[w-theme="listviewthumbnails"][w-layout="fullwidth"] li.event-wrapper:last-of-type {
+    border-bottom: none;
+  }
+}
+
+div[w-theme="listviewthumbnails"][w-branding="TicketWeb"] .event-logo:before {
+  top: -3px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-white.png");
+}
+
+div[w-theme="listviewthumbnails"][w-branding="TicketWeb"][w-colorscheme="dark"] .event-logo:before {
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
+}
+
+div[w-theme="listviewthumbnails"][w-showloadmorebutton="true"] .events-root > li:last-of-type {
+  border-bottom: none;
 }
 
 /*w-layout fullwidth END*/

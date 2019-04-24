@@ -115,6 +115,7 @@ div[w-theme="listview"] .event-message__btn {
 }
 
 div[w-theme="listview"] .events-root-container{
+    height: 100%;
     overflow: hidden;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -271,6 +272,11 @@ div[w-theme="listview"] .event-name{
     -webkit-box-orient: vertical;
 }
 
+div[w-theme="listview"][w-showfulleventsnames="true"] .event-name.event-name{
+    -webkit-line-clamp: unset;
+    max-height: 1000px; 
+}
+
 div[w-theme="listview"] .event-date-wraper{
     display: block;
     font-family: "TMSans-Bold", Arial;
@@ -400,6 +406,15 @@ div[w-theme="listview"] .event-logo:before {
 
 div[w-theme="listview"][w-colorscheme="dark"] .event-logo:before {
     background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-black-pearl-logo.svg");
+}
+
+div[w-theme="listview"][w-branding="TicketWeb"] .event-logo:before {
+  top: -3px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-white.png");
+}
+
+div[w-theme="listview"][w-branding="TicketWeb"][w-colorscheme="dark"] .event-logo:before {
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
 }
 
 /*group*/
@@ -660,12 +675,19 @@ div[w-theme="listview"][w-layout="fullwidth"] .event-name {
 	line-height: 34px;
 	max-height: 34px;
 	-webkit-line-clamp: 1;
+  overflow: hidden;
 }
 div[w-theme="listview"][w-layout="fullwidth"] .event-date-wraper{
 	font-size: 24px;
 	line-height: 32px;
 	color: #414141;
 	margin-bottom: 12px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  max-height: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 div[w-theme="listview"][w-layout="fullwidth"] .address-wrapper {
 	font-size: 16px;
@@ -682,4 +704,44 @@ div[w-theme="listview"] .general-admission {
 
 div[w-theme="listview"] .ticket-logo {
     display: none;
+}
+
+.show-more_button {
+  width: 100%;
+  background-color: #2888b1;
+  color: white;
+  font-family: "TMSans-Bold";
+  position: relative;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 30px;
+}
+
+.show-more_button:hover, .show-more_button:active {
+  background-color: #1e779c;
+}
+
+.show-more_spinner {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+  background-position: center center;
+  background-size: cover;
+  margin-top: 1px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.show-more_spinner-circle-part {
+  stroke: #2888b1;
+}
+
+.show-more_spinner-arrow-part {
+  fill: #2888b1;
 }

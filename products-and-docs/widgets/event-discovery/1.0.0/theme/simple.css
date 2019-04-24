@@ -791,5 +791,8 @@ div[w-theme="simple"][w-layout="fullwidth"] .events-counter {
 	font-size: 11px;
 }
 div[w-theme="simple"][w-layout="fullwidth"] .events-counter { right: 11px; }
-/*w-layout END*/
 
+div[w-theme="simple"][w-branding="TicketWeb"] .event-logo:before {
+  top: -3px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
+}
