@@ -1081,3 +1081,10 @@ div[w-theme="newschool"][w-layout="fullwidth"] .events-counter { right: 11px; }
 div[w-theme="newschool"] .general-admission {
     display: none;
 }
+
+div[w-theme="newschool"][w-branding="TicketWeb"] .event-logo:before {
+  top: 0;
+  bottom: -8px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
+
+}

@@ -988,4 +988,9 @@ div[w-theme="oldschool"][w-proportion="m"] .events_control-horizontal {
 div[w-theme="oldschool"][w-proportion="m"] .barcode {
     display: none;
 }
-/* 300x250 [End] */
+
+div[w-theme="oldschool"][w-branding="TicketWeb"] .event-logo:before {
+  top: 0;
+  bottom: -8px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
+}
