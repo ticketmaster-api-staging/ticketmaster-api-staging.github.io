@@ -46,6 +46,10 @@
     border: none;
 }
 
+div[w-theme="grid"] * {
+    box-sizing: border-box;
+}
+
 div[w-theme="grid"]{
     position: relative;
     height: 200px;
