@@ -1,0 +1,824 @@
+/* FONTS */
+/* TODO: update after release to  https://developer.ticketmaster.com/*/
+@font-face {
+    font-family: "TMSans-Regular";
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Regular.eot");
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Regular.eot?") format("embedded-opentype"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Regular.woff") format("woff"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal; }
+@font-face {
+    font-family: "TMSans-Light";
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Light.eot");
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Light.eot?") format("embedded-opentype"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Light.woff") format("woff"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal; }
+@font-face {
+    font-family: "TMSans-Italic";
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Italic.eot");
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Italic.eot?") format("embedded-opentype"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Italic.woff") format("woff"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Italic.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal; }
+@font-face {
+    font-family: "TMSans-Bold";
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Bold.eot");
+    src: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Bold.eot?") format("embedded-opentype"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Bold.woff") format("woff"), url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/fonts/tmSans/tmSans_Web/TMSans-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal; }
+
+
+/* Common styles for all themes  */
+/*
+.widget-container {
+    border: none;
+}
+
+.widget-container:before,
+.widget-container:after {
+    width: 0;
+    height: 0;
+    border: none;
+}
+*/
+
+.widget-container--discovery.listview-after,
+.widget-container--discovery.listview-after:before,
+.widget-container--discovery.listview-after:after {
+    border: none;
+}
+
+div[w-theme="grid"]{
+    position: relative;
+    height: 200px;
+    width: 150px;
+    overflow: hidden;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    font-family: 'TMSans-Regular';
+}
+
+div[w-theme="grid"] a,
+div[w-theme="grid"] a:hover,
+div[w-theme="grid"] a:focus,
+div[w-theme="grid"] a:active{
+    text-decoration: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+
+}
+
+div[w-theme="grid"] .event-pretended-link {
+    cursor: pointer;
+    -webkit-transition: background 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+div[w-theme="grid"] .event-pretended-link:hover {
+    color: #009CDE;
+}
+
+div[w-theme="grid"] .event-message {
+    position: absolute;
+    padding: 16px 46px 16px 52px;
+    left: 10px;
+    right: 10px;
+    top: -50%;
+    border-radius: 4px;
+    font-family: "TMSans-Bold";
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ffffff;
+    opacity: 0;
+    z-index: 10;
+    /* TODO: update after release to  https://developer.ticketmaster.com/*/
+    background: #7356a5 url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/message_logo.svg") no-repeat 16px 50%;
+    -webkit-transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    -moz-transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+div[w-theme="grid"] .event-message-visible {
+    top: 10px;
+    opacity: 1;
+}
+
+div[w-theme="grid"] .event-message__btn {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    /* TODO: update after release to  https://developer.ticketmaster.com/*/
+    background: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/ic-close-small-white.svg") no-repeat 50% 50%;
+}
+
+div[w-theme="grid"] .events-root-container{
+    height: 100%;
+    overflow: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-style: solid;
+    border-color: #ccc;
+}
+
+div[w-theme="grid"] .ss {
+    margin: 35px auto 0 auto;
+    height: 85%;
+    width: 96% !important;
+}
+
+div[w-theme="grid"] ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 0;
+    margin-left: 0 !important;
+    width: 102% !important;
+}
+
+div[w-theme="grid"] ul li ul {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/*  question  */
+div[w-theme="grid"] .event-question {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+		cursor: pointer;
+}
+
+div[w-theme="grid"] .event-question:before,
+div[w-theme="grid"] .event-question:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+		background: no-repeat center;
+		-webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+}
+
+div[w-theme="grid"] .event-question:before {
+    opacity: 0;
+    /* TODO: add https://developer.ticketmaster.com/*/
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/question-ic-blue.svg");
+}
+
+div[w-theme="grid"] .event-question:after {
+    opacity: 0.7;
+    /* TODO: add https://developer.ticketmaster.com/*/
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/question-ic-grey.svg");
+}
+
+div[w-theme="grid"] .event-question:hover:before {
+    opacity: 1;
+}
+
+div[w-theme="grid"] .event-question:hover:after {
+    opacity: 0;
+}
+
+
+/* slider controls */
+div[w-theme="grid"] .events_control {
+    display: none;
+}
+
+div[w-theme="grid"] .wrapper-thumbnails {
+		width: 74px;
+		min-height: 60px;/*if no img*/
+		margin-right: 14px;
+}
+div[w-theme="grid"] .bg-cover-thumbnails {
+		height: 60px;
+		width: 74px;
+		display: block;
+		margin-bottom: 6px;
+		background-position: center;
+		background-size: cover;
+}
+div[w-theme="grid"] .bg-cover {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+
+/* Theme special styles */
+div[w-theme="grid"] .event-wrapper {
+    display: block;
+    position: relative;
+    height: auto !important;
+    width: 33.333% !important;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #fff;
+    border-bottom: 2px solid rgba(65,65,65,0.2);
+    padding-bottom: 13px;
+    padding-right: 1.5%;
+    padding-left: 1.5%;
+    margin-bottom: 15px;
+}
+
+div[w-theme="grid"] .event-wrapper:last-child {
+    /* border: none; */
+}
+
+div[w-theme="grid"] .event-group-wrapper {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+div[w-theme="grid"] .event-content-wraper,
+div[w-theme="grid"] .event-wrapper:before {
+}
+
+div[w-theme="grid"] .event-content-wraper {
+    width: 100%;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #414141;
+    padding-bottom: 30px;
+}
+
+div[w-theme="grid"] .event-name{
+    display: block;
+    display: -webkit-box;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: "TMSans-Bold";
+    margin-bottom: 11px;
+    line-height: 22px;
+    max-height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+div[w-theme="grid"][w-showfulleventsnames="true"] .event-name.event-name {
+    -webkit-line-clamp: unset;
+    max-height: 1000px; 
+}
+
+div[w-theme="grid"] .event-date-wraper{
+    display: block;
+    font-family: "TMSans-Bold";
+    font-size: 10px;
+}
+
+div[w-theme="grid"] .address-wrapper{
+    display: block;
+    overflow: hidden;
+    display: -webkit-box;
+    max-height: 13px;
+    text-overflow: ellipsis;
+    font-family: "TMSans-Light";
+    line-height: 1.3;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 10px;
+}
+
+div[w-theme="grid"] .event-address{
+    display: inline;
+}
+
+div[w-theme="grid"] .event-address:after{
+    content: ',\00a0';
+    display: inline-block;
+}
+
+div[w-theme="grid"] .address-wrapper .event-address:last-child:after{
+    display: none;
+}
+
+div[w-theme="grid"] .category-wrapper{
+    display: block;
+    font-family: "TMSans-Bold";
+}
+
+div[w-theme="grid"] .address-wrapper,
+div[w-theme="grid"] .category-wrapper{
+    opacity: 1;
+}
+
+div[w-theme="grid"] .event-category:before{
+    content: ', ';
+}
+
+div[w-theme="grid"] .event-category:first-child:before{
+    content: '';
+}
+
+div[w-theme="grid"] .legal-notice {
+    position: absolute;
+    left: 30px;
+    bottom: 36px;
+    font-size: 11px;
+    line-height: 20px;
+    color: #fff;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .legal-notice {
+    color: black;
+}
+
+div[w-theme="grid"] .legal-notice:hover,
+div[w-theme="grid"] .legal-notice:focus,
+div[w-theme="grid"] .legal-notice:active{
+    color: #019cde;
+}
+
+div[w-theme="grid"] .events-counter {
+    display: none;
+}
+
+div[w-theme="grid"] .event-logo-box {
+    z-index: 10;
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    background-color: #b7c9d3;
+}
+
+div[w-theme="grid"] .event-logo {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 160px;
+    height: 18px;
+    font-size: 11px;
+	  line-height: 18px;
+    color: #fff;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-logo {
+    color: black;
+}
+
+div[w-theme="grid"] .event-logo:before {
+    content: '';
+    position: absolute;
+    left: 60px;
+    right: 0;
+    top: -1px;
+    bottom: 0;
+    background-repeat: no-repeat;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+}
+
+div[w-theme="grid"] .event-logo:before {
+    /* TODO: add https://developer.ticketmaster.com/*/
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-white-logo.svg");
+    background-size: 98px;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-logo:before {
+    background-image: url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-black-pearl-logo.svg");
+}
+
+/*group*/
+div[w-theme="grid"] .event-group {
+    width: 100%;
+}
+
+/* BUY NOW */
+div[w-theme="grid"] .event-buy-btn {
+    width: 74px;
+    height: 24px;
+    padding-top: 5px;
+    border-radius: 4px;
+    background-color: #009cde;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "TMSans-Bold";
+    font-size: 11px;
+    line-height: 16px;
+    color: #ffffff;
+    text-align: center;
+    -webkit-transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    margin-right: 15px;
+    display: block;
+}
+
+div[w-theme="grid"] .event-buy-btn:hover {
+    background-color: #2A7CC7;
+}
+
+div[w-theme="grid"] .event-buy-btn[href=''],
+div[w-theme="grid"] .event-buy-btn[href='']:hover {
+    background-color: #ccc;
+    cursor: default;
+    opacity: 0.5;
+    display: none;
+}
+
+div[w-theme="grid"] .event-buy-btn.main-btn {
+    display: none;
+}
+
+/*tooltip-version*/
+div[w-theme="grid"] .tooltip-version {
+	position: absolute;
+	z-index: 1070;
+	display: block;
+	font-family: "TMSans-Light", Arial, serif;
+	font-style: normal;
+	font-weight: normal;
+	letter-spacing: normal;
+	line-break: auto;
+	line-height: 1.42857;
+	text-align: left;
+	text-align: start;
+	text-decoration: none;
+	text-shadow: none;
+	text-transform: none;
+	white-space: normal;
+	word-break: normal;
+	word-spacing: normal;
+	word-wrap: normal;
+	font-size: 12px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+div[w-theme="grid"] .tooltip-inner {
+	max-width: 100%;
+	padding: 3px 8px;
+	color: #fff;
+	text-align: center;
+	background-color: #768692;
+	border-radius: 4px;
+}
+
+div[w-theme="grid"] .tooltip-inner a {
+	color: #fff;
+	font-size: 11px;
+	font-family: "TMSans-Light", Arial, serif;
+}
+
+div[w-theme="grid"] .tooltip-inner a:hover {
+	text-decoration: underline;
+}
+
+div[w-theme="grid"] .tooltip-inner .place{
+	font-family: "TMSans-Light", Arial, serif;
+	font-size: 11px;
+	line-height: 14px;
+	color: #fff;
+	opacity: 0.7;
+	display: block;
+}
+
+div[w-theme="grid"] .tooltip-inner .place b {
+	font-weight: 700;
+	color: #fff;
+}
+
+div[w-theme="grid"] .tooltip-version.left {
+	margin-left: -3px;
+	padding: 0 5px;
+	right: 28px;
+	top: 6px;
+	display: none;
+}
+
+div[w-theme="grid"] .tooltip-inner::before {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+}
+
+div[w-theme="grid"] .tooltip-version.left .tooltip-inner::before {
+	top: 30%;
+	right: 0;
+	margin-top: -5px;
+	content: "";
+	border-width: 5px 0 5px 5px;
+	border-left-color: #768692;
+}
+
+div[w-theme="grid"] .tooltip-version.left.show-tip {
+	opacity: 1;
+	filter: alpha(opacity=1);
+	display: block;
+}
+/*tooltip-version END*/
+
+/*  LAYOUT  */
+div[w-theme="grid"][w-layout="horizontal"] .ss {
+    height: 72%;
+}
+
+div[w-theme="grid"][w-layout="horizontal"] .legal-notice {
+}
+
+div[w-theme="grid"][w-layout="horizontal"] .event-buy-btn {
+    bottom: 42px;
+}
+
+div[w-theme="grid"][w-layout="horizontal"] .ss-content {
+    right: -12px!important;
+}
+
+div[w-theme="grid"][w-layout="horizontal"] .event-wrapper:before {
+    background: -moz-linear-gradient(right, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), -moz-linear-gradient(top, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 20%);
+    background: -webkit-linear-gradient(right, rgba(0,0,0,0) 30%,rgba(0,0,0,0.9) 100%), -webkit-linear-gradient(top, rgba(0,0,0,0.12) 0%,rgba(0,0,0,0) 20%);
+    background-image: linear-gradient(to left, rgba(0,0,0,0) 30%, rgba(0,0,0,0.9) 100%), linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 20%);
+}
+
+div[w-theme="grid"][w-proportion="3x6"]  {
+    width: 300px;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"][w-proportion="xxl"] .event-logo {
+    right: 14px;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"][w-proportion="m"] .event-logo {
+    right: 14px;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .events-root-container {
+    background: #5d5d5d;
+    border-color: #5d5d5d;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-content-wraper {
+    color: #fff;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-logo-box {
+    background: #dedede;
+    left: -2px;
+    width: 102%;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-wrapper {
+    border-bottom: 2px solid #414141;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-group-wrapper {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+div[w-theme="grid"][w-colorscheme="dark"] .event-logo {
+    right: 15px;
+}
+
+div[w-theme="grid"] .ss-wrapper {
+    overflow : hidden;
+    width: 100%;
+    height: 100%;
+    position : relative;
+    z-index  : 1;
+    float: left;
+}
+
+div[w-theme="grid"] .ss-content {
+    width: 103%;
+    height: 100%;
+    padding         : 0 32px 0 0;
+    position        : relative;
+    right           : -18px;
+    overflow        : auto;
+    -moz-box-sizing : border-box;
+    box-sizing      : border-box;
+}
+
+div[w-theme="grid"] .ss-scroll {
+    position            : relative;
+    background          : rgba(0, 0, 0, .1);
+    width               : 6px;
+    border-radius       : 4px;
+    top                 : 0;
+    z-index             : 2;
+    cursor              : pointer;
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+
+div[w-theme="grid"] .ss-container:hover .ss-scroll {
+    opacity: 1;
+}
+
+div[w-theme="grid"] .ss-grabbed {
+    user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+div[w-theme="grid"] .bg-cover-default {
+	background: rgba(183, 201, 211, 0.2) url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-logo-short-big.svg") no-repeat center center;
+	border: solid 1px rgba(183, 201, 211, 0.2);
+	background-size: 42px;
+}
+
+div[w-theme="grid"][w-proportion="m"] .ss {
+    margin-top: 25px;
+    height: 73%;
+}
+
+div[w-theme="grid"][w-proportion="m"] .event-logo-box {
+    bottom: 10px;
+}
+
+div[w-theme="grid"][w-proportion="m"] .legal-notice {
+    bottom: 21px;
+}
+
+/* !!! HotFix !!! */
+div[w-theme="grid"] .general-admission {
+    display: none;
+}
+
+div[w-theme="grid"] .ticket-logo {
+    display: none;
+}
+
+/*layout="fullwidth"*/
+div[w-theme="grid"][w-layout="fullwidth"] .event-name {
+	font-size: 30px;
+	line-height: 34px;
+	max-height: 34px;
+	-webkit-line-clamp: 1;
+}
+div[w-theme="grid"][w-layout="fullwidth"] .event-date-wraper{
+	font-size: 24px;
+	line-height: 32px;
+	color: #414141;
+	margin-bottom: 12px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  max-height: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+div[w-theme="grid"][w-layout="fullwidth"] .address-wrapper {
+	font-size: 16px;
+	line-height: 24px;
+	max-height: 24px;
+	-webkit-line-clamp: 1;
+}
+div[w-theme="grid"][w-layout="fullwidth"] .wrapper-thumbnails {
+	width: 100%;
+	min-height: 158px;
+	margin-right: 20px;
+}
+div[w-theme="grid"][w-layout="fullwidth"] .bg-cover-thumbnails {
+	height: 158px;
+	width: 100%;
+}
+div[w-theme="grid"][w-layout="fullwidth"] .event-buy-btn {
+    width: 92%;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div[w-theme="grid"][w-layout="fullwidth"] .bg-cover-default {
+	border: solid 1px rgba(183, 201, 211, 0.2);
+	/* TODO: update after release to  https://developer.ticketmaster.com/*/
+	background: rgba(183, 201, 211, 0.2) url("https://ticketmaster-api-staging.github.io/assets/widgets/1.0.0/img/tm-logo-short-big.svg") no-repeat center center;
+	background-size: 82px;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"] .event-logo:before {
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb.png");
+  top: -4px;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"] .event-buy-btn {
+  background-color: #7e439a;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"] .event-logo,
+div[w-theme="grid"][w-poweredBy="ticketweb"] .legal-notice{
+  color: #7e439a;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"] .event-logo-box {
+  background-color: #f5f5f5;
+}
+
+div[w-theme="grid"][w-layout="fullwidth"] .ss-content {
+  padding: 0;
+  padding-right: 6.5%;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"][w-layout="fullwidth"] .ss {
+  width: 98% !important;
+}
+
+div[w-theme="grid"][w-poweredBy="ticketweb"][w-layout="fullwidth"] .events-root {
+  margin-bottom: 40px;
+}
+
+div[w-theme="grid"] .show-more_button {
+  width: 100%;
+  background-color: #2888b1;
+  color: white;
+  font-family: "TMSans-Bold";
+  position: relative;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 30px;
+}
+
+div[w-theme="grid"] .show-more_button:hover, div[w-theme="grid"] .show-more_button:active {
+  background-color: #1e779c;
+}
+
+div[w-theme="grid"] .show-more_spinner-svg {
+  width: 30px;
+  height: 30px;
+}
+
+div[w-theme="grid"] .show-more_spinner {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+  background-position: center center;
+  background-size: cover;
+  margin-top: 1px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+div[w-theme="grid"] .show-more_spinner-circle-part {
+  stroke: #2888b1;
+}
+
+div[w-theme="grid"] .show-more_spinner-arrow-part {
+  fill: #2888b1;
+}
+
+@media only screen and (max-width: 768px) {
+  div[w-theme="grid"][w-layout="fullwidth"] .event-wrapper {
+    width: 100% !important;
+  }
+}
+
+div[w-theme="grid"][w-branding="TicketWeb"] .event-logo:before {
+  top: -3px;
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-white.png");
+}
+
+div[w-theme="grid"][w-branding="TicketWeb"][w-colorscheme="dark"] .event-logo:before {
+  background-image: url("/assets/widgets/1.0.0/img/ticketweb-black.png");
+}
+
+/*w-layout fullwidth END*/
