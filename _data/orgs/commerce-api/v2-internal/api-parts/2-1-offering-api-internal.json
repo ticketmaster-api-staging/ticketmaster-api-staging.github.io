@@ -282,6 +282,12 @@
           "type" : "string",
           "format" : "date-time"
         },
+        "faceValueTaxPercentage" : {
+          "type" : "string"
+        },
+        "faceValueTaxThreshold" : {
+          "type" : "string"
+        },
         "prices" : {
           "type" : "array",
           "items" : {
@@ -482,6 +488,14 @@
           "$ref" : "#/definitions/EventMappingView"
         },
         "accessibleSeatingEnabled" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "rollupFacilityFee" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "rollupServiceCharge" : {
           "type" : "boolean",
           "default" : false
         }
