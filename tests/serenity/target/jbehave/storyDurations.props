@@ -1,7 +1,0 @@
-#org.jbehave.core.embedder.StoryManager
-#Wed Jun 14 17:15:16 EEST 2017
-stories/products_and_docs/PD_Widgets.story=87000
-stories/site/Blogs.story=46000
-threads=1
-total=133000
-threadAverage=133000

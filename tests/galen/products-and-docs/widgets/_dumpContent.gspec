@@ -1,6 +1,0 @@
-@objects
-    header                  css     .top-bar
-
-    base-content-wrapper    css     .single-column
-
-    footer                  id      footer
